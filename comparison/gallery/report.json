@@ -1,5 +1,5 @@
 {
-  "url": "http://127.0.0.1:4173/vtk-js-deep-transparency/",
+  "url": "http://127.0.0.1:4174/vtk-js-deep-transparency/",
   "article": {
     "href": "https://www.kitware.com/better-transparency-with-vtk-and-webgpu/",
     "text": "Kitware: Better Transparency with VTK and WebGPU ↗"
@@ -243,8 +243,8 @@
       "documentFocused": false
     },
     "inactiveFrameScroll": {
-      "start": 303,
-      "end": 483,
+      "start": 239,
+      "end": 419,
       "submissionsBefore": [
         5,
         3,
@@ -271,7 +271,289 @@
   "gestures": {
     "leftArcball": true,
     "rightPan": true,
-    "wheelZoom": true
+    "wheelZoom": true,
+    "resetButton": true
+  },
+  "compactLayout": {
+    "width": 886,
+    "rows": [
+      {
+        "left": 0,
+        "top": 0,
+        "elements": [
+          {
+            "left": 0,
+            "right": 259.328125,
+            "width": 24,
+            "height": 24,
+            "scrollWidth": 22,
+            "clientWidth": 22,
+            "scrollHeight": 22,
+            "clientHeight": 22
+          },
+          {
+            "left": 30,
+            "right": 114,
+            "width": 139.328125,
+            "height": 15,
+            "scrollWidth": 139,
+            "clientWidth": 139,
+            "scrollHeight": 15,
+            "clientHeight": 15
+          },
+          {
+            "left": 175.328125,
+            "right": 36,
+            "width": 72,
+            "height": 16,
+            "scrollWidth": 72,
+            "clientWidth": 72,
+            "scrollHeight": 16,
+            "clientHeight": 16
+          },
+          {
+            "left": 253.328125,
+            "right": 0,
+            "width": 30,
+            "height": 11,
+            "scrollWidth": 30,
+            "clientWidth": 30,
+            "scrollHeight": 11,
+            "clientHeight": 11
+          }
+        ]
+      },
+      {
+        "left": 301.328125,
+        "top": 0,
+        "elements": [
+          {
+            "left": 0,
+            "right": 259.328125,
+            "width": 24,
+            "height": 24,
+            "scrollWidth": 22,
+            "clientWidth": 22,
+            "scrollHeight": 22,
+            "clientHeight": 22
+          },
+          {
+            "left": 30,
+            "right": 114,
+            "width": 139.328125,
+            "height": 15,
+            "scrollWidth": 139,
+            "clientWidth": 139,
+            "scrollHeight": 15,
+            "clientHeight": 15
+          },
+          {
+            "left": 175.328125,
+            "right": 36,
+            "width": 72,
+            "height": 16,
+            "scrollWidth": 72,
+            "clientWidth": 72,
+            "scrollHeight": 16,
+            "clientHeight": 16
+          },
+          {
+            "left": 253.328125,
+            "right": 0,
+            "width": 30,
+            "height": 11,
+            "scrollWidth": 30,
+            "clientWidth": 30,
+            "scrollHeight": 11,
+            "clientHeight": 11
+          }
+        ]
+      },
+      {
+        "left": 602.65625,
+        "top": 0,
+        "elements": [
+          {
+            "left": 0,
+            "right": 259.34375,
+            "width": 24,
+            "height": 24,
+            "scrollWidth": 22,
+            "clientWidth": 22,
+            "scrollHeight": 22,
+            "clientHeight": 22
+          },
+          {
+            "left": 30,
+            "right": 114,
+            "width": 139.34375,
+            "height": 15,
+            "scrollWidth": 139,
+            "clientWidth": 139,
+            "scrollHeight": 15,
+            "clientHeight": 15
+          },
+          {
+            "left": 175.34375,
+            "right": 36,
+            "width": 72,
+            "height": 16,
+            "scrollWidth": 72,
+            "clientWidth": 72,
+            "scrollHeight": 16,
+            "clientHeight": 16
+          },
+          {
+            "left": 253.34375,
+            "right": 0,
+            "width": 30,
+            "height": 11,
+            "scrollWidth": 30,
+            "clientWidth": 30,
+            "scrollHeight": 11,
+            "clientHeight": 11
+          }
+        ]
+      },
+      {
+        "left": 0,
+        "top": 32,
+        "elements": [
+          {
+            "left": 0,
+            "right": 259.328125,
+            "width": 24,
+            "height": 24,
+            "scrollWidth": 22,
+            "clientWidth": 22,
+            "scrollHeight": 22,
+            "clientHeight": 22
+          },
+          {
+            "left": 30,
+            "right": 114,
+            "width": 139.328125,
+            "height": 15,
+            "scrollWidth": 139,
+            "clientWidth": 139,
+            "scrollHeight": 15,
+            "clientHeight": 15
+          },
+          {
+            "left": 175.328125,
+            "right": 36,
+            "width": 72,
+            "height": 16,
+            "scrollWidth": 72,
+            "clientWidth": 72,
+            "scrollHeight": 16,
+            "clientHeight": 16
+          },
+          {
+            "left": 253.328125,
+            "right": 0,
+            "width": 30,
+            "height": 11,
+            "scrollWidth": 30,
+            "clientWidth": 30,
+            "scrollHeight": 11,
+            "clientHeight": 11
+          }
+        ]
+      },
+      {
+        "left": 301.328125,
+        "top": 32,
+        "elements": [
+          {
+            "left": 0,
+            "right": 259.328125,
+            "width": 24,
+            "height": 24,
+            "scrollWidth": 22,
+            "clientWidth": 22,
+            "scrollHeight": 22,
+            "clientHeight": 22
+          },
+          {
+            "left": 30,
+            "right": 114,
+            "width": 139.328125,
+            "height": 15,
+            "scrollWidth": 139,
+            "clientWidth": 139,
+            "scrollHeight": 15,
+            "clientHeight": 15
+          },
+          {
+            "left": 175.328125,
+            "right": 36,
+            "width": 72,
+            "height": 16,
+            "scrollWidth": 72,
+            "clientWidth": 72,
+            "scrollHeight": 16,
+            "clientHeight": 16
+          },
+          {
+            "left": 253.328125,
+            "right": 0,
+            "width": 30,
+            "height": 11,
+            "scrollWidth": 30,
+            "clientWidth": 30,
+            "scrollHeight": 11,
+            "clientHeight": 11
+          }
+        ]
+      },
+      {
+        "left": 602.65625,
+        "top": 32,
+        "elements": [
+          {
+            "left": 0,
+            "right": 259.34375,
+            "width": 24,
+            "height": 24,
+            "scrollWidth": 22,
+            "clientWidth": 22,
+            "scrollHeight": 22,
+            "clientHeight": 22
+          },
+          {
+            "left": 30,
+            "right": 114,
+            "width": 139.34375,
+            "height": 15,
+            "scrollWidth": 139,
+            "clientWidth": 139,
+            "scrollHeight": 15,
+            "clientHeight": 15
+          },
+          {
+            "left": 175.34375,
+            "right": 36,
+            "width": 72,
+            "height": 16,
+            "scrollWidth": 72,
+            "clientWidth": 72,
+            "scrollHeight": 16,
+            "clientHeight": 16
+          },
+          {
+            "left": 253.34375,
+            "right": 0,
+            "width": 30,
+            "height": 11,
+            "scrollWidth": 30,
+            "clientWidth": 30,
+            "scrollHeight": 11,
+            "clientHeight": 11
+          }
+        ]
+      }
+    ]
   },
   "mobile": {
     "width": 390,

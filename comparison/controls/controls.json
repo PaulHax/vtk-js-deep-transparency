@@ -99,12 +99,12 @@
     {
       "perspective": false,
       "viewport": 0,
-      "anchorErrorPixels": 5.684341886080802e-14
+      "anchorErrorPixels": 0
     },
     {
       "perspective": false,
       "viewport": 1,
-      "anchorErrorPixels": 5.684341886080802e-14
+      "anchorErrorPixels": 0
     },
     {
       "perspective": true,

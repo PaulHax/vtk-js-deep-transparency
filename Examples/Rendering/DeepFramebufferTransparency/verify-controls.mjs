@@ -91,12 +91,25 @@ try {
     );
   }
   const canvas = page.locator('#viewport canvas');
-  const rect = await canvas.boundingBox();
-  const center = {
-    x: rect.x + rect.width * 0.75,
-    y: rect.y + rect.height * 0.5,
+  const viewBounds = async () => {
+    await canvas.scrollIntoViewIfNeeded();
+    const rect = await canvas.boundingBox();
+    assert.ok(rect, 'The canvas is visible before pointer interaction');
+    return {
+      rect,
+      center: {
+        x: rect.x + rect.width * 0.75,
+        y: rect.y + rect.height * 0.5,
+      },
+      radius: Math.min(rect.width / 2, rect.height) / 2,
+    };
   };
   const idle = () => page.evaluate(() => globalThis.demo.controls.whenIdle());
+  const resetView = async () => {
+    await page.locator('#reset').click();
+    await idle();
+    return viewBounds();
+  };
   const screenshot = (name) =>
     canvas.screenshot({ path: path.join(output, name) });
   const state = () =>
@@ -113,6 +126,7 @@ try {
       };
     });
   const distance = (a, b) => Math.hypot(...a.map((value, i) => value - b[i]));
+  const { center } = await viewBounds();
   const before = await state();
   const initialPixels = await screenshot('01-initial.png');
   await page.mouse.move(center.x, center.y);
@@ -141,12 +155,11 @@ try {
   );
 
   // The sphere mapping depends on the endpoints rather than the event path.
-  await page.locator('#reset').click();
-  await idle();
-  await page.mouse.move(center.x, center.y);
+  const { center: detourCenter } = await resetView();
+  await page.mouse.move(detourCenter.x, detourCenter.y);
   await page.mouse.down({ button: 'left' });
-  await page.mouse.move(center.x - 45, center.y + 70);
-  await page.mouse.move(center.x + 85, center.y - 55);
+  await page.mouse.move(detourCenter.x - 45, detourCenter.y + 70);
+  await page.mouse.move(detourCenter.x + 85, detourCenter.y - 55);
   await page.mouse.up({ button: 'left' });
   await idle();
   const detour = await state();
@@ -159,11 +172,10 @@ try {
     'Arcball roll depended on the pointer path'
   );
 
-  await page.locator('#reset').click();
-  await idle();
-  await page.mouse.move(center.x + 180, center.y);
+  const { center: rollCenter, radius: rollRadius } = await resetView();
+  await page.mouse.move(rollCenter.x + rollRadius * 0.9, rollCenter.y);
   await page.mouse.down({ button: 'left' });
-  await page.mouse.move(center.x, center.y - 180);
+  await page.mouse.move(rollCenter.x, rollCenter.y - rollRadius * 0.9);
   await page.mouse.up({ button: 'left' });
   await idle();
   const rolled = await state();
@@ -203,37 +215,36 @@ try {
         globalThis.observedArcballPointer = [event.clientX, event.clientY];
       });
   });
-  const radius = Math.min(rect.width / 2, rect.height) / 2;
-  const transition = radius / Math.SQRT2;
-  const radialPositions = [
-    transition - 2,
-    transition - 1,
-    transition,
-    transition + 1,
-    transition + 2,
-    ...Array.from({ length: 9 }, (_, index) => radius + index - 4),
-    radius + 20,
-    radius + 60,
-    radius + 80,
-    radius + 4,
-    radius + 1,
-    radius - 1,
-    radius - 4,
-  ];
   const edgeChecks = [];
   for (const viewport of [0, 1]) {
-    const paneCenter = {
-      x: rect.x + rect.width * (viewport / 2 + 0.25),
-      y: center.y,
-    };
     for (const [edge, dx, dy] of [
       ['left', -1, 0],
       ['right', 1, 0],
       ['top', 0, -1],
       ['bottom', 0, 1],
     ]) {
-      await page.locator('#reset').click();
-      await idle();
+      const { rect, center: edgeCenter, radius } = await resetView();
+      const paneCenter = {
+        x: rect.x + rect.width * (viewport / 2 + 0.25),
+        y: edgeCenter.y,
+      };
+      const transition = radius / Math.SQRT2;
+      const paneExtent = dx === 0 ? rect.height / 2 : rect.width / 4;
+      const radialPositions = [
+        transition - 2,
+        transition - 1,
+        transition,
+        transition + 1,
+        transition + 2,
+        ...Array.from({ length: 9 }, (_, index) => radius + index - 4),
+        radius + 20,
+        radius + 60,
+        Math.max(radius + 80, paneExtent + 24),
+        radius + 4,
+        radius + 1,
+        radius - 1,
+        radius - 4,
+      ];
       await page.mouse.move(
         paneCenter.x + dx * radialPositions[0],
         paneCenter.y + dy * radialPositions[0]
@@ -294,12 +305,11 @@ try {
   }
   await screenshot('06-smooth-rim.png');
 
-  await page.locator('#reset').click();
-  await idle();
+  const { center: panCenter } = await resetView();
   const panBefore = await state();
-  await page.mouse.move(center.x, center.y);
+  await page.mouse.move(panCenter.x, panCenter.y);
   await page.mouse.down({ button: 'right' });
-  await page.mouse.move(center.x + 56, center.y + 32, { steps: 8 });
+  await page.mouse.move(panCenter.x + 56, panCenter.y + 32, { steps: 8 });
   await page.mouse.up({ button: 'right' });
   await idle();
   const panned = await state();
@@ -332,8 +342,8 @@ try {
   const zoomChecks = [];
   for (const perspective of [false, true]) {
     for (const viewport of [0, 1]) {
+      await resetView();
       await page.evaluate(async (usePerspective) => {
-        await globalThis.demo.resetCamera();
         globalThis.demo.camera.setParallelProjection(!usePerspective);
         globalThis.demo.camera.setViewAngle(35);
         await globalThis.demo.render();
@@ -411,8 +421,8 @@ try {
   await screenshot('05-cursor-zoom.png');
   const pendingZoomChecks = [];
   for (const refocus of [false, true]) {
-    await page.evaluate(() => globalThis.demo.resetCamera());
-    await page.mouse.click(center.x, center.y);
+    const { center: pendingCenter } = await resetView();
+    await page.mouse.click(pendingCenter.x, pendingCenter.y);
     const previous = await state();
     await page.evaluate((refocusCanvas) => {
       const element = globalThis.demo.view.getCanvas();

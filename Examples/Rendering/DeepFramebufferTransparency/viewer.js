@@ -39,11 +39,6 @@ document.body.innerHTML = `
         )}</optgroup><optgroup label="Scientific datasets">${datasetChoices.map(({ key, name }) => `<option value="${key}">${name}</option>`).join('')}</optgroup></select></label>
       <div class="dataset-status" role="status"><span id="dataset-message">Original scan and simulation surfaces</span><button type="button" class="action" id="retry" hidden>Retry loading</button></div>
     </section>
-    <section class="controls" aria-label="Scene controls">
-      <button type="button" class="action" id="reverse" disabled>Reverse draw order</button>
-      <button type="button" class="action" id="swap" disabled>Swap depths</button>
-      <button type="button" class="action" id="reset" disabled>Reset view</button>
-    </section>
     <section class="comparison" aria-label="Transparency comparison">
       <div class="view-labels">
         <div class="view-label"><span class="method-dot"></span>Weighted blend<span class="method-type">Depth-weighted average</span></div>
@@ -53,7 +48,18 @@ document.body.innerHTML = `
         <div class="interaction-hint"><span></span>Left drag rotates · Right drag pans · Click to focus for wheel zoom</div>
         <div class="error" id="error" hidden></div>
       </div>
-      <div class="scene-info"><p id="description"></p><div class="legend" id="legend"></div></div>
+      <div class="scene-info">
+        <div class="component-heading">
+          <p id="description"></p>
+          <div class="component-actions">
+            <button type="button" class="action component-swap" id="swap" hidden disabled>Swap depths</button>
+            <button type="button" class="component-action" id="reset" aria-label="Reset camera" title="Reset camera" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 10a9 9 0 1 1 2.7 8.2M3 3v7h7" /></svg>
+            </button>
+          </div>
+        </div>
+        <div class="legend" id="legend"></div>
+      </div>
       <div class="dataset-credit" id="dataset-credit" aria-label="Model attribution">
         <div><p id="credit"></p><p id="attribution-note" hidden></p><p id="mirror-credit" hidden></p></div>
         <div class="credit-links"><a id="source" target="_blank" rel="noreferrer" hidden>Dataset source ↗</a><a id="license" target="_blank" rel="noreferrer" hidden></a></div>
@@ -286,7 +292,8 @@ const activateScene = (key, scene) => {
   installActors();
   renderers.forEach((renderer) => renderer.setBackground(...scene.background));
   sceneSelect.value = key;
-  swapButton.disabled = key !== 'layers';
+  swapButton.hidden = key !== 'layers';
+  swapButton.disabled = false;
   renderers.forEach((renderer) => {
     renderer.getLights().forEach((light, i) => {
       const center = scene.center || [0, 0, 0];
@@ -333,7 +340,6 @@ const activateScene = (key, scene) => {
     datasetMessage.textContent = `${scene.name} · Procedural geometry`;
   }
   retryButton.hidden = true;
-  document.querySelector('#reverse').disabled = false;
   document.querySelector('#reset').disabled = false;
   fitEmbedded();
   return resetCamera();
@@ -383,9 +389,6 @@ const setScene = (key) => {
 const reverseOrder = () => {
   reversed = !reversed;
   installActors();
-  document.querySelector('#reverse').textContent = reversed
-    ? 'Restore draw order'
-    : 'Reverse draw order';
   return render();
 };
 
@@ -413,7 +416,6 @@ sceneSelect.addEventListener('change', () => {
 retryButton.addEventListener('click', () => {
   if (failedDataset) setScene(failedDataset).catch(() => {});
 });
-document.querySelector('#reverse').addEventListener('click', reverseOrder);
 swapButton.addEventListener('click', swapDepths);
 document.querySelector('#reset').addEventListener('click', resetCamera);
 new ResizeObserver(resize).observe(container);

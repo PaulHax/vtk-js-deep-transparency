@@ -32,7 +32,6 @@ export function createGallery() {
         <p>Look inside overlapping surfaces. Scroll through eight interactive examples, with weighted blending on the left and sorted alpha composition on the right. <a class="gallery-read-more" href="https://www.kitware.com/better-transparency-with-vtk-and-webgpu/" target="_blank" rel="noreferrer">Read more ↗</a></p>
       </div>
       <a class="gallery-article" href="https://www.kitware.com/better-transparency-with-vtk-and-webgpu/" target="_blank" rel="noreferrer">Kitware: Better Transparency with VTK and WebGPU ↗</a>
-      <p class="gallery-controls">Arcball · Left drag rotates with free roll · Right drag pans · Click to focus for wheel zoom</p>
     </header>
     <nav class="gallery-navigation" aria-label="Examples">
       <div>${examples.map(({ key, name }) => `<a href="#${key}">${name}</a>`).join('')}</div>

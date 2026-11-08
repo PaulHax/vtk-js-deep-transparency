@@ -174,13 +174,39 @@ const inspect = async (frame, key) => {
     0,
     `${key}: no separate procedural button group`
   );
-  for (const selector of ['#reverse', '#reset', '#legend']) {
+  for (const selector of ['#reset', '#legend']) {
     assert.equal(
       await frame.locator(selector).isVisible(),
       true,
       `${key}: common ${selector} control is visible`
     );
   }
+  assert.equal(
+    await frame.locator('#reverse').count(),
+    0,
+    `${key}: no draw-order button`
+  );
+  assert.equal(
+    await frame.locator('.controls').count(),
+    0,
+    `${key}: no top toolbar`
+  );
+  assert.equal(
+    await frame.locator('#swap').isVisible(),
+    key === 'layers',
+    `${key}: depth swapping is specific to the proof`
+  );
+  const resetPosition = await frame.evaluate(() => {
+    const reset = document.querySelector('#reset').getBoundingClientRect();
+    const canvas = document
+      .querySelector('#viewport canvas')
+      .getBoundingClientRect();
+    return { resetTop: reset.top, canvasBottom: canvas.bottom };
+  });
+  assert.ok(
+    resetPosition.resetTop >= resetPosition.canvasBottom,
+    `${key}: reset sits below the viewports`
+  );
   assert.equal(
     await frame.locator('#opacity').count(),
     0,
@@ -543,6 +569,90 @@ try {
     .locator('section#anatomy')
     .screenshot({ path: path.join(output, 'anatomy-arcball.png') });
 
+  await anchored.locator('#reset').click();
+  await anchored.evaluate(() => globalThis.demo.render());
+  assert.deepEqual(
+    await camera(),
+    initialCamera,
+    'Reset button restores the initial camera'
+  );
+  assert.deepEqual(
+    await canvas.screenshot(),
+    initialImage,
+    'Reset button restores both displayed viewports exactly'
+  );
+
+  await page.setViewportSize({ width: 1014, height: 1161 });
+  await anchored.evaluate(() => globalThis.demo.render());
+  const compactLayout = await anchored.locator('#legend').evaluate((legend) => {
+    const bounds = legend.getBoundingClientRect();
+    const rows = [...legend.querySelectorAll('.component-row')].map((row) => {
+      const rect = row.getBoundingClientRect();
+      const elements = [
+        ...row.querySelectorAll('button, input, label, output'),
+      ].map((element) => {
+        const child = element.getBoundingClientRect();
+        return {
+          left: child.left - rect.left,
+          right: rect.right - child.right,
+          width: child.width,
+          height: child.height,
+          scrollWidth: element.scrollWidth,
+          clientWidth: element.clientWidth,
+          scrollHeight: element.scrollHeight,
+          clientHeight: element.clientHeight,
+        };
+      });
+      return {
+        left: rect.left - bounds.left,
+        top: rect.top - bounds.top,
+        elements,
+      };
+    });
+    return { width: bounds.width, rows };
+  });
+  assert.equal(
+    compactLayout.rows.length,
+    6,
+    'All sinus components have compact controls'
+  );
+  assert.ok(
+    compactLayout.rows
+      .slice(0, 3)
+      .every((row) => Math.abs(row.top - compactLayout.rows[0].top) < 1),
+    'Three components fit across the desktop row'
+  );
+  assert.ok(
+    compactLayout.rows[0].left < compactLayout.rows[1].left &&
+      compactLayout.rows[1].left < compactLayout.rows[2].left,
+    'Desktop component columns are distinct'
+  );
+  assert.ok(
+    compactLayout.rows[3].top > compactLayout.rows[0].top,
+    'Remaining sinus controls use a second row'
+  );
+  for (const row of compactLayout.rows) {
+    assert.ok(
+      row.elements.every(
+        (element) => element.left >= -0.5 && element.right >= -0.5
+      ),
+      'Component controls fit within their row'
+    );
+    assert.equal(row.elements[0].width, 24, 'Eye button stays compact');
+    assert.equal(row.elements[0].height, 24, 'Eye button stays compact');
+    assert.ok(
+      row.elements.every(
+        (element) =>
+          element.scrollWidth <= element.clientWidth &&
+          element.scrollHeight <= element.clientHeight
+      ),
+      'Component labels and controls are not clipped'
+    );
+  }
+  await page
+    .locator('section#anatomy')
+    .screenshot({ path: path.join(output, 'anatomy-compact.png') });
+
   await page.setViewportSize({ width: 390, height: 844 });
   await anchored.evaluate(() => globalThis.demo.render());
   await anchored.evaluate(() => globalThis.demo.resetCamera());
@@ -572,7 +682,7 @@ try {
   );
   await writeFile(
     path.join(output, 'report.json'),
-    `${JSON.stringify({ url, article, results, idleSubmissions: { before: beforeIdle, after: afterIdle }, wheelFocus, directAnchor: 'anatomy', gestures: { leftArcball: true, rightPan: true, wheelZoom: true }, mobile, embeddedMobile, errors }, null, 2)}\n`
+    `${JSON.stringify({ url, article, results, idleSubmissions: { before: beforeIdle, after: afterIdle }, wheelFocus, directAnchor: 'anatomy', gestures: { leftArcball: true, rightPan: true, wheelZoom: true, resetButton: true }, compactLayout, mobile, embeddedMobile, errors }, null, 2)}\n`
   );
   console.log(`Gallery verification passed. Screenshots and report: ${output}`);
 } finally {

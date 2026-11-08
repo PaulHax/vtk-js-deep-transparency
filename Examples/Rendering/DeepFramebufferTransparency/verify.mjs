@@ -88,7 +88,8 @@ try {
       path: path.join(outputDirectory, name),
     });
   const displayedRedFront = await captureCanvas('canvas-red-front-1x.png');
-  await page.evaluate(() => globalThis.demo.swapDepths());
+  await page.locator('#swap').click();
+  await page.evaluate(() => globalThis.demo.render());
   const blueFront = await sampleOverlap();
   assert.deepEqual(blueFront, [64, 0, 128, 255]);
   const displayedBlueFront = await captureCanvas('canvas-blue-front-1x.png');

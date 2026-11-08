@@ -12,6 +12,9 @@ base.hash = '';
 const output = path.resolve(
   process.env.DEMO_OUTPUT_DIR || path.join(root, 'comparison/loading')
 );
+const galleryOutput = process.env.DEMO_OUTPUT_DIR
+  ? output
+  : path.join(root, 'comparison/gallery');
 const scenes = [
   'bonsai',
   'engine',
@@ -34,6 +37,7 @@ const browser = await chromium.launch({
   ],
 });
 await mkdir(output, { recursive: true });
+await mkdir(galleryOutput, { recursive: true });
 
 const instrument = async (context) => {
   await context.addInitScript(() => {
@@ -421,6 +425,23 @@ try {
   console.log(`Checking ${phase}`);
   await page.goto(base.href);
   await bonsaiRequested;
+  assert.doesNotMatch(
+    await page.locator('.gallery-header').innerText(),
+    /Arcball|Left drag|Right drag|wheel zoom/i,
+    'The page header has no camera instruction text'
+  );
+  const separators = await page
+    .locator('.gallery-example')
+    .evaluateAll((sections) =>
+      sections.map((section) => getComputedStyle(section).borderBottomWidth)
+    );
+  assert.ok(
+    separators.every((width) => parseFloat(width) === 0),
+    'Examples have no outer separator rule'
+  );
+  await page
+    .locator('.gallery-header')
+    .screenshot({ path: path.join(output, 'header-final.png') });
   await ready(page, 'engine');
   assert.equal(
     await page
@@ -466,6 +487,30 @@ try {
     [],
     'A handled dataset failure must not produce an uncaught page error'
   );
+  await page.evaluate(() => {
+    window.stopStartupMeasurements = true;
+  });
+  await settlePaint(page);
+  await page.locator('.gallery-header').scrollIntoViewIfNeeded();
+  await page.screenshot({
+    path: path.join(galleryOutput, 'gallery-navigation.png'),
+  });
+  const gap = await page.evaluate(() => {
+    const bonsai = document.getElementById('bonsai').getBoundingClientRect();
+    const heading = document
+      .querySelector('#engine .gallery-section-heading')
+      .getBoundingClientRect();
+    return {
+      x: bonsai.left,
+      y: window.scrollY + bonsai.bottom - 60,
+      width: bonsai.width,
+      height: heading.bottom - bonsai.bottom + 90,
+    };
+  });
+  await page.screenshot({
+    path: path.join(output, 'bonsai-engine-gap.png'),
+    clip: gap,
+  });
   phase = 'desktop refresh';
   phaseStarted = Date.now();
   console.log(`Checking ${phase}`);

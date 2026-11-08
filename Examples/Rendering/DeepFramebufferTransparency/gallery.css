@@ -81,13 +81,6 @@
   letter-spacing: -0.045em;
 }
 
-.gallery-controls {
-  margin: 25px 0 0;
-  color: #8094a7;
-  font-size: 11px;
-  line-height: 1.7;
-}
-
 .gallery-article,
 .gallery-read-more {
   color: #78afff;
@@ -146,7 +139,6 @@
 .gallery-example {
   margin-top: 42px;
   padding-bottom: 30px;
-  border-bottom: 1px solid #25303c;
   scroll-margin-top: 95px;
 }
 
