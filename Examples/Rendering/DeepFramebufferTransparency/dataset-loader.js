@@ -20,13 +20,18 @@ const colorHex = (color) =>
     )
     .join('')}`;
 
+const dataBase = new URL(import.meta.env.BASE_URL, document.baseURI);
+const dataUrl = (relative) => new URL(relative.replace(/^\/+/, ''), dataBase);
+
 export function createDatasetLoader() {
   const manifests = new Map();
   const scenes = new Map();
 
   async function readManifest(group) {
     if (!manifests.has(group)) {
-      const promise = fetch(`/Data/deep-transparency/${group}/manifest.json`)
+      const promise = fetch(
+        dataUrl(`Data/deep-transparency/${group}/manifest.json`)
+      )
         .then(async (response) => {
           if (!response.ok) throw new Error('Dataset manifest is unavailable');
           const manifest = await response.json();
@@ -58,7 +63,7 @@ export function createDatasetLoader() {
         let completed = 0;
         const meshes = await Promise.all(
           specification.actors.map(async (layer) => {
-            const response = await fetch(layer.url);
+            const response = await fetch(dataUrl(layer.url));
             if (!response.ok) throw new Error(`Could not load ${layer.label}`);
             const bytes = await response.arrayBuffer();
             const reader = vtkXMLPolyDataReader.newInstance();

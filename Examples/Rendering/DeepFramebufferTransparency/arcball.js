@@ -9,19 +9,14 @@ const cross = (a, b) => vec3.cross(vector(), a, b);
 
 const spherePoint = (point, viewport, basis) => {
   const radius = Math.min(viewport.width, viewport.height) / 2;
-  let x = (point.x - viewport.left - viewport.width / 2) / radius;
-  let y = (viewport.top + viewport.height / 2 - point.y) / radius;
+  const x = (point.x - viewport.left - viewport.width / 2) / radius;
+  const y = (viewport.top + viewport.height / 2 - point.y) / radius;
   const length = x * x + y * y;
-  let z = 0;
-  if (length <= 1) z = Math.sqrt(1 - length);
-  else {
-    const inverseLength = 1 / Math.sqrt(length);
-    x *= inverseLength;
-    y *= inverseLength;
-  }
-  return add(
-    add(scale(basis.right, x), scale(basis.up, y)),
-    scale(basis.back, z)
+  // The hyperbolic continuation matches the sphere's slope at r² = 1/2,
+  // keeping rotation speed finite when a captured pointer crosses the rim.
+  const z = length <= 0.5 ? Math.sqrt(1 - length) : 0.5 / Math.sqrt(length);
+  return normalize(
+    add(add(scale(basis.right, x), scale(basis.up, y)), scale(basis.back, z))
   );
 };
 
@@ -44,7 +39,13 @@ export const createArcballControls = ({ view, renderers, camera, render }) => {
   const selector = view.createSelector();
   selector.setCaptureZValues(true);
   const previousTouchAction = canvas.style.touchAction;
+  const previousTabIndex = canvas.getAttribute('tabindex');
+  const ownerWindow = canvas.ownerDocument.defaultView;
   canvas.style.touchAction = 'none';
+  canvas.tabIndex = 0;
+  const hasFocus = () =>
+    canvas.ownerDocument.activeElement === canvas &&
+    canvas.ownerDocument.hasFocus();
   let gesture = null;
   let generation = 0;
   let anchorCache = null;
@@ -126,6 +127,7 @@ export const createArcballControls = ({ view, renderers, camera, render }) => {
     const point = locate(event);
     if (!point) return;
     event.preventDefault();
+    canvas.focus({ preventScroll: true });
     cancel();
     const position = [...camera.getPosition()];
     const focal = [...camera.getFocalPoint()];
@@ -179,7 +181,7 @@ export const createArcballControls = ({ view, renderers, camera, render }) => {
         gesture.viewport,
         gesture.basis
       );
-      // Shoemake's sphere mapping permits free roll without a fixed world-up axis.
+      // Endpoint quaternions permit free roll without a fixed world-up axis.
       const axis = cross(gesture.sphere, end);
       const rotation = quat.normalize(new Float64Array(4), [
         -axis[0],
@@ -258,7 +260,7 @@ export const createArcballControls = ({ view, renderers, camera, render }) => {
       const request = wheelQueue.shift();
       activeWheel = request;
       const world = await findAnchor(request);
-      if (world && request.generation === generation) {
+      if (world && request.generation === generation && hasFocus()) {
         const factor = Math.exp(
           Math.max(-2.3, Math.min(2.3, -request.delta * 0.0015))
         );
@@ -290,7 +292,7 @@ export const createArcballControls = ({ view, renderers, camera, render }) => {
   };
 
   const onWheel = (event) => {
-    if (!view.getInitialized()) return;
+    if (!view.getInitialized() || !hasFocus()) return;
     const point = locate(event);
     if (!point) return;
     event.preventDefault();
@@ -317,6 +319,13 @@ export const createArcballControls = ({ view, renderers, camera, render }) => {
   };
 
   const preventContextMenu = (event) => event.preventDefault();
+  const onKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      cancel();
+      canvas.blur();
+    }
+  };
   const listeners = [
     ['pointerdown', onPointerDown],
     ['pointermove', onPointerMove],
@@ -325,10 +334,13 @@ export const createArcballControls = ({ view, renderers, camera, render }) => {
     ['lostpointercapture', onPointerUp],
     ['contextmenu', preventContextMenu],
     ['wheel', onWheel],
+    ['keydown', onKeyDown],
+    ['blur', cancel],
   ];
   listeners.forEach(([name, listener]) =>
     canvas.addEventListener(name, listener, { passive: false })
   );
+  ownerWindow.addEventListener('blur', cancel);
 
   return {
     cancel,
@@ -341,8 +353,11 @@ export const createArcballControls = ({ view, renderers, camera, render }) => {
       listeners.forEach(([name, listener]) =>
         canvas.removeEventListener(name, listener)
       );
+      ownerWindow.removeEventListener('blur', cancel);
       selector.delete();
       canvas.style.touchAction = previousTouchAction;
+      if (previousTabIndex === null) canvas.removeAttribute('tabindex');
+      else canvas.setAttribute('tabindex', previousTabIndex);
     },
   };
 };

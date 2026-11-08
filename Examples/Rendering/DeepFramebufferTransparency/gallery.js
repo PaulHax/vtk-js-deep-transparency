@@ -77,7 +77,8 @@ export function createGallery() {
         <div><p class="gallery-eyebrow">Order-independent transparency</p><h1>Transparency, in depth.</h1></div>
         <p>Look inside overlapping surfaces. Scroll through nine interactive examples, with weighted blending on the left and sorted alpha composition on the right.</p>
       </div>
-      <p class="gallery-controls">Arcball · Left drag rotates with free roll · Right drag pans · Wheel zooms at the pointer</p>
+      <a class="gallery-article" href="https://www.kitware.com/better-transparency-with-vtk-and-webgpu/" target="_blank" rel="noreferrer"><span>Kitware article</span><strong>Better Transparency with VTK and WebGPU ↗</strong></a>
+      <p class="gallery-controls">Arcball · Left drag rotates with free roll · Right drag pans · Click a view to focus wheel zoom · Esc returns to page scrolling</p>
     </header>
     <nav class="gallery-navigation" aria-label="Examples">
       <div>${examples.map(({ key, name }) => `<a href="#${key}">${name}</a>`).join('')}</div>

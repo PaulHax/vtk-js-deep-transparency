@@ -3,6 +3,12 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { chromium } from 'playwright';
 
+const baseURL = new URL(process.env.DEMO_URL || 'http://127.0.0.1:9999');
+if (!baseURL.pathname.endsWith('/')) baseURL.pathname += '/';
+baseURL.search = '';
+baseURL.hash = '';
+const url = baseURL.href;
+
 const output = path.resolve(
   process.env.DEMO_OUTPUT_DIR || '/tmp/deep-transparency-controls'
 );
@@ -28,9 +34,9 @@ try {
   page.on('console', (message) => {
     if (message.type() === 'error') errors.push(message.text());
   });
-  await page.goto(
-    `${process.env.DEMO_URL || 'http://127.0.0.1:9999'}?scene=layers`
-  );
+  const viewerURL = new URL(url);
+  viewerURL.searchParams.set('scene', 'layers');
+  await page.goto(viewerURL.href);
   await page.waitForFunction(() => globalThis.demo);
   await page.evaluate(() => globalThis.demo.ready);
   const picking = await page.evaluate(async () => {
@@ -100,6 +106,7 @@ try {
         position: [...demo.camera.getPosition()],
         focal: [...demo.camera.getFocalPoint()],
         up: [...demo.camera.getViewUp()],
+        scale: demo.camera.getParallelScale(),
         projected: demo.renderers.map((renderer) =>
           demo.view.worldToDisplay(0.3, 0.25, 0.2, renderer)
         ),
@@ -166,6 +173,127 @@ try {
   );
   await screenshot('03-arcball-roll.png');
 
+  const dot = (a, b) => a.reduce((sum, value, i) => sum + value * b[i], 0);
+  const cross = (a, b) => [
+    a[1] * b[2] - a[2] * b[1],
+    a[2] * b[0] - a[0] * b[2],
+    a[0] * b[1] - a[1] * b[0],
+  ];
+  const normalized = (value) => {
+    const magnitude = Math.hypot(...value);
+    return value.map((coordinate) => coordinate / magnitude);
+  };
+  const axes = (value) => {
+    const back = normalized(
+      value.position.map((coordinate, i) => coordinate - value.focal[i])
+    );
+    const right = normalized(cross(value.up, back));
+    return [right, cross(back, right), back];
+  };
+  const angularDistance = (a, b) => {
+    const from = axes(a);
+    const trace = axes(b).reduce((sum, axis, i) => sum + dot(axis, from[i]), 0);
+    return Math.acos(Math.max(-1, Math.min(1, (trace - 1) / 2)));
+  };
+  await page.evaluate(() => {
+    globalThis.observedArcballPointer = null;
+    globalThis.demo.view
+      .getCanvas()
+      .addEventListener('pointermove', (event) => {
+        globalThis.observedArcballPointer = [event.clientX, event.clientY];
+      });
+  });
+  const radius = Math.min(rect.width / 2, rect.height) / 2;
+  const transition = radius / Math.SQRT2;
+  const radialPositions = [
+    transition - 2,
+    transition - 1,
+    transition,
+    transition + 1,
+    transition + 2,
+    ...Array.from({ length: 9 }, (_, index) => radius + index - 4),
+    radius + 20,
+    radius + 60,
+    radius + 80,
+    radius + 4,
+    radius + 1,
+    radius - 1,
+    radius - 4,
+  ];
+  const edgeChecks = [];
+  for (const viewport of [0, 1]) {
+    const paneCenter = {
+      x: rect.x + rect.width * (viewport / 2 + 0.25),
+      y: center.y,
+    };
+    for (const [edge, dx, dy] of [
+      ['left', -1, 0],
+      ['right', 1, 0],
+      ['top', 0, -1],
+      ['bottom', 0, 1],
+    ]) {
+      await page.locator('#reset').click();
+      await idle();
+      await page.mouse.move(
+        paneCenter.x + dx * radialPositions[0],
+        paneCenter.y + dy * radialPositions[0]
+      );
+      await page.mouse.down({ button: 'left' });
+      let previous = await state();
+      let previousPointer = await page.evaluate(
+        () => globalThis.observedArcballPointer
+      );
+      let maximumRadiansPerPixel = 0;
+      for (const radialPosition of radialPositions.slice(1)) {
+        await page.mouse.move(
+          paneCenter.x + dx * radialPosition,
+          paneCenter.y + dy * radialPosition
+        );
+        await idle();
+        const current = await state();
+        const pointer = await page.evaluate(
+          () => globalThis.observedArcballPointer
+        );
+        const moved = distance(previousPointer, pointer);
+        const angle = angularDistance(previous, current);
+        // The normalized lift has slope at most sqrt(2); an endpoint
+        // quaternion turns the camera by at most twice that spherical angle.
+        const bound = (2 * Math.SQRT2 * moved) / radius;
+        assert(
+          angle <= bound + 1e-6,
+          `${viewport}/${edge}: ${moved}px pointer step rotated ${angle} radians, above ${bound}`
+        );
+        if (moved > 0)
+          maximumRadiansPerPixel = Math.max(
+            maximumRadiansPerPixel,
+            angle / moved
+          );
+        assert(
+          distance(before.focal, current.focal) < 1e-10,
+          'Rim drag changed the orbit center'
+        );
+        assert(
+          Math.abs(
+            distance(current.position, current.focal) -
+              distance(before.position, before.focal)
+          ) < 1e-9,
+          'Rim drag changed the orbit distance'
+        );
+        previous = current;
+        previousPointer = pointer;
+      }
+      await page.mouse.up({ button: 'left' });
+      await idle();
+      edgeChecks.push({
+        viewport,
+        edge,
+        maximumRadiansPerPixel,
+        boundRadiansPerPixel: (2 * Math.SQRT2) / radius,
+      });
+    }
+  }
+  await screenshot('06-smooth-rim.png');
+
   await page.locator('#reset').click();
   await idle();
   const panBefore = await state();
@@ -226,6 +354,14 @@ try {
         };
       }, viewport);
       await page.mouse.move(pointer.x, pointer.y);
+      await page.mouse.click(pointer.x, pointer.y);
+      assert.equal(
+        await canvas.evaluate(
+          (element) => element.ownerDocument.activeElement === element
+        ),
+        true,
+        'Clicking the canvas focuses wheel zoom'
+      );
       await page.evaluate((index) => {
         const { demo } = globalThis;
         globalThis.observedWheel = new Promise((resolve) => {
@@ -273,14 +409,44 @@ try {
     }
   }
   await screenshot('05-cursor-zoom.png');
+  const pendingZoomChecks = [];
+  for (const refocus of [false, true]) {
+    await page.evaluate(() => globalThis.demo.resetCamera());
+    await page.mouse.click(center.x, center.y);
+    const previous = await state();
+    await page.evaluate((refocusCanvas) => {
+      const element = globalThis.demo.view.getCanvas();
+      element.addEventListener(
+        'wheel',
+        () => {
+          document.querySelector('#reset').focus();
+          if (refocusCanvas) element.focus({ preventScroll: true });
+        },
+        { once: true }
+      );
+    }, refocus);
+    await page.mouse.wheel(0, -80);
+    await idle();
+    assert.deepEqual(
+      await state(),
+      previous,
+      'Losing focus cancels a pending zoom, including after immediate refocus'
+    );
+    pendingZoomChecks.push({
+      refocusedBeforePickCompletion: refocus,
+      cameraUnchanged: true,
+    });
+  }
   assert.deepEqual(errors, [], 'Browser reported an error');
   const report = {
     picking,
     rotation: true,
     endpointIndependent: true,
     freeRoll: true,
+    edgeChecks,
     linkedPan: true,
     zoomChecks,
+    pendingZoomChecks,
     errors,
   };
   await writeFile(

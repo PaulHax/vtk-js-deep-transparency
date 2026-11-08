@@ -6,7 +6,11 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
-const url = process.env.DEMO_URL || 'http://127.0.0.1:9999';
+const baseURL = new URL(process.env.DEMO_URL || 'http://127.0.0.1:9999');
+if (!baseURL.pathname.endsWith('/')) baseURL.pathname += '/';
+baseURL.search = '';
+baseURL.hash = '';
+const url = baseURL.href;
 const output = path.resolve(
   process.env.DEMO_OUTPUT_DIR || path.join(root, 'comparison/components')
 );
@@ -52,7 +56,9 @@ try {
   page.on('console', (message) => {
     if (message.type() === 'error') errors.push(message.text());
   });
-  await page.goto(`${url}/?scene=layers`);
+  const viewerURL = new URL(url);
+  viewerURL.searchParams.set('scene', 'layers');
+  await page.goto(viewerURL.href);
   await page.waitForFunction(() => globalThis.demo);
   await page.evaluate(() => globalThis.demo.ready);
   const results = [];

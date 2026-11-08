@@ -5,7 +5,11 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
-const url = process.env.DEMO_URL || 'http://127.0.0.1:9999';
+const baseURL = new URL(process.env.DEMO_URL || 'http://127.0.0.1:9999');
+if (!baseURL.pathname.endsWith('/')) baseURL.pathname += '/';
+baseURL.search = '';
+baseURL.hash = '';
+const url = baseURL.href;
 const output = path.resolve(
   process.env.DEMO_OUTPUT_DIR || path.join(root, 'comparison/gallery')
 );
@@ -70,6 +74,78 @@ const submissions = (frames) =>
       frame.evaluate(() => globalThis.galleryQueueSubmissions)
     )
   );
+
+const cameraState = (frame) =>
+  frame.evaluate(() => {
+    const camera = globalThis.demo.camera;
+    return {
+      position: [...camera.getPosition()],
+      focal: [...camera.getFocalPoint()],
+      up: [...camera.getViewUp()],
+      scale: camera.getParallelScale(),
+    };
+  });
+
+const scrollOverView = async (page, frame, frames, label) => {
+  const canvas = frame.locator('#viewport canvas');
+  await canvas.scrollIntoViewIfNeeded();
+  const bounds = await canvas.boundingBox();
+  assert.ok(bounds, `${label}: canvas is visible`);
+  await page.mouse.move(
+    bounds.x + bounds.width * 0.75,
+    bounds.y + bounds.height / 2
+  );
+  const camerasBefore = await Promise.all(frames.map(cameraState));
+  const submissionsBefore = await submissions(frames);
+  const start = await page.evaluate(() => {
+    const origin = window.scrollY;
+    globalThis.galleryWheelScroll = { origin, ended: false };
+    const finish = () => {
+      if (window.scrollY === origin) return;
+      globalThis.galleryWheelScroll.ended = true;
+      window.removeEventListener('scrollend', finish);
+    };
+    window.addEventListener('scrollend', finish);
+    return origin;
+  });
+  await page.mouse.wheel(0, 180);
+  await page.waitForFunction(
+    () =>
+      globalThis.galleryWheelScroll.ended &&
+      window.scrollY > globalThis.galleryWheelScroll.origin
+  );
+  const end = await page.evaluate(() => window.scrollY);
+  const submissionsAfter = await submissions(frames);
+  assert.deepEqual(
+    await Promise.all(frames.map(cameraState)),
+    camerasBefore,
+    `${label}: scrolling does not change any camera`
+  );
+  assert.deepEqual(
+    submissionsAfter,
+    submissionsBefore,
+    `${label}: scrolling does not submit WebGPU work`
+  );
+  return { start, end, submissionsBefore, submissionsAfter };
+};
+
+const focusView = async (frame) => {
+  const canvas = frame.locator('#viewport canvas');
+  const bounds = await canvas.boundingBox();
+  assert.ok(bounds, 'Focusable canvas exists');
+  await canvas.click({
+    position: { x: bounds.width * 0.75, y: bounds.height / 2 },
+  });
+  assert.equal(
+    await canvas.evaluate(
+      (element) =>
+        element.ownerDocument.activeElement === element &&
+        element.ownerDocument.hasFocus()
+    ),
+    true,
+    'Clicking the canvas focuses its view'
+  );
+};
 
 const inspect = async (frame, key) => {
   assert.equal(
@@ -181,6 +257,28 @@ try {
     assert.equal(await page.locator(`section#${key}`).count(), 1);
     assert.equal(await page.locator(`nav a[href="#${key}"]`).count(), 1);
   }
+  const articleLink = page.locator('.gallery-header .gallery-article');
+  assert.equal(await articleLink.isVisible(), true, 'Article link is visible');
+  const article = {
+    href: await articleLink.getAttribute('href'),
+    text: await articleLink.innerText(),
+  };
+  assert.equal(
+    article.href,
+    'https://www.kitware.com/better-transparency-with-vtk-and-webgpu/'
+  );
+  assert.match(article.text, /Kitware/i);
+  assert.match(article.text, /Better Transparency with VTK and WebGPU/);
+  assert.equal(
+    await articleLink.evaluate((link) =>
+      Boolean(
+        link.compareDocumentPosition(document.querySelector('#examples')) &
+        Node.DOCUMENT_POSITION_FOLLOWING
+      )
+    ),
+    true,
+    'Article link appears in the header before the examples'
+  );
   const initialFrames = await Promise.all(
     scenes.map((key) => readyFrame(page, key))
   );
@@ -234,7 +332,89 @@ try {
     );
   }
 
-  await page.goto(`${url}/#anatomy`);
+  await page.locator('nav a[href="#nested"]').click();
+  const nested = initialFrames[0];
+  const intersecting = initialFrames[1];
+  const unfocusedScroll = await scrollOverView(
+    page,
+    nested,
+    initialFrames,
+    'Unfocused view'
+  );
+  await focusView(nested);
+  const focusedBefore = await cameraState(nested);
+  const focusedScrollY = await page.evaluate(() => window.scrollY);
+  await page.mouse.wheel(0, -80);
+  await nested.waitForFunction(
+    (scale) => globalThis.demo.camera.getParallelScale() < scale,
+    focusedBefore.scale
+  );
+  await nested.evaluate(() => globalThis.demo.controls.whenIdle());
+  assert.equal(
+    await page.evaluate(() => window.scrollY),
+    focusedScrollY,
+    'Focused wheel zoom keeps the page stationary'
+  );
+  await page.keyboard.press('Escape');
+  assert.equal(
+    await nested
+      .locator('#viewport canvas')
+      .evaluate((element) => element.ownerDocument.activeElement === element),
+    false,
+    'Escape releases the canvas focus'
+  );
+  const escapedScroll = await scrollOverView(
+    page,
+    nested,
+    initialFrames,
+    'Escape-released view'
+  );
+
+  await focusView(nested);
+  await page.locator('nav a[href="#nested"]').click();
+  assert.equal(
+    await nested.evaluate(() => document.hasFocus()),
+    false,
+    'Clicking outside the view moves focus to the page'
+  );
+  const outsideClickScroll = await scrollOverView(
+    page,
+    nested,
+    initialFrames,
+    'Outside-click released view'
+  );
+
+  await focusView(nested);
+  await focusView(intersecting);
+  const inactiveFrameFocus = await nested
+    .locator('#viewport canvas')
+    .evaluate((element) => ({
+      retainedCanvas: element.ownerDocument.activeElement === element,
+      documentFocused: element.ownerDocument.hasFocus(),
+    }));
+  assert.equal(
+    inactiveFrameFocus.documentFocused,
+    false,
+    'Focusing another view leaves the previous frame unfocused'
+  );
+  const inactiveFrameScroll = await scrollOverView(
+    page,
+    nested,
+    initialFrames,
+    'Previously focused frame'
+  );
+  const wheelFocus = {
+    unfocusedScroll,
+    focusedZoom: true,
+    escapedScroll,
+    outsideClickScroll,
+    inactiveFrameFocus,
+    inactiveFrameScroll,
+  };
+
+  const anatomyURL = new URL(url);
+  anatomyURL.hash = 'anatomy';
+  await page.goto(anatomyURL.href);
   const anchored = await readyFrame(page, 'anatomy');
   await inspect(anchored, 'anatomy');
   const anchorVisible = await page
@@ -352,7 +532,7 @@ try {
   );
   await writeFile(
     path.join(output, 'report.json'),
-    `${JSON.stringify({ url, results, idleSubmissions: { before: beforeIdle, after: afterIdle }, directAnchor: 'anatomy', gestures: { leftArcball: true, rightPan: true, wheelZoom: true }, mobile, embeddedMobile, errors }, null, 2)}\n`
+    `${JSON.stringify({ url, article, results, idleSubmissions: { before: beforeIdle, after: afterIdle }, wheelFocus, directAnchor: 'anatomy', gestures: { leftArcball: true, rightPan: true, wheelZoom: true }, mobile, embeddedMobile, errors }, null, 2)}\n`
   );
   console.log(`Gallery verification passed. Screenshots and report: ${output}`);
 } finally {

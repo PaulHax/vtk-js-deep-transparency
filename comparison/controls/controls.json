@@ -44,6 +44,56 @@
   "rotation": true,
   "endpointIndependent": true,
   "freeRoll": true,
+  "edgeChecks": [
+    {
+      "viewport": 0,
+      "edge": "left",
+      "maximumRadiansPerPixel": 0.009729569632689464,
+      "boundRadiansPerPixel": 0.009753196981883415
+    },
+    {
+      "viewport": 0,
+      "edge": "right",
+      "maximumRadiansPerPixel": 0.009729569632689464,
+      "boundRadiansPerPixel": 0.009753196981883415
+    },
+    {
+      "viewport": 0,
+      "edge": "top",
+      "maximumRadiansPerPixel": 0.009729569632712286,
+      "boundRadiansPerPixel": 0.009753196981883415
+    },
+    {
+      "viewport": 0,
+      "edge": "bottom",
+      "maximumRadiansPerPixel": 0.009729569632712286,
+      "boundRadiansPerPixel": 0.009753196981883415
+    },
+    {
+      "viewport": 1,
+      "edge": "left",
+      "maximumRadiansPerPixel": 0.009729569632689464,
+      "boundRadiansPerPixel": 0.009753196981883415
+    },
+    {
+      "viewport": 1,
+      "edge": "right",
+      "maximumRadiansPerPixel": 0.009729566757757737,
+      "boundRadiansPerPixel": 0.009753196981883415
+    },
+    {
+      "viewport": 1,
+      "edge": "top",
+      "maximumRadiansPerPixel": 0.009729569632712286,
+      "boundRadiansPerPixel": 0.009753196981883415
+    },
+    {
+      "viewport": 1,
+      "edge": "bottom",
+      "maximumRadiansPerPixel": 0.009729569632712286,
+      "boundRadiansPerPixel": 0.009753196981883415
+    }
+  ],
   "linkedPan": true,
   "zoomChecks": [
     {
@@ -65,6 +115,16 @@
       "perspective": true,
       "viewport": 1,
       "anchorErrorPixels": 0
+    }
+  ],
+  "pendingZoomChecks": [
+    {
+      "refocusedBeforePickCompletion": false,
+      "cameraUnchanged": true
+    },
+    {
+      "refocusedBeforePickCompletion": true,
+      "cameraUnchanged": true
     }
   ],
   "errors": []

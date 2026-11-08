@@ -1,5 +1,9 @@
 {
-  "url": "http://127.0.0.1:9998",
+  "url": "http://127.0.0.1:4173/vtk-js-deep-transparency/",
+  "article": {
+    "href": "https://www.kitware.com/better-transparency-with-vtk-and-webgpu/",
+    "text": "KITWARE ARTICLE\nBetter Transparency with VTK and WebGPU ↗"
+  },
   "results": [
     {
       "key": "nested",
@@ -178,6 +182,117 @@
       1,
       1
     ]
+  },
+  "wheelFocus": {
+    "unfocusedScroll": {
+      "start": 311,
+      "end": 491,
+      "submissionsBefore": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "submissionsAfter": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "focusedZoom": true,
+    "escapedScroll": {
+      "start": 491,
+      "end": 671,
+      "submissionsBefore": [
+        5,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "submissionsAfter": [
+        5,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "outsideClickScroll": {
+      "start": 311,
+      "end": 491,
+      "submissionsBefore": [
+        5,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "submissionsAfter": [
+        5,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "inactiveFrameFocus": {
+      "retainedCanvas": false,
+      "documentFocused": false
+    },
+    "inactiveFrameScroll": {
+      "start": 381,
+      "end": 561,
+      "submissionsBefore": [
+        5,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "submissionsAfter": [
+        5,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    }
   },
   "directAnchor": "anatomy",
   "gestures": {

@@ -3,7 +3,7 @@
     "repository": "https://github.com/Kitware/vtk-js",
     "baseRevision": "67328bc3efad88ab05c833b647d4310cb2dcc724",
     "upstreamSnapshotCommit": "432ef174660f19c9775d37e272e5c6cc89f3d41f",
-    "portSourceRevision": "2e273dbea138892afa0d3c3be2c3c2dbd3db51e8"
+    "implementationCommit": "78978d12f8807b5c78a8126ae7090d071fdad3a5"
   },
   "nativeVtk": {
     "repository": "https://github.com/Kitware/VTK",

@@ -26,6 +26,7 @@ document.body.innerHTML = `
       </div>
       <p class="intro-copy">Look inside overlapping surfaces. The same geometry, camera and materials, with two ways to combine transparent layers.</p>
     </section>
+    <p class="article-link"><a href="https://www.kitware.com/better-transparency-with-vtk-and-webgpu/" target="_blank" rel="noreferrer">Read the Kitware article: Better Transparency with VTK and WebGPU ↗</a></p>
     <section class="dataset-bar" aria-label="Scientific datasets">
       <label for="scene">Scene <select id="scene"><optgroup label="Procedural examples">${Object.entries(
         scenes
@@ -48,7 +49,7 @@ document.body.innerHTML = `
         <div class="view-label deep"><span class="method-dot"></span>Deep framebuffer<span class="method-type">Sorted alpha composition</span></div>
       </div>
       <div class="viewport" id="viewport" aria-label="Interactive 3D comparison">
-        <div class="interaction-hint"><span></span>Left drag rotates · Right drag pans · Wheel zooms at cursor</div>
+        <div class="interaction-hint"><span></span>Left drag rotates · Right drag pans · Click to focus wheel zoom · Esc releases</div>
         <div class="error" id="error" hidden></div>
       </div>
       <div class="scene-info"><p id="description"></p><div class="legend" id="legend"></div></div>

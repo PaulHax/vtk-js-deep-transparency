@@ -20,13 +20,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Kitware/vtk-js.git"
+    "url": "git+https://github.com/PaulHax/vtk-js-deep-transparency.git"
   },
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/kitware/vtk-js/issues"
+    "url": "https://github.com/PaulHax/vtk-js-deep-transparency/issues"
   },
-  "homepage": "https://github.com/kitware/vtk-js#readme",
+  "homepage": "https://paulhax.github.io/vtk-js-deep-transparency/",
   "main": "./dist/umd/vtk.js",
   "module": "./dist/esm/index.js",
   "dependencies": {
@@ -108,6 +108,8 @@
     "dev:esm": "cross-env BUILD_TARGET=esm vite build --watch",
     "dev:umd": "cross-env BUILD_TARGET=umd vite build --watch",
     "build": "npm run build:esm && npm run build:umd",
+    "build:demo": "node ./Utilities/DeepFramebufferSite/build.mjs",
+    "preview:demo": "node ./Utilities/DeepFramebufferSite/build.mjs --preview",
     "build:esm": "npm run build:pre && cross-env BUILD_TARGET=esm vite build",
     "build:umd": "npm run build:pre && cross-env BUILD_TARGET=umd vite build",
     "build:release": "npm run lint && npm run build",
@@ -182,5 +184,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "private": true
 }

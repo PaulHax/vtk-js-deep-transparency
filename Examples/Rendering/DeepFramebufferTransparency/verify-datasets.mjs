@@ -6,7 +6,11 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
-const url = process.env.DEMO_URL || 'http://127.0.0.1:9999';
+const baseURL = new URL(process.env.DEMO_URL || 'http://127.0.0.1:9999');
+if (!baseURL.pathname.endsWith('/')) baseURL.pathname += '/';
+baseURL.search = '';
+baseURL.hash = '';
+const url = baseURL.href;
 const output = path.resolve(
   process.env.DEMO_OUTPUT_DIR ||
     path.join(root, 'Utilities/TestResults/deep-transparency/datasets')
@@ -17,9 +21,7 @@ const names = (
 const groupFor = (name) =>
   ['impact', 'anatomy', 'cad'].includes(name) ? name : 'scans';
 const manifests = {};
-for (const group of new Set(
-  names.map(groupFor)
-)) {
+for (const group of new Set(names.map(groupFor))) {
   manifests[group] = JSON.parse(
     await readFile(
       path.join(root, 'Data/deep-transparency', group, 'manifest.json'),
@@ -49,13 +51,14 @@ try {
   page.on('console', (message) => {
     if (message.type() === 'error') errors.push(message.text());
   });
-  await page.goto(`${url}/?scene=layers`);
+  const viewerURL = new URL(url);
+  viewerURL.searchParams.set('scene', 'layers');
+  await page.goto(viewerURL.href);
   await page.waitForFunction(() => globalThis.demo);
   await page.evaluate(() => globalThis.demo.ready);
   const results = [];
   for (const name of names) {
-    const specification =
-      manifests[groupFor(name)].scenes[name];
+    const specification = manifests[groupFor(name)].scenes[name];
     assert.ok(specification, `No prepared data for ${name}`);
     for (const actor of specification.actors) {
       const bytes = await readFile(

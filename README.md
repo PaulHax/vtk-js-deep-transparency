@@ -1,6 +1,8 @@
 # Deep framebuffer transparency in vtk.js
 
-A local WebGPU port of VTK's deep framebuffer transparency, with a linked comparison demo, full-resolution scientific meshes, and direct native C++ VTK image comparisons.
+[Open the gallery](https://paulhax.github.io/vtk-js-deep-transparency/) · [Read the Kitware article](https://www.kitware.com/better-transparency-with-vtk-and-webgpu/)
+
+A WebGPU port of VTK's deep framebuffer transparency, with a linked comparison demo, full-resolution scientific meshes, and direct native C++ VTK image comparisons.
 
 **The native comparisons are not pixel-perfect.** All eight recorded dataset cases fail a strict zero-tolerance RGBA comparison. All alpha channels agree, and reversing actor insertion order changes no browser pixels. Unlit images are close; PBR lighting differs substantially. See the [measured results](comparison/REPORT.md), [comparison images](comparison/comparison.png), and [machine-readable metrics](comparison/comparison.json).
 
@@ -15,9 +17,9 @@ Open [localhost:9999](http://localhost:9999) in a WebGPU browser. Prepared meshe
 
 The page is a long scrolling gallery with anchor links to all nine examples. All scenes initialize when the page opens, draw their initial views, and then render in response to interaction or resizing. Each example retains its own camera, controls, and attribution caption. Jump directly to [Sinus anatomy](http://localhost:9999/#anatomy) or [Ball-bearing assembly](http://localhost:9999/#cad).
 
-- Left drag: canonical virtual-sphere arcball rotation, including free roll.
+- Left drag: quaternion arcball rotation with a smooth transition at the rim, including free roll.
 - Right drag: pan both views.
-- Mouse wheel: zoom toward the surface under the pointer, using a depth pick. Empty space uses the focal plane.
+- Mouse wheel: click a view to focus it, then zoom toward the surface under the pointer. Empty space uses the focal plane. An unfocused view leaves wheel events to page scrolling; Escape releases focus.
 - Checkboxes: hide individual structures. The opacity slider adjusts the outer/context surface.
 
 For every example, the left viewport uses weighted blending; the right retains and sorts fragments. Both share geometry, camera, lights, and materials. The pass retains the nearest sixteen fragments per pixel with a bounded shared pool. Open separately links provide a standalone viewer for each example.
@@ -48,6 +50,15 @@ The native reference is an unmodified local build of VTK revision `efc4afbd7430e
 
 For fresh captures, regenerate specifications in this checkout and follow the [native comparison instructions](Utilities/DeepFramebufferComparison/README.md). Native build products and original scan/CT volumes are excluded; their URLs, hashes, and preparation commands are recorded. The prepared surfaces are included in `Data/deep-transparency` with their manifests.
 
+## Build the hosted gallery
+
+```sh
+npm run build:demo
+npm run preview:demo
+```
+
+The static site is written to `dist/demo`. `SITE_BASE_PATH=/vtk-js-deep-transparency/ npm run build:demo` builds for the GitHub Pages project URL. The Pages workflow deploys this directory from `main`; the source repository retains the comparison evidence. The site includes the prepared meshes and their attribution manifests. Raw volumes and native build products are excluded.
+
 ## Browser checks
 
 With the demo server running:
@@ -66,4 +77,4 @@ On a fresh machine, install the test browser with `npx playwright install chromi
 
 ## Repository
 
-This is a standalone local repository with an upstream source snapshot followed by the transparency port, demo, data, and comparison evidence. It has no configured remote. [Source revisions](provenance/source.json) identify its inputs. The original vtk.js project README is preserved as [README.vtk.md](README.vtk.md); vtk.js retains its [BSD license](LICENSE).
+This repository contains an upstream vtk.js source snapshot followed by the transparency port, demo, prepared data, and comparison evidence. [Source revisions](provenance/source.json) identify its inputs. The original vtk.js project README is preserved as [README.vtk.md](README.vtk.md); vtk.js retains its [BSD license](LICENSE).
