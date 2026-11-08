@@ -1,0 +1,117 @@
+[
+  {
+    "name": "sphere-base",
+    "maxRGBError": 7,
+    "pixelsAbove1": 44,
+    "pixelsAbove8": 0,
+    "pixelsAbove32": 0,
+    "above1BoundsXYXYExclusive": [
+      44,
+      71,
+      80,
+      198
+    ],
+    "maximumErrorPixels": [
+      {
+        "x": 45,
+        "y": 112,
+        "native": [
+          4,
+          6,
+          7,
+          255
+        ],
+        "browser": [
+          0,
+          0,
+          0,
+          255
+        ]
+      },
+      {
+        "x": 45,
+        "y": 143,
+        "native": [
+          4,
+          6,
+          7,
+          255
+        ],
+        "browser": [
+          0,
+          0,
+          0,
+          255
+        ]
+      }
+    ],
+    "numericCorrectionChangedPixels": 0,
+    "numericCorrectionMaximumOutputChange": 0
+  },
+  {
+    "name": "sphere-roughness-01",
+    "maxRGBError": 75,
+    "pixelsAbove1": 126,
+    "pixelsAbove8": 37,
+    "pixelsAbove32": 11,
+    "above1BoundsXYXYExclusive": [
+      44,
+      61,
+      150,
+      195
+    ],
+    "maximumErrorPixels": [
+      {
+        "x": 144,
+        "y": 126,
+        "native": [
+          154,
+          160,
+          165,
+          255
+        ],
+        "browser": [
+          229,
+          233,
+          236,
+          255
+        ]
+      }
+    ],
+    "numericCorrectionChangedPixels": 17,
+    "numericCorrectionMaximumOutputChange": 48
+  },
+  {
+    "name": "sphere-metallic-roughness-01",
+    "maxRGBError": 66,
+    "pixelsAbove1": 381,
+    "pixelsAbove8": 75,
+    "pixelsAbove32": 22,
+    "above1BoundsXYXYExclusive": [
+      131,
+      114,
+      157,
+      142
+    ],
+    "maximumErrorPixels": [
+      {
+        "x": 144,
+        "y": 125,
+        "native": [
+          175,
+          240,
+          255,
+          255
+        ],
+        "browser": [
+          241,
+          255,
+          255,
+          255
+        ]
+      }
+    ],
+    "numericCorrectionChangedPixels": 0,
+    "numericCorrectionMaximumOutputChange": 0
+  }
+]

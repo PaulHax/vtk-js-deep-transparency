@@ -1,0 +1,1938 @@
+[
+  {
+    "name": "plane-diffuse-0",
+    "originalSpecificationSHA256": "db2c558de313ca674a30ffaf0c70f228be924b4fdd5d104219a4bc6c204cc081",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 0,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.5,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/plane.vtp",
+          "url": "meshes/plane.vtp",
+          "sha256": "05bafa13bd79720eaf018523f52c759c858d6f9ebf4a8da2496ae4fc5c89ffba",
+          "pointCount": 4,
+          "triangleCount": 2,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "plane-diffuse-0"
+    }
+  },
+  {
+    "name": "plane-diffuse-025",
+    "originalSpecificationSHA256": "780f0e9628d327c62767374369fa2d100b42755a5569f50287b8a88215e6a07b",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 0.25,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.5,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/plane.vtp",
+          "url": "meshes/plane.vtp",
+          "sha256": "05bafa13bd79720eaf018523f52c759c858d6f9ebf4a8da2496ae4fc5c89ffba",
+          "pointCount": 4,
+          "triangleCount": 2,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "plane-diffuse-025"
+    }
+  },
+  {
+    "name": "plane-diffuse-05",
+    "originalSpecificationSHA256": "32a4c8e7dca783dce8a92c357d19557d2da7e332b3eed6650d013975f12a58c6",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 0.5,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.5,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/plane.vtp",
+          "url": "meshes/plane.vtp",
+          "sha256": "05bafa13bd79720eaf018523f52c759c858d6f9ebf4a8da2496ae4fc5c89ffba",
+          "pointCount": 4,
+          "triangleCount": 2,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "plane-diffuse-05"
+    }
+  },
+  {
+    "name": "plane-diffuse-1",
+    "originalSpecificationSHA256": "f3affb8bbef34630ed50e43a6b79a67bd194acb73ace5ef5bd3991a0f8ec4651",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 1,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.5,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/plane.vtp",
+          "url": "meshes/plane.vtp",
+          "sha256": "05bafa13bd79720eaf018523f52c759c858d6f9ebf4a8da2496ae4fc5c89ffba",
+          "pointCount": 4,
+          "triangleCount": 2,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "plane-diffuse-1"
+    }
+  },
+  {
+    "name": "plane-ambient-0",
+    "originalSpecificationSHA256": "6c66062b950aa7bf291ed84f7bce418fa0bffc2cbd5ca58c83f53ea3708fbe23",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 0,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.5,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/plane.vtp",
+          "url": "meshes/plane.vtp",
+          "sha256": "05bafa13bd79720eaf018523f52c759c858d6f9ebf4a8da2496ae4fc5c89ffba",
+          "pointCount": 4,
+          "triangleCount": 2,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "plane-ambient-0"
+    }
+  },
+  {
+    "name": "plane-ambient-01",
+    "originalSpecificationSHA256": "aaf50d21e7b0c82f9c909a7dcce1de7b02e59f90592925790a766496abeae51c",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0.1,
+        "diffuse": 0,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.5,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/plane.vtp",
+          "url": "meshes/plane.vtp",
+          "sha256": "05bafa13bd79720eaf018523f52c759c858d6f9ebf4a8da2496ae4fc5c89ffba",
+          "pointCount": 4,
+          "triangleCount": 2,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "plane-ambient-01"
+    }
+  },
+  {
+    "name": "plane-ambient-05",
+    "originalSpecificationSHA256": "97bf75e27197a21cdafe0c96937f95b304cc1d2e71df5344817901282d0b0d26",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0.5,
+        "diffuse": 0,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.5,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/plane.vtp",
+          "url": "meshes/plane.vtp",
+          "sha256": "05bafa13bd79720eaf018523f52c759c858d6f9ebf4a8da2496ae4fc5c89ffba",
+          "pointCount": 4,
+          "triangleCount": 2,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "plane-ambient-05"
+    }
+  },
+  {
+    "name": "plane-unlit",
+    "originalSpecificationSHA256": "6d08352396705957a3d40c0a51e909e66b11486c75f065b2e5c8fca1b7639823",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "unlit",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 1,
+        "diffuse": 0,
+        "specular": 0,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.5,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/plane.vtp",
+          "url": "meshes/plane.vtp",
+          "sha256": "05bafa13bd79720eaf018523f52c759c858d6f9ebf4a8da2496ae4fc5c89ffba",
+          "pointCount": 4,
+          "triangleCount": 2,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "plane-unlit"
+    }
+  },
+  {
+    "name": "sphere-base",
+    "originalSpecificationSHA256": "62c9b81caa46cd2583acb81d254a90f021423b514eee8717cc2cd67f9399bfd8",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 0.8,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.5,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/sphere.vtp",
+          "url": "meshes/sphere.vtp",
+          "sha256": "db077ddee31801087e2d51969d9ecf5339b11d20a8bc402e2d0776cc736f845d",
+          "pointCount": 8066,
+          "triangleCount": 16128,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "sphere-base"
+    }
+  },
+  {
+    "name": "sphere-ortho",
+    "originalSpecificationSHA256": "27e6dbcb63681666ae4831775fe1b63ad5f1972d5137244915c30d0f0f4cc74d",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": true,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 0.8,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.5,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/sphere.vtp",
+          "url": "meshes/sphere.vtp",
+          "sha256": "db077ddee31801087e2d51969d9ecf5339b11d20a8bc402e2d0776cc736f845d",
+          "pointCount": 8066,
+          "triangleCount": 16128,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "sphere-ortho"
+    }
+  },
+  {
+    "name": "sphere-metallic-05",
+    "originalSpecificationSHA256": "73b9904fde2be2fa3550f2c4d0d280045272a8d8600c12cf53144b3461c48e47",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 0.8,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0.5,
+        "roughness": 0.5,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/sphere.vtp",
+          "url": "meshes/sphere.vtp",
+          "sha256": "db077ddee31801087e2d51969d9ecf5339b11d20a8bc402e2d0776cc736f845d",
+          "pointCount": 8066,
+          "triangleCount": 16128,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "sphere-metallic-05"
+    }
+  },
+  {
+    "name": "sphere-roughness-01",
+    "originalSpecificationSHA256": "552267748e6a70841636253f0001bdc1c8effdae180ea2e78289344082c9e98d",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 0.8,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.1,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/sphere.vtp",
+          "url": "meshes/sphere.vtp",
+          "sha256": "db077ddee31801087e2d51969d9ecf5339b11d20a8bc402e2d0776cc736f845d",
+          "pointCount": 8066,
+          "triangleCount": 16128,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "sphere-roughness-01"
+    }
+  },
+  {
+    "name": "sphere-roughness-09",
+    "originalSpecificationSHA256": "2965a3630729d173aabc2192bf45b0299ae7f0dc5cc6a9965e4795e968236bc4",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 0.8,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.9,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/sphere.vtp",
+          "url": "meshes/sphere.vtp",
+          "sha256": "db077ddee31801087e2d51969d9ecf5339b11d20a8bc402e2d0776cc736f845d",
+          "pointCount": 8066,
+          "triangleCount": 16128,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "sphere-roughness-09"
+    }
+  },
+  {
+    "name": "sphere-metallic-roughness-01",
+    "originalSpecificationSHA256": "f3d86280457d841c4de84ddc2efa8245c6916f536281507213e35d7e34796cb1",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 0.8,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 1,
+        "roughness": 0.1,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/sphere.vtp",
+          "url": "meshes/sphere.vtp",
+          "sha256": "db077ddee31801087e2d51969d9ecf5339b11d20a8bc402e2d0776cc736f845d",
+          "pointCount": 8066,
+          "triangleCount": 16128,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "sphere-metallic-roughness-01"
+    }
+  },
+  {
+    "name": "sphere-metallic-roughness-05",
+    "originalSpecificationSHA256": "44e363b312d2df681b85b5826735859aeabe9214f5686add914fe20f2d942313",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 0.8,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 1,
+        "roughness": 0.5,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/sphere.vtp",
+          "url": "meshes/sphere.vtp",
+          "sha256": "db077ddee31801087e2d51969d9ecf5339b11d20a8bc402e2d0776cc736f845d",
+          "pointCount": 8066,
+          "triangleCount": 16128,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "sphere-metallic-roughness-05"
+    }
+  },
+  {
+    "name": "sphere-metallic-roughness-09",
+    "originalSpecificationSHA256": "3345d956962d5e13cd5e61e2bd86c19e3c88818725feae61cb4c5626b7384bb2",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 0.8,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 1,
+        "roughness": 0.9,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/sphere.vtp",
+          "url": "meshes/sphere.vtp",
+          "sha256": "db077ddee31801087e2d51969d9ecf5339b11d20a8bc402e2d0776cc736f845d",
+          "pointCount": 8066,
+          "triangleCount": 16128,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "sphere-metallic-roughness-09"
+    }
+  },
+  {
+    "name": "plane-ior-1",
+    "originalSpecificationSHA256": "f29a6078c670fb98b0ce32e155b23d5490d1ddc78247596dce125233da638888",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 0.8,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.5,
+        "baseIOR": 1
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/plane.vtp",
+          "url": "meshes/plane.vtp",
+          "sha256": "05bafa13bd79720eaf018523f52c759c858d6f9ebf4a8da2496ae4fc5c89ffba",
+          "pointCount": 4,
+          "triangleCount": 2,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "plane-ior-1"
+    }
+  },
+  {
+    "name": "plane-ior-15",
+    "originalSpecificationSHA256": "2092e4a979b21f77d1c709610a9574e60e781c125f150ace4fe00aeb0250a6f6",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 0.8,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.5,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/plane.vtp",
+          "url": "meshes/plane.vtp",
+          "sha256": "05bafa13bd79720eaf018523f52c759c858d6f9ebf4a8da2496ae4fc5c89ffba",
+          "pointCount": 4,
+          "triangleCount": 2,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "plane-ior-15"
+    }
+  },
+  {
+    "name": "plane-ior-2",
+    "originalSpecificationSHA256": "3f221cfc94ccc5f798cae2f2ba39d915563369a30235a7606bdb2333006a6f52",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 0.8,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.5,
+        "baseIOR": 2
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/plane.vtp",
+          "url": "meshes/plane.vtp",
+          "sha256": "05bafa13bd79720eaf018523f52c759c858d6f9ebf4a8da2496ae4fc5c89ffba",
+          "pointCount": 4,
+          "triangleCount": 2,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "plane-ior-2"
+    }
+  },
+  {
+    "name": "plane-ambient-diffuse1-0",
+    "originalSpecificationSHA256": "a90bb1a3437df2f216a2be0e7f64a0ebbf8546610c33910401337d70978ae623",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0,
+        "diffuse": 1,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.5,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/plane.vtp",
+          "url": "meshes/plane.vtp",
+          "sha256": "05bafa13bd79720eaf018523f52c759c858d6f9ebf4a8da2496ae4fc5c89ffba",
+          "pointCount": 4,
+          "triangleCount": 2,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "plane-ambient-diffuse1-0"
+    }
+  },
+  {
+    "name": "plane-ambient-diffuse1-01",
+    "originalSpecificationSHA256": "f3228d425c9b03e172d95082738fb885e57a0e2a56d73e270f85496f6986eec7",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0.1,
+        "diffuse": 1,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.5,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/plane.vtp",
+          "url": "meshes/plane.vtp",
+          "sha256": "05bafa13bd79720eaf018523f52c759c858d6f9ebf4a8da2496ae4fc5c89ffba",
+          "pointCount": 4,
+          "triangleCount": 2,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "plane-ambient-diffuse1-01"
+    }
+  },
+  {
+    "name": "plane-ambient-diffuse1-05",
+    "originalSpecificationSHA256": "91ed216235bf7adb84947272e73e7d4243f8cda3e454e02d160b5a37da11af53",
+    "specification": {
+      "width": 256,
+      "height": 256,
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "backgroundAlpha": 1,
+      "multiSample": 1,
+      "mode": "pbr",
+      "deepFramebuffer": false,
+      "poolLayers": 1,
+      "camera": {
+        "position": [
+          0,
+          0,
+          4
+        ],
+        "focalPoint": [
+          0,
+          0,
+          0
+        ],
+        "viewUp": [
+          0,
+          1,
+          0
+        ],
+        "parallelProjection": false,
+        "parallelScale": 1.5,
+        "viewAngle": 30,
+        "clippingRange": [
+          0.1,
+          10
+        ]
+      },
+      "material": {
+        "ambient": 0.5,
+        "diffuse": 1,
+        "specular": 0.5,
+        "specularPower": 30,
+        "metallic": 0,
+        "roughness": 0.5,
+        "baseIOR": 1.5
+      },
+      "lights": [
+        {
+          "position": [
+            1,
+            0,
+            3
+          ],
+          "focalPoint": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "intensity": 0.6,
+          "positional": false
+        }
+      ],
+      "actors": [
+        {
+          "path": "meshes/plane.vtp",
+          "url": "meshes/plane.vtp",
+          "sha256": "05bafa13bd79720eaf018523f52c759c858d6f9ebf4a8da2496ae4fc5c89ffba",
+          "pointCount": 4,
+          "triangleCount": 2,
+          "color": [
+            0.18,
+            0.36,
+            0.54
+          ],
+          "opacity": 1
+        }
+      ],
+      "name": "plane-ambient-diffuse1-05"
+    }
+  }
+]

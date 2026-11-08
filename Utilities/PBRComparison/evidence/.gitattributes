@@ -1,0 +1,4 @@
+# Recorded artifacts must retain their exact bytes for hash validation.
+* -text
+# Captured shader-generator whitespace is part of the recorded WGSL bytes.
+shaders/*.wgsl -whitespace

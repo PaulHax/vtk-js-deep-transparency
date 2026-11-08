@@ -1,0 +1,1961 @@
+{
+  "schemaVersion": 1,
+  "sourceBaseCommit": "78978d12f8807b5c78a8126ae7090d071fdad3a5",
+  "nativeVTKRevision": "efc4afbd7430e8eddf86759c5d70711af89e50f0",
+  "nativeVTKSourceURL": "https://github.com/Kitware/VTK/tree/efc4afbd7430e8eddf86759c5d70711af89e50f0",
+  "nativeReferenceBuild": {
+    "vtk": {
+      "commit": "efc4afbd7430e8eddf86759c5d70711af89e50f0",
+      "sourceUrl": "https://github.com/Kitware/VTK/tree/efc4afbd7430e8eddf86759c5d70711af89e50f0",
+      "archiveUrl": "https://codeload.github.com/Kitware/VTK/tar.gz/efc4afbd7430e8eddf86759c5d70711af89e50f0",
+      "archiveSHA256": "04d7412a9771e80d373aa154947ecb43e28fdb7b3adc96d96d58fa71f63bd289",
+      "sourceDirectory": "<native-vtk-source>",
+      "buildDirectory": "<native-vtk-build>",
+      "deepFramebufferSourceSHA256": "e0f6d97b566914098ad343e245558af630269bf170e489906b160fc69f3a7498"
+    },
+    "dawn": {
+      "version": "20260923.214225",
+      "buildDate": "20260928.0",
+      "archiveUrl": "https://gitlab.kitware.com/api/v4/projects/6955/packages/generic/dawn/v20260923.214225-20260928.0/dawn-v20260923.214225-linux-x86_64.tar.gz",
+      "archiveSHA256": "565a55cdb7bb3ee89309063f7483be4a9495d8f1e9bbe2a35f35f62e5d4c2be9",
+      "library": "<native-reference>/dawn-v20260923.214225-linux-x86_64/lib64/libwebgpu_dawn.so",
+      "librarySHA256": "13beb0d862dd89bdb7f0272fc65c407746a547af7964d0ec15a55f73277e2ea9"
+    },
+    "adapterProbe": {
+      "vendor": "google",
+      "device": "SwiftShader Device (Subzero)",
+      "backend": "Vulkan",
+      "adapterType": "CPU",
+      "icd": "<chromium-1243>/vk_swiftshader_icd.json",
+      "icdSHA256": "c9eef28b6b984fec220ef0abfecc40b502d46946706e47bfe97707027cb818bd",
+      "librarySHA256": "1d5d7ab9c4c1499041aa44ea7a2ae3da3ca9812cd8bda9b5ac920ae158adb163",
+      "successful": true
+    },
+    "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+    "cmake": "cmake version 3.22.1",
+    "configureCommand": "cmake -S VTK-efc4afbd7430e8eddf86759c5d70711af89e50f0 -B vtk-build -GNinja -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DVTK_BUILD_TESTING=OFF -DVTK_BUILD_EXAMPLES=OFF -DVTK_WRAP_PYTHON=OFF -DVTK_BUILD_ALL_MODULES=OFF -DVTK_GROUP_ENABLE_StandAlone=DONT_WANT -DVTK_GROUP_ENABLE_Rendering=DONT_WANT -DVTK_ENABLE_WEBGPU=ON -DVTK_USE_DAWN_WEBGPU=ON -DDawn_DIR=<native-reference>/dawn-v20260923.214225-linux-x86_64/lib64/cmake/Dawn -DVTK_MODULE_ENABLE_VTK_RenderingWebGPU=YES -DVTK_MODULE_ENABLE_VTK_IOXML=YES -DVTK_MODULE_ENABLE_VTK_IOImage=YES -DVTK_MODULE_ENABLE_VTK_jsoncpp=YES -DVTK_MODULE_ENABLE_VTK_RenderingFreeType=WANT -DVTK_MODULE_ENABLE_VTK_InteractionStyle=DONT_WANT -DVTK_MODULE_ENABLE_VTK_RenderingOpenGL2=NO",
+    "buildCommand": "cmake --build vtk-build --parallel 12",
+    "runtimeEnvironment": {
+      "VK_ICD_FILENAMES": "<chromium-1243>/vk_swiftshader_icd.json",
+      "VTK_WEBGPU_LIBRARY": "<native-reference>/dawn-v20260923.214225-linux-x86_64/lib64/libwebgpu_dawn.so"
+    },
+    "build": {
+      "complete": true,
+      "successfulTargets": 1988,
+      "renderingWebGPULibrary": "<native-vtk-build>/lib/libvtkRenderingWebGPU-9.7.so.9.7",
+      "renderingWebGPULibrarySHA256": "04c77de3baa28f8a268ae13fe247926f7bcbd834753f76e19cb28b2401a649f9",
+      "cmakeCacheSHA256": "2cfcf20dddde6e676282281834fc35a6d56403c02bcb369c9318427cb0fb6eaa",
+      "sourceModified": false
+    }
+  },
+  "browserRuntimes": [
+    {
+      "browserVersion": "148.0.7778.96",
+      "nodeVersion": "v22.22.3",
+      "browserExecutableSHA256": "adc1c21ceed5c2a67184766376fe816ac03e556cc0ca3f782e8212235fe05c6f",
+      "adapter": {
+        "vendor": "google",
+        "architecture": "swiftshader",
+        "device": "",
+        "description": ""
+      }
+    }
+  ],
+  "swiftShaderDistributions": [
+    {
+      "distribution": "chromium-1223",
+      "swiftShaderLibrarySHA256": "943425f2e82c9cc4c0e1ecd5680c14b595cae18f23878757c405e0ee4ca5b219",
+      "vulkanICDSHA256": "c9eef28b6b984fec220ef0abfecc40b502d46946706e47bfe97707027cb818bd",
+      "role": "browser"
+    },
+    {
+      "distribution": "chromium-1243",
+      "swiftShaderLibrarySHA256": "1d5d7ab9c4c1499041aa44ea7a2ae3da3ca9812cd8bda9b5ac920ae158adb163",
+      "vulkanICDSHA256": "c9eef28b6b984fec220ef0abfecc40b502d46946706e47bfe97707027cb818bd",
+      "role": "native"
+    }
+  ],
+  "driverLimitation": "Browser and native captures use different SwiftShader builds. Runtime arithmetic is an unresolved contributor to the remaining single-level differences.",
+  "sceneCount": 22,
+  "variantCount": 19,
+  "browserCaptureCount": 418,
+  "nativeCaptureCount": 22,
+  "uniqueShaders": 17,
+  "finalVariant": "cpp-equations-view-float-normals",
+  "strictlyIdenticalFinalScenes": 8,
+  "finalMaximumRGBAError": 1,
+  "renderingAndNativeCaptureSourceSHA256": {
+    "Sources/Rendering/WebGPU/Renderer/index.js": "cd7f0bdbc2b6df14be91ad3be30d1243bb2ea894292123c3e241ae3cdbaac01e",
+    "Sources/Rendering/WebGPU/CellArrayMapper/Replacements/Lighting.js": "8237ed348f55232101f72869aa8db2f0506e9ebffdc8dd289ccebaa003cbe7d3",
+    "Sources/Rendering/WebGPU/CellArrayMapper/Shaders.js": "fab28d2549df55472b9d046e6a049a8d44397083b2ced409118422d7d7bb0f88",
+    "Sources/Rendering/WebGPU/CellArrayMapper/VertexInput.js": "9911c72ac1f6614f0abb6be91c41484049a1cae6d694e09a7ebab42b8a26ad62",
+    "Sources/Rendering/WebGPU/BufferManager/index.js": "88ba6d725738e40647203a33c46d5d596dc8fd3adb22fff608f2146cb4bce602",
+    "Sources/Rendering/WebGPU/RenderWindow/index.js": "88084316f95f0547965807c350509628b3c99bdbbc67b39c690e9d1c38d46848",
+    "Sources/Rendering/WebGPU/OpaquePass/index.js": "0ee98b70ba3289d611f42e130c4288ccbdb265170e2ca7011b64e957fb5e29e8",
+    "Utilities/PBRComparison/capture.cxx": "f4c5b8ccc7ac35da3ba69695755d5160cdcb22d7314f5e2a1fe8b1f7accdf5c9"
+  },
+  "normalization": "Original summary, native PNG and WGSL bytes are retained. Browser PNGs losslessly encode captured RGBA bytes. Metadata machine paths are replaced with portable placeholders and scene actor paths point to bundled meshes. Original metadata/specification SHA256 values identify capture-time bytes before normalization; verify-evidence.py validates published PNG pixels and shader/mesh/source hashes directly.",
+  "validation": "Every capture checked for one sample, deep disabled, empty error lists, matching specification and mesh checksums/counts, and shader-file checksums",
+  "artifacts": {
+    ".gitattributes": {
+      "sha256": "9072b9a832e70c54ac1dddeb50d12acbe8f88ccc939cb7d5e77642dc302254cb",
+      "bytes": 182
+    },
+    "browser/ambient/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/ambient/plane-ambient-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/ambient/plane-ambient-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/ambient/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/ambient/plane-ambient-diffuse1-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/ambient/plane-ambient-diffuse1-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/ambient/plane-diffuse-0.png": {
+      "sha256": "9ed02f62ab53dcf53e44f21990c501a66df723c0fa7d837963d39f694fcda1dc",
+      "bytes": 5429
+    },
+    "browser/ambient/plane-diffuse-025.png": {
+      "sha256": "9ed02f62ab53dcf53e44f21990c501a66df723c0fa7d837963d39f694fcda1dc",
+      "bytes": 5429
+    },
+    "browser/ambient/plane-diffuse-05.png": {
+      "sha256": "9ed02f62ab53dcf53e44f21990c501a66df723c0fa7d837963d39f694fcda1dc",
+      "bytes": 5429
+    },
+    "browser/ambient/plane-diffuse-1.png": {
+      "sha256": "9ed02f62ab53dcf53e44f21990c501a66df723c0fa7d837963d39f694fcda1dc",
+      "bytes": 5429
+    },
+    "browser/ambient/plane-ior-1.png": {
+      "sha256": "5838ec0cac4c7212a4717589c9dc9e813fedb6601199c02b6be70d3f40d1041a",
+      "bytes": 881
+    },
+    "browser/ambient/plane-ior-15.png": {
+      "sha256": "9ed02f62ab53dcf53e44f21990c501a66df723c0fa7d837963d39f694fcda1dc",
+      "bytes": 5429
+    },
+    "browser/ambient/plane-ior-2.png": {
+      "sha256": "4f9d66c35c3ff4940e706bd1d29692a0742fa99c1066d53a5780ae533a5db8a4",
+      "bytes": 8413
+    },
+    "browser/ambient/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/ambient/sphere-base.png": {
+      "sha256": "5584cb2ba5e37a6c771f7f7f474676cf1cb1b13a0f608dc2ff7c1e2daf485444",
+      "bytes": 17183
+    },
+    "browser/ambient/sphere-metallic-05.png": {
+      "sha256": "33da886ad4fd4ed48f04d43205a862e8f72346f5e8c3e4e32f5d93f3356a5631",
+      "bytes": 17206
+    },
+    "browser/ambient/sphere-metallic-roughness-01.png": {
+      "sha256": "8500ee7d5f2ea37d75b0e64514583224a65aad956e2457395ed96472da921a1a",
+      "bytes": 2989
+    },
+    "browser/ambient/sphere-metallic-roughness-05.png": {
+      "sha256": "df3b5cbfb9ef703aea1cf5bb33a4db247bc5ad28f8c1241a98506b85f9378dfa",
+      "bytes": 14693
+    },
+    "browser/ambient/sphere-metallic-roughness-09.png": {
+      "sha256": "53efa929b14ae0a55362ec1c2093b6305f84cd18e3f7db7430f94e81f4063549",
+      "bytes": 8616
+    },
+    "browser/ambient/sphere-ortho.png": {
+      "sha256": "e48e338974774aec0159861d80ffd143f3c94aedec00d08c3713d5ffeb41abad",
+      "bytes": 10820
+    },
+    "browser/ambient/sphere-roughness-01.png": {
+      "sha256": "25779ab2346b968c29a5e32d2dc31857cfb5aafc288dacf452e0dbe8c458df68",
+      "bytes": 15459
+    },
+    "browser/ambient/sphere-roughness-09.png": {
+      "sha256": "d852964e572d68446ac612b07606d1d0a65e38d15da19d43b1010a4d3e0e2b01",
+      "bytes": 15501
+    },
+    "browser/baseline/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/baseline/plane-ambient-01.png": {
+      "sha256": "7fc0d0d6e15893a533ef243a40c6313a907124865b52cf6501341091990a0e99",
+      "bytes": 876
+    },
+    "browser/baseline/plane-ambient-05.png": {
+      "sha256": "de1b4dc9e0d42a3b4ff518bbb4715c55beb6471270299af7302eca471e20322e",
+      "bytes": 880
+    },
+    "browser/baseline/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/baseline/plane-ambient-diffuse1-01.png": {
+      "sha256": "7fc0d0d6e15893a533ef243a40c6313a907124865b52cf6501341091990a0e99",
+      "bytes": 876
+    },
+    "browser/baseline/plane-ambient-diffuse1-05.png": {
+      "sha256": "de1b4dc9e0d42a3b4ff518bbb4715c55beb6471270299af7302eca471e20322e",
+      "bytes": 880
+    },
+    "browser/baseline/plane-diffuse-0.png": {
+      "sha256": "9ed02f62ab53dcf53e44f21990c501a66df723c0fa7d837963d39f694fcda1dc",
+      "bytes": 5429
+    },
+    "browser/baseline/plane-diffuse-025.png": {
+      "sha256": "9ed02f62ab53dcf53e44f21990c501a66df723c0fa7d837963d39f694fcda1dc",
+      "bytes": 5429
+    },
+    "browser/baseline/plane-diffuse-05.png": {
+      "sha256": "9ed02f62ab53dcf53e44f21990c501a66df723c0fa7d837963d39f694fcda1dc",
+      "bytes": 5429
+    },
+    "browser/baseline/plane-diffuse-1.png": {
+      "sha256": "9ed02f62ab53dcf53e44f21990c501a66df723c0fa7d837963d39f694fcda1dc",
+      "bytes": 5429
+    },
+    "browser/baseline/plane-ior-1.png": {
+      "sha256": "5838ec0cac4c7212a4717589c9dc9e813fedb6601199c02b6be70d3f40d1041a",
+      "bytes": 881
+    },
+    "browser/baseline/plane-ior-15.png": {
+      "sha256": "9ed02f62ab53dcf53e44f21990c501a66df723c0fa7d837963d39f694fcda1dc",
+      "bytes": 5429
+    },
+    "browser/baseline/plane-ior-2.png": {
+      "sha256": "4f9d66c35c3ff4940e706bd1d29692a0742fa99c1066d53a5780ae533a5db8a4",
+      "bytes": 8413
+    },
+    "browser/baseline/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/baseline/sphere-base.png": {
+      "sha256": "5584cb2ba5e37a6c771f7f7f474676cf1cb1b13a0f608dc2ff7c1e2daf485444",
+      "bytes": 17183
+    },
+    "browser/baseline/sphere-metallic-05.png": {
+      "sha256": "33da886ad4fd4ed48f04d43205a862e8f72346f5e8c3e4e32f5d93f3356a5631",
+      "bytes": 17206
+    },
+    "browser/baseline/sphere-metallic-roughness-01.png": {
+      "sha256": "8500ee7d5f2ea37d75b0e64514583224a65aad956e2457395ed96472da921a1a",
+      "bytes": 2989
+    },
+    "browser/baseline/sphere-metallic-roughness-05.png": {
+      "sha256": "df3b5cbfb9ef703aea1cf5bb33a4db247bc5ad28f8c1241a98506b85f9378dfa",
+      "bytes": 14693
+    },
+    "browser/baseline/sphere-metallic-roughness-09.png": {
+      "sha256": "53efa929b14ae0a55362ec1c2093b6305f84cd18e3f7db7430f94e81f4063549",
+      "bytes": 8616
+    },
+    "browser/baseline/sphere-ortho.png": {
+      "sha256": "e48e338974774aec0159861d80ffd143f3c94aedec00d08c3713d5ffeb41abad",
+      "bytes": 10820
+    },
+    "browser/baseline/sphere-roughness-01.png": {
+      "sha256": "25779ab2346b968c29a5e32d2dc31857cfb5aafc288dacf452e0dbe8c458df68",
+      "bytes": 15459
+    },
+    "browser/baseline/sphere-roughness-09.png": {
+      "sha256": "d852964e572d68446ac612b07606d1d0a65e38d15da19d43b1010a4d3e0e2b01",
+      "bytes": 15501
+    },
+    "browser/cpp-equations/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations/plane-ambient-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations/plane-ambient-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations/plane-ambient-diffuse1-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations/plane-ambient-diffuse1-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations/plane-diffuse-0.png": {
+      "sha256": "050fec02c2f5fdd5058930aa7e364996909914b193b8653fb54b1c7716e7957a",
+      "bytes": 3032
+    },
+    "browser/cpp-equations/plane-diffuse-025.png": {
+      "sha256": "890e85fb7c0e70df513f368e9151c7791d9d049abc6deb74c278b66c8edda48a",
+      "bytes": 4579
+    },
+    "browser/cpp-equations/plane-diffuse-05.png": {
+      "sha256": "43bbe3246b5f44d503741b2fd3a7874aa6df72769572488b5023b08d48d2f8ee",
+      "bytes": 4277
+    },
+    "browser/cpp-equations/plane-diffuse-1.png": {
+      "sha256": "b678f3c4eb96014ead1243e3d47612e802efd3a31b53ec017e451beed8109bd1",
+      "bytes": 3852
+    },
+    "browser/cpp-equations/plane-ior-1.png": {
+      "sha256": "4fa081795b668c502f700ece17926af9da06fc03e3fb3b48b292a90904847a02",
+      "bytes": 881
+    },
+    "browser/cpp-equations/plane-ior-15.png": {
+      "sha256": "57984389773dbf0094d6be494e89272c1a73cfc586a45261d703fcbc43202434",
+      "bytes": 3885
+    },
+    "browser/cpp-equations/plane-ior-2.png": {
+      "sha256": "4d2b79f862b98c118a222e241a23b648fdf408ed2198561e3793b7a484497edd",
+      "bytes": 6014
+    },
+    "browser/cpp-equations/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/cpp-equations/sphere-base.png": {
+      "sha256": "b0c802be9e6bd0bc9d946d94e2e8793015dda4b84618f8a53a189a9c05ae8320",
+      "bytes": 13930
+    },
+    "browser/cpp-equations/sphere-metallic-05.png": {
+      "sha256": "d8a2671e5587e637da2c9cc01370f19a26477b4e86308168cad4ab057744ff89",
+      "bytes": 14971
+    },
+    "browser/cpp-equations/sphere-metallic-roughness-01.png": {
+      "sha256": "68d00bf33e841effde914866230bf3eedc088cbd8c2590c24cf32de493ec1a84",
+      "bytes": 6755
+    },
+    "browser/cpp-equations/sphere-metallic-roughness-05.png": {
+      "sha256": "160e6f05a2b441961d9b69d59af0a9848720b69b40894241b3050c1c35c450fa",
+      "bytes": 14210
+    },
+    "browser/cpp-equations/sphere-metallic-roughness-09.png": {
+      "sha256": "bd469120014614e7127acf019e6672a815789795197b3ab56ee483a338d31abd",
+      "bytes": 8151
+    },
+    "browser/cpp-equations/sphere-ortho.png": {
+      "sha256": "86f01daec6747f489fffecd18cf0e7f065791ee3db87e9b221143eb0f8e60fd9",
+      "bytes": 9729
+    },
+    "browser/cpp-equations/sphere-roughness-01.png": {
+      "sha256": "1cb0143fa122e8270d18efd0f55168c593d435699bf44db26a427bad22857dbb",
+      "bytes": 12718
+    },
+    "browser/cpp-equations/sphere-roughness-09.png": {
+      "sha256": "5fff7c3804df76b3931a63417567b010c163f9916f8fffbe0f7edb98603405a6",
+      "bytes": 12212
+    },
+    "browser/cpp-equations-float-normals/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-float-normals/plane-ambient-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-float-normals/plane-ambient-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-float-normals/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-float-normals/plane-ambient-diffuse1-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-float-normals/plane-ambient-diffuse1-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-float-normals/plane-diffuse-0.png": {
+      "sha256": "050fec02c2f5fdd5058930aa7e364996909914b193b8653fb54b1c7716e7957a",
+      "bytes": 3032
+    },
+    "browser/cpp-equations-float-normals/plane-diffuse-025.png": {
+      "sha256": "890e85fb7c0e70df513f368e9151c7791d9d049abc6deb74c278b66c8edda48a",
+      "bytes": 4579
+    },
+    "browser/cpp-equations-float-normals/plane-diffuse-05.png": {
+      "sha256": "43bbe3246b5f44d503741b2fd3a7874aa6df72769572488b5023b08d48d2f8ee",
+      "bytes": 4277
+    },
+    "browser/cpp-equations-float-normals/plane-diffuse-1.png": {
+      "sha256": "b678f3c4eb96014ead1243e3d47612e802efd3a31b53ec017e451beed8109bd1",
+      "bytes": 3852
+    },
+    "browser/cpp-equations-float-normals/plane-ior-1.png": {
+      "sha256": "4fa081795b668c502f700ece17926af9da06fc03e3fb3b48b292a90904847a02",
+      "bytes": 881
+    },
+    "browser/cpp-equations-float-normals/plane-ior-15.png": {
+      "sha256": "57984389773dbf0094d6be494e89272c1a73cfc586a45261d703fcbc43202434",
+      "bytes": 3885
+    },
+    "browser/cpp-equations-float-normals/plane-ior-2.png": {
+      "sha256": "4d2b79f862b98c118a222e241a23b648fdf408ed2198561e3793b7a484497edd",
+      "bytes": 6014
+    },
+    "browser/cpp-equations-float-normals/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/cpp-equations-float-normals/sphere-base.png": {
+      "sha256": "13fd0cbf530a3cbab3900fd8fbb2d8594ca1593bc69a0b7ff73e194a7e62f183",
+      "bytes": 13546
+    },
+    "browser/cpp-equations-float-normals/sphere-metallic-05.png": {
+      "sha256": "4707f84f2db1792fa1d39c3fb006a2f9b536bd9e0fa7713f54e35debde3bdbd4",
+      "bytes": 14427
+    },
+    "browser/cpp-equations-float-normals/sphere-metallic-roughness-01.png": {
+      "sha256": "5ae34e2e6565a04879355fe57d642577877b747d7aa97fb11c81c134c26fd159",
+      "bytes": 6398
+    },
+    "browser/cpp-equations-float-normals/sphere-metallic-roughness-05.png": {
+      "sha256": "79b122243895b72ebe3097257a1208d3445539117aacd305e1514b74fc229fe3",
+      "bytes": 13206
+    },
+    "browser/cpp-equations-float-normals/sphere-metallic-roughness-09.png": {
+      "sha256": "3a2aa8dda5764962034c316ac9f6c54f0c6ee7681740c65f29b5e410b069b279",
+      "bytes": 8047
+    },
+    "browser/cpp-equations-float-normals/sphere-ortho.png": {
+      "sha256": "ec06bddca9228eb91dcc34e36b59bbb2dcec13cd7031277bcacf7590787765fc",
+      "bytes": 9470
+    },
+    "browser/cpp-equations-float-normals/sphere-roughness-01.png": {
+      "sha256": "e0a07b2b494b396f49854342951bdd6bfb34e3a40c91eeb1b2f0ff9acc90d1fc",
+      "bytes": 12303
+    },
+    "browser/cpp-equations-float-normals/sphere-roughness-09.png": {
+      "sha256": "8ebdba59b1f4879aa278ccbaa85fb96e1d5efff7e31f1eb03c98126b13cbaffa",
+      "bytes": 12003
+    },
+    "browser/cpp-equations-view/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-view/plane-ambient-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-view/plane-ambient-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-view/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-view/plane-ambient-diffuse1-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-view/plane-ambient-diffuse1-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-view/plane-diffuse-0.png": {
+      "sha256": "050fec02c2f5fdd5058930aa7e364996909914b193b8653fb54b1c7716e7957a",
+      "bytes": 3032
+    },
+    "browser/cpp-equations-view/plane-diffuse-025.png": {
+      "sha256": "890e85fb7c0e70df513f368e9151c7791d9d049abc6deb74c278b66c8edda48a",
+      "bytes": 4579
+    },
+    "browser/cpp-equations-view/plane-diffuse-05.png": {
+      "sha256": "43bbe3246b5f44d503741b2fd3a7874aa6df72769572488b5023b08d48d2f8ee",
+      "bytes": 4277
+    },
+    "browser/cpp-equations-view/plane-diffuse-1.png": {
+      "sha256": "b678f3c4eb96014ead1243e3d47612e802efd3a31b53ec017e451beed8109bd1",
+      "bytes": 3852
+    },
+    "browser/cpp-equations-view/plane-ior-1.png": {
+      "sha256": "4fa081795b668c502f700ece17926af9da06fc03e3fb3b48b292a90904847a02",
+      "bytes": 881
+    },
+    "browser/cpp-equations-view/plane-ior-15.png": {
+      "sha256": "57984389773dbf0094d6be494e89272c1a73cfc586a45261d703fcbc43202434",
+      "bytes": 3885
+    },
+    "browser/cpp-equations-view/plane-ior-2.png": {
+      "sha256": "4d2b79f862b98c118a222e241a23b648fdf408ed2198561e3793b7a484497edd",
+      "bytes": 6014
+    },
+    "browser/cpp-equations-view/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/cpp-equations-view/sphere-base.png": {
+      "sha256": "b0c802be9e6bd0bc9d946d94e2e8793015dda4b84618f8a53a189a9c05ae8320",
+      "bytes": 13930
+    },
+    "browser/cpp-equations-view/sphere-metallic-05.png": {
+      "sha256": "d8a2671e5587e637da2c9cc01370f19a26477b4e86308168cad4ab057744ff89",
+      "bytes": 14971
+    },
+    "browser/cpp-equations-view/sphere-metallic-roughness-01.png": {
+      "sha256": "68d00bf33e841effde914866230bf3eedc088cbd8c2590c24cf32de493ec1a84",
+      "bytes": 6755
+    },
+    "browser/cpp-equations-view/sphere-metallic-roughness-05.png": {
+      "sha256": "160e6f05a2b441961d9b69d59af0a9848720b69b40894241b3050c1c35c450fa",
+      "bytes": 14210
+    },
+    "browser/cpp-equations-view/sphere-metallic-roughness-09.png": {
+      "sha256": "bd469120014614e7127acf019e6672a815789795197b3ab56ee483a338d31abd",
+      "bytes": 8151
+    },
+    "browser/cpp-equations-view/sphere-ortho.png": {
+      "sha256": "41c047e73f029998ffcd0c617bee42799e4c9b7544d0b64a48a7bbd854f828ff",
+      "bytes": 9805
+    },
+    "browser/cpp-equations-view/sphere-roughness-01.png": {
+      "sha256": "1cb0143fa122e8270d18efd0f55168c593d435699bf44db26a427bad22857dbb",
+      "bytes": 12718
+    },
+    "browser/cpp-equations-view/sphere-roughness-09.png": {
+      "sha256": "5fff7c3804df76b3931a63417567b010c163f9916f8fffbe0f7edb98603405a6",
+      "bytes": 12212
+    },
+    "browser/cpp-equations-view-float-normals/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-view-float-normals/plane-ambient-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-view-float-normals/plane-ambient-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-view-float-normals/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-view-float-normals/plane-ambient-diffuse1-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-view-float-normals/plane-ambient-diffuse1-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/cpp-equations-view-float-normals/plane-diffuse-0.png": {
+      "sha256": "050fec02c2f5fdd5058930aa7e364996909914b193b8653fb54b1c7716e7957a",
+      "bytes": 3032
+    },
+    "browser/cpp-equations-view-float-normals/plane-diffuse-025.png": {
+      "sha256": "890e85fb7c0e70df513f368e9151c7791d9d049abc6deb74c278b66c8edda48a",
+      "bytes": 4579
+    },
+    "browser/cpp-equations-view-float-normals/plane-diffuse-05.png": {
+      "sha256": "43bbe3246b5f44d503741b2fd3a7874aa6df72769572488b5023b08d48d2f8ee",
+      "bytes": 4277
+    },
+    "browser/cpp-equations-view-float-normals/plane-diffuse-1.png": {
+      "sha256": "b678f3c4eb96014ead1243e3d47612e802efd3a31b53ec017e451beed8109bd1",
+      "bytes": 3852
+    },
+    "browser/cpp-equations-view-float-normals/plane-ior-1.png": {
+      "sha256": "4fa081795b668c502f700ece17926af9da06fc03e3fb3b48b292a90904847a02",
+      "bytes": 881
+    },
+    "browser/cpp-equations-view-float-normals/plane-ior-15.png": {
+      "sha256": "57984389773dbf0094d6be494e89272c1a73cfc586a45261d703fcbc43202434",
+      "bytes": 3885
+    },
+    "browser/cpp-equations-view-float-normals/plane-ior-2.png": {
+      "sha256": "4d2b79f862b98c118a222e241a23b648fdf408ed2198561e3793b7a484497edd",
+      "bytes": 6014
+    },
+    "browser/cpp-equations-view-float-normals/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/cpp-equations-view-float-normals/sphere-base.png": {
+      "sha256": "13fd0cbf530a3cbab3900fd8fbb2d8594ca1593bc69a0b7ff73e194a7e62f183",
+      "bytes": 13546
+    },
+    "browser/cpp-equations-view-float-normals/sphere-metallic-05.png": {
+      "sha256": "4707f84f2db1792fa1d39c3fb006a2f9b536bd9e0fa7713f54e35debde3bdbd4",
+      "bytes": 14427
+    },
+    "browser/cpp-equations-view-float-normals/sphere-metallic-roughness-01.png": {
+      "sha256": "5ae34e2e6565a04879355fe57d642577877b747d7aa97fb11c81c134c26fd159",
+      "bytes": 6398
+    },
+    "browser/cpp-equations-view-float-normals/sphere-metallic-roughness-05.png": {
+      "sha256": "79b122243895b72ebe3097257a1208d3445539117aacd305e1514b74fc229fe3",
+      "bytes": 13206
+    },
+    "browser/cpp-equations-view-float-normals/sphere-metallic-roughness-09.png": {
+      "sha256": "3a2aa8dda5764962034c316ac9f6c54f0c6ee7681740c65f29b5e410b069b279",
+      "bytes": 8047
+    },
+    "browser/cpp-equations-view-float-normals/sphere-ortho.png": {
+      "sha256": "0053666630eaf72d10159f0bf5f1abc26b69786bd6c65fd4f8e4c011717f83e5",
+      "bytes": 9619
+    },
+    "browser/cpp-equations-view-float-normals/sphere-roughness-01.png": {
+      "sha256": "e0a07b2b494b396f49854342951bdd6bfb34e3a40c91eeb1b2f0ff9acc90d1fc",
+      "bytes": 12303
+    },
+    "browser/cpp-equations-view-float-normals/sphere-roughness-09.png": {
+      "sha256": "8ebdba59b1f4879aa278ccbaa85fb96e1d5efff7e31f1eb03c98126b13cbaffa",
+      "bytes": 12003
+    },
+    "browser/diffuse/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/diffuse/plane-ambient-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/diffuse/plane-ambient-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/diffuse/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/diffuse/plane-ambient-diffuse1-01.png": {
+      "sha256": "7fc0d0d6e15893a533ef243a40c6313a907124865b52cf6501341091990a0e99",
+      "bytes": 876
+    },
+    "browser/diffuse/plane-ambient-diffuse1-05.png": {
+      "sha256": "de1b4dc9e0d42a3b4ff518bbb4715c55beb6471270299af7302eca471e20322e",
+      "bytes": 880
+    },
+    "browser/diffuse/plane-diffuse-0.png": {
+      "sha256": "bfdcebf1a8198f3b99fe254d4fb07a91b161a324affe04b23dcb38c220476459",
+      "bytes": 3196
+    },
+    "browser/diffuse/plane-diffuse-025.png": {
+      "sha256": "751b210421603ffa91c1419c6fc63390b7093aa1a3b86ca541e312e411181655",
+      "bytes": 5241
+    },
+    "browser/diffuse/plane-diffuse-05.png": {
+      "sha256": "3f390158c872a5102653c272f64d7c37a5fcc6dc203a2ff8c4c3688c607a224f",
+      "bytes": 5266
+    },
+    "browser/diffuse/plane-diffuse-1.png": {
+      "sha256": "9ed02f62ab53dcf53e44f21990c501a66df723c0fa7d837963d39f694fcda1dc",
+      "bytes": 5429
+    },
+    "browser/diffuse/plane-ior-1.png": {
+      "sha256": "1e6c0e30b49d7c24837eae2e7d6158560e3b63b060b19ada055e889fbc4a6f65",
+      "bytes": 881
+    },
+    "browser/diffuse/plane-ior-15.png": {
+      "sha256": "bacdc0175c13a1f8ddefda4a0c96f56f11e83d607dc0b9817d29387ebaadb335",
+      "bytes": 5345
+    },
+    "browser/diffuse/plane-ior-2.png": {
+      "sha256": "dcaca3b6e62eb6a2c9e3fe75ee4e390648b05938765e4d2715dd3615b1bc48a8",
+      "bytes": 8884
+    },
+    "browser/diffuse/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/diffuse/sphere-base.png": {
+      "sha256": "48902e5f43633504838b977f9ecd5d5d054c586f12968af15190d5e7e15e1b1a",
+      "bytes": 16475
+    },
+    "browser/diffuse/sphere-metallic-05.png": {
+      "sha256": "d7ae91e993d23bd47e8b44eb7f8eb7cca319ffe9d0767c90e7f0811c355efcae",
+      "bytes": 15994
+    },
+    "browser/diffuse/sphere-metallic-roughness-01.png": {
+      "sha256": "955ba1f6714a7033b108beb4e884acced7bfe8dc38f4b9acaafc6005eda8fcf1",
+      "bytes": 2897
+    },
+    "browser/diffuse/sphere-metallic-roughness-05.png": {
+      "sha256": "c4c7f4ed76ef7c0a443c6a75d2e3fb13dac236505fb3fbfd19040b80d6e28392",
+      "bytes": 13673
+    },
+    "browser/diffuse/sphere-metallic-roughness-09.png": {
+      "sha256": "4873a322c07d24d38be8c15214bc4dedb3749b6068c768e6e6ed8e3a08ebcd3b",
+      "bytes": 7885
+    },
+    "browser/diffuse/sphere-ortho.png": {
+      "sha256": "c13684f33d9dc0fbb7b8e12dbf556403fac4d5843346ff505a1170cdcc104f86",
+      "bytes": 10413
+    },
+    "browser/diffuse/sphere-roughness-01.png": {
+      "sha256": "ce3177dabf0954111abdbb7898044983baff91fb46c432f3c1e8ccfecd9019b7",
+      "bytes": 14688
+    },
+    "browser/diffuse/sphere-roughness-09.png": {
+      "sha256": "b4090c857a354870c067c4ef72baafe4e8203eb24e63cb585f2d04276a0f0361",
+      "bytes": 14574
+    },
+    "browser/fresnel/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/fresnel/plane-ambient-01.png": {
+      "sha256": "7fc0d0d6e15893a533ef243a40c6313a907124865b52cf6501341091990a0e99",
+      "bytes": 876
+    },
+    "browser/fresnel/plane-ambient-05.png": {
+      "sha256": "de1b4dc9e0d42a3b4ff518bbb4715c55beb6471270299af7302eca471e20322e",
+      "bytes": 880
+    },
+    "browser/fresnel/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/fresnel/plane-ambient-diffuse1-01.png": {
+      "sha256": "7fc0d0d6e15893a533ef243a40c6313a907124865b52cf6501341091990a0e99",
+      "bytes": 876
+    },
+    "browser/fresnel/plane-ambient-diffuse1-05.png": {
+      "sha256": "de1b4dc9e0d42a3b4ff518bbb4715c55beb6471270299af7302eca471e20322e",
+      "bytes": 880
+    },
+    "browser/fresnel/plane-diffuse-0.png": {
+      "sha256": "9ed02f62ab53dcf53e44f21990c501a66df723c0fa7d837963d39f694fcda1dc",
+      "bytes": 5429
+    },
+    "browser/fresnel/plane-diffuse-025.png": {
+      "sha256": "9ed02f62ab53dcf53e44f21990c501a66df723c0fa7d837963d39f694fcda1dc",
+      "bytes": 5429
+    },
+    "browser/fresnel/plane-diffuse-05.png": {
+      "sha256": "9ed02f62ab53dcf53e44f21990c501a66df723c0fa7d837963d39f694fcda1dc",
+      "bytes": 5429
+    },
+    "browser/fresnel/plane-diffuse-1.png": {
+      "sha256": "9ed02f62ab53dcf53e44f21990c501a66df723c0fa7d837963d39f694fcda1dc",
+      "bytes": 5429
+    },
+    "browser/fresnel/plane-ior-1.png": {
+      "sha256": "5838ec0cac4c7212a4717589c9dc9e813fedb6601199c02b6be70d3f40d1041a",
+      "bytes": 881
+    },
+    "browser/fresnel/plane-ior-15.png": {
+      "sha256": "9ed02f62ab53dcf53e44f21990c501a66df723c0fa7d837963d39f694fcda1dc",
+      "bytes": 5429
+    },
+    "browser/fresnel/plane-ior-2.png": {
+      "sha256": "4f9d66c35c3ff4940e706bd1d29692a0742fa99c1066d53a5780ae533a5db8a4",
+      "bytes": 8413
+    },
+    "browser/fresnel/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/fresnel/sphere-base.png": {
+      "sha256": "5584cb2ba5e37a6c771f7f7f474676cf1cb1b13a0f608dc2ff7c1e2daf485444",
+      "bytes": 17183
+    },
+    "browser/fresnel/sphere-metallic-05.png": {
+      "sha256": "6970e3aadafd97fbd542a9eaccb556af00b56240f92044cc1a427e04596b252b",
+      "bytes": 17105
+    },
+    "browser/fresnel/sphere-metallic-roughness-01.png": {
+      "sha256": "8500ee7d5f2ea37d75b0e64514583224a65aad956e2457395ed96472da921a1a",
+      "bytes": 2989
+    },
+    "browser/fresnel/sphere-metallic-roughness-05.png": {
+      "sha256": "df3b5cbfb9ef703aea1cf5bb33a4db247bc5ad28f8c1241a98506b85f9378dfa",
+      "bytes": 14693
+    },
+    "browser/fresnel/sphere-metallic-roughness-09.png": {
+      "sha256": "53efa929b14ae0a55362ec1c2093b6305f84cd18e3f7db7430f94e81f4063549",
+      "bytes": 8616
+    },
+    "browser/fresnel/sphere-ortho.png": {
+      "sha256": "e48e338974774aec0159861d80ffd143f3c94aedec00d08c3713d5ffeb41abad",
+      "bytes": 10820
+    },
+    "browser/fresnel/sphere-roughness-01.png": {
+      "sha256": "25779ab2346b968c29a5e32d2dc31857cfb5aafc288dacf452e0dbe8c458df68",
+      "bytes": 15459
+    },
+    "browser/fresnel/sphere-roughness-09.png": {
+      "sha256": "d852964e572d68446ac612b07606d1d0a65e38d15da19d43b1010a4d3e0e2b01",
+      "bytes": 15501
+    },
+    "browser/light/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/light/plane-ambient-01.png": {
+      "sha256": "7fc0d0d6e15893a533ef243a40c6313a907124865b52cf6501341091990a0e99",
+      "bytes": 876
+    },
+    "browser/light/plane-ambient-05.png": {
+      "sha256": "de1b4dc9e0d42a3b4ff518bbb4715c55beb6471270299af7302eca471e20322e",
+      "bytes": 880
+    },
+    "browser/light/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/light/plane-ambient-diffuse1-01.png": {
+      "sha256": "7fc0d0d6e15893a533ef243a40c6313a907124865b52cf6501341091990a0e99",
+      "bytes": 876
+    },
+    "browser/light/plane-ambient-diffuse1-05.png": {
+      "sha256": "de1b4dc9e0d42a3b4ff518bbb4715c55beb6471270299af7302eca471e20322e",
+      "bytes": 880
+    },
+    "browser/light/plane-diffuse-0.png": {
+      "sha256": "4236957ce2d0c40088fecd3e9244bd9a7e380c7e5e802882bddd21ce3a20bc9e",
+      "bytes": 2660
+    },
+    "browser/light/plane-diffuse-025.png": {
+      "sha256": "4236957ce2d0c40088fecd3e9244bd9a7e380c7e5e802882bddd21ce3a20bc9e",
+      "bytes": 2660
+    },
+    "browser/light/plane-diffuse-05.png": {
+      "sha256": "4236957ce2d0c40088fecd3e9244bd9a7e380c7e5e802882bddd21ce3a20bc9e",
+      "bytes": 2660
+    },
+    "browser/light/plane-diffuse-1.png": {
+      "sha256": "4236957ce2d0c40088fecd3e9244bd9a7e380c7e5e802882bddd21ce3a20bc9e",
+      "bytes": 2660
+    },
+    "browser/light/plane-ior-1.png": {
+      "sha256": "1b38991c9e2f1521de3117bd7c308f27a65b33099ddd52c88ade7ab6b4726f95",
+      "bytes": 880
+    },
+    "browser/light/plane-ior-15.png": {
+      "sha256": "4236957ce2d0c40088fecd3e9244bd9a7e380c7e5e802882bddd21ce3a20bc9e",
+      "bytes": 2660
+    },
+    "browser/light/plane-ior-2.png": {
+      "sha256": "c91bdae1090afb380535a838028d979633eb375dedcfeb4d4f7cb253985e94fb",
+      "bytes": 4132
+    },
+    "browser/light/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/light/sphere-base.png": {
+      "sha256": "b73ab40fb1b39449e9840ef40ea4681bca9b653b48216e267466652169463700",
+      "bytes": 8575
+    },
+    "browser/light/sphere-metallic-05.png": {
+      "sha256": "045c03cd0f036895a667210963b14e891bfbc81a0a883835477214528fe5d5fb",
+      "bytes": 9101
+    },
+    "browser/light/sphere-metallic-roughness-01.png": {
+      "sha256": "0345e47e4c23069cff31656e505df5634bdd17f78e23156e1198d8db6e02e115",
+      "bytes": 2117
+    },
+    "browser/light/sphere-metallic-roughness-05.png": {
+      "sha256": "e84fe3f7fb825c6a6641ed7e6975f2d9123a7429194850d9801099d19f40fec3",
+      "bytes": 7822
+    },
+    "browser/light/sphere-metallic-roughness-09.png": {
+      "sha256": "a770529c97ef2a75872a40a2a920f93d4f29afe1688f5d55c164e93b9168fb56",
+      "bytes": 4093
+    },
+    "browser/light/sphere-ortho.png": {
+      "sha256": "fe952f399df9feab650f072b327a24aecb6423b66f84856656ae740093d5bc56",
+      "bytes": 6131
+    },
+    "browser/light/sphere-roughness-01.png": {
+      "sha256": "b3d06213d8c82ebedd400f810bd18895b648dcb9e2fd8484302b38958aad35f4",
+      "bytes": 7570
+    },
+    "browser/light/sphere-roughness-09.png": {
+      "sha256": "029ce6f092a84193f676f16159a6b1b9fe025255747667ea63e4d19844e2c2d0",
+      "bytes": 7301
+    },
+    "browser/output/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output/plane-ambient-01.png": {
+      "sha256": "f99dfc534b54b5b3b677eb3b33f5e30dba5e554ebe85c3eae28df1d4211946cf",
+      "bytes": 883
+    },
+    "browser/output/plane-ambient-05.png": {
+      "sha256": "118f366e8a83de6aca77764a2d59c03cbdafca8a732c8f7112fe5f8c0d636abc",
+      "bytes": 881
+    },
+    "browser/output/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output/plane-ambient-diffuse1-01.png": {
+      "sha256": "f99dfc534b54b5b3b677eb3b33f5e30dba5e554ebe85c3eae28df1d4211946cf",
+      "bytes": 883
+    },
+    "browser/output/plane-ambient-diffuse1-05.png": {
+      "sha256": "118f366e8a83de6aca77764a2d59c03cbdafca8a732c8f7112fe5f8c0d636abc",
+      "bytes": 881
+    },
+    "browser/output/plane-diffuse-0.png": {
+      "sha256": "32543f138df88e1d5f7dc9b4946e78d2c1fec5cd072e1e910b774bdbd3ce0b9d",
+      "bytes": 5466
+    },
+    "browser/output/plane-diffuse-025.png": {
+      "sha256": "32543f138df88e1d5f7dc9b4946e78d2c1fec5cd072e1e910b774bdbd3ce0b9d",
+      "bytes": 5466
+    },
+    "browser/output/plane-diffuse-05.png": {
+      "sha256": "32543f138df88e1d5f7dc9b4946e78d2c1fec5cd072e1e910b774bdbd3ce0b9d",
+      "bytes": 5466
+    },
+    "browser/output/plane-diffuse-1.png": {
+      "sha256": "32543f138df88e1d5f7dc9b4946e78d2c1fec5cd072e1e910b774bdbd3ce0b9d",
+      "bytes": 5466
+    },
+    "browser/output/plane-ior-1.png": {
+      "sha256": "11802538d4b3c9b3fda8c6c299083ca52451b5adb85248e790f940a00d1896a2",
+      "bytes": 881
+    },
+    "browser/output/plane-ior-15.png": {
+      "sha256": "32543f138df88e1d5f7dc9b4946e78d2c1fec5cd072e1e910b774bdbd3ce0b9d",
+      "bytes": 5466
+    },
+    "browser/output/plane-ior-2.png": {
+      "sha256": "b7c10443848a9bb067b0aefe0cade8bf5a43e92fd127fe9ecfd83da5fdc2a1b0",
+      "bytes": 9399
+    },
+    "browser/output/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/output/sphere-base.png": {
+      "sha256": "872f8ee7943dab4f1951920087cf62377924672ecf44293aad773cb9892f0baf",
+      "bytes": 18820
+    },
+    "browser/output/sphere-metallic-05.png": {
+      "sha256": "2a261707b8a8229768ad8532048ddce052481ec12faf9065feb5893a36676ee1",
+      "bytes": 19438
+    },
+    "browser/output/sphere-metallic-roughness-01.png": {
+      "sha256": "11870b66ce4d99906ab2307381d0725789308c5ad31d9832333606e17040d2f2",
+      "bytes": 9373
+    },
+    "browser/output/sphere-metallic-roughness-05.png": {
+      "sha256": "9e9716b31fd7a1a8158eaf762bea86e5f3e922c295297c5c65bf19e0de420df7",
+      "bytes": 18794
+    },
+    "browser/output/sphere-metallic-roughness-09.png": {
+      "sha256": "9b2b158f2414b771581514ec3a01b00170e6a88a7d58bd534772e4b823d0804e",
+      "bytes": 11777
+    },
+    "browser/output/sphere-ortho.png": {
+      "sha256": "0bfe514011b8009a4146957cf4d1d500d8bfb782c45650f1bec86ff242f24ef7",
+      "bytes": 11980
+    },
+    "browser/output/sphere-roughness-01.png": {
+      "sha256": "54424a0745cac2391da368d2d73ebbd2c8be9acd169558419c6a2dbcc47bf1da",
+      "bytes": 17479
+    },
+    "browser/output/sphere-roughness-09.png": {
+      "sha256": "3a297d3117fa28dd18ed22dc6139abb7318f186821dff7fd65fb715260a3e660",
+      "bytes": 16816
+    },
+    "browser/output-diffuse/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-diffuse/plane-ambient-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-diffuse/plane-ambient-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-diffuse/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-diffuse/plane-ambient-diffuse1-01.png": {
+      "sha256": "f99dfc534b54b5b3b677eb3b33f5e30dba5e554ebe85c3eae28df1d4211946cf",
+      "bytes": 883
+    },
+    "browser/output-diffuse/plane-ambient-diffuse1-05.png": {
+      "sha256": "118f366e8a83de6aca77764a2d59c03cbdafca8a732c8f7112fe5f8c0d636abc",
+      "bytes": 881
+    },
+    "browser/output-diffuse/plane-diffuse-0.png": {
+      "sha256": "c9127a9fd6005efdfda93d2225970c882edde9b4b8a4b5d2051a860fecc7b773",
+      "bytes": 3764
+    },
+    "browser/output-diffuse/plane-diffuse-025.png": {
+      "sha256": "9bb563bd26e656bbc6114d9f8d41abbc02ecbe0805a3133e20ad91a71d014ea6",
+      "bytes": 7110
+    },
+    "browser/output-diffuse/plane-diffuse-05.png": {
+      "sha256": "686e115fbf130925299ee4384c21caf72e385479dc74b5e005104c562b7313e2",
+      "bytes": 6335
+    },
+    "browser/output-diffuse/plane-diffuse-1.png": {
+      "sha256": "32543f138df88e1d5f7dc9b4946e78d2c1fec5cd072e1e910b774bdbd3ce0b9d",
+      "bytes": 5466
+    },
+    "browser/output-diffuse/plane-ior-1.png": {
+      "sha256": "81879da8406cdc7425cc001f0e08837473bc3774e786b6c4ab9c0abf435e922b",
+      "bytes": 881
+    },
+    "browser/output-diffuse/plane-ior-15.png": {
+      "sha256": "2a4f0b405649fe66593976c8b23e90fde4cd86ce6ce87afbcb6abdf40cc5ba63",
+      "bytes": 5721
+    },
+    "browser/output-diffuse/plane-ior-2.png": {
+      "sha256": "08a2f76d9602b700d90ae32572719928770f0cd378979e7904a16de3fc915a84",
+      "bytes": 9440
+    },
+    "browser/output-diffuse/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/output-diffuse/sphere-base.png": {
+      "sha256": "cf12b5d7fad566d47fabc1e8e4ffff549dbe859f4886a86286d81a33d2ee0daa",
+      "bytes": 18538
+    },
+    "browser/output-diffuse/sphere-metallic-05.png": {
+      "sha256": "a4f45ff71d041147fc32c84aa18c9e57f383b14bfd9369d7aab27bc21b2025c3",
+      "bytes": 19122
+    },
+    "browser/output-diffuse/sphere-metallic-roughness-01.png": {
+      "sha256": "3362a65ddfb78b093e87903cf1b8c187adb71ba118984ea9df4eaf0b53913b75",
+      "bytes": 9103
+    },
+    "browser/output-diffuse/sphere-metallic-roughness-05.png": {
+      "sha256": "1df566d0debd84892ce935fbf579e226e23113281f8be94982f260e25e46f742",
+      "bytes": 18104
+    },
+    "browser/output-diffuse/sphere-metallic-roughness-09.png": {
+      "sha256": "ead505970f2cc56048d01060389dfd04f1bb38fc04c3022c60d72a77a801035d",
+      "bytes": 11282
+    },
+    "browser/output-diffuse/sphere-ortho.png": {
+      "sha256": "7fb45d56f5555f18b8ae4694663ce6e17b04cc67ced840b0f0e6bd74859c4218",
+      "bytes": 11886
+    },
+    "browser/output-diffuse/sphere-roughness-01.png": {
+      "sha256": "4ace70c2f564caa4c87118b3994ff9b85eeec60c1ea749540f67155cf37b8542",
+      "bytes": 17252
+    },
+    "browser/output-diffuse/sphere-roughness-09.png": {
+      "sha256": "e085ae65a2a1888e983a1e6cadac75b97dc7bcb0db2c5df1ccea78d743fad91e",
+      "bytes": 16187
+    },
+    "browser/output-diffuse-ambient/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-diffuse-ambient/plane-ambient-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-diffuse-ambient/plane-ambient-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-diffuse-ambient/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-diffuse-ambient/plane-ambient-diffuse1-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-diffuse-ambient/plane-ambient-diffuse1-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-diffuse-ambient/plane-diffuse-0.png": {
+      "sha256": "c9127a9fd6005efdfda93d2225970c882edde9b4b8a4b5d2051a860fecc7b773",
+      "bytes": 3764
+    },
+    "browser/output-diffuse-ambient/plane-diffuse-025.png": {
+      "sha256": "9bb563bd26e656bbc6114d9f8d41abbc02ecbe0805a3133e20ad91a71d014ea6",
+      "bytes": 7110
+    },
+    "browser/output-diffuse-ambient/plane-diffuse-05.png": {
+      "sha256": "686e115fbf130925299ee4384c21caf72e385479dc74b5e005104c562b7313e2",
+      "bytes": 6335
+    },
+    "browser/output-diffuse-ambient/plane-diffuse-1.png": {
+      "sha256": "32543f138df88e1d5f7dc9b4946e78d2c1fec5cd072e1e910b774bdbd3ce0b9d",
+      "bytes": 5466
+    },
+    "browser/output-diffuse-ambient/plane-ior-1.png": {
+      "sha256": "81879da8406cdc7425cc001f0e08837473bc3774e786b6c4ab9c0abf435e922b",
+      "bytes": 881
+    },
+    "browser/output-diffuse-ambient/plane-ior-15.png": {
+      "sha256": "2a4f0b405649fe66593976c8b23e90fde4cd86ce6ce87afbcb6abdf40cc5ba63",
+      "bytes": 5721
+    },
+    "browser/output-diffuse-ambient/plane-ior-2.png": {
+      "sha256": "08a2f76d9602b700d90ae32572719928770f0cd378979e7904a16de3fc915a84",
+      "bytes": 9440
+    },
+    "browser/output-diffuse-ambient/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/output-diffuse-ambient/sphere-base.png": {
+      "sha256": "cf12b5d7fad566d47fabc1e8e4ffff549dbe859f4886a86286d81a33d2ee0daa",
+      "bytes": 18538
+    },
+    "browser/output-diffuse-ambient/sphere-metallic-05.png": {
+      "sha256": "a4f45ff71d041147fc32c84aa18c9e57f383b14bfd9369d7aab27bc21b2025c3",
+      "bytes": 19122
+    },
+    "browser/output-diffuse-ambient/sphere-metallic-roughness-01.png": {
+      "sha256": "3362a65ddfb78b093e87903cf1b8c187adb71ba118984ea9df4eaf0b53913b75",
+      "bytes": 9103
+    },
+    "browser/output-diffuse-ambient/sphere-metallic-roughness-05.png": {
+      "sha256": "1df566d0debd84892ce935fbf579e226e23113281f8be94982f260e25e46f742",
+      "bytes": 18104
+    },
+    "browser/output-diffuse-ambient/sphere-metallic-roughness-09.png": {
+      "sha256": "ead505970f2cc56048d01060389dfd04f1bb38fc04c3022c60d72a77a801035d",
+      "bytes": 11282
+    },
+    "browser/output-diffuse-ambient/sphere-ortho.png": {
+      "sha256": "7fb45d56f5555f18b8ae4694663ce6e17b04cc67ced840b0f0e6bd74859c4218",
+      "bytes": 11886
+    },
+    "browser/output-diffuse-ambient/sphere-roughness-01.png": {
+      "sha256": "4ace70c2f564caa4c87118b3994ff9b85eeec60c1ea749540f67155cf37b8542",
+      "bytes": 17252
+    },
+    "browser/output-diffuse-ambient/sphere-roughness-09.png": {
+      "sha256": "e085ae65a2a1888e983a1e6cadac75b97dc7bcb0db2c5df1ccea78d743fad91e",
+      "bytes": 16187
+    },
+    "browser/output-diffuse-ambient-visibility/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-diffuse-ambient-visibility/plane-ambient-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-diffuse-ambient-visibility/plane-ambient-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-diffuse-ambient-visibility/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-diffuse-ambient-visibility/plane-ambient-diffuse1-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-diffuse-ambient-visibility/plane-ambient-diffuse1-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-diffuse-ambient-visibility/plane-diffuse-0.png": {
+      "sha256": "3e9d231a99ba8522893ed09855371d49646981764468a985079a1e4a74c9f762",
+      "bytes": 3854
+    },
+    "browser/output-diffuse-ambient-visibility/plane-diffuse-025.png": {
+      "sha256": "5ed8d20424900bc47283269acffa4701a6fac3554ead932f19a2e88b32cc9390",
+      "bytes": 7157
+    },
+    "browser/output-diffuse-ambient-visibility/plane-diffuse-05.png": {
+      "sha256": "4fb1fb50bddf4d12e5f2d330231ddfff9c6fc118cef78d0122efc6c5b06074ff",
+      "bytes": 6265
+    },
+    "browser/output-diffuse-ambient-visibility/plane-diffuse-1.png": {
+      "sha256": "cc230f171239ea9199a82ab6af1bfae3ebc07c4da8c0266ec7a7f10db98b9a70",
+      "bytes": 5405
+    },
+    "browser/output-diffuse-ambient-visibility/plane-ior-1.png": {
+      "sha256": "81879da8406cdc7425cc001f0e08837473bc3774e786b6c4ab9c0abf435e922b",
+      "bytes": 881
+    },
+    "browser/output-diffuse-ambient-visibility/plane-ior-15.png": {
+      "sha256": "5eeffc6ae1863660720f721be3ddd25999330d374014e0312675aa0509e4e047",
+      "bytes": 5593
+    },
+    "browser/output-diffuse-ambient-visibility/plane-ior-2.png": {
+      "sha256": "905a3c82f9e69620d57b4d49cbf2c16060b4551f142895204809af8eed52c3b3",
+      "bytes": 9787
+    },
+    "browser/output-diffuse-ambient-visibility/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/output-diffuse-ambient-visibility/sphere-base.png": {
+      "sha256": "32ae2ca861c958169662ae6d5b851d1f09031bf8df26c6705151375b42d590c5",
+      "bytes": 18599
+    },
+    "browser/output-diffuse-ambient-visibility/sphere-metallic-05.png": {
+      "sha256": "7282be9258b515d34e9ccfc97f0ddc7b4477f8c78f05268b2b9be70b6871a98a",
+      "bytes": 19144
+    },
+    "browser/output-diffuse-ambient-visibility/sphere-metallic-roughness-01.png": {
+      "sha256": "a6fedcc835359709bc59d6d89b05c82815cca56ad04ce87a72e2ccbc8554fb38",
+      "bytes": 8828
+    },
+    "browser/output-diffuse-ambient-visibility/sphere-metallic-roughness-05.png": {
+      "sha256": "7da2a6a2229af84f1a1283fb139d0330d3ed7a83c6a59754da830765bcde0bb9",
+      "bytes": 18070
+    },
+    "browser/output-diffuse-ambient-visibility/sphere-metallic-roughness-09.png": {
+      "sha256": "3f5e37c2a1d525c1c9612593b842c87f571b42c5e967bfd64cbf97a560938fa9",
+      "bytes": 11910
+    },
+    "browser/output-diffuse-ambient-visibility/sphere-ortho.png": {
+      "sha256": "35bbda34250ef50993d5204ef0db12a1b152676a54cc6b7812bbdb59b4e851af",
+      "bytes": 11755
+    },
+    "browser/output-diffuse-ambient-visibility/sphere-roughness-01.png": {
+      "sha256": "ee8ab66607fd6e67a6248fa2d24b148b45d5c982d5925c350361690fed526a29",
+      "bytes": 17245
+    },
+    "browser/output-diffuse-ambient-visibility/sphere-roughness-09.png": {
+      "sha256": "62db0d10efe7f3838b2ce371be18f2cfbe7b5536dfba7f4f9428df11b8ed7e1c",
+      "bytes": 16329
+    },
+    "browser/output-light/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light/plane-ambient-01.png": {
+      "sha256": "f99dfc534b54b5b3b677eb3b33f5e30dba5e554ebe85c3eae28df1d4211946cf",
+      "bytes": 883
+    },
+    "browser/output-light/plane-ambient-05.png": {
+      "sha256": "118f366e8a83de6aca77764a2d59c03cbdafca8a732c8f7112fe5f8c0d636abc",
+      "bytes": 881
+    },
+    "browser/output-light/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light/plane-ambient-diffuse1-01.png": {
+      "sha256": "f99dfc534b54b5b3b677eb3b33f5e30dba5e554ebe85c3eae28df1d4211946cf",
+      "bytes": 883
+    },
+    "browser/output-light/plane-ambient-diffuse1-05.png": {
+      "sha256": "118f366e8a83de6aca77764a2d59c03cbdafca8a732c8f7112fe5f8c0d636abc",
+      "bytes": 881
+    },
+    "browser/output-light/plane-diffuse-0.png": {
+      "sha256": "718e7e75ba48cbcdde36859b49aa162e60635cc737a575483de1917ee3fee90b",
+      "bytes": 3774
+    },
+    "browser/output-light/plane-diffuse-025.png": {
+      "sha256": "718e7e75ba48cbcdde36859b49aa162e60635cc737a575483de1917ee3fee90b",
+      "bytes": 3774
+    },
+    "browser/output-light/plane-diffuse-05.png": {
+      "sha256": "718e7e75ba48cbcdde36859b49aa162e60635cc737a575483de1917ee3fee90b",
+      "bytes": 3774
+    },
+    "browser/output-light/plane-diffuse-1.png": {
+      "sha256": "718e7e75ba48cbcdde36859b49aa162e60635cc737a575483de1917ee3fee90b",
+      "bytes": 3774
+    },
+    "browser/output-light/plane-ior-1.png": {
+      "sha256": "2c9b22205819fd58301c0c70487d029ecd475ae1616103fea43efc1d52803f14",
+      "bytes": 881
+    },
+    "browser/output-light/plane-ior-15.png": {
+      "sha256": "718e7e75ba48cbcdde36859b49aa162e60635cc737a575483de1917ee3fee90b",
+      "bytes": 3774
+    },
+    "browser/output-light/plane-ior-2.png": {
+      "sha256": "1b122f39b9b047a245a7e2af3ecef065a040d8b8f6edf1fe4637ef32c87e2377",
+      "bytes": 5854
+    },
+    "browser/output-light/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/output-light/sphere-base.png": {
+      "sha256": "66178339a156202176b0202aa318cbc06eebab4cbc55f88fe59d8f8fc875e7bf",
+      "bytes": 14271
+    },
+    "browser/output-light/sphere-metallic-05.png": {
+      "sha256": "aa581dac85674966f3bfefe693c3ea4a8c9dfb1ef903a6aa37b0e2037b742dd6",
+      "bytes": 15454
+    },
+    "browser/output-light/sphere-metallic-roughness-01.png": {
+      "sha256": "bf5051c38915b9ffbb4c1b3a7fd4e085d93bf4e1c0525687630ff8a6fb13b407",
+      "bytes": 7235
+    },
+    "browser/output-light/sphere-metallic-roughness-05.png": {
+      "sha256": "94d92bf5b96727d6b71ce35782b3659940497ad711295c369e98dab877eab3bb",
+      "bytes": 14992
+    },
+    "browser/output-light/sphere-metallic-roughness-09.png": {
+      "sha256": "28794c0077c1a59153373fec1e3e6080f7e7c6f8d93347fae35f49dba9a0167b",
+      "bytes": 8182
+    },
+    "browser/output-light/sphere-ortho.png": {
+      "sha256": "a18d16ca69e303993f274a350c78203b73703f6aef7bc7df885acdbf56f52a35",
+      "bytes": 9910
+    },
+    "browser/output-light/sphere-roughness-01.png": {
+      "sha256": "a3bc5d7d9afa527b336da8aa1bd5b23e870e0afbb40a56e8c8ed055075c8aa99",
+      "bytes": 13241
+    },
+    "browser/output-light/sphere-roughness-09.png": {
+      "sha256": "753b9c7e8d86747bb1cb5ae2796935d5e2e38f3d541cb9084b3cd3d41397a5d2",
+      "bytes": 12544
+    },
+    "browser/output-light-diffuse/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse/plane-ambient-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse/plane-ambient-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse/plane-ambient-diffuse1-01.png": {
+      "sha256": "f99dfc534b54b5b3b677eb3b33f5e30dba5e554ebe85c3eae28df1d4211946cf",
+      "bytes": 883
+    },
+    "browser/output-light-diffuse/plane-ambient-diffuse1-05.png": {
+      "sha256": "118f366e8a83de6aca77764a2d59c03cbdafca8a732c8f7112fe5f8c0d636abc",
+      "bytes": 881
+    },
+    "browser/output-light-diffuse/plane-diffuse-0.png": {
+      "sha256": "d7643a36c3d8950c4306619a4f9b9d09ac92e7795de675ef6d0902190b25771d",
+      "bytes": 3062
+    },
+    "browser/output-light-diffuse/plane-diffuse-025.png": {
+      "sha256": "80ed728a7abac7588d854b14691e57ba3df474a209b2c39a81624d8f6ce8d2b3",
+      "bytes": 4665
+    },
+    "browser/output-light-diffuse/plane-diffuse-05.png": {
+      "sha256": "0d3f762f3b53ffe2f2ed8af457fb22b84c063a487e61576db7f6f9d1a929a701",
+      "bytes": 4191
+    },
+    "browser/output-light-diffuse/plane-diffuse-1.png": {
+      "sha256": "718e7e75ba48cbcdde36859b49aa162e60635cc737a575483de1917ee3fee90b",
+      "bytes": 3774
+    },
+    "browser/output-light-diffuse/plane-ior-1.png": {
+      "sha256": "4fa081795b668c502f700ece17926af9da06fc03e3fb3b48b292a90904847a02",
+      "bytes": 881
+    },
+    "browser/output-light-diffuse/plane-ior-15.png": {
+      "sha256": "3133857dda861c9ac5a2bc7b27690218a94bd42290b58abfb1ee7eedb23b773c",
+      "bytes": 3869
+    },
+    "browser/output-light-diffuse/plane-ior-2.png": {
+      "sha256": "f93cae49381c34a5b5aaf281d0da89c5a8bc5ede848f3552ad53c393040f9958",
+      "bytes": 5966
+    },
+    "browser/output-light-diffuse/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/output-light-diffuse/sphere-base.png": {
+      "sha256": "030f04ccefde588abd57c323a4a364a7e8f71dfa70813da2c85023d2f02eab77",
+      "bytes": 13824
+    },
+    "browser/output-light-diffuse/sphere-metallic-05.png": {
+      "sha256": "b349455a6319843b3e92c7168c6658be798a524a6d9f1ca5d10f508b854a732c",
+      "bytes": 14984
+    },
+    "browser/output-light-diffuse/sphere-metallic-roughness-01.png": {
+      "sha256": "f1adff3c1bc4a55a69b7d89537206a6d130cc9fec218518576c82eb56c574b7f",
+      "bytes": 6940
+    },
+    "browser/output-light-diffuse/sphere-metallic-roughness-05.png": {
+      "sha256": "1d2fba3473d47231ed4b2413b5de3411744b3398481ea7b8bbc83aee982d5ad6",
+      "bytes": 14112
+    },
+    "browser/output-light-diffuse/sphere-metallic-roughness-09.png": {
+      "sha256": "2eaf75cf82313753d0114fc94f45e0b8bf2adba84c65edbab2feac4f11a7fa6a",
+      "bytes": 7885
+    },
+    "browser/output-light-diffuse/sphere-ortho.png": {
+      "sha256": "1e6185d0620a25268224dcd6a96e6d96e4cb50cc8b269a16f8c1d99ae7405e36",
+      "bytes": 9693
+    },
+    "browser/output-light-diffuse/sphere-roughness-01.png": {
+      "sha256": "2b3ec32838d2aafa68c16848cc7f8df72f6eae9cf11aa289b19e807980638ff9",
+      "bytes": 12698
+    },
+    "browser/output-light-diffuse/sphere-roughness-09.png": {
+      "sha256": "7d2a79336e9828a9df4f4241e1f68ce5bd5ba51a9ad4b065692e9ee5bdc1e627",
+      "bytes": 12005
+    },
+    "browser/output-light-diffuse-ambient/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient/plane-ambient-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient/plane-ambient-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient/plane-ambient-diffuse1-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient/plane-ambient-diffuse1-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient/plane-diffuse-0.png": {
+      "sha256": "d7643a36c3d8950c4306619a4f9b9d09ac92e7795de675ef6d0902190b25771d",
+      "bytes": 3062
+    },
+    "browser/output-light-diffuse-ambient/plane-diffuse-025.png": {
+      "sha256": "80ed728a7abac7588d854b14691e57ba3df474a209b2c39a81624d8f6ce8d2b3",
+      "bytes": 4665
+    },
+    "browser/output-light-diffuse-ambient/plane-diffuse-05.png": {
+      "sha256": "0d3f762f3b53ffe2f2ed8af457fb22b84c063a487e61576db7f6f9d1a929a701",
+      "bytes": 4191
+    },
+    "browser/output-light-diffuse-ambient/plane-diffuse-1.png": {
+      "sha256": "718e7e75ba48cbcdde36859b49aa162e60635cc737a575483de1917ee3fee90b",
+      "bytes": 3774
+    },
+    "browser/output-light-diffuse-ambient/plane-ior-1.png": {
+      "sha256": "4fa081795b668c502f700ece17926af9da06fc03e3fb3b48b292a90904847a02",
+      "bytes": 881
+    },
+    "browser/output-light-diffuse-ambient/plane-ior-15.png": {
+      "sha256": "3133857dda861c9ac5a2bc7b27690218a94bd42290b58abfb1ee7eedb23b773c",
+      "bytes": 3869
+    },
+    "browser/output-light-diffuse-ambient/plane-ior-2.png": {
+      "sha256": "f93cae49381c34a5b5aaf281d0da89c5a8bc5ede848f3552ad53c393040f9958",
+      "bytes": 5966
+    },
+    "browser/output-light-diffuse-ambient/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/output-light-diffuse-ambient/sphere-base.png": {
+      "sha256": "030f04ccefde588abd57c323a4a364a7e8f71dfa70813da2c85023d2f02eab77",
+      "bytes": 13824
+    },
+    "browser/output-light-diffuse-ambient/sphere-metallic-05.png": {
+      "sha256": "b349455a6319843b3e92c7168c6658be798a524a6d9f1ca5d10f508b854a732c",
+      "bytes": 14984
+    },
+    "browser/output-light-diffuse-ambient/sphere-metallic-roughness-01.png": {
+      "sha256": "f1adff3c1bc4a55a69b7d89537206a6d130cc9fec218518576c82eb56c574b7f",
+      "bytes": 6940
+    },
+    "browser/output-light-diffuse-ambient/sphere-metallic-roughness-05.png": {
+      "sha256": "1d2fba3473d47231ed4b2413b5de3411744b3398481ea7b8bbc83aee982d5ad6",
+      "bytes": 14112
+    },
+    "browser/output-light-diffuse-ambient/sphere-metallic-roughness-09.png": {
+      "sha256": "2eaf75cf82313753d0114fc94f45e0b8bf2adba84c65edbab2feac4f11a7fa6a",
+      "bytes": 7885
+    },
+    "browser/output-light-diffuse-ambient/sphere-ortho.png": {
+      "sha256": "1e6185d0620a25268224dcd6a96e6d96e4cb50cc8b269a16f8c1d99ae7405e36",
+      "bytes": 9693
+    },
+    "browser/output-light-diffuse-ambient/sphere-roughness-01.png": {
+      "sha256": "2b3ec32838d2aafa68c16848cc7f8df72f6eae9cf11aa289b19e807980638ff9",
+      "bytes": 12698
+    },
+    "browser/output-light-diffuse-ambient/sphere-roughness-09.png": {
+      "sha256": "7d2a79336e9828a9df4f4241e1f68ce5bd5ba51a9ad4b065692e9ee5bdc1e627",
+      "bytes": 12005
+    },
+    "browser/output-light-diffuse-ambient-visibility/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient-visibility/plane-ambient-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient-visibility/plane-ambient-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient-visibility/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient-visibility/plane-ambient-diffuse1-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient-visibility/plane-ambient-diffuse1-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient-visibility/plane-diffuse-0.png": {
+      "sha256": "050fec02c2f5fdd5058930aa7e364996909914b193b8653fb54b1c7716e7957a",
+      "bytes": 3032
+    },
+    "browser/output-light-diffuse-ambient-visibility/plane-diffuse-025.png": {
+      "sha256": "890e85fb7c0e70df513f368e9151c7791d9d049abc6deb74c278b66c8edda48a",
+      "bytes": 4579
+    },
+    "browser/output-light-diffuse-ambient-visibility/plane-diffuse-05.png": {
+      "sha256": "43bbe3246b5f44d503741b2fd3a7874aa6df72769572488b5023b08d48d2f8ee",
+      "bytes": 4277
+    },
+    "browser/output-light-diffuse-ambient-visibility/plane-diffuse-1.png": {
+      "sha256": "b678f3c4eb96014ead1243e3d47612e802efd3a31b53ec017e451beed8109bd1",
+      "bytes": 3852
+    },
+    "browser/output-light-diffuse-ambient-visibility/plane-ior-1.png": {
+      "sha256": "4fa081795b668c502f700ece17926af9da06fc03e3fb3b48b292a90904847a02",
+      "bytes": 881
+    },
+    "browser/output-light-diffuse-ambient-visibility/plane-ior-15.png": {
+      "sha256": "57984389773dbf0094d6be494e89272c1a73cfc586a45261d703fcbc43202434",
+      "bytes": 3885
+    },
+    "browser/output-light-diffuse-ambient-visibility/plane-ior-2.png": {
+      "sha256": "4d2b79f862b98c118a222e241a23b648fdf408ed2198561e3793b7a484497edd",
+      "bytes": 6014
+    },
+    "browser/output-light-diffuse-ambient-visibility/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/output-light-diffuse-ambient-visibility/sphere-base.png": {
+      "sha256": "b0c802be9e6bd0bc9d946d94e2e8793015dda4b84618f8a53a189a9c05ae8320",
+      "bytes": 13930
+    },
+    "browser/output-light-diffuse-ambient-visibility/sphere-metallic-05.png": {
+      "sha256": "acce02c1b31285ab545e6eec68db8f9126f7c6a862deaafbe2237fc5b681088e",
+      "bytes": 15019
+    },
+    "browser/output-light-diffuse-ambient-visibility/sphere-metallic-roughness-01.png": {
+      "sha256": "1d419198fa2c1b768537b387138f21e397e6a23632c400720def4cdba0bef8bc",
+      "bytes": 6754
+    },
+    "browser/output-light-diffuse-ambient-visibility/sphere-metallic-roughness-05.png": {
+      "sha256": "1f43e3fbb8ede115a993a2ed872998a3626fd8bb999beeb5620f52d1265175b6",
+      "bytes": 14168
+    },
+    "browser/output-light-diffuse-ambient-visibility/sphere-metallic-roughness-09.png": {
+      "sha256": "1ec3abf8e37788fae797ef3b9e9ccd81a98d1b9d8024ba19a4a600f95eab0c87",
+      "bytes": 8022
+    },
+    "browser/output-light-diffuse-ambient-visibility/sphere-ortho.png": {
+      "sha256": "b952b3524d7f960e35f0f3b216a3397d65d4eceb813fe3000531b28b3026fd5b",
+      "bytes": 9716
+    },
+    "browser/output-light-diffuse-ambient-visibility/sphere-roughness-01.png": {
+      "sha256": "4a937e0774e7d4fe5504405be573c0b024b6410e5656fbf15837950895e3bbd0",
+      "bytes": 12703
+    },
+    "browser/output-light-diffuse-ambient-visibility/sphere-roughness-09.png": {
+      "sha256": "a9de83c67cc9f16a8225386cfb71cc1a365359f4b63cbfe8de6f086524f5e0d4",
+      "bytes": 12125
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/plane-ambient-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/plane-ambient-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/plane-ambient-diffuse1-01.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/plane-ambient-diffuse1-05.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/plane-diffuse-0.png": {
+      "sha256": "050fec02c2f5fdd5058930aa7e364996909914b193b8653fb54b1c7716e7957a",
+      "bytes": 3032
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/plane-diffuse-025.png": {
+      "sha256": "890e85fb7c0e70df513f368e9151c7791d9d049abc6deb74c278b66c8edda48a",
+      "bytes": 4579
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/plane-diffuse-05.png": {
+      "sha256": "43bbe3246b5f44d503741b2fd3a7874aa6df72769572488b5023b08d48d2f8ee",
+      "bytes": 4277
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/plane-diffuse-1.png": {
+      "sha256": "b678f3c4eb96014ead1243e3d47612e802efd3a31b53ec017e451beed8109bd1",
+      "bytes": 3852
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/plane-ior-1.png": {
+      "sha256": "4fa081795b668c502f700ece17926af9da06fc03e3fb3b48b292a90904847a02",
+      "bytes": 881
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/plane-ior-15.png": {
+      "sha256": "57984389773dbf0094d6be494e89272c1a73cfc586a45261d703fcbc43202434",
+      "bytes": 3885
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/plane-ior-2.png": {
+      "sha256": "4d2b79f862b98c118a222e241a23b648fdf408ed2198561e3793b7a484497edd",
+      "bytes": 6014
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/sphere-base.png": {
+      "sha256": "b0c802be9e6bd0bc9d946d94e2e8793015dda4b84618f8a53a189a9c05ae8320",
+      "bytes": 13930
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/sphere-metallic-05.png": {
+      "sha256": "d46f79cbec2db79aaec3d9a02888f7e40689c2bb9ba5251853cb8ed94727db68",
+      "bytes": 14953
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/sphere-metallic-roughness-01.png": {
+      "sha256": "68d00bf33e841effde914866230bf3eedc088cbd8c2590c24cf32de493ec1a84",
+      "bytes": 6755
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/sphere-metallic-roughness-05.png": {
+      "sha256": "09a9c8022db4a7317e946c65afbe4e58a582d89fc5ec40b29cb566b5366ae92a",
+      "bytes": 14170
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/sphere-metallic-roughness-09.png": {
+      "sha256": "1ec3abf8e37788fae797ef3b9e9ccd81a98d1b9d8024ba19a4a600f95eab0c87",
+      "bytes": 8022
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/sphere-ortho.png": {
+      "sha256": "b952b3524d7f960e35f0f3b216a3397d65d4eceb813fe3000531b28b3026fd5b",
+      "bytes": 9716
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/sphere-roughness-01.png": {
+      "sha256": "4a937e0774e7d4fe5504405be573c0b024b6410e5656fbf15837950895e3bbd0",
+      "bytes": 12703
+    },
+    "browser/output-light-diffuse-ambient-visibility-fresnel/sphere-roughness-09.png": {
+      "sha256": "a9de83c67cc9f16a8225386cfb71cc1a365359f4b63cbfe8de6f086524f5e0d4",
+      "bytes": 12125
+    },
+    "browser/visibility/plane-ambient-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/visibility/plane-ambient-01.png": {
+      "sha256": "7fc0d0d6e15893a533ef243a40c6313a907124865b52cf6501341091990a0e99",
+      "bytes": 876
+    },
+    "browser/visibility/plane-ambient-05.png": {
+      "sha256": "de1b4dc9e0d42a3b4ff518bbb4715c55beb6471270299af7302eca471e20322e",
+      "bytes": 880
+    },
+    "browser/visibility/plane-ambient-diffuse1-0.png": {
+      "sha256": "004c0da60be05efebf543eb7ed2a51aba399a57d19c58d74290344ce5c54a1f3",
+      "bytes": 854
+    },
+    "browser/visibility/plane-ambient-diffuse1-01.png": {
+      "sha256": "7fc0d0d6e15893a533ef243a40c6313a907124865b52cf6501341091990a0e99",
+      "bytes": 876
+    },
+    "browser/visibility/plane-ambient-diffuse1-05.png": {
+      "sha256": "de1b4dc9e0d42a3b4ff518bbb4715c55beb6471270299af7302eca471e20322e",
+      "bytes": 880
+    },
+    "browser/visibility/plane-diffuse-0.png": {
+      "sha256": "f0f78b1e9162b6d5b2d2e8b76ab50c9348a52efd73bcbaf063e11145752eaafa",
+      "bytes": 5436
+    },
+    "browser/visibility/plane-diffuse-025.png": {
+      "sha256": "f0f78b1e9162b6d5b2d2e8b76ab50c9348a52efd73bcbaf063e11145752eaafa",
+      "bytes": 5436
+    },
+    "browser/visibility/plane-diffuse-05.png": {
+      "sha256": "f0f78b1e9162b6d5b2d2e8b76ab50c9348a52efd73bcbaf063e11145752eaafa",
+      "bytes": 5436
+    },
+    "browser/visibility/plane-diffuse-1.png": {
+      "sha256": "f0f78b1e9162b6d5b2d2e8b76ab50c9348a52efd73bcbaf063e11145752eaafa",
+      "bytes": 5436
+    },
+    "browser/visibility/plane-ior-1.png": {
+      "sha256": "5838ec0cac4c7212a4717589c9dc9e813fedb6601199c02b6be70d3f40d1041a",
+      "bytes": 881
+    },
+    "browser/visibility/plane-ior-15.png": {
+      "sha256": "f0f78b1e9162b6d5b2d2e8b76ab50c9348a52efd73bcbaf063e11145752eaafa",
+      "bytes": 5436
+    },
+    "browser/visibility/plane-ior-2.png": {
+      "sha256": "4b27d5a9dc1d2abc6bce39b77b6a70015d62e9526c70be40918c1080681fc1fb",
+      "bytes": 8350
+    },
+    "browser/visibility/plane-unlit.png": {
+      "sha256": "c5e6a80119c42690a324a0597141ad905dcb5e8354f21be791556282d4acf45d",
+      "bytes": 881
+    },
+    "browser/visibility/sphere-base.png": {
+      "sha256": "16beab43fb2130453787a4edebd61911e6ccf80acb1a22383d2a45bf83a96065",
+      "bytes": 17386
+    },
+    "browser/visibility/sphere-metallic-05.png": {
+      "sha256": "a3471d1f586b003a9a59b63c4d0f42e15e801d4c2ddb142bf39c8c97f61dd6ee",
+      "bytes": 17555
+    },
+    "browser/visibility/sphere-metallic-roughness-01.png": {
+      "sha256": "934e7b68a585efcfde764bdfaa5bfba616960a98311129ecf14c2f4505813ee2",
+      "bytes": 2983
+    },
+    "browser/visibility/sphere-metallic-roughness-05.png": {
+      "sha256": "ba1bf574809d5819ecf99013a213c2810e41afce111386f79a21e6738d479151",
+      "bytes": 14098
+    },
+    "browser/visibility/sphere-metallic-roughness-09.png": {
+      "sha256": "0417c9eb868ddf08c9ece5e0267c488f3bded3a9d933a7e28ab0a7af9f528342",
+      "bytes": 8820
+    },
+    "browser/visibility/sphere-ortho.png": {
+      "sha256": "34b935c4bd15c00eb29aae60a31c199575be840fb2e550d54e5ab43d32442c69",
+      "bytes": 10884
+    },
+    "browser/visibility/sphere-roughness-01.png": {
+      "sha256": "15c07a3fe573a33f6d9382d266216a9e68e796831230e7d9d126bd2261a68de8",
+      "bytes": 15455
+    },
+    "browser/visibility/sphere-roughness-09.png": {
+      "sha256": "7977d2bf12641bf05fe1f436555c93b9db401ae52f0bb363ab02ebfb6d8d5f68",
+      "bytes": 15378
+    },
+    "capture-metadata.json": {
+      "sha256": "f97cfbb0e547ef9da37e3e479dc57b964b590f1fe27520cf9aa2dd941a3998a8",
+      "bytes": 873190
+    },
+    "comparison.png": {
+      "sha256": "b21c172b394c2f1d3d8ee331ecda56f9fcf0e50e20606bda44d8a93c5384ffd8",
+      "bytes": 352236
+    },
+    "meshes/plane.vtp": {
+      "sha256": "05bafa13bd79720eaf018523f52c759c858d6f9ebf4a8da2496ae4fc5c89ffba",
+      "bytes": 699
+    },
+    "meshes/sphere.vtp": {
+      "sha256": "db077ddee31801087e2d51969d9ecf5339b11d20a8bc402e2d0776cc736f845d",
+      "bytes": 935773
+    },
+    "native/plane-ambient-0.png": {
+      "sha256": "35e868d6e1b63606d16b25b93d8e66d97e09593193c246b030fd48f9255eba7d",
+      "bytes": 854
+    },
+    "native/plane-ambient-01.png": {
+      "sha256": "35e868d6e1b63606d16b25b93d8e66d97e09593193c246b030fd48f9255eba7d",
+      "bytes": 854
+    },
+    "native/plane-ambient-05.png": {
+      "sha256": "35e868d6e1b63606d16b25b93d8e66d97e09593193c246b030fd48f9255eba7d",
+      "bytes": 854
+    },
+    "native/plane-ambient-diffuse1-0.png": {
+      "sha256": "35e868d6e1b63606d16b25b93d8e66d97e09593193c246b030fd48f9255eba7d",
+      "bytes": 854
+    },
+    "native/plane-ambient-diffuse1-01.png": {
+      "sha256": "35e868d6e1b63606d16b25b93d8e66d97e09593193c246b030fd48f9255eba7d",
+      "bytes": 854
+    },
+    "native/plane-ambient-diffuse1-05.png": {
+      "sha256": "35e868d6e1b63606d16b25b93d8e66d97e09593193c246b030fd48f9255eba7d",
+      "bytes": 854
+    },
+    "native/plane-diffuse-0.png": {
+      "sha256": "072fe01c1dd2faf56662819d1601ba6e3df1add38aeccc293c56792af48aea53",
+      "bytes": 3795
+    },
+    "native/plane-diffuse-025.png": {
+      "sha256": "8bec80ddb3ebdccc5824d7259b37dabc735c7353a787236333de547b038dd9b0",
+      "bytes": 6084
+    },
+    "native/plane-diffuse-05.png": {
+      "sha256": "bfc2b22dfcf4987a90adf497c9dc1d11408206ecdfe6ceb6e04d78abbc2dbc29",
+      "bytes": 5072
+    },
+    "native/plane-diffuse-1.png": {
+      "sha256": "ffe45005c043bf6302a2b8b2551ecb8eccbfb3764eeb862a6854fdc420d6b72a",
+      "bytes": 4481
+    },
+    "native/plane-ior-1.png": {
+      "sha256": "23a0345a5bee3ca0816ce7c610952dee3481a2a5560a6f4e2935608e8e8eda1c",
+      "bytes": 884
+    },
+    "native/plane-ior-15.png": {
+      "sha256": "fa6911a57439791af908737958945a47489d5c84d5f185ea10c2ca4430f610d0",
+      "bytes": 4704
+    },
+    "native/plane-ior-2.png": {
+      "sha256": "3957d00e7f962d7f3cf00e1442a0e80d973c2f339c5537ef111e8b298e73d0e5",
+      "bytes": 7592
+    },
+    "native/plane-unlit.png": {
+      "sha256": "611819aaf671c58064bdcf088c89fd0afdfc353b4530a396cd1c8f5a2b995139",
+      "bytes": 884
+    },
+    "native/sphere-base.png": {
+      "sha256": "cfd97e194a5c868b44531166663df4d9b314cd499c08d1d8244d408f7c07d1cb",
+      "bytes": 14576
+    },
+    "native/sphere-metallic-05.png": {
+      "sha256": "3515d61e2f3053deab87a861ebbc3d1ddf72622054f0f8a7556a16d4cb225a60",
+      "bytes": 15281
+    },
+    "native/sphere-metallic-roughness-01.png": {
+      "sha256": "2fd6cca1c01261a5dc84e4d3fcce80d3be62cb0fe318eb05158fe1a082c0df2e",
+      "bytes": 6741
+    },
+    "native/sphere-metallic-roughness-05.png": {
+      "sha256": "cd8b5a6b5cb681766a3150eba8e189f3dee92da953da847ec9a743a589611b93",
+      "bytes": 14180
+    },
+    "native/sphere-metallic-roughness-09.png": {
+      "sha256": "a6544cd552f3031e8e58bf472dd24ade6b8169e81fd4b2b65916b87c3c9aac2f",
+      "bytes": 8788
+    },
+    "native/sphere-ortho.png": {
+      "sha256": "858e75ca8a8d38e199ee9d8d7137c77a8164d54684fab877bbdb30439cb07536",
+      "bytes": 10027
+    },
+    "native/sphere-roughness-01.png": {
+      "sha256": "b7d16ba5a42dbedb069642646021e413f2e044af08ab03034cfbc34deae2c1a3",
+      "bytes": 13384
+    },
+    "native/sphere-roughness-09.png": {
+      "sha256": "8149bc88ab30000a1989760d9b7eb13689918e978b5af49f4ba416b85fa0b865",
+      "bytes": 13105
+    },
+    "scene-specifications.json": {
+      "sha256": "7aa2d679b012405867579b9a03800ffddd70f4a65228a7ef8d8e2e9f1054c218",
+      "bytes": 38863
+    },
+    "shaders/0eaccf820552eebd7e598d00692d34efcb7dbd968c9eedd68153340fb1faeb4f.wgsl": {
+      "sha256": "0eaccf820552eebd7e598d00692d34efcb7dbd968c9eedd68153340fb1faeb4f",
+      "bytes": 22691
+    },
+    "shaders/1225c92c032c6e4b827b0c9b27518abdbdf6f491163771963415c2aa713ac2b9.wgsl": {
+      "sha256": "1225c92c032c6e4b827b0c9b27518abdbdf6f491163771963415c2aa713ac2b9",
+      "bytes": 22649
+    },
+    "shaders/200f63a7029afc209cf9a6b635507a4b5d6f0aab6c3f88d90a2f15f0a95cb8fe.wgsl": {
+      "sha256": "200f63a7029afc209cf9a6b635507a4b5d6f0aab6c3f88d90a2f15f0a95cb8fe",
+      "bytes": 22551
+    },
+    "shaders/31e58374398e23330301f23afbd62180d55e8ea47e0069ef9e869d6d9bc12533.wgsl": {
+      "sha256": "31e58374398e23330301f23afbd62180d55e8ea47e0069ef9e869d6d9bc12533",
+      "bytes": 22672
+    },
+    "shaders/438e59c8d47b191af5f8632f4d306a1749999610d9d29042f8f570f0f4a62fd2.wgsl": {
+      "sha256": "438e59c8d47b191af5f8632f4d306a1749999610d9d29042f8f570f0f4a62fd2",
+      "bytes": 22626
+    },
+    "shaders/67a2648a46116c3a5afa88b20778088ee4522cdef29a68f68dd7c1df6127fa0c.wgsl": {
+      "sha256": "67a2648a46116c3a5afa88b20778088ee4522cdef29a68f68dd7c1df6127fa0c",
+      "bytes": 22609
+    },
+    "shaders/6c0bb2423034f936e34b4ba7c64c3c8af5e30725f3257c82f166fdddf2c0a3b6.wgsl": {
+      "sha256": "6c0bb2423034f936e34b4ba7c64c3c8af5e30725f3257c82f166fdddf2c0a3b6",
+      "bytes": 22649
+    },
+    "shaders/6e248c01b9163bfbc06bb72c9ee25ac82e899f148fb9a5b04bdf5b1d3f66dddd.wgsl": {
+      "sha256": "6e248c01b9163bfbc06bb72c9ee25ac82e899f148fb9a5b04bdf5b1d3f66dddd",
+      "bytes": 22876
+    },
+    "shaders/75e61f7f66e784d68e4c924ca7b48308338414d0e58c5d1439d96c21444ac14e.wgsl": {
+      "sha256": "75e61f7f66e784d68e4c924ca7b48308338414d0e58c5d1439d96c21444ac14e",
+      "bytes": 22620
+    },
+    "shaders/a985fd2aa0242f53cf5a1fc1fdd4ea8fbc62d7dae1bdee7e531099eff82fa18f.wgsl": {
+      "sha256": "a985fd2aa0242f53cf5a1fc1fdd4ea8fbc62d7dae1bdee7e531099eff82fa18f",
+      "bytes": 22641
+    },
+    "shaders/c54da5af6f521a061a91faedbc90fc837dcc14667e47a435dde2c11a948c1b8f.wgsl": {
+      "sha256": "c54da5af6f521a061a91faedbc90fc837dcc14667e47a435dde2c11a948c1b8f",
+      "bytes": 22624
+    },
+    "shaders/d9936dd77ed863a8258d2e0ae6ec4557d0a349d5d4a5703a348e595e1dad4896.wgsl": {
+      "sha256": "d9936dd77ed863a8258d2e0ae6ec4557d0a349d5d4a5703a348e595e1dad4896",
+      "bytes": 22852
+    },
+    "shaders/dcb8bab3c88d5eced819b69bc3a0396511745d9c2d8ec146a24e43c2c100a62a.wgsl": {
+      "sha256": "dcb8bab3c88d5eced819b69bc3a0396511745d9c2d8ec146a24e43c2c100a62a",
+      "bytes": 22601
+    },
+    "shaders/eeccc342a25de29b979e1a2277fe35afe55d3963431ff5034208457b35bb2904.wgsl": {
+      "sha256": "eeccc342a25de29b979e1a2277fe35afe55d3963431ff5034208457b35bb2904",
+      "bytes": 22934
+    },
+    "shaders/f3c7c1288dbd059cf0e140b454a0363499a6904a46a28ce22ad7565bb6150995.wgsl": {
+      "sha256": "f3c7c1288dbd059cf0e140b454a0363499a6904a46a28ce22ad7565bb6150995",
+      "bytes": 22900
+    },
+    "shaders/f87c5836dd4a8573fca35ad7760bccb33df51be6e6450e85595b70b9869f4adf.wgsl": {
+      "sha256": "f87c5836dd4a8573fca35ad7760bccb33df51be6e6450e85595b70b9869f4adf",
+      "bytes": 22668
+    },
+    "shaders/fa7afbc9ad5b1470efff7d0e8368cd36ae6bd4f2fc20737883cf5281a690e28c.wgsl": {
+      "sha256": "fa7afbc9ad5b1470efff7d0e8368cd36ae6bd4f2fc20737883cf5281a690e28c",
+      "bytes": 22618
+    },
+    "sharp-residual.json": {
+      "sha256": "f9b8391ca1e29d22d631020052b13c9b1d3622e34daa454e6b9fc5f21f467c33",
+      "bytes": 1944
+    },
+    "summary.json": {
+      "sha256": "0b4fb71081641d2d254fa9e84efc8a52aabde0313d50c0aff4505e21517c1061",
+      "bytes": 941514
+    }
+  }
+}
