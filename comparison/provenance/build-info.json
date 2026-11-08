@@ -1,0 +1,45 @@
+{
+  "vtk": {
+    "commit": "efc4afbd7430e8eddf86759c5d70711af89e50f0",
+    "sourceUrl": "https://github.com/Kitware/VTK/tree/efc4afbd7430e8eddf86759c5d70711af89e50f0",
+    "archiveUrl": "https://codeload.github.com/Kitware/VTK/tar.gz/efc4afbd7430e8eddf86759c5d70711af89e50f0",
+    "archiveSHA256": "04d7412a9771e80d373aa154947ecb43e28fdb7b3adc96d96d58fa71f63bd289",
+    "sourceDirectory": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/native-reference/VTK-efc4afbd7430e8eddf86759c5d70711af89e50f0",
+    "buildDirectory": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/native-reference/vtk-build",
+    "deepFramebufferSourceSHA256": "e0f6d97b566914098ad343e245558af630269bf170e489906b160fc69f3a7498"
+  },
+  "dawn": {
+    "version": "20260923.214225",
+    "buildDate": "20260928.0",
+    "archiveUrl": "https://gitlab.kitware.com/api/v4/projects/6955/packages/generic/dawn/v20260923.214225-20260928.0/dawn-v20260923.214225-linux-x86_64.tar.gz",
+    "archiveSHA256": "565a55cdb7bb3ee89309063f7483be4a9495d8f1e9bbe2a35f35f62e5d4c2be9",
+    "library": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/native-reference/dawn-v20260923.214225-linux-x86_64/lib64/libwebgpu_dawn.so",
+    "librarySHA256": "13beb0d862dd89bdb7f0272fc65c407746a547af7964d0ec15a55f73277e2ea9"
+  },
+  "adapterProbe": {
+    "vendor": "google",
+    "device": "SwiftShader Device (Subzero)",
+    "backend": "Vulkan",
+    "adapterType": "CPU",
+    "icd": "/home/paulhax/.cache/ms-playwright/chromium-1243/chrome-linux64/vk_swiftshader_icd.json",
+    "icdSHA256": "c9eef28b6b984fec220ef0abfecc40b502d46946706e47bfe97707027cb818bd",
+    "librarySHA256": "1d5d7ab9c4c1499041aa44ea7a2ae3da3ca9812cd8bda9b5ac920ae158adb163",
+    "successful": true
+  },
+  "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+  "cmake": "cmake version 3.22.1",
+  "configureCommand": "cmake -S VTK-efc4afbd7430e8eddf86759c5d70711af89e50f0 -B vtk-build -GNinja -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DVTK_BUILD_TESTING=OFF -DVTK_BUILD_EXAMPLES=OFF -DVTK_WRAP_PYTHON=OFF -DVTK_BUILD_ALL_MODULES=OFF -DVTK_GROUP_ENABLE_StandAlone=DONT_WANT -DVTK_GROUP_ENABLE_Rendering=DONT_WANT -DVTK_ENABLE_WEBGPU=ON -DVTK_USE_DAWN_WEBGPU=ON -DDawn_DIR=/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/native-reference/dawn-v20260923.214225-linux-x86_64/lib64/cmake/Dawn -DVTK_MODULE_ENABLE_VTK_RenderingWebGPU=YES -DVTK_MODULE_ENABLE_VTK_IOXML=YES -DVTK_MODULE_ENABLE_VTK_IOImage=YES -DVTK_MODULE_ENABLE_VTK_jsoncpp=YES -DVTK_MODULE_ENABLE_VTK_RenderingFreeType=WANT -DVTK_MODULE_ENABLE_VTK_InteractionStyle=DONT_WANT -DVTK_MODULE_ENABLE_VTK_RenderingOpenGL2=NO",
+  "buildCommand": "cmake --build vtk-build --parallel 12",
+  "runtimeEnvironment": {
+    "VK_ICD_FILENAMES": "/home/paulhax/.cache/ms-playwright/chromium-1243/chrome-linux64/vk_swiftshader_icd.json",
+    "VTK_WEBGPU_LIBRARY": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/native-reference/dawn-v20260923.214225-linux-x86_64/lib64/libwebgpu_dawn.so"
+  },
+  "build": {
+    "complete": true,
+    "successfulTargets": 1988,
+    "renderingWebGPULibrary": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/native-reference/vtk-build/lib/libvtkRenderingWebGPU-9.7.so.9.7",
+    "renderingWebGPULibrarySHA256": "04c77de3baa28f8a268ae13fe247926f7bcbd834753f76e19cb28b2401a649f9",
+    "cmakeCacheSHA256": "2cfcf20dddde6e676282281834fc35a6d56403c02bcb369c9318427cb0fb6eaa",
+    "sourceModified": false
+  }
+}

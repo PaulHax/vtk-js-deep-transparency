@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="70" failures="0" errors="0" time="4.3764">
+    <testsuite name="Sources/Rendering/WebGPU/Camera/test/testExplicitProjectionMatrix.js" timestamp="2026-11-08T01:24:25.522Z" hostname="haxbox" tests="5" failures="0" errors="0" skipped="0" time="0.0039">
+        <testcase classname="Sources/Rendering/WebGPU/Camera/test/testExplicitProjectionMatrix.js" name="WebGPU Camera explicit projection matrix &gt; perspective projection &gt; maps the near clipping plane to reversed Z hardware depth 1, decreasing towards far" time="0.0017">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/Camera/test/testExplicitProjectionMatrix.js" name="WebGPU Camera explicit projection matrix &gt; perspective projection &gt; picks the same world position via the standard path and an equivalent explicit matrix override" time="0.0007">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/Camera/test/testExplicitProjectionMatrix.js" name="WebGPU Camera explicit projection matrix &gt; parallel projection &gt; maps the near clipping plane to reversed Z hardware depth 1, decreasing towards far" time="0.0002">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/Camera/test/testExplicitProjectionMatrix.js" name="WebGPU Camera explicit projection matrix &gt; parallel projection &gt; picks the same world position via the standard path and an equivalent explicit matrix override" time="0.0006">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/Camera/test/testExplicitProjectionMatrix.js" name="WebGPU Camera explicit projection matrix &gt; scales the explicit matrix projection by 1/physicalScale, matching Core" time="0.0004">
+        </testcase>
+    </testsuite>
+    <testsuite name="Sources/Rendering/WebGPU/Configuration/test/testConfiguration.js" timestamp="2026-11-08T01:24:25.524Z" hostname="haxbox" tests="4" failures="0" errors="0" skipped="0" time="0.0535">
+        <testcase classname="Sources/Rendering/WebGPU/Configuration/test/testConfiguration.js" name="vtkWebGPUConfiguration &gt; configures available optional features and destroys the owned device" time="0.0012">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/Configuration/test/testConfiguration.js" name="vtkWebGPUConfiguration &gt; destroys a device acquired after finalize while initialization is in flight" time="0.0514">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/Configuration/test/testConfiguration.js" name="vtkWebGPUConfiguration &gt; requests primitive-index only when the adapter has it ([&quot;float32-filterable&quot;,&quot;primitive-index&quot;])" time="0.0005">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/Configuration/test/testConfiguration.js" name="vtkWebGPUConfiguration &gt; requests primitive-index only when the adapter has it ([&quot;float32-filterable&quot;])" time="0.0002">
+        </testcase>
+    </testsuite>
+    <testsuite name="Sources/Rendering/WebGPU/DeepFramebufferPass/test/testDeepFramebufferPass.js" timestamp="2026-11-08T01:24:25.525Z" hostname="haxbox" tests="12" failures="0" errors="0" skipped="0" time="2.9928">
+        <testcase classname="Sources/Rendering/WebGPU/DeepFramebufferPass/test/testDeepFramebufferPass.js" name="Deep framebuffer matches native C++ depth peeling exactly: red-front" time="0.2428">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/DeepFramebufferPass/test/testDeepFramebufferPass.js" name="Deep framebuffer matches native C++ depth peeling exactly: blue-front" time="0.1393">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/DeepFramebufferPass/test/testDeepFramebufferPass.js" name="Deep framebuffer matches native C++ depth peeling exactly: crossing" time="0.139">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/DeepFramebufferPass/test/testDeepFramebufferPass.js" name="Deep framebuffer matches native C++ depth peeling exactly: opaque-occluder" time="0.1814">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/DeepFramebufferPass/test/testDeepFramebufferPass.js" name="Deep framebuffer matches native C++ compositing with a one-pixel raster boundary margin: nested-spheres" time="0.4091">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/DeepFramebufferPass/test/testDeepFramebufferPass.js" name="Deep framebuffer matches native C++ compositing with a one-pixel raster boundary margin: intersecting-spheres" time="0.3714">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/DeepFramebufferPass/test/testDeepFramebufferPass.js" name="Deep framebuffer sorts intersecting surfaces independently of actor order" time="0.1464">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/DeepFramebufferPass/test/testDeepFramebufferPass.js" name="Deep framebuffer retains the nearest sixteen of twenty layers" time="0.151">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/DeepFramebufferPass/test/testDeepFramebufferPass.js" name="Deep framebuffer clears old fragments after opacity changes and resize" time="0.1927">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/DeepFramebufferPass/test/testDeepFramebufferPass.js" name="Deep framebuffer respects renderer viewport bounds" time="0.1262">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/DeepFramebufferPass/test/testDeepFramebufferPass.js" name="Deep framebuffer updates canvas content when switching sample counts" time="0.7563">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/DeepFramebufferPass/test/testDeepFramebufferPass.js" name="Deep framebuffer honors property opacity with the default alpha mode" time="0.1344">
+        </testcase>
+    </testsuite>
+    <testsuite name="Sources/Rendering/WebGPU/Helpers/test/testImageSampling.js" timestamp="2026-11-08T01:24:25.527Z" hostname="haxbox" tests="1" failures="0" errors="0" skipped="0" time="0.001">
+        <testcase classname="Sources/Rendering/WebGPU/Helpers/test/testImageSampling.js" name="includes transfer functions from every component in the cache key" time="0.0009">
+        </testcase>
+    </testsuite>
+    <testsuite name="Sources/Rendering/WebGPU/ImageMapper/test/testImageMapperCameraProjection.js" timestamp="2026-11-08T01:24:25.527Z" hostname="haxbox" tests="1" failures="0" errors="0" skipped="0" time="0.0912">
+        <testcase classname="Sources/Rendering/WebGPU/ImageMapper/test/testImageMapperCameraProjection.js" name="Test WebGPU ImageMapper applies the view-projection matrix exactly once" time="0.0911">
+        </testcase>
+    </testsuite>
+    <testsuite name="Sources/Rendering/WebGPU/IndexBuffer/test/testIndexBuffer.js" timestamp="2026-11-08T01:24:25.527Z" hostname="haxbox" tests="6" failures="0" errors="0" skipped="0" time="0.0039">
+        <testcase classname="Sources/Rendering/WebGPU/IndexBuffer/test/testIndexBuffer.js" name="vtkWebGPUIndexBuffer with point ids &gt; uses the point ids and needs no map for triangles" time="0.0013">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/IndexBuffer/test/testIndexBuffer.js" name="vtkWebGPUIndexBuffer with point ids &gt; maps the triangles of a polygon to its global cell id" time="0.0006">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/IndexBuffer/test/testIndexBuffer.js" name="vtkWebGPUIndexBuffer with point ids &gt; maps the edges of a wireframe to their cells" time="0.0005">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/IndexBuffer/test/testIndexBuffer.js" name="vtkWebGPUIndexBuffer with point ids &gt; maps the segments of a polyline to its cell" time="0.0002">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/IndexBuffer/test/testIndexBuffer.js" name="vtkWebGPUIndexBuffer with point ids &gt; gives one primitive for each point of a vertex cell" time="0.0004">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/IndexBuffer/test/testIndexBuffer.js" name="vtkWebGPUIndexBuffer flat path &gt; gives each cell a provoking vertex with its global cell id" time="0.0003">
+        </testcase>
+    </testsuite>
+    <testsuite name="Sources/Rendering/WebGPU/OrderIndependentTranslucentPass/test/testCoplanarTranslucentDepth.js" timestamp="2026-11-08T01:24:25.528Z" hostname="haxbox" tests="1" failures="0" errors="0" skipped="0" time="0.1452">
+        <testcase classname="Sources/Rendering/WebGPU/OrderIndependentTranslucentPass/test/testCoplanarTranslucentDepth.js" name="Test WebGPU translucent pass keeps coplanar geometry over opaque geometry" time="0.1449">
+        </testcase>
+    </testsuite>
+    <testsuite name="Sources/Rendering/WebGPU/OrderIndependentTranslucentPass/test/testOITMSAA.js" timestamp="2026-11-08T01:24:25.529Z" hostname="haxbox" tests="3" failures="0" errors="0" skipped="0" time="0.7738">
+        <testcase classname="Sources/Rendering/WebGPU/OrderIndependentTranslucentPass/test/testOITMSAA.js" name="Test WebGPU OIT composites from resolved textures when MSAA is enabled" time="0.2258">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/OrderIndependentTranslucentPass/test/testOITMSAA.js" name="Test WebGPU OIT with MSAA preserves the blended result" time="0.2793">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/OrderIndependentTranslucentPass/test/testOITMSAA.js" name="Test WebGPU OIT releases resolve textures when MSAA is disabled" time="0.2681">
+        </testcase>
+    </testsuite>
+    <testsuite name="Sources/Rendering/WebGPU/RenderWindow/test/testMSAA.js" timestamp="2026-11-08T01:24:25.529Z" hostname="haxbox" tests="2" failures="0" errors="0" skipped="0" time="0.2476">
+        <testcase classname="Sources/Rendering/WebGPU/RenderWindow/test/testMSAA.js" name="Test WebGPU multiSample only accepts 1 and 4" time="0.0022">
+            <system-err>
+Invalid multiSample value: 2. Supported values are 1 and 4. Ignoring.
+Invalid multiSample value: 3. Supported values are 1 and 4. Ignoring.
+            </system-err>
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/RenderWindow/test/testMSAA.js" name="Test WebGPU MSAA rendering" time="0.2451">
+        </testcase>
+    </testsuite>
+    <testsuite name="Sources/Rendering/WebGPU/RenderWindow/test/testSharedDevice.js" timestamp="2026-11-08T01:24:25.530Z" hostname="haxbox" tests="1" failures="0" errors="0" skipped="0" time="0.0078">
+        <testcase classname="Sources/Rendering/WebGPU/RenderWindow/test/testSharedDevice.js" name="releasing one window preserves a shared device until configuration finalization" time="0.0075">
+            <system-err>
+WebGPU device lost (destroyed): Device was destroyed.
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="Sources/Rendering/WebGPU/Texture/test/testNormalized16BitFormats.js" timestamp="2026-11-08T01:24:25.530Z" hostname="haxbox" tests="3" failures="0" errors="0" skipped="0" time="0.0022">
+        <testcase classname="Sources/Rendering/WebGPU/Texture/test/testNormalized16BitFormats.js" name="vtkWebGPUTexture normalized 16 bit formats &gt; uploads r16snorm values without conversion" time="0.0013">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/Texture/test/testNormalized16BitFormats.js" name="vtkWebGPUTexture normalized 16 bit formats &gt; uploads r16unorm values without conversion" time="0.0004">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/Texture/test/testNormalized16BitFormats.js" name="vtkWebGPUTexture normalized 16 bit formats &gt; destroys its GPU texture" time="0.0002">
+        </testcase>
+    </testsuite>
+    <testsuite name="Sources/Rendering/WebGPU/Texture/test/testWriteSubImageData.js" timestamp="2026-11-08T01:24:25.531Z" hostname="haxbox" tests="3" failures="0" errors="0" skipped="0" time="0.0202">
+        <testcase classname="Sources/Rendering/WebGPU/Texture/test/testWriteSubImageData.js" name="packs an Int16 RGBA source extent directly into aligned rows" time="0.0013">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/Texture/test/testWriteSubImageData.js" name="Test vtkWebGPUTexture.writeSubImageData" time="0.0122">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/Texture/test/testWriteSubImageData.js" name="Test vtkWebGPUTexture.writeSubImageData rejects writes outside the bounds" time="0.0065">
+            <system-out>
+[
+  &apos;Texture upload failed: write region origin=(3, 3, 0) size=(2, 2, 1) exceeds texture extent=(4, 4, 1).&apos;,
+]
+            </system-out>
+        </testcase>
+    </testsuite>
+    <testsuite name="Sources/Rendering/WebGPU/TextureManager/test/testImageDataTextureCacheInvalidation.js" timestamp="2026-11-08T01:24:25.532Z" hostname="haxbox" tests="1" failures="0" errors="0" skipped="0" time="0.007">
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testImageDataTextureCacheInvalidation.js" name="Test vtkWebGPUTextureManager invalidates cached imageData textures" time="0.0067">
+        </testcase>
+    </testsuite>
+    <testsuite name="Sources/Rendering/WebGPU/TextureManager/test/testImageDataTextureFormat.js" timestamp="2026-11-08T01:24:25.532Z" hostname="haxbox" tests="7" failures="0" errors="0" skipped="0" time="0.0049">
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testImageDataTextureFormat.js" name="vtkWebGPUTextureManager image data formats &gt; selects a stable format when float32 filter support is false" time="0.002">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testImageDataTextureFormat.js" name="vtkWebGPUTextureManager image data formats &gt; selects a stable format when float32 filter support is true" time="0.001">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testImageDataTextureFormat.js" name="vtkWebGPUTextureManager image data formats &gt; reuses the format memo when only image metadata is modified" time="0.0002">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testImageDataTextureFormat.js" name="vtkWebGPUTextureManager image data formats &gt; checks the exact half precision values again after the image data changes" time="0.0005">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testImageDataTextureFormat.js" name="vtkWebGPUTextureManager image data formats &gt; uses the exact half precision format again while the image does not change" time="0.0003">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testImageDataTextureFormat.js" name="vtkWebGPUTextureManager image data formats &gt; memoizes both size-preference variants for one scalar array" time="0.0005">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testImageDataTextureFormat.js" name="vtkWebGPUTextureManager image data formats &gt; uses half float storage for an empty scalar array" time="0.0002">
+        </testcase>
+    </testsuite>
+    <testsuite name="Sources/Rendering/WebGPU/TextureManager/test/testPartialTextureUpdate.js" timestamp="2026-11-08T01:24:25.533Z" hostname="haxbox" tests="12" failures="0" errors="0" skipped="0" time="0.009">
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testPartialTextureUpdate.js" name="vtkWebGPUTextureManager partial texture updates &gt; passes the full source and its layout to the texture" time="0.0024">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testPartialTextureUpdate.js" name="vtkWebGPUTextureManager partial texture updates &gt; writes updated extents when the texture hash is already cached" time="0.0004">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testPartialTextureUpdate.js" name="vtkWebGPUTextureManager partial texture updates &gt; builds a new texture if the partial write fails" time="0.0006">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testPartialTextureUpdate.js" name="vtkWebGPUTextureManager partial texture updates &gt; does not scan values outside the declared update extents" time="0.0003">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testPartialTextureUpdate.js" name="vtkWebGPUTextureManager partial texture updates &gt; promotes the format when an updated extent crosses the limit" time="0.0008">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testPartialTextureUpdate.js" name="vtkWebGPUTextureManager partial texture updates &gt; patches the canonical cached texture shared by another mapper" time="0.0009">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testPartialTextureUpdate.js" name="vtkWebGPUTextureManager partial texture updates &gt; rebuilds when the scalar element type changes" time="0.0008">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testPartialTextureUpdate.js" name="vtkWebGPUTextureManager partial texture updates &gt; rebuilds when the existing texture format is unknown" time="0.0005">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testPartialTextureUpdate.js" name="vtkWebGPUTextureManager partial texture updates &gt; does not patch a texture with incompatible mip level" time="0.0003">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testPartialTextureUpdate.js" name="vtkWebGPUTextureManager partial texture updates &gt; does not patch a texture with incompatible usage" time="0.0004">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testPartialTextureUpdate.js" name="vtkWebGPUTextureManager partial texture updates &gt; does not patch extra usage flags into a plain texture request" time="0.0003">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testPartialTextureUpdate.js" name="vtkWebGPUTextureManager partial texture updates &gt; regenerates mipmaps once after all updated extents are written" time="0.001">
+        </testcase>
+    </testsuite>
+    <testsuite name="Sources/Rendering/WebGPU/TextureManager/test/testTextureOwnership.js" timestamp="2026-11-08T01:24:25.535Z" hostname="haxbox" tests="7" failures="0" errors="0" skipped="0" time="0.0061">
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testTextureOwnership.js" name="vtkWebGPUTextureManager texture ownership &gt; destroys a replaced texture after its last owner changes" time="0.0028">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testTextureOwnership.js" name="vtkWebGPUTextureManager texture ownership &gt; never destroys a texture that a caller got without an owner" time="0.0004">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testTextureOwnership.js" name="vtkWebGPUTextureManager texture ownership &gt; shares one float32 texture after the values stop fitting half float" time="0.0007">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testTextureOwnership.js" name="vtkWebGPUTextureManager texture ownership &gt; writes a full upload into the live texture of the data array" time="0.0005">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testTextureOwnership.js" name="vtkWebGPUTextureManager normalized 16 bit formats &gt; stores Int16Array [ -30000, 30000 ] in 2 bytes as r16snorm" time="0.0004">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testTextureOwnership.js" name="vtkWebGPUTextureManager normalized 16 bit formats &gt; stores Uint16Array [ 0, 60000 ] in 2 bytes as r16unorm" time="0.0004">
+        </testcase>
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testTextureOwnership.js" name="vtkWebGPUTextureManager normalized 16 bit formats &gt; keeps r16snorm for a partial update" time="0.0006">
+        </testcase>
+    </testsuite>
+    <testsuite name="Sources/Rendering/WebGPU/TextureManager/test/testVTKTextureCacheInvalidation.js" timestamp="2026-11-08T01:24:25.536Z" hostname="haxbox" tests="1" failures="0" errors="0" skipped="0" time="0.0063">
+        <testcase classname="Sources/Rendering/WebGPU/TextureManager/test/testVTKTextureCacheInvalidation.js" name="Test vtkWebGPUTextureManager invalidates cached vtkTexture textures" time="0.0061">
+        </testcase>
+    </testsuite>
+</testsuites>

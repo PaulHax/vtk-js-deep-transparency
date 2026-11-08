@@ -1,0 +1,39 @@
+{
+  "implementation": "VTK.js WebGPU deep framebuffer",
+  "name": "impact-unlit",
+  "mode": "unlit",
+  "width": 800,
+  "height": 800,
+  "sampleCount": 1,
+  "requestedPoolLayers": 32,
+  "colorAttachmentFormat": "rgba16float",
+  "presentationFormat": "rgba8unorm",
+  "adapter": {
+    "vendor": "google",
+    "architecture": "swiftshader",
+    "device": "",
+    "description": ""
+  },
+  "limits": {
+    "maxBufferSize": 1073741824,
+    "maxStorageBufferBindingSize": 1073741824
+  },
+  "geometry": [
+    {
+      "points": 313218,
+      "polygons": 624798
+    },
+    {
+      "points": 217244,
+      "polygons": 434424
+    },
+    {
+      "points": 212854,
+      "polygons": 420988
+    }
+  ],
+  "gpuErrors": [],
+  "specificationSHA256": "38ff38b03e96d6a07ea1f622f6feb6169319fae5de9894b0898304953e1e99aa",
+  "orderDifferingChannels": 0,
+  "errors": []
+}

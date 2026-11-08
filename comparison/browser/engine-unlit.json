@@ -1,0 +1,35 @@
+{
+  "implementation": "VTK.js WebGPU deep framebuffer",
+  "name": "engine-unlit",
+  "mode": "unlit",
+  "width": 800,
+  "height": 800,
+  "sampleCount": 1,
+  "requestedPoolLayers": 32,
+  "colorAttachmentFormat": "rgba16float",
+  "presentationFormat": "rgba8unorm",
+  "adapter": {
+    "vendor": "google",
+    "architecture": "swiftshader",
+    "device": "",
+    "description": ""
+  },
+  "limits": {
+    "maxBufferSize": 1073741824,
+    "maxStorageBufferBindingSize": 1073741824
+  },
+  "geometry": [
+    {
+      "points": 290473,
+      "polygons": 579618
+    },
+    {
+      "points": 72158,
+      "polygons": 144334
+    }
+  ],
+  "gpuErrors": [],
+  "specificationSHA256": "6f2f5b936300156d5ee172f0b90a95b688800871c10fcae41d36efe8412d6d41",
+  "orderDifferingChannels": 0,
+  "errors": []
+}

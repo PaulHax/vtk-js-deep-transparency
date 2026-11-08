@@ -1,0 +1,35 @@
+{
+  "implementation": "VTK.js WebGPU deep framebuffer",
+  "name": "bonsai-pbr",
+  "mode": "pbr",
+  "width": 800,
+  "height": 800,
+  "sampleCount": 1,
+  "requestedPoolLayers": 32,
+  "colorAttachmentFormat": "rgba16float",
+  "presentationFormat": "rgba8unorm",
+  "adapter": {
+    "vendor": "google",
+    "architecture": "swiftshader",
+    "device": "",
+    "description": ""
+  },
+  "limits": {
+    "maxBufferSize": 1073741824,
+    "maxStorageBufferBindingSize": 1073741824
+  },
+  "geometry": [
+    {
+      "points": 377426,
+      "polygons": 751818
+    },
+    {
+      "points": 174860,
+      "polygons": 348328
+    }
+  ],
+  "gpuErrors": [],
+  "specificationSHA256": "d9f98482aaacc79989a660a346e6225c0e6491da20f1c8ed0825c9b45eeda860",
+  "orderDifferingChannels": 0,
+  "errors": []
+}

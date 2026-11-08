@@ -1,0 +1,89 @@
+{
+  "generator": "generate-native-baselines.py",
+  "vtkVersion": "9.7.2",
+  "backend": "C++ VTK OpenGL dual depth peeling (Python bindings)",
+  "deepFramebufferSourceCommit": "efc4afbd7430e8eddf86759c5d70711af89e50f0",
+  "deepFramebufferSource": "https://github.com/Kitware/VTK/blob/efc4afbd7430e8eddf86759c5d70711af89e50f0/Rendering/WebGPU/vtkWebGPUDeepFramebuffer.cxx",
+  "specificationSHA256": "93d72ebd2948d0bed7c13ee774e3d2e4c6730cf77022057162d5087821af20a9",
+  "meshesSHA256": "5308ebaa2d59c568229c47ca69b6e4d4fe4dd2dc86dc67ea2d7d2cf719f37f58",
+  "settings": {
+    "multisamples": 0,
+    "maximumPeels": 64,
+    "occlusionRatio": 0
+  },
+  "comparisonScope": "Unlit polygonal alpha compositing. Native WebGPU was not available. Depth peeling supplies independently rendered depth-ordered reference images. The deep framebuffer packs fragments to RGBA8 before resolving; general colors and opacities can differ from depth peeling by quantization.",
+  "images": {
+    "red-front": {
+      "file": "red-front.png",
+      "sha256": "0b6ffeba6b696a8b436f4e37846a71d11a5641b8e809a635f8804e49a055856a",
+      "centerRGBA": [
+        128,
+        0,
+        64,
+        255
+      ],
+      "usedDepthPeeling": true,
+      "renderWindowClass": "vtkEGLRenderWindow"
+    },
+    "blue-front": {
+      "file": "blue-front.png",
+      "sha256": "277d35e3e53011e69a905c80cc4e27e3287ea45a13c4a12299e5e58b157e1ce1",
+      "centerRGBA": [
+        64,
+        0,
+        128,
+        255
+      ],
+      "usedDepthPeeling": true,
+      "renderWindowClass": "vtkEGLRenderWindow"
+    },
+    "crossing": {
+      "file": "crossing.png",
+      "sha256": "5328663c0568485d2a483a6b5163e9ea120e5a4a692f0f24bff3b80f514d3b2c",
+      "centerRGBA": [
+        128,
+        0,
+        64,
+        255
+      ],
+      "usedDepthPeeling": true,
+      "renderWindowClass": "vtkEGLRenderWindow"
+    },
+    "opaque-occluder": {
+      "file": "opaque-occluder.png",
+      "sha256": "ded3c6b5de9d143fcbc414c01b32f8a2d3f15b9f48bd0dfefe21dca1a6530e2b",
+      "centerRGBA": [
+        128,
+        127,
+        0,
+        255
+      ],
+      "usedDepthPeeling": true,
+      "renderWindowClass": "vtkEGLRenderWindow"
+    },
+    "nested-spheres": {
+      "file": "nested-spheres.png",
+      "sha256": "8bdcdda83d4a6f499fa367be1402a935f688b9017c789e6324f6359a7a46fd4b",
+      "centerRGBA": [
+        96,
+        239,
+        144,
+        255
+      ],
+      "usedDepthPeeling": true,
+      "renderWindowClass": "vtkEGLRenderWindow"
+    },
+    "intersecting-spheres": {
+      "file": "intersecting-spheres.png",
+      "sha256": "42e1c1c609d3cb321449b5d5f74d60261fb2dae844b7b48f07befeae6cfc116d",
+      "centerRGBA": [
+        146,
+        234,
+        122,
+        255
+      ],
+      "usedDepthPeeling": true,
+      "renderWindowClass": "vtkEGLRenderWindow"
+    }
+  }
+}

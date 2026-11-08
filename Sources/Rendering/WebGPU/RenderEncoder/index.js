@@ -88,6 +88,9 @@ function vtkWebGPURenderEncoder(publicAPI, model) {
       }
     }
     model.boundPipeline = pl;
+    if (model.passBindGroup) {
+      publicAPI.activateBindGroup(model.passBindGroup);
+    }
   };
 
   publicAPI.replaceShaderCode = (pipeline) => {
@@ -148,9 +151,9 @@ function vtkWebGPURenderEncoder(publicAPI, model) {
       if (model.resolveTextureViews[i]) {
         model.description.colorAttachments[i].resolveTarget =
           model.resolveTextureViews[i].getHandle();
-        // When using MSAA, the multisampled texture is transient;
-        // store only into the resolve target
-        model.description.colorAttachments[i].storeOp = 'discard';
+        // Preserve samples only when a later pass will load this attachment.
+        model.description.colorAttachments[i].storeOp =
+          model.storeMultisampleColor ? 'store' : 'discard';
       }
     }
     if (model.depthTextureView) {
@@ -185,6 +188,8 @@ const DEFAULT_VALUES = {
   description: null,
   handle: null,
   boundPipeline: null,
+  passBindGroup: null,
+  storeMultisampleColor: false,
   pipelineHash: null,
   pipelineSettings: null,
   replaceShaderCodeFunction: null,
@@ -257,6 +262,8 @@ export function extend(publicAPI, model, initialValues = {}) {
 
   macro.setGet(publicAPI, model, [
     'depthTextureView',
+    'passBindGroup',
+    'storeMultisampleColor',
     'description',
     'handle',
     'label',

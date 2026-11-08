@@ -7,6 +7,7 @@ import vtkWebGPURenderEncoder from '../RenderEncoder';
 import vtkWebGPURenderer from '../Renderer';
 import vtkWebGPURenderWindow from '../RenderWindow';
 import vtkWebGPUOpaquePass from '../OpaquePass';
+import { vtkWebGPUDeepFramebufferPass } from '../DeepFramebufferPass';
 import vtkWebGPUOrderIndependentTranslucentPass from '../OrderIndependentTranslucentPass';
 import vtkWebGPUVolume from '../Volume';
 import { vtkWebGPUVolumePass } from '../VolumePass';
@@ -18,6 +19,7 @@ export interface IWebGPUForwardPassInitialValues extends IRenderPassInitialValue
   opaqueRenderEncoder?: Nullable<vtkWebGPURenderEncoder>;
   opaquePass?: vtkWebGPUOpaquePass;
   translucentPass?: Nullable<vtkWebGPUOrderIndependentTranslucentPass>;
+  deepFramebufferPass?: Nullable<vtkWebGPUDeepFramebufferPass>;
   volumePass?: Nullable<vtkWebGPUVolumePass>;
 }
 
@@ -87,6 +89,10 @@ export interface vtkWebGPUForwardPass extends vtkRenderPass {
    * translucent actor.
    */
   getTranslucentPass(): Nullable<vtkWebGPUOrderIndependentTranslucentPass>;
+
+  /** Get or replace the pass used by renderers requesting deep transparency. */
+  getDeepFramebufferPass(): Nullable<vtkWebGPUDeepFramebufferPass>;
+  setDeepFramebufferPass(pass: vtkWebGPUDeepFramebufferPass): boolean;
 
   /**
    * Set the translucent pass.

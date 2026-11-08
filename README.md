@@ -1,78 +1,64 @@
-## [VTK.js - The Visualization Toolkit for JavaScript](http://kitware.github.io/vtk-js/)
+# Deep framebuffer transparency in vtk.js
 
-[![Build and Test](https://github.com/Kitware/vtk-js/actions/workflows/build-test.yml/badge.svg)](https://github.com/Kitware/vtk-js/actions/workflows/build-test.yml)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-![npm-download](https://img.shields.io/npm/dm/vtk.js.svg)
-![npm-version-requirement](https://img.shields.io/badge/npm->=10.0.0-brightgreen.svg)
-![node-version-requirement](https://img.shields.io/badge/node->=22.0.0-brightgreen.svg)
-[![DOI](https://zenodo.org/badge/57900965.svg)](https://zenodo.org/badge/latestdoi/57900965)
+A local WebGPU port of VTK's deep framebuffer transparency, with a linked comparison demo, full-resolution scientific meshes, and direct native C++ VTK image comparisons.
 
-### Introduction
+**The native comparisons are not pixel-perfect.** All eight recorded dataset cases fail a strict zero-tolerance RGBA comparison. All alpha channels agree, and reversing actor insertion order changes no browser pixels. Unlit images are close; PBR lighting differs substantially. See the [measured results](comparison/REPORT.md), [comparison images](comparison/comparison.png), and [machine-readable metrics](comparison/comparison.json).
 
-VTK is an open-source software system for image processing, 3D
-graphics, volume rendering and visualization. VTK includes many
-advanced algorithms (e.g., surface reconstruction, implicit modelling,
-decimation) and rendering techniques (e.g., hardware-accelerated
-volume rendering, LOD control). The JavaScript implementation remains
-a subset of the actual C++ library but efforts will be made to easily
-port or compile native VTK code into WebAssembly to better blend
-both worlds. vtk.js is a true rewrite of VTK in plain JavaScript (ES6).
-Therefore not everything has been rewritten.
+## Run the demo
 
-The origin of VTK is with the textbook "The Visualization Toolkit, an
-Object-Oriented Approach to 3D Graphics" originally published by
-Prentice Hall and now published by Kitware, Inc. (Third Edition ISBN
-1-930934-07-6). VTK has grown (since its initial release in 1994) to a
-world-wide user base in the commercial, academic, and research
-communities.
+```sh
+npm ci
+npm run example -- DeepFramebufferTransparency --no-browser --host 127.0.0.1 --port 9999
+```
 
-vtk.js aims to be a subset of VTK and provide 3D rendering using WebGL (+WebGPU) for both geometry and volume rendering.
+Open [localhost:9999](http://localhost:9999) in a WebGPU browser. Prepared meshes are included; running the demo makes no dataset downloads.
 
-### What is the difference with VTK/C++?
+- Left drag: canonical virtual-sphere arcball rotation, including free roll.
+- Right drag: pan both views.
+- Mouse wheel: zoom toward the surface under the pointer, using a depth pick. Empty space uses the focal plane.
+- Checkboxes: hide individual structures. The opacity slider adjusts the outer/context surface.
 
-VTK.js is a complete rewrite of VTK/C++ using plain JavaScript (ES6).
-The focus of the rewrite, so far, has been the rendering pipeline for ImageData and PolyData, the pipeline infrastructure, and frequently used readers (obj, stl, vtp, vti). Some filters are also provided as demonstrations. We are not aiming for vtk.js to provide the same set of filters that is available in VTK/C++, but vtk.js does provide the infrastructure needed to define pipelines and filters.
+The left viewport uses weighted blending; the right retains and sorts fragments. Both share geometry, camera, lights, and materials. The pass retains the nearest sixteen fragments per pixel with a bounded shared pool.
 
-We have also started to explore a path where you can compile some bits of VTK/C++ into WebAssembly and to enable them to interact with vtk.js. With such interaction, you can pick and choose what you need to extract from VTK and enable it inside your web application. VTK/C++ WebAssembly can even be used for rendering, and examples can be found in [VTK repository](https://github.com/Kitware/VTK/tree/master/Examples/Emscripten/Cxx). Additionally [itk-wasm](https://github.com/InsightSoftwareConsortium/itk-wasm) (which is ITK via WebAssembly) also provides proven implementations for several image filters and data readers.  There are, however, some additional costs in terms of the size of the WebAssembly file that will have to be downloaded when visiting a VTK or ITK WebAssembly webpage; and we still have some work to do to streamline the vtk.js + VTK WebAssembly integrations.
+## Examples
 
-In general if you want to stay in the pure JavaScript land, then vtk.js is perhaps the ideal solution for you. We welcome your feedback, including your contributions for new visualization filters, bug fixes, and examples.
+The selector includes the article's **Bonsai**, **Engine**, and **Boston Teapot** scans, plus genuine **asteroid ocean impact** data recovered from a public research mirror. The recovered frame is yA31 cycle 21255 at 11.00054 seconds; the article shows cycle 22198 at 12.00047 seconds. This difference is labeled in the demo.
 
-On top of the rendering capabilities of vtk.js, the library provides helper classes to connect to a remote VTK/ParaView server to enable remote-rendering and/or synchronized C++/RenderWindow content with a local vtk.js RenderWindow by pushing the geometry from the server to the client and only involve rendering on the client side.
+**Sinus anatomy** uses real NasalSeg CT case P001 with expert-reviewed masks for both maxillary sinuses, both nasal cavities, and the nasopharynx. The transparent facial bone comes from the same registered cropped CT. Hide bone to inspect the intertwined passages. Frontal, ethmoid, and sphenoid sinuses are outside this example's annotation coverage. The dataset is [CC BY 4.0](https://zenodo.org/records/13893419); the manifest records attribution and source hashes.
 
-## Using vtk.js
-### Requirements
+**Ball-bearing assembly** is a reproducible parametric mechanical model: two grooved races, twelve balls, and a retainer with spherical pockets. Transparent outer parts expose the fitted internal components. It is a geometric demonstration, not a manufacturer CAD file or an engineering-certified design.
 
-In general VTK tries to be as portable as possible; the specific configurations below are known to work and tested.
+Three small procedural scenes isolate nested surfaces, intersections, and two-layer alpha composition. See the [example documentation](Examples/Rendering/DeepFramebufferTransparency/api.md) for preparation scripts and controls.
 
-vtk.js supports the following development environments:
+## Verify the recorded C++ comparison
 
-- Node 22+
-- NPM 10+
+Install NumPy and Pillow in a Python environment, then run from this checkout:
 
-and we use [@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env) with the [defaults](https://github.com/Kitware/vtk-js/blob/master/.browserslistrc) set of [browsers target](https://browserl.ist/?q=defaults).
-But when built from source this could be adjusted to support any browser as long they provide WebGL.
+```sh
+python Utilities/DeepFramebufferComparison/compare.py --captures comparison --specs comparison/specs
+```
 
-### Documentation
+**Exit status 1 is expected**, because the stored images differ. The command checks specification hashes and rendering diagnostics, compares all RGBA channels with zero tolerance, and regenerates the differences and metrics. There are no coverage masks or relaxed thresholds. `--report-only` keeps the measurements while returning success for diagnostic use.
 
-- [High-level documentation](https://kitware.github.io/vtk-js/docs/)
-- [API descriptions](https://kitware.github.io/vtk-js/api/)
-- [Examples](https://kitware.github.io/vtk-js/examples/)
+The native reference is an unmodified local build of VTK revision `efc4afbd7430e8eddf86759c5d70711af89e50f0`. Both runtimes used Vulkan with the same SwiftShader driver, shared mesh files checked by SHA-256, explicit cameras/materials/lights, 800 by 800 output, and one sample per pixel. The [native build provenance](comparison/provenance/build-info.json), [capture specifications](comparison/specs), [native source excerpts](comparison/reference-source), captures, raw RGBA, diagnostics, and difference images are committed here. Historical paths in immutable capture metadata identify the original run; verification resolves specifications relative to the supplied directory.
 
-### Feature requests and Bug reports
+For fresh captures, regenerate specifications in this checkout and follow the [native comparison instructions](Utilities/DeepFramebufferComparison/README.md). Native build products and original scan/CT volumes are excluded; their URLs, hashes, and preparation commands are recorded. The prepared surfaces are included in `Data/deep-transparency` with their manifests.
 
-Submit an issue to report bugs or missing features in vtk.js.
-### Help and Support
+## Browser checks
 
-* [VTK/Web discourse forum](https://discourse.vtk.org/c/web/9) is here to help you find existing questions or ask your own.
-* [Kitware](https://www.kitware.com/) offers advanced software R&D solutions and services. Find out how we can help with your next project.
+With the demo server running:
 
-### License
+```sh
+node Examples/Rendering/DeepFramebufferTransparency/verify.mjs
+node Examples/Rendering/DeepFramebufferTransparency/verify-datasets.mjs
+node Examples/Rendering/DeepFramebufferTransparency/verify-controls.mjs
+node Examples/Rendering/DeepFramebufferTransparency/verify-components.mjs
+```
 
-VTK is distributed under the OSI-approved BSD 3-clause License.
-See [Copyright.txt][] for details.
+Set `DEMO_URL` for another port and `DEMO_OUTPUT_DIR` to choose the screenshot directory. These checks drive the public demo, require exact draw-order independence, inspect displayed geometry and controls, and reject browser or WebGPU errors. They do not assert native PBR parity. The separate [rendering fixtures](Sources/Rendering/WebGPU/DeepFramebufferPass/test/README.md) include independently rendered OpenGL C++ references with explicitly documented criteria.
 
-[Copyright.txt]: Copyright.txt
+On a fresh machine, install the test browser with `npx playwright install chromium` before running browser checks. To verify the committed mesh and capture files byte for byte, run `sha256sum --check provenance/artifacts.sha256`.
 
-## Contributing
+## Repository
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to contribute.
+This is a standalone local repository with an upstream source snapshot followed by the transparency port, demo, data, and comparison evidence. It has no configured remote. [Source revisions](provenance/source.json) identify its inputs. The original vtk.js project README is preserved as [README.vtk.md](README.vtk.md); vtk.js retains its [BSD license](LICENSE).

@@ -648,6 +648,7 @@ const DEFAULT_VALUES = {
   useShadows: false,
 
   useDepthPeeling: false,
+  useDeepFramebufferTransparency: false,
   occlusionRatio: 0,
   maximumNumberOfPeels: 4,
 
@@ -705,6 +706,7 @@ export function extend(publicAPI, model, initialValues = {}) {
     'preserveColorBuffer',
     'preserveDepthBuffer',
     'useDepthPeeling',
+    'useDeepFramebufferTransparency',
     'occlusionRatio',
     'maximumNumberOfPeels',
     'delegate',

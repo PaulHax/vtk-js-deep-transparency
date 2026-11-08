@@ -1,0 +1,155 @@
+{
+  "url": "http://127.0.0.1:9998",
+  "results": [
+    {
+      "name": "bonsai",
+      "geometry": [
+        {
+          "points": 377426,
+          "triangles": 751818,
+          "opacity": 0.28
+        },
+        {
+          "points": 174860,
+          "triangles": 348328,
+          "opacity": 0.68
+        }
+      ],
+      "changedChannels": 0,
+      "foregroundPixels": 63273,
+      "viewportPixels": 392660,
+      "validationError": null
+    },
+    {
+      "name": "engine",
+      "geometry": [
+        {
+          "points": 290473,
+          "triangles": 579618,
+          "opacity": 0.36
+        },
+        {
+          "points": 72158,
+          "triangles": 144334,
+          "opacity": 0.76
+        }
+      ],
+      "changedChannels": 0,
+      "foregroundPixels": 147044,
+      "viewportPixels": 392660,
+      "validationError": null
+    },
+    {
+      "name": "teapot",
+      "geometry": [
+        {
+          "points": 259209,
+          "triangles": 518434,
+          "opacity": 0.16
+        },
+        {
+          "points": 27714,
+          "triangles": 55452,
+          "opacity": 0.85
+        }
+      ],
+      "changedChannels": 0,
+      "foregroundPixels": 69477,
+      "viewportPixels": 392660,
+      "validationError": null
+    },
+    {
+      "name": "impact",
+      "geometry": [
+        {
+          "points": 313218,
+          "triangles": 624798,
+          "opacity": 0.38
+        },
+        {
+          "points": 217244,
+          "triangles": 434424,
+          "opacity": 0.24
+        },
+        {
+          "points": 212854,
+          "triangles": 420988,
+          "opacity": 0.55
+        }
+      ],
+      "changedChannels": 0,
+      "foregroundPixels": 81602,
+      "viewportPixels": 392660,
+      "validationError": null
+    },
+    {
+      "name": "anatomy",
+      "geometry": [
+        {
+          "points": 174564,
+          "triangles": 349472,
+          "opacity": 0.14
+        },
+        {
+          "points": 8604,
+          "triangles": 17204,
+          "opacity": 0.76
+        },
+        {
+          "points": 7792,
+          "triangles": 15580,
+          "opacity": 0.76
+        },
+        {
+          "points": 21312,
+          "triangles": 42648,
+          "opacity": 0.82
+        },
+        {
+          "points": 20994,
+          "triangles": 42000,
+          "opacity": 0.82
+        },
+        {
+          "points": 8786,
+          "triangles": 17568,
+          "opacity": 0.72
+        }
+      ],
+      "changedChannels": 0,
+      "foregroundPixels": 94548,
+      "viewportPixels": 392660,
+      "validationError": null
+    },
+    {
+      "name": "cad",
+      "geometry": [
+        {
+          "points": 14400,
+          "triangles": 28800,
+          "opacity": 0.24
+        },
+        {
+          "points": 14400,
+          "triangles": 28800,
+          "opacity": 0.72
+        },
+        {
+          "points": 25560,
+          "triangles": 51072,
+          "opacity": 0.96
+        },
+        {
+          "points": 79920,
+          "triangles": 159888,
+          "opacity": 0.7
+        }
+      ],
+      "changedChannels": 0,
+      "foregroundPixels": 103183,
+      "viewportPixels": 392660,
+      "validationError": null
+    }
+  ],
+  "errors": []
+}

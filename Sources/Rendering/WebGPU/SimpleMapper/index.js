@@ -360,6 +360,7 @@ function vtkWebGPUSimpleMapper(publicAPI, model) {
       }
 
       model.pipeline.addBindGroupLayout(model.bindGroup);
+      model.pipeline.addBindGroupLayout(model.renderEncoder.getPassBindGroup());
 
       publicAPI.generateShaderDescriptions(
         model.pipelineHash,

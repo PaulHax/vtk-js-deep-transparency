@@ -1,0 +1,52 @@
+{
+  "cases": [
+    {
+      "name": "bonsai-unlit",
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/comparison/specs/bonsai-unlit.json",
+      "url": "/Data/deep-transparency/comparison/specs/bonsai-unlit.json",
+      "sha256": "d75763f8c7cb078278a21b7a487093766981ca25bcd15fdad655ed15c6db7568"
+    },
+    {
+      "name": "bonsai-pbr",
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/comparison/specs/bonsai-pbr.json",
+      "url": "/Data/deep-transparency/comparison/specs/bonsai-pbr.json",
+      "sha256": "d9f98482aaacc79989a660a346e6225c0e6491da20f1c8ed0825c9b45eeda860"
+    },
+    {
+      "name": "engine-unlit",
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/comparison/specs/engine-unlit.json",
+      "url": "/Data/deep-transparency/comparison/specs/engine-unlit.json",
+      "sha256": "6f2f5b936300156d5ee172f0b90a95b688800871c10fcae41d36efe8412d6d41"
+    },
+    {
+      "name": "engine-pbr",
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/comparison/specs/engine-pbr.json",
+      "url": "/Data/deep-transparency/comparison/specs/engine-pbr.json",
+      "sha256": "b2fe73e53cda60aea1a00f2687c65f823c83c21e5ee4bfedac1fe19febd45e0b"
+    },
+    {
+      "name": "teapot-unlit",
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/comparison/specs/teapot-unlit.json",
+      "url": "/Data/deep-transparency/comparison/specs/teapot-unlit.json",
+      "sha256": "4eb430abcf405e244aa39843812a8bce98573ba502855b3afa7f149a1bc8080b"
+    },
+    {
+      "name": "teapot-pbr",
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/comparison/specs/teapot-pbr.json",
+      "url": "/Data/deep-transparency/comparison/specs/teapot-pbr.json",
+      "sha256": "56b9a87dcb4c7e8065383fd2dd9bf41a9b4b562240a6ccf974c2f5163ddbb4c4"
+    },
+    {
+      "name": "impact-unlit",
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/comparison/specs/impact-unlit.json",
+      "url": "/Data/deep-transparency/comparison/specs/impact-unlit.json",
+      "sha256": "38ff38b03e96d6a07ea1f622f6feb6169319fae5de9894b0898304953e1e99aa"
+    },
+    {
+      "name": "impact-pbr",
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/comparison/specs/impact-pbr.json",
+      "url": "/Data/deep-transparency/comparison/specs/impact-pbr.json",
+      "sha256": "3691d9d2f6e78d1f6dfe1aa99249b7bf87576161c6cb764c935b02274ce887d4"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "url": "http://127.0.0.1:9998",
+  "orderChecks": [
+    {
+      "scene": "nested",
+      "differingChannels": 0
+    },
+    {
+      "scene": "intersecting",
+      "differingChannels": 0
+    },
+    {
+      "scene": "layers",
+      "differingChannels": 0
+    }
+  ],
+  "redFront": [
+    128,
+    0,
+    64,
+    255
+  ],
+  "blueFront": [
+    64,
+    0,
+    128,
+    255
+  ],
+  "displayedCanvasSampleChanges": {
+    "fourSamplesChangedImage": true,
+    "restoredBlueFrontExact": true,
+    "restoredRedFrontExact": true
+  },
+  "browserErrors": [],
+  "screenshots": [
+    "nested.png",
+    "intersecting.png",
+    "layers.png",
+    "layers-blue-front.png",
+    "canvas-red-front-1x.png",
+    "canvas-blue-front-1x.png",
+    "canvas-red-front-4x.png",
+    "canvas-blue-front-return-1x.png",
+    "canvas-red-front-return-1x.png",
+    "responsive.png"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "implementation": "VTK.js WebGPU deep framebuffer",
+  "name": "impact-pbr",
+  "mode": "pbr",
+  "width": 800,
+  "height": 800,
+  "sampleCount": 1,
+  "requestedPoolLayers": 32,
+  "colorAttachmentFormat": "rgba16float",
+  "presentationFormat": "rgba8unorm",
+  "adapter": {
+    "vendor": "google",
+    "architecture": "swiftshader",
+    "device": "",
+    "description": ""
+  },
+  "limits": {
+    "maxBufferSize": 1073741824,
+    "maxStorageBufferBindingSize": 1073741824
+  },
+  "geometry": [
+    {
+      "points": 313218,
+      "polygons": 624798
+    },
+    {
+      "points": 217244,
+      "polygons": 434424
+    },
+    {
+      "points": 212854,
+      "polygons": 420988
+    }
+  ],
+  "gpuErrors": [],
+  "specificationSHA256": "3691d9d2f6e78d1f6dfe1aa99249b7bf87576161c6cb764c935b02274ce887d4",
+  "orderDifferingChannels": 0,
+  "errors": []
+}

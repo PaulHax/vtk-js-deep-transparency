@@ -37,6 +37,9 @@ export interface vtkWebGPUOpaquePass extends vtkWebGPUOpaquePassBase {
    */
   getColorTextureView(): vtkWebGPUTextureView;
 
+  /** Color attachment before the optional multisample resolve. */
+  getMultisampleColorTextureView(): vtkWebGPUTextureView;
+
   /**
    * Get the view of the depth texture this pass renders into.
    */

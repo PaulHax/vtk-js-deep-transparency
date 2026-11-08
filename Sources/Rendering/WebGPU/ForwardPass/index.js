@@ -1,6 +1,7 @@
 import macro from 'vtk.js/Sources/macros';
 import vtkWebGPUFullScreenQuad from 'vtk.js/Sources/Rendering/WebGPU/FullScreenQuad';
 import vtkWebGPUOpaquePass from 'vtk.js/Sources/Rendering/WebGPU/OpaquePass';
+import vtkWebGPUDeepFramebufferPass from 'vtk.js/Sources/Rendering/WebGPU/DeepFramebufferPass';
 import vtkWebGPUOrderIndepenentTranslucentPass from 'vtk.js/Sources/Rendering/WebGPU/OrderIndependentTranslucentPass';
 import vtkWebGPURenderEncoder from 'vtk.js/Sources/Rendering/WebGPU/RenderEncoder';
 import vtkWebGPUVolumePass from 'vtk.js/Sources/Rendering/WebGPU/VolumePass';
@@ -92,17 +93,26 @@ function vtkForwardPass(publicAPI, model) {
 
           // optional translucent pass
           if (model.translucentActorCount > 0) {
-            if (!model.translucentPass) {
-              model.translucentPass =
-                vtkWebGPUOrderIndepenentTranslucentPass.newInstance();
+            const deep = ren.getUseDeepFramebufferTransparency();
+            const passName = deep ? 'deepFramebufferPass' : 'translucentPass';
+            if (!model[passName]) {
+              model[passName] = deep
+                ? vtkWebGPUDeepFramebufferPass.newInstance()
+                : vtkWebGPUOrderIndepenentTranslucentPass.newInstance();
             }
-            model.translucentPass.setColorTextureView(
+            const translucentPass = model[passName];
+            translucentPass.setColorTextureView(
               model.opaquePass.getColorTextureView()
             );
-            model.translucentPass.setDepthTextureView(
+            translucentPass.setDepthTextureView(
               model.opaquePass.getDepthTextureView()
             );
-            model.translucentPass.traverse(renNode, viewNode);
+            if (deep) {
+              translucentPass.setMultisampleColorTextureView(
+                model.opaquePass.getMultisampleColorTextureView()
+              );
+            }
+            translucentPass.traverse(renNode, viewNode);
           }
 
           // optional volume pass
@@ -133,6 +143,10 @@ function vtkForwardPass(publicAPI, model) {
   publicAPI.finalPass = (viewNode, renNode) => {
     if (!model._finalBlitEncoder) {
       publicAPI.createFinalBlitEncoder(viewNode);
+    }
+    const colorView = model.opaquePass.getColorTextureView();
+    if (model._fullScreenQuad.getTextureViews()[0] !== colorView) {
+      model._fullScreenQuad.setTextureViews([colorView]);
     }
     model._finalBlitOutputTextureView.createFromTextureHandle(
       viewNode.getCurrentTexture(),
@@ -219,10 +233,12 @@ function vtkForwardPass(publicAPI, model) {
   publicAPI.releaseGraphicsResources = () => {
     model.opaquePass?.releaseGraphicsResources?.();
     model.translucentPass?.releaseGraphicsResources?.();
+    model.deepFramebufferPass?.releaseGraphicsResources();
     model.volumePass?.releaseGraphicsResources?.();
 
     model.opaquePass = null;
     model.translucentPass = null;
+    model.deepFramebufferPass = null;
     model.volumePass = null;
     model._finalBlitEncoder = null;
     model._finalBlitOutputTextureView = null;
@@ -241,6 +257,7 @@ const DEFAULT_VALUES = {
   volumes: null,
   opaqueRenderEncoder: null,
   translucentPass: null,
+  deepFramebufferPass: null,
   volumePass: null,
 };
 
@@ -255,6 +272,7 @@ export function extend(publicAPI, model, initialValues = {}) {
   macro.setGet(publicAPI, model, [
     'opaquePass',
     'translucentPass',
+    'deepFramebufferPass',
     'volumePass',
   ]);
 

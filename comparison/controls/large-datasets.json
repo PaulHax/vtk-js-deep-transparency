@@ -1,0 +1,9 @@
+{
+  "renderer": "Chromium WebGPU, SwiftShader software Vulkan",
+  "metrics": [
+    { "dataset": "impact", "triangles": 1480210, "selectionMilliseconds": 257.5, "wheelAndRenderMilliseconds": 845, "anchorErrorPixels": 2.3437142008433856e-13 },
+    { "dataset": "bonsai", "triangles": 1100146, "selectionMilliseconds": 150.90000000037253, "wheelAndRenderMilliseconds": 673, "anchorErrorPixels": 2.3437142008433856e-13 },
+    { "dataset": "cad", "triangles": 268560, "selectionMilliseconds": 76, "wheelAndRenderMilliseconds": 388, "anchorErrorPixels": 2.2914314707516465e-13 }
+  ],
+  "errors": []
+}

@@ -1,0 +1,247 @@
+{
+  "adapterCapabilities": "Adapter\n=======\n  VendorID: 0x1AE0\n  Vendor: google\n  Architecture: swiftshader\n  DeviceID: 0xC0DE\n  Name: SwiftShader Device (Subzero)\n  Driver description: SwiftShader driver 5.0.0\n  Adapter Type: CPU\n  Backend Type: Vulkan\n  Power: high performance\n  Features\n  ========\n     * Feature (0x1)\n     * Feature (0x2)\n     * Feature (0x3)\n     * Feature (0x4)\n     * Feature (0x5)\n     * Feature (0x6)\n     * Feature (0x7)\n     * Feature (0x8)\n     * Feature (0x9)\n     * Feature (0xa)\n     * Feature (0xc)\n     * Feature (0xd)\n     * Feature (0xe)\n     * Feature (0xf)\n     * Feature (0x10)\n     * Feature (0x12)\n     * Feature (0x16)\n     * Feature (0x17)\n     * Feature (0x18)\n     * Feature (0x50000)\n     * Feature (0x50001)\n     * Feature (0x50002)\n     * Feature (0x50004)\n     * Feature (0x50006)\n     * Feature (0x5000c)\n     * Feature (0x50014)\n     * Feature (0x50016)\n     * Feature (0x50017)\n     * Feature (0x50020)\n     * Feature (0x50026)\n     * Feature (0x5002f)\n     * Feature (0x50033)\n     * Feature (0x5003c)\n     * Feature (0x50041)\n  \n  Adapter Limits\n  ==============\n    maxTextureDimension1D: 16,384\n    maxTextureDimension2D: 8,192\n    maxTextureDimension3D: 2,048\n    maxTextureArrayLayers: 2,048\n    maxBindGroups: 4\n    maxBindGroupsPlusVertexBuffers: 24\n    maxBindingsPerBindGroup: 1,000\n    maxDynamicUniformBuffersPerPipelineLayout: 8\n    maxDynamicStorageBuffersPerPipelineLayout: 4\n    maxSampledTexturesPerShaderStage: 48\n    maxSamplersPerShaderStage: 16\n    maxStorageBuffersPerShaderStage: 12\n    maxStorageTexturesPerShaderStage: 8\n    maxUniformBuffersPerShaderStage: 12\n    maxUniformBufferBindingSize: 65,536\n    maxStorageBufferBindingSize: 1,073,741,824\n    minUniformBufferOffsetAlignment: 256\n    minStorageBufferOffsetAlignment: 256\n    maxVertexBuffers: 8\n    maxBufferSize: 1,073,741,824\n    maxVertexAttributes: 16\n    maxVertexBufferArrayStride: 2,048\n    maxInterStageShaderVariables: 30\n    maxColorAttachments: 8\n    maxColorAttachmentBytesPerSample: 256\n    maxComputeWorkgroupStorageSize: 32,768\n    maxComputeInvocationsPerWorkgroup: 256\n    maxComputeWorkgroupSizeX: 256\n    maxComputeWorkgroupSizeY: 256\n    maxComputeWorkgroupSizeZ: 64\n    maxComputeWorkgroupsPerDimension: 65,535\n",
+  "backend": "C++ VTK WebGPU deep framebuffer",
+  "captureComponents": 4,
+  "deepFramebufferClass": "vtkWebGPUDeepFramebuffer",
+  "depthStencilFormat": "depth24plus-stencil8",
+  "errors": [],
+  "fragmentCapacity": 20480000,
+  "fragmentRequests": 513291,
+  "geometry": [
+    {
+      "actorClass": "vtkWebGPUActor",
+      "mapperClass": "vtkWebGPUPolyDataMapper",
+      "points": 259209,
+      "propertyClass": "vtkWebGPUProperty",
+      "sha256": "fa4f83036cce3ddcb535aaa0fe4ad6431da5cc0c4da3cf1ea113b73a22033b27",
+      "triangles": 518434
+    },
+    {
+      "actorClass": "vtkWebGPUActor",
+      "mapperClass": "vtkWebGPUPolyDataMapper",
+      "points": 27714,
+      "propertyClass": "vtkWebGPUProperty",
+      "sha256": "b92ae7388c8e37c95bc00939b0e77185a196a07198bdbe485aa635a71764907a",
+      "triangles": 55452
+    }
+  ],
+  "height": 800,
+  "maximumListLength": 12,
+  "mode": "unlit",
+  "name": "teapot-unlit",
+  "offscreenColorFormat": "rgba8unorm",
+  "pixelsOverSixteenLayers": 0,
+  "poolLayers": 32,
+  "renderWindowClass": "vtkWebGPURenderWindow",
+  "rendererClass": "vtkWebGPURenderer",
+  "retainedFragments": 513291,
+  "runtimeBackend": "Vulkan",
+  "runtimeLibrary": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/native-reference/dawn-v20260923.214225-linux-x86_64/lib64/libwebgpu_dawn.so",
+  "samplesPerPixel": 1,
+  "sharedPoolExhausted": false,
+  "specification": {
+    "actors": [
+      {
+        "cellCount": 518440,
+        "color": [
+          0.24,
+          0.72,
+          0.82
+        ],
+        "label": "Teapot shell",
+        "opacity": 0.16,
+        "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/scans/teapot-50.vtp",
+        "pointCount": 259209,
+        "sha256": "fa4f83036cce3ddcb535aaa0fe4ad6431da5cc0c4da3cf1ea113b73a22033b27",
+        "triangleCount": 518434,
+        "url": "/Data/deep-transparency/scans/teapot-50.vtp"
+      },
+      {
+        "cellCount": 55452,
+        "color": [
+          1.0,
+          0.63,
+          0.26
+        ],
+        "label": "Lobster model",
+        "opacity": 0.85,
+        "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/scans/teapot-65.vtp",
+        "pointCount": 27714,
+        "sha256": "b92ae7388c8e37c95bc00939b0e77185a196a07198bdbe485aa635a71764907a",
+        "triangleCount": 55452,
+        "url": "/Data/deep-transparency/scans/teapot-65.vtp"
+      }
+    ],
+    "background": [
+      0.055,
+      0.075,
+      0.105
+    ],
+    "backgroundAlpha": 1,
+    "bounds": [
+      6.666803359985352,
+      243.1328125,
+      57.553131103515625,
+      204.60386657714844,
+      3.1690664291381836,
+      172.75953674316406
+    ],
+    "camera": {
+      "clippingRange": [
+        326.30724603768635,
+        1013.4845881900469
+      ],
+      "focalPoint": [
+        124.89980792999268,
+        131.07849884033203,
+        87.96430158615112
+      ],
+      "parallelProjection": true,
+      "parallelScale": 163.01918591324943,
+      "position": [
+        457.7954841719186,
+        284.72265710583633,
+        600.1114958044986
+      ],
+      "viewAngle": 30.0,
+      "viewUp": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    "cameraGenerator": "VTK 9.7.2 camera public API; no rendering",
+    "cycle": null,
+    "dataset": "teapot",
+    "height": 800,
+    "lights": [
+      {
+        "color": [
+          1,
+          0.94,
+          0.86
+        ],
+        "focalPoint": [
+          124.89980792999268,
+          131.07849884033203,
+          87.96430158615112
+        ],
+        "intensity": 0.7,
+        "lightType": "SceneLight",
+        "position": [
+          776.9765515829904,
+          946.1744284065792,
+          1229.0986029788971
+        ],
+        "positional": false
+      },
+      {
+        "color": [
+          0.67,
+          0.82,
+          1
+        ],
+        "focalPoint": [
+          124.89980792999268,
+          131.07849884033203,
+          87.96430158615112
+        ],
+        "intensity": 0.3,
+        "lightType": "SceneLight",
+        "position": [
+          -690.1961216362545,
+          294.09768475358146,
+          577.0218593258994
+        ],
+        "positional": false
+      },
+      {
+        "color": [
+          0.69,
+          1,
+          0.93
+        ],
+        "focalPoint": [
+          124.89980792999268,
+          131.07849884033203,
+          87.96430158615112
+        ],
+        "intensity": 0.5,
+        "lightType": "SceneLight",
+        "position": [
+          124.89980792999268,
+          -520.9982448126657,
+          -564.1124420668466
+        ],
+        "positional": false
+      }
+    ],
+    "material": {
+      "ambient": 1,
+      "diffuse": 0,
+      "metallic": 0.08,
+      "roughness": 0.38,
+      "specular": 0,
+      "specularPower": 35
+    },
+    "mode": "unlit",
+    "multiSample": 1,
+    "name": "teapot-unlit",
+    "poolLayers": 32,
+    "simulationTime": null,
+    "sourceCredit": "volvis.org and Terarecon Inc, MERL, Brigham and Women's Hospital",
+    "sourceUrl": "http://klacansky.com/open-scivis-datasets/#boston_teapot",
+    "width": 800
+  },
+  "specificationPath": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/comparison/specs/teapot-unlit.json",
+  "vtkRevision": "efc4afbd7430e8eddf86759c5d70711af89e50f0",
+  "vtkVersion": "9.7.20261107",
+  "vulkanICD": "/home/paulhax/.cache/ms-playwright/chromium-1243/chrome-linux64/vk_swiftshader_icd.json",
+  "width": 800,
+  "specificationSHA256": "4eb430abcf405e244aa39843812a8bce98573ba502855b3afa7f149a1bc8080b",
+  "referenceBuild": {
+    "vtk": {
+      "commit": "efc4afbd7430e8eddf86759c5d70711af89e50f0",
+      "sourceUrl": "https://github.com/Kitware/VTK/tree/efc4afbd7430e8eddf86759c5d70711af89e50f0",
+      "archiveUrl": "https://codeload.github.com/Kitware/VTK/tar.gz/efc4afbd7430e8eddf86759c5d70711af89e50f0",
+      "archiveSHA256": "04d7412a9771e80d373aa154947ecb43e28fdb7b3adc96d96d58fa71f63bd289",
+      "sourceDirectory": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/native-reference/VTK-efc4afbd7430e8eddf86759c5d70711af89e50f0",
+      "buildDirectory": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/native-reference/vtk-build",
+      "deepFramebufferSourceSHA256": "e0f6d97b566914098ad343e245558af630269bf170e489906b160fc69f3a7498"
+    },
+    "dawn": {
+      "version": "20260923.214225",
+      "buildDate": "20260928.0",
+      "archiveUrl": "https://gitlab.kitware.com/api/v4/projects/6955/packages/generic/dawn/v20260923.214225-20260928.0/dawn-v20260923.214225-linux-x86_64.tar.gz",
+      "archiveSHA256": "565a55cdb7bb3ee89309063f7483be4a9495d8f1e9bbe2a35f35f62e5d4c2be9",
+      "library": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/native-reference/dawn-v20260923.214225-linux-x86_64/lib64/libwebgpu_dawn.so",
+      "librarySHA256": "13beb0d862dd89bdb7f0272fc65c407746a547af7964d0ec15a55f73277e2ea9"
+    },
+    "adapterProbe": {
+      "vendor": "google",
+      "device": "SwiftShader Device (Subzero)",
+      "backend": "Vulkan",
+      "adapterType": "CPU",
+      "icd": "/home/paulhax/.cache/ms-playwright/chromium-1243/chrome-linux64/vk_swiftshader_icd.json",
+      "icdSHA256": "c9eef28b6b984fec220ef0abfecc40b502d46946706e47bfe97707027cb818bd",
+      "librarySHA256": "1d5d7ab9c4c1499041aa44ea7a2ae3da3ca9812cd8bda9b5ac920ae158adb163",
+      "successful": true
+    },
+    "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+    "cmake": "cmake version 3.22.1",
+    "configureCommand": "cmake -S VTK-efc4afbd7430e8eddf86759c5d70711af89e50f0 -B vtk-build -GNinja -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DVTK_BUILD_TESTING=OFF -DVTK_BUILD_EXAMPLES=OFF -DVTK_WRAP_PYTHON=OFF -DVTK_BUILD_ALL_MODULES=OFF -DVTK_GROUP_ENABLE_StandAlone=DONT_WANT -DVTK_GROUP_ENABLE_Rendering=DONT_WANT -DVTK_ENABLE_WEBGPU=ON -DVTK_USE_DAWN_WEBGPU=ON -DDawn_DIR=/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/native-reference/dawn-v20260923.214225-linux-x86_64/lib64/cmake/Dawn -DVTK_MODULE_ENABLE_VTK_RenderingWebGPU=YES -DVTK_MODULE_ENABLE_VTK_IOXML=YES -DVTK_MODULE_ENABLE_VTK_IOImage=YES -DVTK_MODULE_ENABLE_VTK_jsoncpp=YES -DVTK_MODULE_ENABLE_VTK_RenderingFreeType=WANT -DVTK_MODULE_ENABLE_VTK_InteractionStyle=DONT_WANT -DVTK_MODULE_ENABLE_VTK_RenderingOpenGL2=NO",
+    "buildCommand": "cmake --build vtk-build --parallel 12",
+    "runtimeEnvironment": {
+      "VK_ICD_FILENAMES": "/home/paulhax/.cache/ms-playwright/chromium-1243/chrome-linux64/vk_swiftshader_icd.json",
+      "VTK_WEBGPU_LIBRARY": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/native-reference/dawn-v20260923.214225-linux-x86_64/lib64/libwebgpu_dawn.so"
+    },
+    "build": {
+      "complete": true,
+      "successfulTargets": 1988,
+      "renderingWebGPULibrary": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/native-reference/vtk-build/lib/libvtkRenderingWebGPU-9.7.so.9.7",
+      "renderingWebGPULibrarySHA256": "04c77de3baa28f8a268ae13fe247926f7bcbd834753f76e19cb28b2401a649f9",
+      "cmakeCacheSHA256": "2cfcf20dddde6e676282281834fc35a6d56403c02bcb369c9318427cb0fb6eaa",
+      "sourceModified": false
+    }
+  }
+}

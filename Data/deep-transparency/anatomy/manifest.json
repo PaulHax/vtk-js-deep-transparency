@@ -1,0 +1,261 @@
+{
+  "generator": "prepare-anatomy.py",
+  "vtkVersion": "9.7.2",
+  "scenes": {
+    "anatomy": {
+      "name": "Sinus anatomy",
+      "description": "Both maxillary sinuses, the intricate left and right nasal passages, and the nasopharynx from one real human CT, inside translucent facial bone.",
+      "note": "Five expert-reviewed NasalSeg labels. Frontal, ethmoid and sphenoid sinuses are not separately annotated. Bone is a 350 HU contour of the same cropped CT.",
+      "actors": [
+        {
+          "url": "/Data/deep-transparency/anatomy/P001-bone.vtp",
+          "label": "Facial bone (CT contour)",
+          "color": [
+            0.88,
+            0.87,
+            0.8
+          ],
+          "opacity": 0.14,
+          "triangleCount": 349472,
+          "cellCount": 349472,
+          "pointCount": 174564,
+          "bounds": [
+            -150.08566284179688,
+            -60.240169525146484,
+            -318.88275146484375,
+            -209.7855224609375,
+            -566.4699096679688,
+            -487.9902648925781
+          ],
+          "bytes": 7553331,
+          "sha256": "75e92c2b5c73bfa434c55d2d4b1fc9236dff1bd845c3015f876c05fc57a82897",
+          "sourceVoxelCount": 233192,
+          "thresholdHU": 350
+        },
+        {
+          "url": "/Data/deep-transparency/anatomy/P001-right-maxillary.vtp",
+          "label": "Right maxillary sinus",
+          "color": [
+            0.2,
+            0.77,
+            0.96
+          ],
+          "opacity": 0.76,
+          "triangleCount": 17204,
+          "cellCount": 17204,
+          "pointCount": 8604,
+          "bounds": [
+            -146.9055633544922,
+            -118.49832153320312,
+            -297.24591064453125,
+            -259.62384033203125,
+            -550.7017211914062,
+            -507.5649719238281
+          ],
+          "bytes": 373187,
+          "sha256": "76c2988073ff10a965832892e7cc15fdb52ddc500e0c2cb2e05b9d1fe51eb11e",
+          "sourceVoxelCount": 29070,
+          "sourceLabel": 1,
+          "segmentedVolumeMM3": 14970.588684082035,
+          "meanSourceHU": -956.7692466460269
+        },
+        {
+          "url": "/Data/deep-transparency/anatomy/P001-left-maxillary.vtp",
+          "label": "Left maxillary sinus",
+          "color": [
+            0.98,
+            0.49,
+            0.25
+          ],
+          "opacity": 0.76,
+          "triangleCount": 15580,
+          "cellCount": 15580,
+          "pointCount": 7792,
+          "bounds": [
+            -90.30443572998047,
+            -63.22284698486328,
+            -300.181884765625,
+            -266.0718078613281,
+            -546.8645629882812,
+            -506.119384765625
+          ],
+          "bytes": 337372,
+          "sha256": "f14cbf2899730e190542944a6302e6162dc05a260cd26ea6aecd955c05628b1a",
+          "sourceVoxelCount": 27324,
+          "sourceLabel": 2,
+          "segmentedVolumeMM3": 14071.426391601566,
+          "meanSourceHU": -930.7192943932074
+        },
+        {
+          "url": "/Data/deep-transparency/anatomy/P001-right-nasal.vtp",
+          "label": "Right nasal cavity",
+          "color": [
+            0.35,
+            0.87,
+            0.57
+          ],
+          "opacity": 0.82,
+          "triangleCount": 42648,
+          "cellCount": 42648,
+          "pointCount": 21312,
+          "bounds": [
+            -123.54161834716797,
+            -101.94010925292969,
+            -325.98358154296875,
+            -254.34872436523438,
+            -558.5107421875,
+            -495.7293701171875
+          ],
+          "bytes": 923933,
+          "sha256": "d8c95cfd6c05f3ef5da94bfd1bd720c1eebce90055c70fc5dd04ff4252ade316",
+          "sourceVoxelCount": 25632,
+          "sourceLabel": 3,
+          "segmentedVolumeMM3": 13200.073242187504,
+          "meanSourceHU": -729.9637172284645
+        },
+        {
+          "url": "/Data/deep-transparency/anatomy/P001-left-nasal.vtp",
+          "label": "Left nasal cavity",
+          "color": [
+            0.85,
+            0.47,
+            0.93
+          ],
+          "opacity": 0.82,
+          "triangleCount": 42000,
+          "cellCount": 42000,
+          "pointCount": 20994,
+          "bounds": [
+            -106.58045196533203,
+            -85.75211334228516,
+            -327.05377197265625,
+            -254.34181213378906,
+            -560.037109375,
+            -495.56591796875
+          ],
+          "bytes": 908181,
+          "sha256": "52ab53ebdfd570ae93baf5bbac75f9753b22fe6f1a314deed895a9877090e251",
+          "sourceVoxelCount": 23508,
+          "sourceLabel": 4,
+          "segmentedVolumeMM3": 12106.24694824219,
+          "meanSourceHU": -683.6798536668368
+        },
+        {
+          "url": "/Data/deep-transparency/anatomy/P001-nasopharynx.vtp",
+          "label": "Nasopharynx",
+          "color": [
+            0.98,
+            0.83,
+            0.29
+          ],
+          "opacity": 0.72,
+          "triangleCount": 17568,
+          "cellCount": 17568,
+          "pointCount": 8786,
+          "bounds": [
+            -117.0574951171875,
+            -85.55656433105469,
+            -254.47784423828125,
+            -212.87155151367188,
+            -566.4730834960938,
+            -515.10107421875
+          ],
+          "bytes": 379314,
+          "sha256": "ce93436cb3ae4e39893ed3e6c763bcf81a42408d384ada96d17871215bcf6752",
+          "sourceVoxelCount": 20193,
+          "sourceLabel": 5,
+          "segmentedVolumeMM3": 10399.074554443361,
+          "meanSourceHU": -884.1927895805477
+        }
+      ],
+      "sourcePage": "https://zenodo.org/records/13893419",
+      "sourceUrl": "https://zenodo.org/records/13893419/files/NasalSeg.zip?download=1",
+      "sourceArchiveBytes": 224005800,
+      "sourceArchiveMD5": "ba83df47974d907798542101fa43ac7d",
+      "sourceArchiveSHA256": "60c6facf843685802c39e4adff4a05c081c1c4b6175c9cb573745c55abb0fa6a",
+      "sourceCase": "P001",
+      "sourceFiles": {
+        "image": {
+          "member": "images/P001_img.nrrd",
+          "sha256": "a493bf3ad5bb94f31edc18c16a89ac01d7432604e7f087488bdb3e27bf89d9be"
+        },
+        "labels": {
+          "member": "labels/P001_seg.nrrd",
+          "sha256": "511e378f34acad0224ba267830b21236a01bc0c34a6459ca254d2e762125c7c1"
+        }
+      },
+      "paper": "https://doi.org/10.1038/s41597-024-04176-1",
+      "credit": "Yichi Zhang, Jing Wang and colleagues, NasalSeg, Huashan Hospital / Fudan University (2024)",
+      "license": "Creative Commons Attribution 4.0 International (Zenodo dataset)",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "preprocessing": "Original cropped CT and five expert-reviewed masks in shared LPS coordinates; one-voxel exterior padding; 0.5 binary contour; 20 windowed-sinc iterations, passband 0.10; point normals; no mesh decimation. The bone context uses CT >= 350 HU. CT and label dimensions, direction, origin and spacing must match exactly.",
+      "triangleCount": 484472,
+      "cellCount": 484472,
+      "viewDirection": [
+        0.8,
+        -3,
+        0.6
+      ],
+      "viewUp": [
+        0,
+        0,
+        1
+      ],
+      "background": [
+        0.055,
+        0.075,
+        0.105
+      ],
+      "dimensions": [
+        153,
+        205,
+        52
+      ],
+      "spacing": [
+        0.5859375,
+        0.5859375,
+        1.5000000000000002
+      ],
+      "origin": [
+        -149.70703125000003,
+        -329.70703125,
+        -565.5000000000001
+      ],
+      "direction": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "spaceDirections": [
+        [
+          0.5859375,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.5859375,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.5000000000000002
+        ]
+      ],
+      "coordinateSystem": "left-posterior-superior"
+    }
+  }
+}

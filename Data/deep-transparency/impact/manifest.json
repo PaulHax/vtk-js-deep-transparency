@@ -1,0 +1,141 @@
+{
+  "scenes": {
+    "impact": {
+      "name": "Asteroid impact",
+      "description": "LANL Deep Water Impact: a 250 m asteroid entering at 45 degrees, with no prescribed airburst, at 11.00054 s.",
+      "note": "Recovered yA31 cycle 21255 (11.00054 s) from a public research mirror. The blog uses cycle 22198 at 12.00047 s; its LANL download is currently unavailable. Three original scalar fields are contoured directly at the blog's thresholds, with full 300-cubed resolution and physical spacing.",
+      "ensemble": "yA31",
+      "cycle": 21255,
+      "simulationTime": 11.000539779663086,
+      "blogCycle": 22198,
+      "blogSimulationTime": 12.00047,
+      "differentFrameFromBlog": true,
+      "actors": [
+        {
+          "url": "/Data/deep-transparency/impact/water.vtp",
+          "color": [
+            0.38,
+            0.8,
+            0.94
+          ],
+          "opacity": 0.38,
+          "label": "Water",
+          "field": "v02",
+          "isovalue": 0.5,
+          "triangleCount": 624798,
+          "pointCount": 313218,
+          "bounds": [
+            -2300000.0,
+            2300000.0,
+            985.8402709960938,
+            1335933.5,
+            -1200000.0,
+            1200000.0
+          ],
+          "bytes": 11215945,
+          "sha256": "bf31e07fc5725948e7555595a1d2d997f6d4fc9be9557105fbe2a5def624b4aa"
+        },
+        {
+          "url": "/Data/deep-transparency/impact/temperature.vtp",
+          "color": [
+            1,
+            0.8,
+            0.35
+          ],
+          "opacity": 0.24,
+          "label": "Temperature",
+          "field": "tev",
+          "isovalue": 0.09,
+          "triangleCount": 434424,
+          "pointCount": 217244,
+          "bounds": [
+            -2251833.5,
+            838145.8125,
+            8417.814453125,
+            2300000.0,
+            -869906.5625,
+            838245.9375
+          ],
+          "bytes": 8288495,
+          "sha256": "92386c14ed2a472027a503596b4ed5b1775d02f1926522f29999c6562d26ef1c"
+        },
+        {
+          "url": "/Data/deep-transparency/impact/asteroid.vtp",
+          "color": [
+            0.88,
+            0.32,
+            0.15
+          ],
+          "opacity": 0.55,
+          "label": "Asteroid material",
+          "field": "v03",
+          "isovalue": 0.1,
+          "triangleCount": 420988,
+          "pointCount": 212854,
+          "bounds": [
+            -2245330.25,
+            790119.5625,
+            18704.908203125,
+            2300000.0,
+            -690873.3125,
+            754944.6875
+          ],
+          "bytes": 8055392,
+          "sha256": "0fc242a030f10c416872577e72fed495d1d638d8f70112ee334fdddeb6d4e560"
+        }
+      ],
+      "defaultOpacity": 0.38,
+      "controlledActors": [
+        0
+      ],
+      "viewDirection": [
+        1.4,
+        0.65,
+        2
+      ],
+      "viewUp": [
+        0,
+        1,
+        0
+      ],
+      "cameraFocalPoint": [
+        -300000,
+        700000,
+        0
+      ],
+      "parallelScale": 2315789.473684211,
+      "background": [
+        0.055,
+        0.075,
+        0.105
+      ],
+      "sourceUrl": "https://github.com/MatPont/WassersteinMergeTreesData/blob/76a681ace218a813c17efa13db4b1cd061e8959b/dataAsteroidImpactTS.sh",
+      "downloadUrl": "https://drive.google.com/file/d/1MPYTRxi8ecZUqnthrUmxewtkQcEWYnZE/view",
+      "processingSource": "https://github.com/sankhesh/vtk-demo-images/blob/bcedd769d813c02ecb30b8ab8733cc1c4fbf06c6/demos/deep-framebuffer/render-impact.cxx",
+      "license": "Public release LA-UR-17-21595",
+      "credit": "John M. Patchett and Galen R. Gisler, Los Alamos National Laboratory, LA-UR-17-21595. Simulation data produced under the auspices of the U.S. Department of Energy.",
+      "mirrorCredit": "Mathieu Pont, Jules Vidal, Julie Delon and Julien Tierny, Wasserstein Distances, Geodesics and Barycenters of Merge Trees, IEEE TVCG, 2021.",
+      "input": {
+        "file": "pv_insitu_300x300x300_21255.vti",
+        "sha256": "f47ee301471cd4d61215853d8b268d982f94df16ca1f6dc05798046baa115a59",
+        "dimensions": [
+          300,
+          300,
+          300
+        ],
+        "origin": [
+          -2300000.0,
+          -500000.0,
+          -1200000.0
+        ],
+        "spacing": [
+          15384.615385,
+          9364.548495,
+          8026.7558528
+        ]
+      },
+      "processing": "vtkFlyingEdges3D followed by vtkPolyDataNormals with splitting off and consistency on. No resampling, smoothing, subsetting or decimation.",
+      "vtkVersion": "9.7.2"
+    }
+  }
+}

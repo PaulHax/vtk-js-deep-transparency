@@ -24,8 +24,8 @@ function replaceShaderAlpha(publicAPI, model, hash, pipeline, vertexInput) {
       '  if (computedColor.a == 0.0) { discard; }',
     ];
   } else {
-    // OPAQUE: ignore texture alpha, force fully opaque
-    alphaCode = ['  computedColor.a = 1.0;'];
+    // OPAQUE ignores texture alpha. Material and scalar opacity still apply.
+    alphaCode = [];
   }
 
   code = vtkWebGPUShaderCache.substitute(

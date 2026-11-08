@@ -1,0 +1,154 @@
+{
+  "name": "engine-unlit",
+  "width": 800,
+  "height": 800,
+  "multiSample": 1,
+  "background": [
+    0.055,
+    0.075,
+    0.105
+  ],
+  "backgroundAlpha": 1,
+  "camera": {
+    "position": [
+      395.7064056175678,
+      -216.35953804991874,
+      336.81757924575135
+    ],
+    "focalPoint": [
+      131.77910995483398,
+      122.97555637359619,
+      54.038333892822266
+    ],
+    "viewUp": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "parallelProjection": true,
+    "parallelScale": 133.17743282986422,
+    "clippingRange": [
+      248.12475059922068,
+      851.1839102602289
+    ],
+    "viewAngle": 30.0
+  },
+  "actors": [
+    {
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/scans/engine-60.vtp",
+      "url": "/Data/deep-transparency/scans/engine-60.vtp",
+      "sha256": "673547e041e001761e230cb21bf457783c5061b5e390a8e0176edac569e1333d",
+      "color": [
+        0.65,
+        0.45,
+        0.83
+      ],
+      "opacity": 0.36,
+      "label": "Outer casing",
+      "pointCount": 290473,
+      "triangleCount": 579618,
+      "cellCount": 579618
+    },
+    {
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/scans/engine-160.vtp",
+      "url": "/Data/deep-transparency/scans/engine-160.vtp",
+      "sha256": "0e6c4fed8a326b7f5774f82b76a8ed8d755100aa5ec6d5161995ed690fea6f39",
+      "color": [
+        0.7,
+        0.88,
+        0.48
+      ],
+      "opacity": 0.76,
+      "label": "Dense inner structure",
+      "pointCount": 72158,
+      "triangleCount": 144334,
+      "cellCount": 144334
+    }
+  ],
+  "lights": [
+    {
+      "position": [
+        664.4888412742908,
+        788.8627205229172,
+        986.2803637018718
+      ],
+      "intensity": 0.7,
+      "color": [
+        1,
+        0.94,
+        0.86
+      ],
+      "focalPoint": [
+        131.77910995483398,
+        122.97555637359619,
+        54.038333892822266
+      ],
+      "positional": false,
+      "lightType": "SceneLight"
+    },
+    {
+      "position": [
+        -534.1080541944871,
+        256.1529892034604,
+        453.57063238241494
+      ],
+      "intensity": 0.3,
+      "color": [
+        0.67,
+        0.82,
+        1
+      ],
+      "focalPoint": [
+        131.77910995483398,
+        122.97555637359619,
+        54.038333892822266
+      ],
+      "positional": false,
+      "lightType": "SceneLight"
+    },
+    {
+      "position": [
+        131.77910995483398,
+        -409.7341749458607,
+        -478.6713974266346
+      ],
+      "intensity": 0.5,
+      "color": [
+        0.69,
+        1,
+        0.93
+      ],
+      "focalPoint": [
+        131.77910995483398,
+        122.97555637359619,
+        54.038333892822266
+      ],
+      "positional": false,
+      "lightType": "SceneLight"
+    }
+  ],
+  "material": {
+    "metallic": 0.08,
+    "roughness": 0.38,
+    "ambient": 1,
+    "diffuse": 0,
+    "specular": 0,
+    "specularPower": 35
+  },
+  "poolLayers": 32,
+  "bounds": [
+    61.147972106933594,
+    202.41024780273438,
+    23.842668533325195,
+    222.1084442138672,
+    0.0,
+    108.07666778564453
+  ],
+  "sourceUrl": "http://klacansky.com/open-scivis-datasets/#engine",
+  "sourceCredit": "volvis.org and General Electric",
+  "simulationTime": null,
+  "cycle": null,
+  "cameraGenerator": "VTK 9.7.2 camera public API; no rendering",
+  "dataset": "engine",
+  "mode": "unlit"
+}

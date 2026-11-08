@@ -1,0 +1,129 @@
+{
+  "scenes": {
+    "cad": {
+      "name": "Bearing assembly",
+      "description": "A parametric mechanical assembly: twelve rolling balls fit between grooved inner and outer races, held apart by a pocketed retainer cage.",
+      "note": "The transparent outer race reveals the ball-to-race fit and the retainer pockets. Orbit to follow the clearances through the assembly.",
+      "credit": "Parametric ball-bearing assembly. Dimensions illustrate component fit and are not a manufacturing specification.",
+      "geometryKind": "Parametric CAD assembly",
+      "generator": "prepare-cad.py",
+      "units": "millimetres",
+      "dimensions": {
+        "outsideDiameter": 94,
+        "boreDiameter": 40,
+        "width": 20,
+        "pitchDiameter": 66,
+        "ballDiameter": 13.6,
+        "ballCount": 12,
+        "radialGrooveClearance": 0.07,
+        "cagePocketDiameter": 14.6
+      },
+      "actors": [
+        {
+          "url": "/Data/deep-transparency/cad/outer-race.vtp",
+          "color": [
+            0.22,
+            0.72,
+            0.83
+          ],
+          "opacity": 0.24,
+          "label": "Outer race",
+          "pointCount": 14400,
+          "triangleCount": 28800,
+          "bounds": [
+            -47.0,
+            47.0,
+            -47.0,
+            47.0,
+            -10.0,
+            10.0
+          ],
+          "sha256": "fe78cf34dfbc244d4e42f2fd6a7cc8e5d45060cba27d28842a1b69b0f8afe9f9",
+          "bytes": 473495
+        },
+        {
+          "url": "/Data/deep-transparency/cad/inner-race.vtp",
+          "color": [
+            0.78,
+            0.84,
+            0.91
+          ],
+          "opacity": 0.72,
+          "label": "Inner race",
+          "pointCount": 14400,
+          "triangleCount": 28800,
+          "bounds": [
+            -30.299999237060547,
+            30.299999237060547,
+            -30.299999237060547,
+            30.299999237060547,
+            -10.0,
+            10.0
+          ],
+          "sha256": "cebc8fb24196f9c3fb9632c5172745dd625c98d428e031e161b8a31a33b381e3",
+          "bytes": 470963
+        },
+        {
+          "url": "/Data/deep-transparency/cad/rolling-balls.vtp",
+          "color": [
+            1,
+            0.64,
+            0.25
+          ],
+          "opacity": 0.96,
+          "label": "Rolling balls",
+          "pointCount": 25560,
+          "triangleCount": 51072,
+          "bounds": [
+            -39.79448699951172,
+            39.79448699951172,
+            -39.79448699951172,
+            39.79448699951172,
+            -6.800000190734863,
+            6.800000190734863
+          ],
+          "sha256": "d346545c612d58aea8981a482142e0e700f22e30212b1f5ba6fdde4eba3ef209",
+          "bytes": 582463
+        },
+        {
+          "url": "/Data/deep-transparency/cad/retainer.vtp",
+          "color": [
+            0.64,
+            0.48,
+            0.88
+          ],
+          "opacity": 0.7,
+          "label": "Retainer cage",
+          "pointCount": 79920,
+          "triangleCount": 159888,
+          "bounds": [
+            -35.099998474121094,
+            35.099998474121094,
+            -35.099998474121094,
+            35.099998474121094,
+            -8.299999237060547,
+            8.300000190734863
+          ],
+          "sha256": "b7c21e05a4bb39088793dab2b7bae31055b9a9a80f64a1050520baa3ae0f5f1a",
+          "bytes": 2353433
+        }
+      ],
+      "triangleCount": 268560,
+      "viewDirection": [
+        1.1,
+        -1.8,
+        1.8
+      ],
+      "viewUp": [
+        0,
+        0,
+        1
+      ],
+      "background": [
+        0.055,
+        0.075,
+        0.105
+      ]
+    }
+  }
+}

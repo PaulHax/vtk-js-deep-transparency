@@ -1,0 +1,35 @@
+{
+  "implementation": "VTK.js WebGPU deep framebuffer",
+  "name": "engine-pbr",
+  "mode": "pbr",
+  "width": 800,
+  "height": 800,
+  "sampleCount": 1,
+  "requestedPoolLayers": 32,
+  "colorAttachmentFormat": "rgba16float",
+  "presentationFormat": "rgba8unorm",
+  "adapter": {
+    "vendor": "google",
+    "architecture": "swiftshader",
+    "device": "",
+    "description": ""
+  },
+  "limits": {
+    "maxBufferSize": 1073741824,
+    "maxStorageBufferBindingSize": 1073741824
+  },
+  "geometry": [
+    {
+      "points": 290473,
+      "polygons": 579618
+    },
+    {
+      "points": 72158,
+      "polygons": 144334
+    }
+  ],
+  "gpuErrors": [],
+  "specificationSHA256": "b2fe73e53cda60aea1a00f2687c65f823c83c21e5ee4bfedac1fe19febd45e0b",
+  "orderDifferingChannels": 0,
+  "errors": []
+}

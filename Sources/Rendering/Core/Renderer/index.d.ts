@@ -36,6 +36,7 @@ export interface IRendererInitialValues extends IViewportInitialValues {
   draw?: boolean;
   useShadows?: boolean;
   useDepthPeeling?: boolean;
+  useDeepFramebufferTransparency?: boolean;
   occlusionRatio?: number;
   maximumNumberOfPeels?: number;
   texturedBackground?: boolean;
@@ -534,6 +535,15 @@ export interface vtkRenderer extends Omit<
    * @param {Boolean} useDepthPeeling
    */
   setUseDepthPeeling(useDepthPeeling: boolean): boolean;
+
+  /**
+   * Enable WebGPU depth-sorted transparency. The nearest sixteen translucent
+   * fragments per sample are composited in depth order. The shared fragment
+   * pool is bounded by device storage limits; excess fragments are omitted.
+   * Defaults to false. This setting has no effect on the OpenGL backend.
+   */
+  setUseDeepFramebufferTransparency(value: boolean): boolean;
+  getUseDeepFramebufferTransparency(): boolean;
 
   /**
    *

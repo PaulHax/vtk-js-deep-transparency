@@ -1,0 +1,35 @@
+{
+  "implementation": "VTK.js WebGPU deep framebuffer",
+  "name": "bonsai-unlit",
+  "mode": "unlit",
+  "width": 800,
+  "height": 800,
+  "sampleCount": 1,
+  "requestedPoolLayers": 32,
+  "colorAttachmentFormat": "rgba16float",
+  "presentationFormat": "rgba8unorm",
+  "adapter": {
+    "vendor": "google",
+    "architecture": "swiftshader",
+    "device": "",
+    "description": ""
+  },
+  "limits": {
+    "maxBufferSize": 1073741824,
+    "maxStorageBufferBindingSize": 1073741824
+  },
+  "geometry": [
+    {
+      "points": 377426,
+      "polygons": 751818
+    },
+    {
+      "points": 174860,
+      "polygons": 348328
+    }
+  ],
+  "gpuErrors": [],
+  "specificationSHA256": "d75763f8c7cb078278a21b7a487093766981ca25bcd15fdad655ed15c6db7568",
+  "orderDifferingChannels": 0,
+  "errors": []
+}

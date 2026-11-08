@@ -1,0 +1,226 @@
+{
+  "size": 256,
+  "background": [
+    0,
+    0,
+    0
+  ],
+  "camera": {
+    "position": [
+      0,
+      0,
+      10
+    ],
+    "focalPoint": [
+      0,
+      0,
+      0
+    ],
+    "viewUp": [
+      0,
+      1,
+      0
+    ],
+    "parallelScale": 1,
+    "clippingRange": [
+      0.1,
+      100
+    ]
+  },
+  "scenes": {
+    "red-front": [
+      {
+        "bounds": [
+          -0.75,
+          0.25,
+          -0.5,
+          0.5
+        ],
+        "depth": 0.25,
+        "color": [
+          1,
+          0,
+          0
+        ],
+        "opacity": 0.5
+      },
+      {
+        "bounds": [
+          -0.25,
+          0.75,
+          -0.5,
+          0.5
+        ],
+        "depth": -0.25,
+        "color": [
+          0,
+          0,
+          1
+        ],
+        "opacity": 0.5
+      }
+    ],
+    "blue-front": [
+      {
+        "bounds": [
+          -0.75,
+          0.25,
+          -0.5,
+          0.5
+        ],
+        "depth": -0.25,
+        "color": [
+          1,
+          0,
+          0
+        ],
+        "opacity": 0.5
+      },
+      {
+        "bounds": [
+          -0.25,
+          0.75,
+          -0.5,
+          0.5
+        ],
+        "depth": 0.25,
+        "color": [
+          0,
+          0,
+          1
+        ],
+        "opacity": 0.5
+      }
+    ],
+    "crossing": [
+      {
+        "bounds": [
+          -0.75,
+          0.75,
+          -0.625,
+          0.625
+        ],
+        "depth": 0.015625,
+        "slope": 0.5,
+        "color": [
+          1,
+          0,
+          0
+        ],
+        "opacity": 0.5
+      },
+      {
+        "bounds": [
+          -0.75,
+          0.75,
+          -0.625,
+          0.625
+        ],
+        "depth": -0.015625,
+        "slope": -0.5,
+        "color": [
+          0,
+          0,
+          1
+        ],
+        "opacity": 0.5
+      }
+    ],
+    "opaque-occluder": [
+      {
+        "bounds": [
+          -0.75,
+          0.75,
+          -0.625,
+          0.625
+        ],
+        "depth": 0.25,
+        "color": [
+          1,
+          0,
+          0
+        ],
+        "opacity": 0.5
+      },
+      {
+        "bounds": [
+          -0.75,
+          0.75,
+          -0.625,
+          0.625
+        ],
+        "depth": -0.25,
+        "color": [
+          0,
+          0,
+          1
+        ],
+        "opacity": 0.5
+      },
+      {
+        "bounds": [
+          -0.25,
+          0.25,
+          -0.375,
+          0.375
+        ],
+        "depth": 0,
+        "color": [
+          0,
+          1,
+          0
+        ],
+        "opacity": 1
+      }
+    ],
+    "nested-spheres": [
+      {
+        "mesh": "outer-sphere",
+        "color": [
+          0,
+          1,
+          1
+        ],
+        "opacity": 0.5019607843137255
+      },
+      {
+        "mesh": "inner-sphere",
+        "color": [
+          1,
+          1,
+          0
+        ],
+        "opacity": 0.5019607843137255
+      }
+    ],
+    "intersecting-spheres": [
+      {
+        "mesh": "outer-sphere",
+        "color": [
+          0,
+          1,
+          1
+        ],
+        "opacity": 0.4
+      },
+      {
+        "mesh": "inner-sphere",
+        "color": [
+          1,
+          1,
+          0
+        ],
+        "opacity": 0.7019607843137254
+      },
+      {
+        "mesh": "intersecting-sphere",
+        "color": [
+          1,
+          0,
+          1
+        ],
+        "opacity": 0.30196078431372547
+      }
+    ]
+  }
+}

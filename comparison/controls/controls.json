@@ -1,0 +1,71 @@
+{
+  "picking": {
+    "redFront": [
+      {
+        "actor": 0,
+        "world": [
+          -0.0030172413793101024,
+          0,
+          0.20000002493858382
+        ]
+      }
+    ],
+    "reversed": [
+      {
+        "actor": 0,
+        "world": [
+          -0.0030172413793101024,
+          0,
+          0.20000002493858382
+        ]
+      }
+    ],
+    "blueFront": [
+      {
+        "actor": 1,
+        "world": [
+          -0.0030172413793101024,
+          0,
+          0.20000002493858382
+        ]
+      }
+    ],
+    "hidden": [
+      {
+        "actor": 0,
+        "world": [
+          -0.0030172413793101015,
+          0,
+          -0.19999998037517042
+        ]
+      }
+    ]
+  },
+  "rotation": true,
+  "endpointIndependent": true,
+  "freeRoll": true,
+  "linkedPan": true,
+  "zoomChecks": [
+    {
+      "perspective": false,
+      "viewport": 0,
+      "anchorErrorPixels": 5.684341886080802e-14
+    },
+    {
+      "perspective": false,
+      "viewport": 1,
+      "anchorErrorPixels": 5.684341886080802e-14
+    },
+    {
+      "perspective": true,
+      "viewport": 0,
+      "anchorErrorPixels": 0
+    },
+    {
+      "perspective": true,
+      "viewport": 1,
+      "anchorErrorPixels": 0
+    }
+  ],
+  "errors": []
+}

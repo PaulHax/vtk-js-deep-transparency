@@ -1,0 +1,154 @@
+{
+  "name": "bonsai-unlit",
+  "width": 800,
+  "height": 800,
+  "multiSample": 1,
+  "background": [
+    0.055,
+    0.075,
+    0.105
+  ],
+  "backgroundAlpha": 1,
+  "camera": {
+    "position": [
+      554.641771985991,
+      378.0309364330483,
+      784.6411876707555
+    ],
+    "focalPoint": [
+      127.5,
+      115.1744613647461,
+      127.5
+    ],
+    "viewUp": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "parallelProjection": true,
+    "parallelScale": 213.9571371809302,
+    "clippingRange": [
+      412.7281778250243,
+      1349.7244334489953
+    ],
+    "viewAngle": 30.0
+  },
+  "actors": [
+    {
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/scans/bonsai-35.vtp",
+      "url": "/Data/deep-transparency/scans/bonsai-35.vtp",
+      "sha256": "cfc26263d7e0320dc0bc7be53429c065d42229f9758278c9ece1af51dfcac009",
+      "color": [
+        0.27,
+        0.78,
+        0.64
+      ],
+      "opacity": 0.28,
+      "label": "Foliage and outer structure",
+      "pointCount": 377426,
+      "triangleCount": 751818,
+      "cellCount": 751818
+    },
+    {
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/scans/bonsai-100.vtp",
+      "url": "/Data/deep-transparency/scans/bonsai-100.vtp",
+      "sha256": "1d9208ddbffc4e2c2998ac011b56759c77a1dbfd14ba9df4c3c81d60b7a7f2e1",
+      "color": [
+        0.98,
+        0.73,
+        0.42
+      ],
+      "opacity": 0.68,
+      "label": "Trunk, branches and soil",
+      "pointCount": 174860,
+      "triangleCount": 348328,
+      "cellCount": 348328
+    }
+  ],
+  "lights": [
+    {
+      "position": [
+        983.3285487237208,
+        1184.960147269397,
+        1625.1999602665114
+      ],
+      "intensity": 0.7,
+      "color": [
+        1,
+        0.94,
+        0.86
+      ],
+      "focalPoint": [
+        127.5,
+        115.1744613647461,
+        127.5
+      ],
+      "positional": false,
+      "lightType": "SceneLight"
+    },
+    {
+      "position": [
+        -942.285685904651,
+        329.1315985456763,
+        769.3714115427906
+      ],
+      "intensity": 0.3,
+      "color": [
+        0.67,
+        0.82,
+        1
+      ],
+      "focalPoint": [
+        127.5,
+        115.1744613647461,
+        127.5
+      ],
+      "positional": false,
+      "lightType": "SceneLight"
+    },
+    {
+      "position": [
+        127.5,
+        -740.6540873589747,
+        -728.3285487237208
+      ],
+      "intensity": 0.5,
+      "color": [
+        0.69,
+        1,
+        0.93
+      ],
+      "focalPoint": [
+        127.5,
+        115.1744613647461,
+        127.5
+      ],
+      "positional": false,
+      "lightType": "SceneLight"
+    }
+  ],
+  "material": {
+    "metallic": 0.08,
+    "roughness": 0.38,
+    "ambient": 1,
+    "diffuse": 0,
+    "specular": 0,
+    "specularPower": 35
+  },
+  "poolLayers": 32,
+  "bounds": [
+    0.0,
+    255.0,
+    0.0,
+    230.3489227294922,
+    0.0,
+    255.0
+  ],
+  "sourceUrl": "http://klacansky.com/open-scivis-datasets/#bonsai",
+  "sourceCredit": "volvis.org and S. Roettger, VIS, University of Stuttgart",
+  "simulationTime": null,
+  "cycle": null,
+  "cameraGenerator": "VTK 9.7.2 camera public API; no rendering",
+  "dataset": "bonsai",
+  "mode": "unlit"
+}

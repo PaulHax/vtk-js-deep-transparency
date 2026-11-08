@@ -1,0 +1,35 @@
+{
+  "implementation": "VTK.js WebGPU deep framebuffer",
+  "name": "teapot-pbr",
+  "mode": "pbr",
+  "width": 800,
+  "height": 800,
+  "sampleCount": 1,
+  "requestedPoolLayers": 32,
+  "colorAttachmentFormat": "rgba16float",
+  "presentationFormat": "rgba8unorm",
+  "adapter": {
+    "vendor": "google",
+    "architecture": "swiftshader",
+    "device": "",
+    "description": ""
+  },
+  "limits": {
+    "maxBufferSize": 1073741824,
+    "maxStorageBufferBindingSize": 1073741824
+  },
+  "geometry": [
+    {
+      "points": 259209,
+      "polygons": 518434
+    },
+    {
+      "points": 27714,
+      "polygons": 55452
+    }
+  ],
+  "gpuErrors": [],
+  "specificationSHA256": "56b9a87dcb4c7e8065383fd2dd9bf41a9b4b562240a6ccf974c2f5163ddbb4c4",
+  "orderDifferingChannels": 0,
+  "errors": []
+}

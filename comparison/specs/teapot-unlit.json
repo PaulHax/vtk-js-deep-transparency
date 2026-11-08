@@ -1,0 +1,154 @@
+{
+  "name": "teapot-unlit",
+  "width": 800,
+  "height": 800,
+  "multiSample": 1,
+  "background": [
+    0.055,
+    0.075,
+    0.105
+  ],
+  "backgroundAlpha": 1,
+  "camera": {
+    "position": [
+      457.7954841719186,
+      284.72265710583633,
+      600.1114958044986
+    ],
+    "focalPoint": [
+      124.89980792999268,
+      131.07849884033203,
+      87.96430158615112
+    ],
+    "viewUp": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "parallelProjection": true,
+    "parallelScale": 163.01918591324943,
+    "clippingRange": [
+      326.30724603768635,
+      1013.4845881900469
+    ],
+    "viewAngle": 30.0
+  },
+  "actors": [
+    {
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/scans/teapot-50.vtp",
+      "url": "/Data/deep-transparency/scans/teapot-50.vtp",
+      "sha256": "fa4f83036cce3ddcb535aaa0fe4ad6431da5cc0c4da3cf1ea113b73a22033b27",
+      "color": [
+        0.24,
+        0.72,
+        0.82
+      ],
+      "opacity": 0.16,
+      "label": "Teapot shell",
+      "pointCount": 259209,
+      "triangleCount": 518434,
+      "cellCount": 518440
+    },
+    {
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/scans/teapot-65.vtp",
+      "url": "/Data/deep-transparency/scans/teapot-65.vtp",
+      "sha256": "b92ae7388c8e37c95bc00939b0e77185a196a07198bdbe485aa635a71764907a",
+      "color": [
+        1.0,
+        0.63,
+        0.26
+      ],
+      "opacity": 0.85,
+      "label": "Lobster model",
+      "pointCount": 27714,
+      "triangleCount": 55452,
+      "cellCount": 55452
+    }
+  ],
+  "lights": [
+    {
+      "position": [
+        776.9765515829904,
+        946.1744284065792,
+        1229.0986029788971
+      ],
+      "intensity": 0.7,
+      "color": [
+        1,
+        0.94,
+        0.86
+      ],
+      "focalPoint": [
+        124.89980792999268,
+        131.07849884033203,
+        87.96430158615112
+      ],
+      "positional": false,
+      "lightType": "SceneLight"
+    },
+    {
+      "position": [
+        -690.1961216362545,
+        294.09768475358146,
+        577.0218593258994
+      ],
+      "intensity": 0.3,
+      "color": [
+        0.67,
+        0.82,
+        1
+      ],
+      "focalPoint": [
+        124.89980792999268,
+        131.07849884033203,
+        87.96430158615112
+      ],
+      "positional": false,
+      "lightType": "SceneLight"
+    },
+    {
+      "position": [
+        124.89980792999268,
+        -520.9982448126657,
+        -564.1124420668466
+      ],
+      "intensity": 0.5,
+      "color": [
+        0.69,
+        1,
+        0.93
+      ],
+      "focalPoint": [
+        124.89980792999268,
+        131.07849884033203,
+        87.96430158615112
+      ],
+      "positional": false,
+      "lightType": "SceneLight"
+    }
+  ],
+  "material": {
+    "metallic": 0.08,
+    "roughness": 0.38,
+    "ambient": 1,
+    "diffuse": 0,
+    "specular": 0,
+    "specularPower": 35
+  },
+  "poolLayers": 32,
+  "bounds": [
+    6.666803359985352,
+    243.1328125,
+    57.553131103515625,
+    204.60386657714844,
+    3.1690664291381836,
+    172.75953674316406
+  ],
+  "sourceUrl": "http://klacansky.com/open-scivis-datasets/#boston_teapot",
+  "sourceCredit": "volvis.org and Terarecon Inc, MERL, Brigham and Women's Hospital",
+  "simulationTime": null,
+  "cycle": null,
+  "cameraGenerator": "VTK 9.7.2 camera public API; no rendering",
+  "dataset": "teapot",
+  "mode": "unlit"
+}

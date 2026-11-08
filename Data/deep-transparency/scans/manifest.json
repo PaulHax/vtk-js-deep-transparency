@@ -1,0 +1,338 @@
+{
+  "scenes": {
+    "bonsai": {
+      "name": "Bonsai",
+      "description": "The original Bonsai CT scan, with translucent foliage revealing the denser trunk and branches.",
+      "thresholds": [
+        35,
+        100
+      ],
+      "actors": [
+        {
+          "url": "/Data/deep-transparency/scans/bonsai-35.vtp",
+          "color": [
+            0.27,
+            0.78,
+            0.64
+          ],
+          "opacity": 0.28,
+          "label": "Foliage and outer structure",
+          "threshold": 35,
+          "sigma": 1.0,
+          "triangleCount": 751818,
+          "cellCount": 751818,
+          "lineCount": 0,
+          "vertexCellCount": 0,
+          "pointCount": 377426,
+          "bounds": [
+            0.0,
+            255.0,
+            0.0,
+            230.3489227294922,
+            0.0,
+            255.0
+          ],
+          "bytes": 14187393,
+          "sha256": "cfc26263d7e0320dc0bc7be53429c065d42229f9758278c9ece1af51dfcac009"
+        },
+        {
+          "url": "/Data/deep-transparency/scans/bonsai-100.vtp",
+          "color": [
+            0.98,
+            0.73,
+            0.42
+          ],
+          "opacity": 0.68,
+          "label": "Trunk, branches and soil",
+          "threshold": 100,
+          "sigma": 1.0,
+          "triangleCount": 348328,
+          "cellCount": 348328,
+          "lineCount": 0,
+          "vertexCellCount": 0,
+          "pointCount": 174860,
+          "bounds": [
+            39.47518539428711,
+            202.71751403808594,
+            0.0,
+            216.2841796875,
+            25.154048919677734,
+            255.0
+          ],
+          "bytes": 6585540,
+          "sha256": "1d9208ddbffc4e2c2998ac011b56759c77a1dbfd14ba9df4c3c81d60b7a7f2e1"
+        }
+      ],
+      "sourceUrl": "http://klacansky.com/open-scivis-datasets/bonsai/bonsai_256x256x256_uint8.raw",
+      "sourcePage": "http://klacansky.com/open-scivis-datasets/#bonsai",
+      "credit": "volvis.org and S. Roettger, VIS, University of Stuttgart",
+      "license": "See original Open SciVis dataset terms and credits",
+      "dimensions": [
+        256,
+        256,
+        256
+      ],
+      "spacing": [
+        1,
+        1,
+        1
+      ],
+      "scalarType": "uint8",
+      "sourceBytes": 16777216,
+      "sourceSHA256": "288d2818cffb50d2e2c9e3b5b0a2520d09b0f5051bb63cca315f3fc7a894af80",
+      "sourceSHA512": "b34156a0ffc80ffaf84d069f3d05a40fdd999a35f05492829a2b0c13403a3147e73712b1d10c2cc34da66a59540a1632dae6adc96f3ebf3efa5d4d6c10598997",
+      "pipelineSource": "https://github.com/sankhesh/vtk-demo-images/blob/bcedd769d813c02ecb30b8ab8733cc1c4fbf06c6/demos/deep-framebuffer/render-scenes.cxx",
+      "triangleCount": 1100146,
+      "cellCount": 1100146,
+      "articleReportedTriangleCount": 1100146,
+      "viewDirection": [
+        1.3,
+        0.8,
+        2
+      ],
+      "viewUp": [
+        0,
+        1,
+        0
+      ],
+      "background": [
+        0.055,
+        0.075,
+        0.105
+      ],
+      "note": "The foliage contour at 35 surrounds the denser trunk and branches at 100. Near leaves attenuate the structures behind them.",
+      "preprocessing": "Original scan and article contours, without mesh decimation. Gaussian smoothing sigma 1 voxel, except the lobster at 0.65 voxels with cubic half-voxel resampling."
+    },
+    "engine": {
+      "name": "Engine",
+      "description": "The original engine-block CT scan, with a violet outer contour and pale-green internal structure.",
+      "thresholds": [
+        60,
+        160
+      ],
+      "actors": [
+        {
+          "url": "/Data/deep-transparency/scans/engine-60.vtp",
+          "color": [
+            0.65,
+            0.45,
+            0.83
+          ],
+          "opacity": 0.36,
+          "label": "Outer casing",
+          "threshold": 60,
+          "sigma": 1.0,
+          "triangleCount": 579618,
+          "cellCount": 579618,
+          "lineCount": 0,
+          "vertexCellCount": 0,
+          "pointCount": 290473,
+          "bounds": [
+            61.147972106933594,
+            202.41024780273438,
+            23.842668533325195,
+            222.1084442138672,
+            0.0,
+            108.07666778564453
+          ],
+          "bytes": 10812203,
+          "sha256": "673547e041e001761e230cb21bf457783c5061b5e390a8e0176edac569e1333d"
+        },
+        {
+          "url": "/Data/deep-transparency/scans/engine-160.vtp",
+          "color": [
+            0.7,
+            0.88,
+            0.48
+          ],
+          "opacity": 0.76,
+          "label": "Dense inner structure",
+          "threshold": 160,
+          "sigma": 1.0,
+          "triangleCount": 144334,
+          "cellCount": 144334,
+          "lineCount": 0,
+          "vertexCellCount": 0,
+          "pointCount": 72158,
+          "bounds": [
+            62.912498474121094,
+            200.6749267578125,
+            25.49323272705078,
+            218.2503662109375,
+            0.0,
+            106.91014099121094
+          ],
+          "bytes": 2645522,
+          "sha256": "0e6c4fed8a326b7f5774f82b76a8ed8d755100aa5ec6d5161995ed690fea6f39"
+        }
+      ],
+      "sourceUrl": "http://klacansky.com/open-scivis-datasets/engine/engine_256x256x128_uint8.raw",
+      "sourcePage": "http://klacansky.com/open-scivis-datasets/#engine",
+      "credit": "volvis.org and General Electric",
+      "license": "See original Open SciVis dataset terms and credits",
+      "dimensions": [
+        256,
+        256,
+        128
+      ],
+      "spacing": [
+        1,
+        1,
+        1
+      ],
+      "scalarType": "uint8",
+      "sourceBytes": 8388608,
+      "sourceSHA256": "15cf29cdde69cd6c8b5ab9eeef4d1bb21f276056da4111cb5069ebfbe5b6ff90",
+      "sourceSHA512": "f17228483b1b5edb90146eac90ba979531629a2880d9e7a0493a98290da8af6ac2cf80f2c567a3d08695dc7dd854916c861dad8856b2d5721501954e913de13f",
+      "pipelineSource": "https://github.com/sankhesh/vtk-demo-images/blob/bcedd769d813c02ecb30b8ab8733cc1c4fbf06c6/demos/deep-framebuffer/render-scenes.cxx",
+      "triangleCount": 723952,
+      "cellCount": 723952,
+      "articleReportedTriangleCount": 723952,
+      "viewDirection": [
+        1.4,
+        -1.8,
+        1.5
+      ],
+      "viewUp": [
+        0,
+        0,
+        1
+      ],
+      "background": [
+        0.055,
+        0.075,
+        0.105
+      ],
+      "note": "The violet contour at 60 reveals the pale-green inner structure at 160. Orbit to follow the channels through the casing.",
+      "preprocessing": "Original scan and article contours, without mesh decimation. Gaussian smoothing sigma 1 voxel, except the lobster at 0.65 voxels with cubic half-voxel resampling."
+    },
+    "teapot": {
+      "name": "Boston Teapot",
+      "description": "The original Boston Teapot CT scan contains a lobster model inside the transparent enclosure.",
+      "thresholds": [
+        50,
+        65
+      ],
+      "actors": [
+        {
+          "url": "/Data/deep-transparency/scans/teapot-50.vtp",
+          "color": [
+            0.24,
+            0.72,
+            0.82
+          ],
+          "opacity": 0.16,
+          "label": "Teapot shell",
+          "threshold": 50,
+          "sigma": 1.0,
+          "triangleCount": 518434,
+          "cellCount": 518440,
+          "lineCount": 5,
+          "vertexCellCount": 1,
+          "pointCount": 259209,
+          "bounds": [
+            6.666803359985352,
+            243.1328125,
+            57.553131103515625,
+            204.60386657714844,
+            3.1690664291381836,
+            172.75953674316406
+          ],
+          "bytes": 9711508,
+          "sha256": "fa4f83036cce3ddcb535aaa0fe4ad6431da5cc0c4da3cf1ea113b73a22033b27"
+        },
+        {
+          "url": "/Data/deep-transparency/scans/teapot-65.vtp",
+          "color": [
+            1.0,
+            0.63,
+            0.26
+          ],
+          "opacity": 0.85,
+          "label": "Lobster model",
+          "threshold": 65,
+          "sigma": 0.65,
+          "triangleCount": 55452,
+          "cellCount": 55452,
+          "lineCount": 0,
+          "vertexCellCount": 0,
+          "pointCount": 27714,
+          "bounds": [
+            105.45921325683594,
+            173.1245574951172,
+            118.66455841064453,
+            161.44125366210938,
+            72.32671356201172,
+            103.18583679199219
+          ],
+          "bytes": 1042071,
+          "sha256": "b92ae7388c8e37c95bc00939b0e77185a196a07198bdbe485aa635a71764907a",
+          "resampling": {
+            "factor": 2,
+            "interpolation": "cubic",
+            "dimensions": [
+              511,
+              511,
+              355
+            ],
+            "spacing": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "bounds": [
+              0.0,
+              255.0,
+              0.0,
+              255.0,
+              0.0,
+              177.0
+            ]
+          }
+        }
+      ],
+      "sourceUrl": "http://klacansky.com/open-scivis-datasets/boston_teapot/boston_teapot_256x256x178_uint8.raw",
+      "sourcePage": "http://klacansky.com/open-scivis-datasets/#boston_teapot",
+      "credit": "volvis.org and Terarecon Inc, MERL, Brigham and Women's Hospital",
+      "license": "See original Open SciVis dataset terms and credits",
+      "dimensions": [
+        256,
+        256,
+        178
+      ],
+      "spacing": [
+        1,
+        1,
+        1
+      ],
+      "scalarType": "uint8",
+      "sourceBytes": 11665408,
+      "sourceSHA256": "e7b67180fe2d813bda6e9900ab21ea1a9b89069fab074e77996022b9512fab1e",
+      "sourceSHA512": "b2bf7ba8ba7a7d5a8ea76ccd8fd2c0f5f043079a83cd6a3055e85f5e0a40c1c4d872b9bbc7aedf628989eb57bffd5729767c29fe8ae018c581406b196caa6359",
+      "pipelineSource": "https://github.com/sankhesh/vtk-demo-images/blob/bcedd769d813c02ecb30b8ab8733cc1c4fbf06c6/demos/deep-framebuffer/render-scenes.cxx",
+      "triangleCount": 573886,
+      "cellCount": 573892,
+      "articleReportedTriangleCount": 573892,
+      "viewDirection": [
+        1.3,
+        0.6,
+        2
+      ],
+      "viewUp": [
+        0,
+        1,
+        0
+      ],
+      "background": [
+        0.055,
+        0.075,
+        0.105
+      ],
+      "note": "The teal enclosure at 50 surrounds an isolated lobster contour at 65. The front shell attenuates the lobster; the rear shell stays behind it.",
+      "preprocessing": "Original scan and article contours, without mesh decimation. Gaussian smoothing sigma 1 voxel, except the lobster at 0.65 voxels with cubic half-voxel resampling."
+    }
+  },
+  "generator": "prepare-scans.py",
+  "vtkVersion": "9.7.2",
+  "articleSourceCommit": "bcedd769d813c02ecb30b8ab8733cc1c4fbf06c6"
+}

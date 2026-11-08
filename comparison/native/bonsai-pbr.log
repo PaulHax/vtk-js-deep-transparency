@@ -1,0 +1,2 @@
+"/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Utilities/TestResults/deep-transparency/native-webgpu/native/bonsai-pbr.png"
+2026-11-07 19:59:29.732 (   1.314s) [    743AA9033480]vtkWebGPUConfiguration.:563   INFO| Device lost, reason=Destroyed. Device was destroyed.

@@ -94,9 +94,8 @@ function vtkWebGPUOpaquePass(publicAPI, model) {
         sampleCount,
         usage:
           GPUTextureUsage.RENDER_ATTACHMENT |
-          (sampleCount === 1
-            ? GPUTextureUsage.TEXTURE_BINDING | GPUTextureUsage.COPY_SRC
-            : 0),
+          GPUTextureUsage.TEXTURE_BINDING |
+          (sampleCount === 1 ? GPUTextureUsage.COPY_SRC : 0),
       });
       /* eslint-enable no-undef */
       /* eslint-enable no-bitwise */
@@ -112,6 +111,9 @@ function vtkWebGPUOpaquePass(publicAPI, model) {
       }
     }
 
+    model.renderEncoder.setStoreMultisampleColor(
+      renNode.getRenderable().getUseDeepFramebufferTransparency()
+    );
     model.renderEncoder.attachTextureViews();
     publicAPI.setCurrentOperation('opaquePass');
     renNode.setRenderEncoder(model.renderEncoder);
@@ -129,6 +131,9 @@ function vtkWebGPUOpaquePass(publicAPI, model) {
 
   publicAPI.getDepthTextureView = () =>
     model.renderEncoder.getDepthTextureView();
+
+  publicAPI.getMultisampleColorTextureView = () =>
+    model.renderEncoder.getColorTextureViews()[0];
 
   publicAPI.createRenderEncoder = (sampleCount = 1) => {
     model.renderEncoder = vtkWebGPURenderEncoder.newInstance({

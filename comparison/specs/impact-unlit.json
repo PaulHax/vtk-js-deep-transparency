@@ -1,0 +1,169 @@
+{
+  "name": "impact-unlit",
+  "width": 800,
+  "height": 800,
+  "multiSample": 1,
+  "background": [
+    0.055,
+    0.075,
+    0.105
+  ],
+  "backgroundAlpha": 1,
+  "camera": {
+    "position": [
+      11617470.60119126,
+      6233111.350553085,
+      17024958.001701802
+    ],
+    "focalPoint": [
+      -300000.0,
+      700000.0,
+      0.0
+    ],
+    "viewUp": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "parallelProjection": true,
+    "parallelScale": 2315789.473684211,
+    "clippingRange": [
+      15995817.042599693,
+      27855137.22762128
+    ],
+    "viewAngle": 30.0
+  },
+  "actors": [
+    {
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/impact/water.vtp",
+      "url": "/Data/deep-transparency/impact/water.vtp",
+      "sha256": "bf31e07fc5725948e7555595a1d2d997f6d4fc9be9557105fbe2a5def624b4aa",
+      "color": [
+        0.38,
+        0.8,
+        0.94
+      ],
+      "opacity": 0.38,
+      "label": "Water",
+      "pointCount": 313218,
+      "triangleCount": 624798,
+      "cellCount": 624798
+    },
+    {
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/impact/temperature.vtp",
+      "url": "/Data/deep-transparency/impact/temperature.vtp",
+      "sha256": "92386c14ed2a472027a503596b4ed5b1775d02f1926522f29999c6562d26ef1c",
+      "color": [
+        1,
+        0.8,
+        0.35
+      ],
+      "opacity": 0.24,
+      "label": "Temperature",
+      "pointCount": 217244,
+      "triangleCount": 434424,
+      "cellCount": 434424
+    },
+    {
+      "path": "/home/paulhax/src/vtk-js-stuff/webgpu-deep-transparency/Data/deep-transparency/impact/asteroid.vtp",
+      "url": "/Data/deep-transparency/impact/asteroid.vtp",
+      "sha256": "0fc242a030f10c416872577e72fed495d1d638d8f70112ee334fdddeb6d4e560",
+      "color": [
+        0.88,
+        0.32,
+        0.15
+      ],
+      "opacity": 0.55,
+      "label": "Asteroid material",
+      "pointCount": 212854,
+      "triangleCount": 420988,
+      "cellCount": 420988
+    }
+  ],
+  "lights": [
+    {
+      "position": [
+        11049972.001134533,
+        14887465.001418166,
+        19862451.001985434
+      ],
+      "intensity": 0.7,
+      "color": [
+        1,
+        0.94,
+        0.86
+      ],
+      "focalPoint": [
+        -300000,
+        700000,
+        0
+      ],
+      "positional": false,
+      "lightType": "SceneLight"
+    },
+    {
+      "position": [
+        -14487465.001418166,
+        3537493.0002836334,
+        8512479.000850901
+      ],
+      "intensity": 0.3,
+      "color": [
+        0.67,
+        0.82,
+        1
+      ],
+      "focalPoint": [
+        -300000,
+        700000,
+        0
+      ],
+      "positional": false,
+      "lightType": "SceneLight"
+    },
+    {
+      "position": [
+        -300000.0,
+        -10649972.001134533,
+        -11349972.001134533
+      ],
+      "intensity": 0.5,
+      "color": [
+        0.69,
+        1,
+        0.93
+      ],
+      "focalPoint": [
+        -300000,
+        700000,
+        0
+      ],
+      "positional": false,
+      "lightType": "SceneLight"
+    }
+  ],
+  "material": {
+    "metallic": 0.08,
+    "roughness": 0.38,
+    "ambient": 1,
+    "diffuse": 0,
+    "specular": 0,
+    "specularPower": 35
+  },
+  "poolLayers": 32,
+  "bounds": [
+    -2300000.0,
+    2300000.0,
+    985.8402709960938,
+    2300000.0,
+    -1200000.0,
+    1200000.0
+  ],
+  "sourceUrl": "https://github.com/MatPont/WassersteinMergeTreesData/blob/76a681ace218a813c17efa13db4b1cd061e8959b/dataAsteroidImpactTS.sh",
+  "sourceCredit": "John M. Patchett and Galen R. Gisler, Los Alamos National Laboratory, LA-UR-17-21595. Simulation data produced under the auspices of the U.S. Department of Energy.",
+  "simulationTime": 11.000539779663086,
+  "cycle": 21255,
+  "cameraGenerator": "VTK 9.7.2 camera public API; no rendering",
+  "dataset": "impact",
+  "mode": "unlit"
+}

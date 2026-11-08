@@ -52,7 +52,7 @@ function vtkWebGPUActor(publicAPI, model) {
     publicAPI.apply(renderPass, false);
   };
 
-  // only render opaque actors
+  // Selection needs the nearest surface regardless of its opacity.
   publicAPI.traverseOpaqueZBufferPass = (renderPass) =>
     publicAPI.traverseOpaquePass(renderPass);
 
@@ -61,7 +61,8 @@ function vtkWebGPUActor(publicAPI, model) {
     if (
       !model.renderable ||
       !model.renderable.getNestedVisibility() ||
-      !model.renderable.getIsOpaque() ||
+      (!model.WebGPURenderer.getSelector() &&
+        !model.renderable.getIsOpaque()) ||
       (model.WebGPURenderer.getSelector() &&
         !model.renderable.getNestedPickable())
     ) {

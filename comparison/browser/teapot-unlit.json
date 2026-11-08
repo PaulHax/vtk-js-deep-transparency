@@ -1,0 +1,35 @@
+{
+  "implementation": "VTK.js WebGPU deep framebuffer",
+  "name": "teapot-unlit",
+  "mode": "unlit",
+  "width": 800,
+  "height": 800,
+  "sampleCount": 1,
+  "requestedPoolLayers": 32,
+  "colorAttachmentFormat": "rgba16float",
+  "presentationFormat": "rgba8unorm",
+  "adapter": {
+    "vendor": "google",
+    "architecture": "swiftshader",
+    "device": "",
+    "description": ""
+  },
+  "limits": {
+    "maxBufferSize": 1073741824,
+    "maxStorageBufferBindingSize": 1073741824
+  },
+  "geometry": [
+    {
+      "points": 259209,
+      "polygons": 518434
+    },
+    {
+      "points": 27714,
+      "polygons": 55452
+    }
+  ],
+  "gpuErrors": [],
+  "specificationSHA256": "4eb430abcf405e244aa39843812a8bce98573ba502855b3afa7f149a1bc8080b",
+  "orderDifferingChannels": 0,
+  "errors": []
+}

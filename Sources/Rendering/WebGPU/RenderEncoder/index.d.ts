@@ -18,6 +18,8 @@ export interface IWebGPURenderEncoderInitialValues {
   description?: GPURenderPassDescriptor;
   handle?: Nullable<GPURenderPassEncoder>;
   boundPipeline?: Nullable<vtkWebGPUPipeline>;
+  passBindGroup?: Nullable<vtkWebGPUBindGroup>;
+  storeMultisampleColor?: boolean;
   pipelineHash?: Nullable<string>;
   pipelineSettings?: IWebGPUPipelineSettings;
   replaceShaderCodeFunction?: Nullable<(pipeline: vtkWebGPUPipeline) => void>;
@@ -210,6 +212,14 @@ export interface vtkWebGPURenderEncoder extends vtkObject {
    * from.
    */
   getPipelineSettings(): IWebGPUPipelineSettings;
+
+  /** Pass resources shared by every mapper drawn with this encoder. */
+  getPassBindGroup(): Nullable<vtkWebGPUBindGroup>;
+  setPassBindGroup(bindGroup: Nullable<vtkWebGPUBindGroup>): boolean;
+
+  /** Keep multisample color when another pass will load it after resolving. */
+  getStoreMultisampleColor(): boolean;
+  setStoreMultisampleColor(value: boolean): boolean;
 
   /**
    * Set the pipeline settings every pipeline drawing into this encoder starts

@@ -1,0 +1,88 @@
+{
+  "url": "http://127.0.0.1:9998",
+  "results": [
+    {
+      "scene": "anatomy",
+      "labels": [
+        "Facial bone (CT contour)",
+        "Right maxillary sinus",
+        "Left maxillary sinus",
+        "Right nasal cavity",
+        "Left nasal cavity",
+        "Nasopharynx"
+      ],
+      "hiddenComponent": "Facial bone (CT contour)",
+      "hidden": {
+        "width": 1354,
+        "height": 580,
+        "weighted": {
+          "differingPixels": 93820,
+          "differingChannels": 273649
+        },
+        "deep": {
+          "differingPixels": 87815,
+          "differingChannels": 258163
+        }
+      },
+      "restored": {
+        "width": 1354,
+        "height": 580,
+        "weighted": {
+          "differingPixels": 0,
+          "differingChannels": 0
+        },
+        "deep": {
+          "differingPixels": 0,
+          "differingChannels": 0
+        }
+      },
+      "screenshotSHA256": {
+        "original": "b0d268d3218debb26cf802be905f5da9a18838f1d3e3d11b084e49e92569b9b4",
+        "exposed": "bf01ba125118e098b07699d2c48b4589c40575433457e9140cf27f942e95ade3",
+        "restored": "b0d268d3218debb26cf802be905f5da9a18838f1d3e3d11b084e49e92569b9b4"
+      },
+      "validationError": null
+    },
+    {
+      "scene": "cad",
+      "labels": [
+        "Outer race",
+        "Inner race",
+        "Rolling balls",
+        "Retainer cage"
+      ],
+      "hiddenComponent": "Outer race",
+      "hidden": {
+        "width": 1354,
+        "height": 580,
+        "weighted": {
+          "differingPixels": 98317,
+          "differingChannels": 271972
+        },
+        "deep": {
+          "differingPixels": 65754,
+          "differingChannels": 193423
+        }
+      },
+      "restored": {
+        "width": 1354,
+        "height": 580,
+        "weighted": {
+          "differingPixels": 0,
+          "differingChannels": 0
+        },
+        "deep": {
+          "differingPixels": 0,
+          "differingChannels": 0
+        }
+      },
+      "screenshotSHA256": {
+        "original": "9adabc56fb0608ee882f41ebec2ef69b73294d48e9a37afbbbbf0d78a791528d",
+        "exposed": "8821d4847ec62c281132b41cf45b79113475759fe82bcc21717a2c937bf22f49",
+        "restored": "9adabc56fb0608ee882f41ebec2ef69b73294d48e9a37afbbbbf0d78a791528d"
+      },
+      "validationError": null
+    }
+  ],
+  "errors": []
+}
