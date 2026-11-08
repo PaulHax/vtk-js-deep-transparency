@@ -588,7 +588,7 @@ try {
     cad: await readyFrame(page, 'cad'),
   };
   const compactLayout = [];
-  for (const width of [1341, 1014, 390]) {
+  for (const width of [1341, 1014, 956, 390]) {
     await page.setViewportSize({ width, height: width === 390 ? 844 : 1161 });
     for (const [key, frame] of Object.entries(layoutFrames)) {
       await frame.evaluate(async () => {

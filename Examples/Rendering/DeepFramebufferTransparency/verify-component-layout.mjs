@@ -12,6 +12,7 @@ export async function inspectComponentLayout(view, name) {
       const label = row.querySelector('.component-name');
       const text = label.querySelector('span').getBoundingClientRect();
       const slider = row.querySelector('input').getBoundingClientRect();
+      const eye = row.querySelector('button').getBoundingClientRect();
       const elements = [
         ...row.querySelectorAll('button, label, input, output'),
       ].map((element) => {
@@ -32,6 +33,8 @@ export async function inspectComponentLayout(view, name) {
         top: rect.top - bounds.top,
         width: rect.width,
         height: rect.height,
+        eyeCenterX: eye.left + eye.width / 2 - bounds.left,
+        eyeCenterY: eye.top + eye.height / 2 - bounds.top,
         labelSliderGap: slider.left - text.right,
         labelCursor: getComputedStyle(label).cursor,
         elements,
@@ -96,19 +99,37 @@ export async function inspectComponentLayout(view, name) {
       );
     }
   }
-  const requiredWidth =
-    layout.rows.reduce((sum, row) => sum + row.width, 0) +
-    layout.gap * (layout.rows.length - 1);
-  if (requiredWidth <= layout.width + 0.5)
-    assert.ok(
-      layout.rows.every((row) => Math.abs(row.top - layout.rows[0].top) < 1),
-      `${name}: groups share a row when their content fits`
+  const visualRows = [];
+  for (const row of layout.rows) {
+    const line = visualRows.find(
+      (candidate) => Math.abs(candidate[0].eyeCenterY - row.eyeCenterY) <= 0.5
     );
-  else
+    if (line) line.push(row);
+    else visualRows.push([row]);
+  }
+  visualRows.sort((a, b) => a[0].eyeCenterY - b[0].eyeCenterY);
+  visualRows.forEach((line) => line.sort((a, b) => a.left - b.left));
+  const columns = visualRows[0];
+  for (const line of visualRows) {
     assert.ok(
-      layout.rows.some((row) => row.top > layout.rows[0].top + 1),
-      `${name}: groups wrap when their content needs another row`
+      line.length <= columns.length,
+      `${name}: wrapped rows use the first row's columns`
     );
+    line.forEach((row, index) => {
+      assert.ok(
+        Math.abs(row.left - columns[index].left) <= 0.5 &&
+          Math.abs(row.eyeCenterX - columns[index].eyeCenterX) <= 0.5,
+        `${name}: wrapped component starts and eye centers align in columns`
+      );
+    });
+  }
+  layout.visualRows = visualRows.map((line) =>
+    line.map(({ left, eyeCenterX, eyeCenterY }) => ({
+      left,
+      eyeCenterX,
+      eyeCenterY,
+    }))
+  );
   return layout;
 }
 
@@ -154,7 +175,7 @@ async function main() {
       .locator('section#anatomy iframe')
       .waitFor({ state: 'attached' });
     const widths = [];
-    for (const width of [1341, 1014, 390]) {
+    for (const width of [1341, 1014, 956, 390]) {
       await gallery.setViewportSize({ width, height: 1161 });
       const embeddedWidth = await gallery
         .locator('section#anatomy iframe')
@@ -260,9 +281,7 @@ async function main() {
         );
         if (name === 'cad' && size.width === 1341)
           assert.ok(
-            layout.rows.every(
-              (row) => Math.abs(row.top - layout.rows[0].top) < 1
-            ),
+            layout.visualRows.length === 1,
             'All four bearing components fit across the wide view'
           );
         await page

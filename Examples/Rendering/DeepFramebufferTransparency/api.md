@@ -93,7 +93,7 @@ node Examples/Rendering/DeepFramebufferTransparency/verify-gallery.mjs
 
 It checks loading and anchor navigation, visible models and attribution captions, idle rendering, focused wheel zoom, arcball and pan interaction, and responsive layout. It saves screenshots and a JSON report under `comparison/gallery`.
 
-For a focused check of wrapping component groups, label-to-slider spacing, and the camera reset button at desktop and mobile widths:
+For a focused check of responsive component columns, alignment across rows, label-to-slider spacing, and the camera reset button at desktop and mobile widths:
 
 ```sh
 node Examples/Rendering/DeepFramebufferTransparency/verify-component-layout.mjs

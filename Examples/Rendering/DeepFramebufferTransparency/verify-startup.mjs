@@ -382,7 +382,7 @@ const captureFailure = async (error) => {
 };
 try {
   const context = await browser.newContext({
-    viewport: { width: 1014, height: 1161 },
+    viewport: { width: 956, height: 1161 },
     deviceScaleFactor: 1,
   });
   await instrument(context);
