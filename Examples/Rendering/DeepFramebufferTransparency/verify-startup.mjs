@@ -43,6 +43,7 @@ const instrument = async (context) => {
         states: [],
         maximumLoading: 0,
         attempts: {},
+        readyStates: {},
       };
       let lastState = '';
       const states = () => {
@@ -83,7 +84,31 @@ const instrument = async (context) => {
     const attempt = (record.attempts[scene] || 0) + 1;
     record.attempts[scene] = attempt;
     let previous = '';
+    let trackedReady = false;
+    let trackedDevice = false;
+    const readiness = { state: 'module pending', scene, attempt };
+    record.readyStates[`${scene}:${attempt}`] = readiness;
     const sample = (reason) => {
+      if (!trackedReady && globalThis.demo?.ready) {
+        trackedReady = true;
+        readiness.state = 'pending';
+        globalThis.demo.ready.then(
+          () => {
+            readiness.state = 'resolved';
+          },
+          (error) => {
+            readiness.state = 'rejected';
+            readiness.error = String(error?.message || error);
+          }
+        );
+      }
+      const device = globalThis.demo?.view?.getDevice()?.getHandle();
+      if (!trackedDevice && device) {
+        trackedDevice = true;
+        device.lost.then((info) => {
+          readiness.deviceLost = { reason: info.reason, message: info.message };
+        });
+      }
       const documentRoot = document.documentElement;
       if (!document.body || !documentRoot || !window.frameElement) return;
       const iframe = window.frameElement;
@@ -124,13 +149,40 @@ const instrument = async (context) => {
   });
 };
 
-const ready = async (page, name) => {
-  await page.waitForFunction(
-    (scene) =>
-      document.querySelector(`section#${scene} .gallery-stage`)?.dataset
-        .state === 'ready',
-    name
+const waitForStage = (page, scene, expected) =>
+  page.evaluate(
+    ({ scene: name, expected: target }) =>
+      new Promise((resolve, reject) => {
+        const check = () => {
+          const section = document.getElementById(name);
+          const state = section?.querySelector('.gallery-stage')?.dataset.state;
+          if (state === target) {
+            observer.disconnect();
+            resolve();
+          } else if (state === 'error') {
+            observer.disconnect();
+            const message = section.querySelector(
+              '.gallery-loading-message'
+            )?.textContent;
+            reject(
+              new Error(`${name}: ${message || 'The demo could not load'}`)
+            );
+          }
+        };
+        const observer = new MutationObserver(check);
+        observer.observe(document, {
+          subtree: true,
+          childList: true,
+          attributes: true,
+          attributeFilter: ['data-state'],
+        });
+        check();
+      }),
+    { scene, expected }
   );
+
+const ready = async (page, name) => {
+  await waitForStage(page, name, 'ready');
   const frame = await (
     await page.locator(`section#${name} iframe`).elementHandle()
   ).contentFrame();
@@ -196,18 +248,134 @@ const inspectMeasurements = async (page, label) => {
       `${label}: iframe scrolling is not disabled`
     );
   }
+  const elapsedMilliseconds = Date.now() - phaseStarted;
+  console.log(
+    `Completed ${label}: all eight demos ready, ${overflow.length} overflow samples, at most ${record.maximumLoading} initializations (${elapsedMilliseconds} ms observed).`
+  );
   return {
     label,
+    elapsedMilliseconds,
     maximumLoading: record.maximumLoading,
     samples: record.samples,
     transitions: record.states,
     attempts: record.attempts,
+    readyStates: record.readyStates,
     overflowSamples: overflow.length,
     visibleOverflowSamples: visibleOverflow.length,
   };
 };
 
 const reports = [];
+const requests = new Map();
+const networkEvents = [];
+const browserEvents = [];
+let activePage = null;
+let phase = 'desktop initialization';
+let phaseStarted = Date.now();
+const trackPage = (page) => {
+  activePage = page;
+  page.on('request', (request) => {
+    requests.set(request, {
+      url: request.url(),
+      type: request.resourceType(),
+      started: Date.now(),
+    });
+  });
+  page.on('requestfinished', (request) => {
+    requests.delete(request);
+  });
+  page.on('requestfailed', (request) => {
+    requests.delete(request);
+    networkEvents.push({
+      url: request.url(),
+      error: request.failure()?.errorText,
+    });
+  });
+  page.on('response', (response) => {
+    if (response.status() >= 400)
+      networkEvents.push({ url: response.url(), status: response.status() });
+  });
+  page.on('pageerror', (error) =>
+    browserEvents.push({ type: 'pageerror', message: error.message })
+  );
+  page.on('console', (message) => {
+    if (['error', 'warning'].includes(message.type()))
+      browserEvents.push({
+        type: message.type(),
+        message: message.text(),
+        location: message.location(),
+      });
+  });
+};
+const captureFailure = async (error) => {
+  const diagnostics = {
+    base: base.href,
+    phase,
+    error: { message: error.message, stack: error.stack },
+    reports,
+    networkEvents,
+    browserEvents,
+    outstandingRequests: [...requests.values()].map((request) => ({
+      ...request,
+      elapsedMilliseconds: Date.now() - request.started,
+    })),
+  };
+  try {
+    diagnostics.page = await activePage.evaluate(() => ({
+      url: location.href,
+      measurements: window.startupMeasurements,
+      stages: [...document.querySelectorAll('.gallery-example')].map(
+        (section) => {
+          const iframe = section.querySelector('iframe');
+          const child = iframe?.contentDocument;
+          const root = child?.documentElement;
+          return {
+            scene: section.id,
+            state: section.querySelector('.gallery-stage')?.dataset.state,
+            message: section.querySelector('.gallery-loading-message')
+              ?.textContent,
+            src: iframe?.getAttribute('src'),
+            childURL: iframe?.contentWindow?.location.href,
+            documentReadyState: child?.readyState,
+            childStatus: child?.querySelector('#status')?.textContent,
+            childError: child?.querySelector('#error')?.textContent,
+            metrics: root
+              ? {
+                  clientWidth: root.clientWidth,
+                  clientHeight: root.clientHeight,
+                  scrollWidth: root.scrollWidth,
+                  scrollHeight: root.scrollHeight,
+                }
+              : null,
+          };
+        }
+      ),
+    }));
+    await activePage.screenshot({ path: path.join(output, 'failure.png') });
+  } catch (diagnosticError) {
+    diagnostics.captureError = String(diagnosticError);
+  }
+  await writeFile(
+    path.join(output, 'failure.json'),
+    `${JSON.stringify(diagnostics, null, 2)}\n`
+  );
+  await writeFile(
+    path.join(output, 'report.partial.json'),
+    `${JSON.stringify({ base: base.href, phase, reports }, null, 2)}\n`
+  );
+  console.error(
+    JSON.stringify(
+      {
+        phase,
+        stages: diagnostics.page?.stages,
+        outstandingRequests: diagnostics.outstandingRequests,
+        browserEvents,
+      },
+      null,
+      2
+    )
+  );
+};
 try {
   const context = await browser.newContext({
     viewport: { width: 1014, height: 1161 },
@@ -215,6 +383,7 @@ try {
   });
   await instrument(context);
   const page = await context.newPage();
+  trackPage(page);
   const errors = [];
   page.on('pageerror', (error) => errors.push(error.message));
   let firstTeapotFailure = true;
@@ -247,6 +416,9 @@ try {
       } else await route.continue();
     }
   );
+  phase = 'desktop progressive load and retry';
+  phaseStarted = Date.now();
+  console.log(`Checking ${phase}`);
   await page.goto(base.href);
   await bonsaiRequested;
   await ready(page, 'engine');
@@ -264,11 +436,7 @@ try {
   await page
     .locator('section#bonsai')
     .screenshot({ path: path.join(output, 'progressive-loading.png') });
-  await page.waitForFunction(
-    () =>
-      document.querySelector('section#teapot .gallery-stage')?.dataset.state ===
-      'error'
-  );
+  await waitForStage(page, 'teapot', 'error');
   await ready(page, 'cad');
   assert.equal(
     await page
@@ -298,6 +466,9 @@ try {
     [],
     'A handled dataset failure must not produce an uncaught page error'
   );
+  phase = 'desktop refresh';
+  phaseStarted = Date.now();
+  console.log(`Checking ${phase}`);
   await page.reload();
   await allReady(page);
   reports.push(await inspectMeasurements(page, 'desktop refresh'));
@@ -312,12 +483,19 @@ try {
   });
   await instrument(mobile);
   const mobilePage = await mobile.newPage();
+  trackPage(mobilePage);
+  phase = 'mobile startup';
+  phaseStarted = Date.now();
+  console.log(`Checking ${phase}`);
   await mobilePage.goto(base.href);
   await allReady(mobilePage);
   reports.push(await inspectMeasurements(mobilePage, 'mobile startup'));
   await mobilePage
     .locator('section#anatomy')
     .screenshot({ path: path.join(output, 'mobile-anatomy.png') });
+  phase = 'mobile refresh';
+  phaseStarted = Date.now();
+  console.log(`Checking ${phase}`);
   await mobilePage.reload();
   await allReady(mobilePage);
   reports.push(await inspectMeasurements(mobilePage, 'mobile refresh'));
@@ -332,6 +510,9 @@ try {
   console.log(
     `Startup sizing, progressive loading and retry checks passed: ${output}`
   );
+} catch (error) {
+  await captureFailure(error);
+  throw error;
 } finally {
   await browser.close();
 }

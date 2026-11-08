@@ -45,17 +45,39 @@ const attachErrors = (page) => {
 };
 
 const readyFrame = async (page, key) => {
-  await page.waitForFunction((scene) => {
-    const iframe = document.querySelector(`section#${scene} iframe`);
-    return iframe?.getAttribute('src')?.includes(`scene=${scene}`);
-  }, key);
+  await page.evaluate(
+    (scene) =>
+      new Promise((resolve, reject) => {
+        const observer = new MutationObserver(() => inspect());
+        const inspect = () => {
+          const stage = document.querySelector(
+            `section#${scene} .gallery-stage`
+          );
+          if (!stage) return;
+          if (stage.dataset.state === 'ready') {
+            observer.disconnect();
+            resolve();
+          } else if (stage.dataset.state === 'error') {
+            observer.disconnect();
+            reject(
+              new Error(stage.querySelector('[role="status"]').textContent)
+            );
+          }
+        };
+        observer.observe(document, {
+          attributes: true,
+          attributeFilter: ['data-state'],
+          childList: true,
+          subtree: true,
+        });
+        inspect();
+      }),
+    key
+  );
   const handle = await page.locator(`section#${key} iframe`).elementHandle();
   const frame = await handle.contentFrame();
   assert.ok(frame, `${key}: example frame exists`);
-  await frame.waitForURL(
-    (location) => location.searchParams.get('scene') === key
-  );
-  await frame.waitForFunction(() => globalThis.demo);
+  assert.equal(new URL(frame.url()).searchParams.get('scene'), key);
   await frame.evaluate(() => globalThis.demo.ready);
   await frame.evaluate(() => globalThis.demo.controls.whenIdle());
   return frame;
