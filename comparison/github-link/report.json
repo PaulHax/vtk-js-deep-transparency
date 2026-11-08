@@ -1,0 +1,180 @@
+{
+  "url": "http://127.0.0.1:4174/vtk-js-deep-transparency/",
+  "results": [
+    {
+      "width": 1440,
+      "viewport": 1440,
+      "documentWidth": 1440,
+      "masthead": {
+        "left": 42,
+        "right": 1398,
+        "top": 34,
+        "bottom": 53,
+        "width": 1356,
+        "height": 19
+      },
+      "brand": {
+        "left": 42,
+        "right": 330.671875,
+        "top": 34,
+        "bottom": 53,
+        "width": 288.671875,
+        "height": 19
+      },
+      "link": {
+        "left": 1281.921875,
+        "right": 1398,
+        "top": 34,
+        "bottom": 51.59375,
+        "width": 116.078125,
+        "height": 17.59375
+      },
+      "intro": {
+        "left": 42,
+        "right": 1398,
+        "top": 98,
+        "bottom": 169.5,
+        "width": 1356,
+        "height": 71.5
+      },
+      "label": "Fork me on GitHub ↗",
+      "color": "rgb(120, 175, 255)",
+      "decoration": "underline",
+      "scrollWidth": 116,
+      "clientWidth": 116,
+      "childScripts": 0
+    },
+    {
+      "width": 956,
+      "viewport": 956,
+      "documentWidth": 956,
+      "masthead": {
+        "left": 42,
+        "right": 914,
+        "top": 34,
+        "bottom": 53,
+        "width": 872,
+        "height": 19
+      },
+      "brand": {
+        "left": 42,
+        "right": 330.671875,
+        "top": 34,
+        "bottom": 53,
+        "width": 288.671875,
+        "height": 19
+      },
+      "link": {
+        "left": 797.921875,
+        "right": 914,
+        "top": 34,
+        "bottom": 51.59375,
+        "width": 116.078125,
+        "height": 17.59375
+      },
+      "intro": {
+        "left": 42,
+        "right": 914,
+        "top": 98,
+        "bottom": 164.28125,
+        "width": 872,
+        "height": 66.28125
+      },
+      "label": "Fork me on GitHub ↗",
+      "color": "rgb(120, 175, 255)",
+      "decoration": "underline",
+      "scrollWidth": 116,
+      "clientWidth": 116,
+      "childScripts": 0
+    },
+    {
+      "width": 390,
+      "viewport": 390,
+      "documentWidth": 390,
+      "masthead": {
+        "left": 12,
+        "right": 378,
+        "top": 24,
+        "bottom": 43,
+        "width": 366,
+        "height": 19
+      },
+      "brand": {
+        "left": 12,
+        "right": 235.84375,
+        "top": 24,
+        "bottom": 43,
+        "width": 223.84375,
+        "height": 19
+      },
+      "link": {
+        "left": 261.921875,
+        "right": 378,
+        "top": 24,
+        "bottom": 41.59375,
+        "width": 116.078125,
+        "height": 17.59375
+      },
+      "intro": {
+        "left": 12,
+        "right": 378,
+        "top": 88,
+        "bottom": 247.171875,
+        "width": 366,
+        "height": 159.171875
+      },
+      "label": "Fork me on GitHub ↗",
+      "color": "rgb(120, 175, 255)",
+      "decoration": "underline",
+      "scrollWidth": 116,
+      "clientWidth": 116,
+      "childScripts": 0
+    },
+    {
+      "width": 320,
+      "viewport": 320,
+      "documentWidth": 320,
+      "masthead": {
+        "left": 12,
+        "right": 308,
+        "top": 24,
+        "bottom": 53,
+        "width": 296,
+        "height": 29
+      },
+      "brand": {
+        "left": 12,
+        "right": 179.921875,
+        "top": 24,
+        "bottom": 53,
+        "width": 167.921875,
+        "height": 29
+      },
+      "link": {
+        "left": 191.921875,
+        "right": 308,
+        "top": 24,
+        "bottom": 41.59375,
+        "width": 116.078125,
+        "height": 17.59375
+      },
+      "intro": {
+        "left": 12,
+        "right": 308,
+        "top": 98,
+        "bottom": 287.96875,
+        "width": 296,
+        "height": 189.96875
+      },
+      "label": "Fork me on GitHub ↗",
+      "color": "rgb(120, 175, 255)",
+      "decoration": "underline",
+      "scrollWidth": 116,
+      "clientWidth": 116,
+      "childScripts": 0
+    }
+  ],
+  "blankFrames": 2,
+  "meshRequests": [],
+  "errors": []
+}

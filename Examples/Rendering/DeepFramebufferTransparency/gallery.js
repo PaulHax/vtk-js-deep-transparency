@@ -26,7 +26,10 @@ export function createGallery() {
   document.body.innerHTML = `
     <a class="gallery-skip" href="#examples">Skip to examples</a>
     <header class="gallery-header">
-      <div class="gallery-brand"><strong>VTK.js</strong> Rendering laboratory</div>
+      <div class="gallery-masthead">
+        <div class="gallery-brand"><strong>VTK.js</strong> Rendering laboratory</div>
+        <a class="gallery-source" href="https://github.com/PaulHax/vtk-js-deep-transparency" target="_blank" rel="noreferrer">Fork me on GitHub ↗</a>
+      </div>
       <div class="gallery-intro">
         <div><p class="gallery-eyebrow">Order-independent transparency</p><h1>Transparency, in depth.</h1></div>
         <p>Look inside overlapping surfaces. Scroll through eight interactive examples, with weighted blending on the left and sorted alpha composition on the right. <a class="gallery-read-more" href="https://www.kitware.com/better-transparency-with-vtk-and-webgpu/" target="_blank" rel="noreferrer">Read more ↗</a></p>
