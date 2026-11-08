@@ -68,6 +68,7 @@ node Examples/Rendering/DeepFramebufferTransparency/verify.mjs
 node Examples/Rendering/DeepFramebufferTransparency/verify-datasets.mjs
 node Examples/Rendering/DeepFramebufferTransparency/verify-controls.mjs
 node Examples/Rendering/DeepFramebufferTransparency/verify-components.mjs
+node Examples/Rendering/DeepFramebufferTransparency/verify-component-layout.mjs
 node Examples/Rendering/DeepFramebufferTransparency/verify-gallery.mjs
 node Examples/Rendering/DeepFramebufferTransparency/verify-startup.mjs
 ```

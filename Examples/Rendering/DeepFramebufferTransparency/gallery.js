@@ -3,10 +3,10 @@ import './gallery.css';
 const examples = [
   { key: 'bonsai', name: 'Bonsai' },
   { key: 'engine', name: 'Engine' },
-  { key: 'teapot', name: 'Boston Teapot' },
   { key: 'anatomy', name: 'Sinus anatomy' },
   { key: 'impact', name: 'Asteroid ocean impact' },
   { key: 'cad', name: 'Ball-bearing assembly' },
+  { key: 'teapot', name: 'Boston Teapot' },
   { key: 'intersecting', name: 'Intersecting rings' },
   { key: 'layers', name: 'Two-layer proof' },
 ];

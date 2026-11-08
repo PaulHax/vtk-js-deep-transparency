@@ -3,6 +3,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
+import { inspectComponentLayout } from './verify-component-layout.mjs';
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
 const baseURL = new URL(process.env.DEMO_URL || 'http://127.0.0.1:9999');
@@ -16,10 +17,10 @@ const output = path.resolve(
 const scenes = [
   'bonsai',
   'engine',
-  'teapot',
   'anatomy',
   'impact',
   'cad',
+  'teapot',
   'intersecting',
   'layers',
 ];
@@ -582,80 +583,25 @@ try {
     'Reset button restores both displayed viewports exactly'
   );
 
-  await page.setViewportSize({ width: 1014, height: 1161 });
-  await anchored.evaluate(() => globalThis.demo.render());
-  const compactLayout = await anchored.locator('#legend').evaluate((legend) => {
-    const bounds = legend.getBoundingClientRect();
-    const rows = [...legend.querySelectorAll('.component-row')].map((row) => {
-      const rect = row.getBoundingClientRect();
-      const elements = [
-        ...row.querySelectorAll('button, input, label, output'),
-      ].map((element) => {
-        const child = element.getBoundingClientRect();
-        return {
-          left: child.left - rect.left,
-          right: rect.right - child.right,
-          width: child.width,
-          height: child.height,
-          scrollWidth: element.scrollWidth,
-          clientWidth: element.clientWidth,
-          scrollHeight: element.scrollHeight,
-          clientHeight: element.clientHeight,
-        };
+  const layoutFrames = {
+    anatomy: anchored,
+    cad: await readyFrame(page, 'cad'),
+  };
+  const compactLayout = [];
+  for (const width of [1341, 1014, 390]) {
+    await page.setViewportSize({ width, height: width === 390 ? 844 : 1161 });
+    for (const [key, frame] of Object.entries(layoutFrames)) {
+      await frame.evaluate(async () => {
+        await globalThis.demo.render();
+        await globalThis.demo.resetCamera();
       });
-      return {
-        left: rect.left - bounds.left,
-        top: rect.top - bounds.top,
-        elements,
-      };
-    });
-    return { width: bounds.width, rows };
-  });
-  assert.equal(
-    compactLayout.rows.length,
-    6,
-    'All sinus components have compact controls'
-  );
-  assert.ok(
-    compactLayout.rows
-      .slice(0, 3)
-      .every((row) => Math.abs(row.top - compactLayout.rows[0].top) < 1),
-    'Three components fit across the desktop row'
-  );
-  assert.ok(
-    compactLayout.rows[0].left < compactLayout.rows[1].left &&
-      compactLayout.rows[1].left < compactLayout.rows[2].left,
-    'Desktop component columns are distinct'
-  );
-  assert.ok(
-    compactLayout.rows[3].top > compactLayout.rows[0].top,
-    'Remaining sinus controls use a second row'
-  );
-  for (const row of compactLayout.rows) {
-    assert.ok(
-      row.elements.every(
-        (element) => element.left >= -0.5 && element.right >= -0.5
-      ),
-      'Component controls fit within their row'
-    );
-    assert.equal(row.elements[0].width, 24, 'Eye button stays compact');
-    assert.equal(row.elements[0].height, 24, 'Eye button stays compact');
-    assert.ok(
-      row.elements.every(
-        (element) =>
-          element.scrollWidth <= element.clientWidth &&
-          element.scrollHeight <= element.clientHeight
-      ),
-      'Component labels and controls are not clipped'
-    );
+      const layout = await inspectComponentLayout(frame, `${key} at ${width}`);
+      await page.locator(`section#${key}`).screenshot({
+        path: path.join(output, `${key}-wrapping-${width}.png`),
+      });
+      compactLayout.push({ key, width, layout });
+    }
   }
-  await page
-    .locator('section#anatomy')
-    .screenshot({ path: path.join(output, 'anatomy-compact.png') });
-
-  await page.setViewportSize({ width: 390, height: 844 });
-  await anchored.evaluate(() => globalThis.demo.render());
-  await anchored.evaluate(() => globalThis.demo.resetCamera());
   const mobile = await page.evaluate(() => ({
     width: window.innerWidth,
     contentWidth: document.documentElement.scrollWidth,

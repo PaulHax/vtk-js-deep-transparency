@@ -18,10 +18,10 @@ const galleryOutput = process.env.DEMO_OUTPUT_DIR
 const scenes = [
   'bonsai',
   'engine',
-  'teapot',
   'anatomy',
   'impact',
   'cad',
+  'teapot',
   'intersecting',
   'layers',
 ];
@@ -425,6 +425,13 @@ try {
   console.log(`Checking ${phase}`);
   await page.goto(base.href);
   await bonsaiRequested;
+  assert.deepEqual(
+    await page
+      .locator('.gallery-example')
+      .evaluateAll((sections) => sections.map((section) => section.id)),
+    scenes,
+    'Gallery examples follow the requested order'
+  );
   assert.doesNotMatch(
     await page.locator('.gallery-header').innerText(),
     /Arcball|Left drag|Right drag|wheel zoom/i,
@@ -458,7 +465,7 @@ try {
     .locator('section#bonsai')
     .screenshot({ path: path.join(output, 'progressive-loading.png') });
   await waitForStage(page, 'teapot', 'error');
-  await ready(page, 'cad');
+  await ready(page, 'layers');
   assert.equal(
     await page
       .locator('section#teapot .gallery-stage')

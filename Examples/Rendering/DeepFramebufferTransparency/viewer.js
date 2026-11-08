@@ -54,7 +54,7 @@ document.body.innerHTML = `
           <div class="component-actions">
             <button type="button" class="action component-swap" id="swap" hidden disabled>Swap depths</button>
             <button type="button" class="component-action" id="reset" aria-label="Reset camera" title="Reset camera" disabled>
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 10a9 9 0 1 1 2.7 8.2M3 3v7h7" /></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z" /><path d="m10 10-3 3 3 3m-3-3h6a3 3 0 0 1 3 3" /></svg>
             </button>
           </div>
         </div>

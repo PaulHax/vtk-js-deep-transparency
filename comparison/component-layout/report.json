@@ -1,0 +1,1596 @@
+{
+  "url": "http://127.0.0.1:4174/vtk-js-deep-transparency/",
+  "results": [
+    {
+      "name": "anatomy",
+      "width": 1341,
+      "embeddedWidth": 1255,
+      "layout": {
+        "width": 1213,
+        "gap": 18,
+        "rows": [
+          {
+            "left": 0,
+            "top": 0,
+            "width": 277.984375,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 253.984375,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 133.984375,
+                "height": 15,
+                "scrollWidth": 134,
+                "clientWidth": 134,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 169.984375,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 247.984375,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 295.984375,
+            "top": 0,
+            "width": 260.84375,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 236.84375,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 116.84375,
+                "height": 15,
+                "scrollWidth": 117,
+                "clientWidth": 117,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 152.84375,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 230.84375,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 574.828125,
+            "top": 0,
+            "width": 253.328125,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 229.328125,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 109.328125,
+                "height": 15,
+                "scrollWidth": 109,
+                "clientWidth": 109,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 145.328125,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 223.328125,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 846.15625,
+            "top": 0,
+            "width": 245.4375,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 221.4375,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 101.4375,
+                "height": 15,
+                "scrollWidth": 101,
+                "clientWidth": 101,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 137.4375,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 215.4375,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 0,
+            "top": 32,
+            "width": 237.921875,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 213.921875,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 93.921875,
+                "height": 15,
+                "scrollWidth": 94,
+                "clientWidth": 94,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 129.921875,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 207.921875,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 255.921875,
+            "top": 32,
+            "width": 222.046875,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 198.046875,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 78.046875,
+                "height": 15,
+                "scrollWidth": 78,
+                "clientWidth": 78,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 114.046875,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 192.046875,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          }
+        ],
+        "viewportWidth": 1255,
+        "documentWidth": 1255
+      },
+      "exactControlRestoration": true,
+      "resetButton": true
+    },
+    {
+      "name": "anatomy",
+      "width": 1014,
+      "embeddedWidth": 928,
+      "layout": {
+        "width": 886,
+        "gap": 18,
+        "rows": [
+          {
+            "left": 0,
+            "top": 0,
+            "width": 277.984375,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 253.984375,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 133.984375,
+                "height": 15,
+                "scrollWidth": 134,
+                "clientWidth": 134,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 169.984375,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 247.984375,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 295.984375,
+            "top": 0,
+            "width": 260.84375,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 236.84375,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 116.84375,
+                "height": 15,
+                "scrollWidth": 117,
+                "clientWidth": 117,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 152.84375,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 230.84375,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 574.828125,
+            "top": 0,
+            "width": 253.328125,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 229.328125,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 109.328125,
+                "height": 15,
+                "scrollWidth": 109,
+                "clientWidth": 109,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 145.328125,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 223.328125,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 0,
+            "top": 32,
+            "width": 245.4375,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 221.4375,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 101.4375,
+                "height": 15,
+                "scrollWidth": 101,
+                "clientWidth": 101,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 137.4375,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 215.4375,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 263.4375,
+            "top": 32,
+            "width": 237.921875,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 213.921875,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 93.921875,
+                "height": 15,
+                "scrollWidth": 94,
+                "clientWidth": 94,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 129.921875,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 207.921875,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 519.359375,
+            "top": 32,
+            "width": 222.046875,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 198.046875,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 78.046875,
+                "height": 15,
+                "scrollWidth": 78,
+                "clientWidth": 78,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 114.046875,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 192.046875,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          }
+        ],
+        "viewportWidth": 928,
+        "documentWidth": 928
+      },
+      "exactControlRestoration": true,
+      "resetButton": true
+    },
+    {
+      "name": "anatomy",
+      "width": 390,
+      "embeddedWidth": 364,
+      "layout": {
+        "width": 322,
+        "gap": 18,
+        "rows": [
+          {
+            "left": 0,
+            "top": 0,
+            "width": 277.984375,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 253.984375,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 133.984375,
+                "height": 15,
+                "scrollWidth": 134,
+                "clientWidth": 134,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 169.984375,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 247.984375,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 0,
+            "top": 32,
+            "width": 260.84375,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 236.84375,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 116.84375,
+                "height": 15,
+                "scrollWidth": 117,
+                "clientWidth": 117,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 152.84375,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 230.84375,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 0,
+            "top": 64,
+            "width": 253.328125,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 229.328125,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 109.328125,
+                "height": 15,
+                "scrollWidth": 109,
+                "clientWidth": 109,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 145.328125,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 223.328125,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 0,
+            "top": 96,
+            "width": 245.4375,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 221.4375,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 101.4375,
+                "height": 15,
+                "scrollWidth": 101,
+                "clientWidth": 101,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 137.4375,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 215.4375,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 0,
+            "top": 128,
+            "width": 237.921875,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 213.921875,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 93.921875,
+                "height": 15,
+                "scrollWidth": 94,
+                "clientWidth": 94,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 129.921875,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 207.921875,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 0,
+            "top": 160,
+            "width": 222.046875,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 198.046875,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 78.046875,
+                "height": 15,
+                "scrollWidth": 78,
+                "clientWidth": 78,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 114.046875,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 192.046875,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          }
+        ],
+        "viewportWidth": 364,
+        "documentWidth": 364
+      },
+      "exactControlRestoration": true,
+      "resetButton": true
+    },
+    {
+      "name": "cad",
+      "width": 1341,
+      "embeddedWidth": 1255,
+      "layout": {
+        "width": 1213,
+        "gap": 18,
+        "rows": [
+          {
+            "left": 0,
+            "top": 0,
+            "width": 209.46875,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 185.46875,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 65.46875,
+                "height": 15,
+                "scrollWidth": 65,
+                "clientWidth": 65,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 101.46875,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 179.46875,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 227.46875,
+            "top": 0,
+            "width": 206.96875,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 182.96875,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 62.96875,
+                "height": 15,
+                "scrollWidth": 63,
+                "clientWidth": 63,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 98.96875,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 176.96875,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 452.4375,
+            "top": 0,
+            "width": 216.0625,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 192.0625,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 72.0625,
+                "height": 15,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 108.0625,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 186.0625,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 686.5,
+            "top": 0,
+            "width": 225.390625,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 201.390625,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 81.390625,
+                "height": 15,
+                "scrollWidth": 81,
+                "clientWidth": 81,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 117.390625,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 195.390625,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          }
+        ],
+        "viewportWidth": 1255,
+        "documentWidth": 1255
+      },
+      "exactControlRestoration": true,
+      "resetButton": true
+    },
+    {
+      "name": "cad",
+      "width": 1014,
+      "embeddedWidth": 928,
+      "layout": {
+        "width": 886,
+        "gap": 18,
+        "rows": [
+          {
+            "left": 0,
+            "top": 0,
+            "width": 209.46875,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 185.46875,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 65.46875,
+                "height": 15,
+                "scrollWidth": 65,
+                "clientWidth": 65,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 101.46875,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 179.46875,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 227.46875,
+            "top": 0,
+            "width": 206.96875,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 182.96875,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 62.96875,
+                "height": 15,
+                "scrollWidth": 63,
+                "clientWidth": 63,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 98.96875,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 176.96875,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 452.4375,
+            "top": 0,
+            "width": 216.0625,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 192.0625,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 72.0625,
+                "height": 15,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 108.0625,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 186.0625,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 0,
+            "top": 32,
+            "width": 225.390625,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 201.390625,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 81.390625,
+                "height": 15,
+                "scrollWidth": 81,
+                "clientWidth": 81,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 117.390625,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 195.390625,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          }
+        ],
+        "viewportWidth": 928,
+        "documentWidth": 928
+      },
+      "exactControlRestoration": true,
+      "resetButton": true
+    },
+    {
+      "name": "cad",
+      "width": 390,
+      "embeddedWidth": 364,
+      "layout": {
+        "width": 322,
+        "gap": 18,
+        "rows": [
+          {
+            "left": 0,
+            "top": 0,
+            "width": 209.46875,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 185.46875,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 65.46875,
+                "height": 15,
+                "scrollWidth": 65,
+                "clientWidth": 65,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 101.46875,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 179.46875,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 0,
+            "top": 32,
+            "width": 206.96875,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 182.96875,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 62.96875,
+                "height": 15,
+                "scrollWidth": 63,
+                "clientWidth": 63,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 98.96875,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 176.96875,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 0,
+            "top": 64,
+            "width": 216.0625,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 192.0625,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 72.0625,
+                "height": 15,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 108.0625,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 186.0625,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          },
+          {
+            "left": 0,
+            "top": 96,
+            "width": 225.390625,
+            "height": 24,
+            "labelSliderGap": 6,
+            "labelCursor": "default",
+            "elements": [
+              {
+                "left": 0,
+                "right": 201.390625,
+                "width": 24,
+                "height": 24,
+                "scrollWidth": 22,
+                "clientWidth": 22,
+                "scrollHeight": 22,
+                "clientHeight": 22
+              },
+              {
+                "left": 30,
+                "right": 114,
+                "width": 81.390625,
+                "height": 15,
+                "scrollWidth": 81,
+                "clientWidth": 81,
+                "scrollHeight": 15,
+                "clientHeight": 15
+              },
+              {
+                "left": 117.390625,
+                "right": 36,
+                "width": 72,
+                "height": 16,
+                "scrollWidth": 72,
+                "clientWidth": 72,
+                "scrollHeight": 16,
+                "clientHeight": 16
+              },
+              {
+                "left": 195.390625,
+                "right": 0,
+                "width": 30,
+                "height": 11,
+                "scrollWidth": 30,
+                "clientWidth": 30,
+                "scrollHeight": 11,
+                "clientHeight": 11
+              }
+            ]
+          }
+        ],
+        "viewportWidth": 364,
+        "documentWidth": 364
+      },
+      "exactControlRestoration": true,
+      "resetButton": true
+    }
+  ],
+  "errors": []
+}

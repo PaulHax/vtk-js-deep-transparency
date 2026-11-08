@@ -3,7 +3,7 @@
   "reports": [
     {
       "label": "desktop progressive load and retry",
-      "elapsedMilliseconds": 38292,
+      "elapsedMilliseconds": 16134,
       "maximumLoading": 2,
       "samples": [
         {
@@ -91,34 +91,6 @@
           "scrolling": null
         },
         {
-          "scene": "teapot",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 928,
-          "height": 760,
-          "scrollWidth": 928,
-          "scrollHeight": 760,
-          "bodyHeight": 0,
-          "visible": false,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "teapot",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 928,
-          "height": 591,
-          "scrollWidth": 928,
-          "scrollHeight": 591,
-          "bodyHeight": 590.4375,
-          "visible": false,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
           "scene": "anatomy",
           "attempt": 1,
           "reason": "animation frame",
@@ -233,7 +205,7 @@
         {
           "scene": "cad",
           "attempt": 1,
-          "reason": "animation frame",
+          "reason": "document ready",
           "width": 928,
           "height": 760,
           "scrollWidth": 928,
@@ -287,6 +259,34 @@
           "scrolling": null
         },
         {
+          "scene": "teapot",
+          "attempt": 1,
+          "reason": "document ready",
+          "width": 928,
+          "height": 760,
+          "scrollWidth": 928,
+          "scrollHeight": 760,
+          "bodyHeight": 0,
+          "visible": false,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
+          "scene": "teapot",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 928,
+          "height": 591,
+          "scrollWidth": 928,
+          "scrollHeight": 591,
+          "bodyHeight": 590.4375,
+          "visible": false,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
           "scene": "intersecting",
           "attempt": 1,
           "reason": "animation frame",
@@ -371,20 +371,6 @@
           "scrolling": null
         },
         {
-          "scene": "bonsai",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 928,
-          "height": 653,
-          "scrollWidth": 928,
-          "scrollHeight": 653,
-          "bodyHeight": 652.4375,
-          "visible": false,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
           "scene": "layers",
           "attempt": 1,
           "reason": "animation frame",
@@ -417,10 +403,24 @@
           "attempt": 1,
           "reason": "animation frame",
           "width": 928,
-          "height": 653,
+          "height": 647,
           "scrollWidth": 928,
-          "scrollHeight": 653,
-          "bodyHeight": 652.4375,
+          "scrollHeight": 647,
+          "bodyHeight": 646.4375,
+          "visible": false,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
+          "scene": "bonsai",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 928,
+          "height": 647,
+          "scrollWidth": 928,
+          "scrollHeight": 647,
+          "bodyHeight": 646.4375,
           "visible": true,
           "documentOverflowY": "visible",
           "bodyOverflowY": "visible",
@@ -429,7 +429,7 @@
         {
           "scene": "teapot",
           "attempt": 2,
-          "reason": "document ready",
+          "reason": "animation frame",
           "width": 928,
           "height": 591,
           "scrollWidth": 928,
@@ -496,11 +496,6 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "queued",
-            "started": false
-          },
-          {
             "scene": "anatomy",
             "state": "queued",
             "started": false
@@ -512,6 +507,11 @@
           },
           {
             "scene": "cad",
+            "state": "queued",
+            "started": false
+          },
+          {
+            "scene": "teapot",
             "state": "queued",
             "started": false
           },
@@ -538,14 +538,9 @@
             "started": true
           },
           {
-            "scene": "teapot",
+            "scene": "anatomy",
             "state": "loading",
             "started": true
-          },
-          {
-            "scene": "anatomy",
-            "state": "queued",
-            "started": false
           },
           {
             "scene": "impact",
@@ -554,6 +549,11 @@
           },
           {
             "scene": "cad",
+            "state": "queued",
+            "started": false
+          },
+          {
+            "scene": "teapot",
             "state": "queued",
             "started": false
           },
@@ -576,6 +576,147 @@
           },
           {
             "scene": "engine",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "anatomy",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "impact",
+            "state": "loading",
+            "started": true
+          },
+          {
+            "scene": "cad",
+            "state": "queued",
+            "started": false
+          },
+          {
+            "scene": "teapot",
+            "state": "queued",
+            "started": false
+          },
+          {
+            "scene": "intersecting",
+            "state": "queued",
+            "started": false
+          },
+          {
+            "scene": "layers",
+            "state": "queued",
+            "started": false
+          }
+        ],
+        [
+          {
+            "scene": "bonsai",
+            "state": "loading",
+            "started": true
+          },
+          {
+            "scene": "engine",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "anatomy",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "impact",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "cad",
+            "state": "loading",
+            "started": true
+          },
+          {
+            "scene": "teapot",
+            "state": "queued",
+            "started": false
+          },
+          {
+            "scene": "intersecting",
+            "state": "queued",
+            "started": false
+          },
+          {
+            "scene": "layers",
+            "state": "queued",
+            "started": false
+          }
+        ],
+        [
+          {
+            "scene": "bonsai",
+            "state": "loading",
+            "started": true
+          },
+          {
+            "scene": "engine",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "anatomy",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "impact",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "cad",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "teapot",
+            "state": "loading",
+            "started": true
+          },
+          {
+            "scene": "intersecting",
+            "state": "queued",
+            "started": false
+          },
+          {
+            "scene": "layers",
+            "state": "queued",
+            "started": false
+          }
+        ],
+        [
+          {
+            "scene": "bonsai",
+            "state": "loading",
+            "started": true
+          },
+          {
+            "scene": "engine",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "anatomy",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "impact",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "cad",
             "state": "ready",
             "started": true
           },
@@ -585,24 +726,9 @@
             "started": true
           },
           {
-            "scene": "anatomy",
+            "scene": "intersecting",
             "state": "loading",
             "started": true
-          },
-          {
-            "scene": "impact",
-            "state": "queued",
-            "started": false
-          },
-          {
-            "scene": "cad",
-            "state": "queued",
-            "started": false
-          },
-          {
-            "scene": "intersecting",
-            "state": "queued",
-            "started": false
           },
           {
             "scene": "layers",
@@ -618,6 +744,21 @@
           },
           {
             "scene": "engine",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "anatomy",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "impact",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "cad",
             "state": "ready",
             "started": true
           },
@@ -627,29 +768,14 @@
             "started": true
           },
           {
-            "scene": "anatomy",
+            "scene": "intersecting",
             "state": "ready",
             "started": true
           },
           {
-            "scene": "impact",
+            "scene": "layers",
             "state": "loading",
             "started": true
-          },
-          {
-            "scene": "cad",
-            "state": "queued",
-            "started": false
-          },
-          {
-            "scene": "intersecting",
-            "state": "queued",
-            "started": false
-          },
-          {
-            "scene": "layers",
-            "state": "queued",
-            "started": false
           }
         ],
         [
@@ -660,6 +786,21 @@
           },
           {
             "scene": "engine",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "anatomy",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "impact",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "cad",
             "state": "ready",
             "started": true
           },
@@ -669,6 +810,28 @@
             "started": true
           },
           {
+            "scene": "intersecting",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "layers",
+            "state": "ready",
+            "started": true
+          }
+        ],
+        [
+          {
+            "scene": "bonsai",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "engine",
+            "state": "ready",
+            "started": true
+          },
+          {
             "scene": "anatomy",
             "state": "ready",
             "started": true
@@ -680,28 +843,6 @@
           },
           {
             "scene": "cad",
-            "state": "loading",
-            "started": true
-          },
-          {
-            "scene": "intersecting",
-            "state": "queued",
-            "started": false
-          },
-          {
-            "scene": "layers",
-            "state": "queued",
-            "started": false
-          }
-        ],
-        [
-          {
-            "scene": "bonsai",
-            "state": "loading",
-            "started": true
-          },
-          {
-            "scene": "engine",
             "state": "ready",
             "started": true
           },
@@ -711,35 +852,20 @@
             "started": true
           },
           {
-            "scene": "anatomy",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "impact",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "cad",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "intersecting",
-            "state": "loading",
+            "state": "ready",
             "started": true
           },
           {
             "scene": "layers",
-            "state": "queued",
-            "started": false
+            "state": "ready",
+            "started": true
           }
         ],
         [
           {
             "scene": "bonsai",
-            "state": "loading",
+            "state": "ready",
             "started": true
           },
           {
@@ -748,11 +874,6 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "error",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "ready",
             "started": true
@@ -768,45 +889,8 @@
             "started": true
           },
           {
-            "scene": "intersecting",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "layers",
-            "state": "loading",
-            "started": true
-          }
-        ],
-        [
-          {
-            "scene": "bonsai",
-            "state": "loading",
-            "started": true
-          },
-          {
-            "scene": "engine",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "teapot",
-            "state": "error",
-            "started": true
-          },
-          {
-            "scene": "anatomy",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "impact",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "cad",
-            "state": "ready",
+            "state": "loading",
             "started": true
           },
           {
@@ -832,11 +916,6 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "error",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "ready",
             "started": true
@@ -852,86 +931,7 @@
             "started": true
           },
           {
-            "scene": "intersecting",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "layers",
-            "state": "ready",
-            "started": true
-          }
-        ],
-        [
-          {
-            "scene": "bonsai",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "engine",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "teapot",
-            "state": "loading",
-            "started": true
-          },
-          {
-            "scene": "anatomy",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "impact",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "cad",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "intersecting",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "layers",
-            "state": "ready",
-            "started": true
-          }
-        ],
-        [
-          {
-            "scene": "bonsai",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "engine",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "anatomy",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "impact",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "cad",
             "state": "ready",
             "started": true
           },
@@ -950,10 +950,10 @@
       "attempts": {
         "bonsai": 1,
         "engine": 1,
-        "teapot": 2,
         "anatomy": 1,
         "impact": 1,
         "cad": 1,
+        "teapot": 2,
         "intersecting": 1,
         "layers": 1
       },
@@ -967,12 +967,6 @@
           "state": "resolved",
           "scene": "engine",
           "attempt": 1
-        },
-        "teapot:1": {
-          "state": "rejected",
-          "scene": "teapot",
-          "attempt": 1,
-          "error": "Could not load Teapot shell"
         },
         "anatomy:1": {
           "state": "resolved",
@@ -988,6 +982,12 @@
           "state": "resolved",
           "scene": "cad",
           "attempt": 1
+        },
+        "teapot:1": {
+          "state": "rejected",
+          "scene": "teapot",
+          "attempt": 1,
+          "error": "Could not load Teapot shell"
         },
         "intersecting:1": {
           "state": "resolved",
@@ -1010,26 +1010,12 @@
     },
     {
       "label": "desktop refresh",
-      "elapsedMilliseconds": 17033,
+      "elapsedMilliseconds": 12733,
       "maximumLoading": 2,
       "samples": [
         {
           "scene": "bonsai",
           "attempt": 1,
-          "reason": "document ready",
-          "width": 928,
-          "height": 760,
-          "scrollWidth": 928,
-          "scrollHeight": 760,
-          "bodyHeight": 0,
-          "visible": false,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "engine",
-          "attempt": 1,
           "reason": "animation frame",
           "width": 928,
           "height": 760,
@@ -1042,77 +1028,7 @@
           "scrolling": null
         },
         {
-          "scene": "bonsai",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 928,
-          "height": 591,
-          "scrollWidth": 928,
-          "scrollHeight": 591,
-          "bodyHeight": 590.4375,
-          "visible": false,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
           "scene": "engine",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 928,
-          "height": 591,
-          "scrollWidth": 928,
-          "scrollHeight": 591,
-          "bodyHeight": 590.4375,
-          "visible": false,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "engine",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 928,
-          "height": 647,
-          "scrollWidth": 928,
-          "scrollHeight": 647,
-          "bodyHeight": 646.4375,
-          "visible": false,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "bonsai",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 928,
-          "height": 653,
-          "scrollWidth": 928,
-          "scrollHeight": 653,
-          "bodyHeight": 652.4375,
-          "visible": false,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "engine",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 928,
-          "height": 647,
-          "scrollWidth": 928,
-          "scrollHeight": 647,
-          "bodyHeight": 646.4375,
-          "visible": true,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "teapot",
           "attempt": 1,
           "reason": "document ready",
           "width": 928,
@@ -1126,7 +1042,7 @@
           "scrolling": null
         },
         {
-          "scene": "teapot",
+          "scene": "bonsai",
           "attempt": 1,
           "reason": "animation frame",
           "width": 928,
@@ -1140,7 +1056,21 @@
           "scrolling": null
         },
         {
-          "scene": "teapot",
+          "scene": "engine",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 928,
+          "height": 591,
+          "scrollWidth": 928,
+          "scrollHeight": 591,
+          "bodyHeight": 590.4375,
+          "visible": false,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
+          "scene": "engine",
           "attempt": 1,
           "reason": "animation frame",
           "width": 928,
@@ -1158,10 +1088,24 @@
           "attempt": 1,
           "reason": "animation frame",
           "width": 928,
-          "height": 653,
+          "height": 647,
           "scrollWidth": 928,
-          "scrollHeight": 653,
-          "bodyHeight": 652.4375,
+          "scrollHeight": 647,
+          "bodyHeight": 646.4375,
+          "visible": false,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
+          "scene": "engine",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 928,
+          "height": 647,
+          "scrollWidth": 928,
+          "scrollHeight": 647,
+          "bodyHeight": 646.4375,
           "visible": true,
           "documentOverflowY": "visible",
           "bodyOverflowY": "visible",
@@ -1170,7 +1114,7 @@
         {
           "scene": "anatomy",
           "attempt": 1,
-          "reason": "animation frame",
+          "reason": "document ready",
           "width": 928,
           "height": 760,
           "scrollWidth": 928,
@@ -1210,7 +1154,7 @@
           "scrolling": null
         },
         {
-          "scene": "teapot",
+          "scene": "bonsai",
           "attempt": 1,
           "reason": "animation frame",
           "width": 928,
@@ -1282,7 +1226,7 @@
         {
           "scene": "cad",
           "attempt": 1,
-          "reason": "animation frame",
+          "reason": "document ready",
           "width": 928,
           "height": 760,
           "scrollWidth": 928,
@@ -1336,7 +1280,7 @@
           "scrolling": null
         },
         {
-          "scene": "intersecting",
+          "scene": "teapot",
           "attempt": 1,
           "reason": "document ready",
           "width": 928,
@@ -1350,7 +1294,7 @@
           "scrolling": null
         },
         {
-          "scene": "intersecting",
+          "scene": "teapot",
           "attempt": 1,
           "reason": "animation frame",
           "width": 928,
@@ -1358,20 +1302,6 @@
           "scrollWidth": 928,
           "scrollHeight": 591,
           "bodyHeight": 590.4375,
-          "visible": false,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "intersecting",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 928,
-          "height": 631,
-          "scrollWidth": 928,
-          "scrollHeight": 631,
-          "bodyHeight": 630.4375,
           "visible": false,
           "documentOverflowY": "visible",
           "bodyOverflowY": "visible",
@@ -1392,6 +1322,76 @@
           "scrolling": null
         },
         {
+          "scene": "teapot",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 928,
+          "height": 647,
+          "scrollWidth": 928,
+          "scrollHeight": 647,
+          "bodyHeight": 646.4375,
+          "visible": false,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
+          "scene": "intersecting",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 928,
+          "height": 760,
+          "scrollWidth": 928,
+          "scrollHeight": 760,
+          "bodyHeight": 0,
+          "visible": false,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
+          "scene": "intersecting",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 928,
+          "height": 591,
+          "scrollWidth": 928,
+          "scrollHeight": 591,
+          "bodyHeight": 590.4375,
+          "visible": false,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
+          "scene": "intersecting",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 928,
+          "height": 631,
+          "scrollWidth": 928,
+          "scrollHeight": 631,
+          "bodyHeight": 630.4375,
+          "visible": false,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
+          "scene": "intersecting",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 928,
+          "height": 631,
+          "scrollWidth": 928,
+          "scrollHeight": 631,
+          "bodyHeight": 630.4375,
+          "visible": true,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
           "scene": "layers",
           "attempt": 1,
           "reason": "animation frame",
@@ -1420,6 +1420,20 @@
           "scrolling": null
         },
         {
+          "scene": "teapot",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 928,
+          "height": 647,
+          "scrollWidth": 928,
+          "scrollHeight": 647,
+          "bodyHeight": 646.4375,
+          "visible": true,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
           "scene": "layers",
           "attempt": 1,
           "reason": "animation frame",
@@ -1435,20 +1449,6 @@
         },
         {
           "scene": "layers",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 928,
-          "height": 631,
-          "scrollWidth": 928,
-          "scrollHeight": 631,
-          "bodyHeight": 630.4375,
-          "visible": true,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "intersecting",
           "attempt": 1,
           "reason": "animation frame",
           "width": 928,
@@ -1475,11 +1475,6 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "queued",
-            "started": false
-          },
-          {
             "scene": "anatomy",
             "state": "queued",
             "started": false
@@ -1491,6 +1486,11 @@
           },
           {
             "scene": "cad",
+            "state": "queued",
+            "started": false
+          },
+          {
+            "scene": "teapot",
             "state": "queued",
             "started": false
           },
@@ -1517,14 +1517,9 @@
             "started": true
           },
           {
-            "scene": "teapot",
+            "scene": "anatomy",
             "state": "loading",
             "started": true
-          },
-          {
-            "scene": "anatomy",
-            "state": "queued",
-            "started": false
           },
           {
             "scene": "impact",
@@ -1533,6 +1528,11 @@
           },
           {
             "scene": "cad",
+            "state": "queued",
+            "started": false
+          },
+          {
+            "scene": "teapot",
             "state": "queued",
             "started": false
           },
@@ -1559,22 +1559,22 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "loading",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "loading",
             "started": true
           },
           {
             "scene": "impact",
+            "state": "loading",
+            "started": true
+          },
+          {
+            "scene": "cad",
             "state": "queued",
             "started": false
           },
           {
-            "scene": "cad",
+            "scene": "teapot",
             "state": "queued",
             "started": false
           },
@@ -1601,13 +1601,8 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "anatomy",
-            "state": "loading",
+            "state": "ready",
             "started": true
           },
           {
@@ -1617,6 +1612,11 @@
           },
           {
             "scene": "cad",
+            "state": "loading",
+            "started": true
+          },
+          {
+            "scene": "teapot",
             "state": "queued",
             "started": false
           },
@@ -1643,22 +1643,22 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "ready",
             "started": true
           },
           {
             "scene": "impact",
-            "state": "loading",
+            "state": "ready",
             "started": true
           },
           {
             "scene": "cad",
+            "state": "loading",
+            "started": true
+          },
+          {
+            "scene": "teapot",
             "state": "loading",
             "started": true
           },
@@ -1685,11 +1685,6 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "ready",
             "started": true
@@ -1701,6 +1696,11 @@
           },
           {
             "scene": "cad",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "teapot",
             "state": "loading",
             "started": true
           },
@@ -1727,11 +1727,6 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "ready",
             "started": true
@@ -1747,8 +1742,13 @@
             "started": true
           },
           {
-            "scene": "intersecting",
+            "scene": "teapot",
             "state": "loading",
+            "started": true
+          },
+          {
+            "scene": "intersecting",
+            "state": "ready",
             "started": true
           },
           {
@@ -1769,11 +1769,6 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "ready",
             "started": true
@@ -1789,13 +1784,18 @@
             "started": true
           },
           {
+            "scene": "teapot",
+            "state": "ready",
+            "started": true
+          },
+          {
             "scene": "intersecting",
-            "state": "loading",
+            "state": "ready",
             "started": true
           },
           {
             "scene": "layers",
-            "state": "ready",
+            "state": "loading",
             "started": true
           }
         ],
@@ -1811,11 +1811,6 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "ready",
             "started": true
@@ -1827,6 +1822,11 @@
           },
           {
             "scene": "cad",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "teapot",
             "state": "ready",
             "started": true
           },
@@ -1845,10 +1845,10 @@
       "attempts": {
         "bonsai": 1,
         "engine": 1,
-        "teapot": 1,
         "anatomy": 1,
         "impact": 1,
         "cad": 1,
+        "teapot": 1,
         "intersecting": 1,
         "layers": 1
       },
@@ -1861,11 +1861,6 @@
         "engine:1": {
           "state": "resolved",
           "scene": "engine",
-          "attempt": 1
-        },
-        "teapot:1": {
-          "state": "resolved",
-          "scene": "teapot",
           "attempt": 1
         },
         "anatomy:1": {
@@ -1881,6 +1876,11 @@
         "cad:1": {
           "state": "resolved",
           "scene": "cad",
+          "attempt": 1
+        },
+        "teapot:1": {
+          "state": "resolved",
+          "scene": "teapot",
           "attempt": 1
         },
         "intersecting:1": {
@@ -1899,7 +1899,7 @@
     },
     {
       "label": "mobile startup",
-      "elapsedMilliseconds": 13076,
+      "elapsedMilliseconds": 10735,
       "maximumLoading": 2,
       "samples": [
         {
@@ -1931,7 +1931,7 @@
           "scrolling": null
         },
         {
-          "scene": "bonsai",
+          "scene": "engine",
           "attempt": 1,
           "reason": "animation frame",
           "width": 364,
@@ -1945,7 +1945,7 @@
           "scrolling": null
         },
         {
-          "scene": "engine",
+          "scene": "bonsai",
           "attempt": 1,
           "reason": "animation frame",
           "width": 364,
@@ -1996,48 +1996,6 @@
           "scrollHeight": 625,
           "bodyHeight": 624.1875,
           "visible": true,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "teapot",
-          "attempt": 1,
-          "reason": "document ready",
-          "width": 364,
-          "height": 760,
-          "scrollWidth": 364,
-          "scrollHeight": 760,
-          "bodyHeight": 0,
-          "visible": false,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "teapot",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 364,
-          "height": 477,
-          "scrollWidth": 364,
-          "scrollHeight": 477,
-          "bodyHeight": 477,
-          "visible": false,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "teapot",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 364,
-          "height": 625,
-          "scrollWidth": 364,
-          "scrollHeight": 625,
-          "bodyHeight": 624.1875,
-          "visible": false,
           "documentOverflowY": "visible",
           "bodyOverflowY": "visible",
           "scrolling": null
@@ -2052,20 +2010,6 @@
           "scrollHeight": 760,
           "bodyHeight": 0,
           "visible": false,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "bonsai",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 364,
-          "height": 625,
-          "scrollWidth": 364,
-          "scrollHeight": 625,
-          "bodyHeight": 624.1875,
-          "visible": true,
           "documentOverflowY": "visible",
           "bodyOverflowY": "visible",
           "scrolling": null
@@ -2099,7 +2043,7 @@
           "scrolling": null
         },
         {
-          "scene": "teapot",
+          "scene": "bonsai",
           "attempt": 1,
           "reason": "animation frame",
           "width": 364,
@@ -2115,7 +2059,7 @@
         {
           "scene": "impact",
           "attempt": 1,
-          "reason": "animation frame",
+          "reason": "document ready",
           "width": 364,
           "height": 760,
           "scrollWidth": 364,
@@ -2171,7 +2115,7 @@
         {
           "scene": "cad",
           "attempt": 1,
-          "reason": "document ready",
+          "reason": "animation frame",
           "width": 364,
           "height": 760,
           "scrollWidth": 364,
@@ -2219,6 +2163,62 @@
           "scrollWidth": 364,
           "scrollHeight": 754,
           "bodyHeight": 753.78125,
+          "visible": true,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
+          "scene": "teapot",
+          "attempt": 1,
+          "reason": "document ready",
+          "width": 364,
+          "height": 760,
+          "scrollWidth": 364,
+          "scrollHeight": 760,
+          "bodyHeight": 0,
+          "visible": false,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
+          "scene": "teapot",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 364,
+          "height": 477,
+          "scrollWidth": 364,
+          "scrollHeight": 477,
+          "bodyHeight": 477,
+          "visible": false,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
+          "scene": "teapot",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 364,
+          "height": 625,
+          "scrollWidth": 364,
+          "scrollHeight": 625,
+          "bodyHeight": 624.1875,
+          "visible": false,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
+          "scene": "cad",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 364,
+          "height": 690,
+          "scrollWidth": 364,
+          "scrollHeight": 690,
+          "bodyHeight": 689.78125,
           "visible": true,
           "documentOverflowY": "visible",
           "bodyOverflowY": "visible",
@@ -2267,14 +2267,14 @@
           "scrolling": null
         },
         {
-          "scene": "cad",
+          "scene": "intersecting",
           "attempt": 1,
           "reason": "animation frame",
           "width": 364,
-          "height": 690,
+          "height": 593,
           "scrollWidth": 364,
-          "scrollHeight": 690,
-          "bodyHeight": 689.78125,
+          "scrollHeight": 593,
+          "bodyHeight": 592.1875,
           "visible": true,
           "documentOverflowY": "visible",
           "bodyOverflowY": "visible",
@@ -2295,14 +2295,14 @@
           "scrolling": null
         },
         {
-          "scene": "intersecting",
+          "scene": "teapot",
           "attempt": 1,
           "reason": "animation frame",
           "width": 364,
-          "height": 593,
+          "height": 625,
           "scrollWidth": 364,
-          "scrollHeight": 593,
-          "bodyHeight": 592.1875,
+          "scrollHeight": 625,
+          "bodyHeight": 624.1875,
           "visible": true,
           "documentOverflowY": "visible",
           "bodyOverflowY": "visible",
@@ -2364,11 +2364,6 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "queued",
-            "started": false
-          },
-          {
             "scene": "anatomy",
             "state": "queued",
             "started": false
@@ -2380,6 +2375,11 @@
           },
           {
             "scene": "cad",
+            "state": "queued",
+            "started": false
+          },
+          {
+            "scene": "teapot",
             "state": "queued",
             "started": false
           },
@@ -2406,14 +2406,9 @@
             "started": true
           },
           {
-            "scene": "teapot",
+            "scene": "anatomy",
             "state": "loading",
             "started": true
-          },
-          {
-            "scene": "anatomy",
-            "state": "queued",
-            "started": false
           },
           {
             "scene": "impact",
@@ -2422,6 +2417,11 @@
           },
           {
             "scene": "cad",
+            "state": "queued",
+            "started": false
+          },
+          {
+            "scene": "teapot",
             "state": "queued",
             "started": false
           },
@@ -2448,22 +2448,22 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "loading",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "loading",
             "started": true
           },
           {
             "scene": "impact",
+            "state": "loading",
+            "started": true
+          },
+          {
+            "scene": "cad",
             "state": "queued",
             "started": false
           },
           {
-            "scene": "cad",
+            "scene": "teapot",
             "state": "queued",
             "started": false
           },
@@ -2490,13 +2490,8 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "anatomy",
-            "state": "loading",
+            "state": "ready",
             "started": true
           },
           {
@@ -2506,6 +2501,11 @@
           },
           {
             "scene": "cad",
+            "state": "loading",
+            "started": true
+          },
+          {
+            "scene": "teapot",
             "state": "queued",
             "started": false
           },
@@ -2532,22 +2532,22 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "ready",
             "started": true
           },
           {
             "scene": "impact",
-            "state": "loading",
+            "state": "ready",
             "started": true
           },
           {
             "scene": "cad",
+            "state": "loading",
+            "started": true
+          },
+          {
+            "scene": "teapot",
             "state": "loading",
             "started": true
           },
@@ -2574,11 +2574,6 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "ready",
             "started": true
@@ -2590,6 +2585,11 @@
           },
           {
             "scene": "cad",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "teapot",
             "state": "loading",
             "started": true
           },
@@ -2616,11 +2616,6 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "ready",
             "started": true
@@ -2636,45 +2631,8 @@
             "started": true
           },
           {
-            "scene": "intersecting",
-            "state": "loading",
-            "started": true
-          },
-          {
-            "scene": "layers",
-            "state": "loading",
-            "started": true
-          }
-        ],
-        [
-          {
-            "scene": "bonsai",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "engine",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "anatomy",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "impact",
-            "state": "ready",
-            "started": true
-          },
-          {
-            "scene": "cad",
-            "state": "ready",
+            "state": "loading",
             "started": true
           },
           {
@@ -2700,7 +2658,44 @@
             "started": true
           },
           {
+            "scene": "anatomy",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "impact",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "cad",
+            "state": "ready",
+            "started": true
+          },
+          {
             "scene": "teapot",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "intersecting",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "layers",
+            "state": "loading",
+            "started": true
+          }
+        ],
+        [
+          {
+            "scene": "bonsai",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "engine",
             "state": "ready",
             "started": true
           },
@@ -2716,6 +2711,11 @@
           },
           {
             "scene": "cad",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "teapot",
             "state": "ready",
             "started": true
           },
@@ -2734,10 +2734,10 @@
       "attempts": {
         "bonsai": 1,
         "engine": 1,
-        "teapot": 1,
         "anatomy": 1,
         "impact": 1,
         "cad": 1,
+        "teapot": 1,
         "intersecting": 1,
         "layers": 1
       },
@@ -2750,11 +2750,6 @@
         "engine:1": {
           "state": "resolved",
           "scene": "engine",
-          "attempt": 1
-        },
-        "teapot:1": {
-          "state": "resolved",
-          "scene": "teapot",
           "attempt": 1
         },
         "anatomy:1": {
@@ -2770,6 +2765,11 @@
         "cad:1": {
           "state": "resolved",
           "scene": "cad",
+          "attempt": 1
+        },
+        "teapot:1": {
+          "state": "resolved",
+          "scene": "teapot",
           "attempt": 1
         },
         "intersecting:1": {
@@ -2788,13 +2788,13 @@
     },
     {
       "label": "mobile refresh",
-      "elapsedMilliseconds": 14377,
+      "elapsedMilliseconds": 9813,
       "maximumLoading": 2,
       "samples": [
         {
           "scene": "bonsai",
           "attempt": 1,
-          "reason": "animation frame",
+          "reason": "document ready",
           "width": 364,
           "height": 760,
           "scrollWidth": 364,
@@ -2885,48 +2885,6 @@
           "scrollHeight": 625,
           "bodyHeight": 624.1875,
           "visible": true,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "teapot",
-          "attempt": 1,
-          "reason": "document ready",
-          "width": 364,
-          "height": 760,
-          "scrollWidth": 364,
-          "scrollHeight": 760,
-          "bodyHeight": 0,
-          "visible": false,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "teapot",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 364,
-          "height": 477,
-          "scrollWidth": 364,
-          "scrollHeight": 477,
-          "bodyHeight": 477,
-          "visible": false,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "teapot",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 364,
-          "height": 625,
-          "scrollWidth": 364,
-          "scrollHeight": 625,
-          "bodyHeight": 624.1875,
-          "visible": false,
           "documentOverflowY": "visible",
           "bodyOverflowY": "visible",
           "scrolling": null
@@ -2941,20 +2899,6 @@
           "scrollHeight": 760,
           "bodyHeight": 0,
           "visible": false,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "bonsai",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 364,
-          "height": 625,
-          "scrollWidth": 364,
-          "scrollHeight": 625,
-          "bodyHeight": 624.1875,
-          "visible": true,
           "documentOverflowY": "visible",
           "bodyOverflowY": "visible",
           "scrolling": null
@@ -2988,6 +2932,20 @@
           "scrolling": null
         },
         {
+          "scene": "bonsai",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 364,
+          "height": 625,
+          "scrollWidth": 364,
+          "scrollHeight": 625,
+          "bodyHeight": 624.1875,
+          "visible": true,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
           "scene": "impact",
           "attempt": 1,
           "reason": "document ready",
@@ -2997,20 +2955,6 @@
           "scrollHeight": 760,
           "bodyHeight": 0,
           "visible": false,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "teapot",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 364,
-          "height": 625,
-          "scrollWidth": 364,
-          "scrollHeight": 625,
-          "bodyHeight": 624.1875,
-          "visible": true,
           "documentOverflowY": "visible",
           "bodyOverflowY": "visible",
           "scrolling": null
@@ -3114,9 +3058,9 @@
           "scrolling": null
         },
         {
-          "scene": "intersecting",
+          "scene": "teapot",
           "attempt": 1,
-          "reason": "animation frame",
+          "reason": "document ready",
           "width": 364,
           "height": 760,
           "scrollWidth": 364,
@@ -3128,7 +3072,7 @@
           "scrolling": null
         },
         {
-          "scene": "intersecting",
+          "scene": "teapot",
           "attempt": 1,
           "reason": "animation frame",
           "width": 364,
@@ -3142,14 +3086,14 @@
           "scrolling": null
         },
         {
-          "scene": "intersecting",
+          "scene": "teapot",
           "attempt": 1,
           "reason": "animation frame",
           "width": 364,
-          "height": 593,
+          "height": 625,
           "scrollWidth": 364,
-          "scrollHeight": 593,
-          "bodyHeight": 592.1875,
+          "scrollHeight": 625,
+          "bodyHeight": 624.1875,
           "visible": false,
           "documentOverflowY": "visible",
           "bodyOverflowY": "visible",
@@ -3170,6 +3114,48 @@
           "scrolling": null
         },
         {
+          "scene": "intersecting",
+          "attempt": 1,
+          "reason": "document ready",
+          "width": 364,
+          "height": 760,
+          "scrollWidth": 364,
+          "scrollHeight": 760,
+          "bodyHeight": 0,
+          "visible": false,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
+          "scene": "intersecting",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 364,
+          "height": 477,
+          "scrollWidth": 364,
+          "scrollHeight": 477,
+          "bodyHeight": 477,
+          "visible": false,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
+          "scene": "intersecting",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 364,
+          "height": 593,
+          "scrollWidth": 364,
+          "scrollHeight": 593,
+          "bodyHeight": 592.1875,
+          "visible": false,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
           "scene": "layers",
           "attempt": 1,
           "reason": "document ready",
@@ -3179,6 +3165,20 @@
           "scrollHeight": 760,
           "bodyHeight": 0,
           "visible": false,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
+          "scene": "teapot",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 364,
+          "height": 625,
+          "scrollWidth": 364,
+          "scrollHeight": 625,
+          "bodyHeight": 624.1875,
+          "visible": true,
           "documentOverflowY": "visible",
           "bodyOverflowY": "visible",
           "scrolling": null
@@ -3198,6 +3198,20 @@
           "scrolling": null
         },
         {
+          "scene": "intersecting",
+          "attempt": 1,
+          "reason": "animation frame",
+          "width": 364,
+          "height": 593,
+          "scrollWidth": 364,
+          "scrollHeight": 593,
+          "bodyHeight": 592.1875,
+          "visible": true,
+          "documentOverflowY": "visible",
+          "bodyOverflowY": "visible",
+          "scrolling": null
+        },
+        {
           "scene": "layers",
           "attempt": 1,
           "reason": "animation frame",
@@ -3220,20 +3234,6 @@
           "scrollWidth": 364,
           "scrollHeight": 578,
           "bodyHeight": 577.78125,
-          "visible": true,
-          "documentOverflowY": "visible",
-          "bodyOverflowY": "visible",
-          "scrolling": null
-        },
-        {
-          "scene": "intersecting",
-          "attempt": 1,
-          "reason": "animation frame",
-          "width": 364,
-          "height": 593,
-          "scrollWidth": 364,
-          "scrollHeight": 593,
-          "bodyHeight": 592.1875,
           "visible": true,
           "documentOverflowY": "visible",
           "bodyOverflowY": "visible",
@@ -3253,11 +3253,6 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "queued",
-            "started": false
-          },
-          {
             "scene": "anatomy",
             "state": "queued",
             "started": false
@@ -3269,6 +3264,11 @@
           },
           {
             "scene": "cad",
+            "state": "queued",
+            "started": false
+          },
+          {
+            "scene": "teapot",
             "state": "queued",
             "started": false
           },
@@ -3295,14 +3295,9 @@
             "started": true
           },
           {
-            "scene": "teapot",
+            "scene": "anatomy",
             "state": "loading",
             "started": true
-          },
-          {
-            "scene": "anatomy",
-            "state": "queued",
-            "started": false
           },
           {
             "scene": "impact",
@@ -3311,6 +3306,11 @@
           },
           {
             "scene": "cad",
+            "state": "queued",
+            "started": false
+          },
+          {
+            "scene": "teapot",
             "state": "queued",
             "started": false
           },
@@ -3337,22 +3337,22 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "loading",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "loading",
             "started": true
           },
           {
             "scene": "impact",
+            "state": "loading",
+            "started": true
+          },
+          {
+            "scene": "cad",
             "state": "queued",
             "started": false
           },
           {
-            "scene": "cad",
+            "scene": "teapot",
             "state": "queued",
             "started": false
           },
@@ -3379,13 +3379,8 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "anatomy",
-            "state": "loading",
+            "state": "ready",
             "started": true
           },
           {
@@ -3395,6 +3390,11 @@
           },
           {
             "scene": "cad",
+            "state": "loading",
+            "started": true
+          },
+          {
+            "scene": "teapot",
             "state": "queued",
             "started": false
           },
@@ -3421,22 +3421,22 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "ready",
             "started": true
           },
           {
             "scene": "impact",
-            "state": "loading",
+            "state": "ready",
             "started": true
           },
           {
             "scene": "cad",
+            "state": "loading",
+            "started": true
+          },
+          {
+            "scene": "teapot",
             "state": "loading",
             "started": true
           },
@@ -3463,11 +3463,6 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "ready",
             "started": true
@@ -3479,6 +3474,11 @@
           },
           {
             "scene": "cad",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "teapot",
             "state": "loading",
             "started": true
           },
@@ -3505,11 +3505,6 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "ready",
             "started": true
@@ -3521,6 +3516,11 @@
           },
           {
             "scene": "cad",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "teapot",
             "state": "ready",
             "started": true
           },
@@ -3547,11 +3547,6 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "ready",
             "started": true
@@ -3567,13 +3562,18 @@
             "started": true
           },
           {
+            "scene": "teapot",
+            "state": "ready",
+            "started": true
+          },
+          {
             "scene": "intersecting",
-            "state": "loading",
+            "state": "ready",
             "started": true
           },
           {
             "scene": "layers",
-            "state": "ready",
+            "state": "loading",
             "started": true
           }
         ],
@@ -3589,11 +3589,6 @@
             "started": true
           },
           {
-            "scene": "teapot",
-            "state": "ready",
-            "started": true
-          },
-          {
             "scene": "anatomy",
             "state": "ready",
             "started": true
@@ -3605,6 +3600,11 @@
           },
           {
             "scene": "cad",
+            "state": "ready",
+            "started": true
+          },
+          {
+            "scene": "teapot",
             "state": "ready",
             "started": true
           },
@@ -3623,10 +3623,10 @@
       "attempts": {
         "bonsai": 1,
         "engine": 1,
-        "teapot": 1,
         "anatomy": 1,
         "impact": 1,
         "cad": 1,
+        "teapot": 1,
         "intersecting": 1,
         "layers": 1
       },
@@ -3639,11 +3639,6 @@
         "engine:1": {
           "state": "resolved",
           "scene": "engine",
-          "attempt": 1
-        },
-        "teapot:1": {
-          "state": "resolved",
-          "scene": "teapot",
           "attempt": 1
         },
         "anatomy:1": {
@@ -3659,6 +3654,11 @@
         "cad:1": {
           "state": "resolved",
           "scene": "cad",
+          "attempt": 1
+        },
+        "teapot:1": {
+          "state": "resolved",
+          "scene": "teapot",
           "attempt": 1
         },
         "intersecting:1": {

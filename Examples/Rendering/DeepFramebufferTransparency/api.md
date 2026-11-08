@@ -6,7 +6,7 @@ Run from the repository root:
 npm run example -- DeepFramebufferTransparency --no-browser --host 127.0.0.1 --port 9999
 ```
 
-Open [http://localhost:9999](http://localhost:9999) in a browser with WebGPU and hardware acceleration enabled. Localhost is a secure context for WebGPU. Examples initialize progressively, with at most two loading at once. Spinners show queued and active loading states; every example starts automatically and remains available after loading. Each scene draws its initial view, then renders in response to interaction or resizing; there is no continuous animation loop. The gallery order is Bonsai, Engine, Boston Teapot, sinus anatomy, asteroid impact, the bearing assembly, intersecting rings, and the two-layer proof.
+Open [http://localhost:9999](http://localhost:9999) in a browser with WebGPU and hardware acceleration enabled. Localhost is a secure context for WebGPU. Examples initialize progressively, with at most two loading at once. Spinners show queued and active loading states; every example starts automatically and remains available after loading. Each scene draws its initial view, then renders in response to interaction or resizing; there is no continuous animation loop. The gallery order is Bonsai, Engine, sinus anatomy, asteroid impact, the bearing assembly, Boston Teapot, intersecting rings, and the two-layer proof.
 
 Every example uses endpoint-based quaternion arcball controls with a smooth sphere/hyperbola transition at the rim: left drag rotates with free roll and right drag pans. Click a view to focus it before using the mouse wheel to zoom about the nearest surface on the cursor ray. Unfocused views leave wheel events to page scrolling; Escape releases focus. GPU depth picking supplies the surface point; over background, zoom uses the point on the camera's focal plane. Either viewport controls that example's shared camera. The examples' cameras are independent of one another. The small Reset camera button beside the component controls restores the example's initial camera. Each colored component row below the viewports has an eye button that shows or hides that component and a separate opacity slider from 0% to 100%. Both controls affect the component in both viewports. Visibility and opacity are independent: hiding a component preserves its opacity, and setting opacity to 0% does not change its visibility flag.
 
@@ -92,6 +92,14 @@ node Examples/Rendering/DeepFramebufferTransparency/verify-gallery.mjs
 ```
 
 It checks loading and anchor navigation, visible models and attribution captions, idle rendering, focused wheel zoom, arcball and pan interaction, and responsive layout. It saves screenshots and a JSON report under `comparison/gallery`.
+
+For a focused check of wrapping component groups, label-to-slider spacing, and the camera reset button at desktop and mobile widths:
+
+```sh
+node Examples/Rendering/DeepFramebufferTransparency/verify-component-layout.mjs
+```
+
+Screenshots and measurements are saved under `comparison/component-layout`.
 
 Check startup sizing and progressive loading with:
 
