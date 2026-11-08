@@ -21,8 +21,8 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px s
 h1 { margin: 0; font-size: clamp(28px, 3.2vw, 45px); font-weight: 520; line-height: 1.1; letter-spacing: -.045em; }
 .intro-copy { margin: 0 0 2px; max-width: 420px; color: #91a3b3; font-size: 13px; line-height: 1.65; }
 .article-link { margin: 0 0 26px; font-size: 13px; line-height: 1.6; }
-.article-link a { display: inline-block; padding: 12px 16px; border: 1px solid #3d7569; border-radius: 7px; background: #142722; color: #b7efdf; text-decoration: none; }
-.article-link a:hover { border-color: #77d5bb; background: #1a342c; }
+.article-link a { color: #78afff; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.article-link a:hover { color: #b4d2ff; }
 .dataset-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 25px; margin-bottom: 16px; }
 .dataset-bar label { display: flex; align-items: center; gap: 13px; font-size: 11px; color: #9cadbd; }
 .dataset-bar select { color: #edf5f6; background: #16232e; border: 1px solid #38525b; border-radius: 6px; padding: 9px 31px 9px 12px; min-width: 220px; }
@@ -60,10 +60,6 @@ h1 { margin: 0; font-size: clamp(28px, 3.2vw, 45px); font-weight: 520; line-heig
 .legend-item { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; }
 .legend-item input { margin: 0; accent-color: #68d4c1; }
 .legend-item i { display: inline-block; width: 7px; height: 7px; border-radius: 2px; }
-.explanation { display: grid; grid-template-columns: 1fr 1fr; gap: 46px; padding: 23px 1px 22px; }
-.explanation h2 { font-size: 11px; font-weight: 550; color: #e3eaf0; margin: 0 0 8px; }
-.explanation p { font-size: 11px; line-height: 1.7; color: #8297a8; margin: 0; }
-.explanation .label { display: inline-block; color: #70c8b8; font-size: 10px; margin-right: 8px; }
 .footer { display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid #25303c; padding-top: 15px; color: #6f8395; font-size: 10px; line-height: 1.6; }
 .footer a { color: #a6bdc8; text-decoration: none; }
 .footer a:hover { text-decoration: underline; }
@@ -92,7 +88,6 @@ h1 { margin: 0; font-size: clamp(28px, 3.2vw, 45px); font-weight: 520; line-heig
   .dataset-bar select { min-width: 0; max-width: 63%; }
   .view-label { padding: 13px 12px; gap: 7px; font-size: 10px; }
   .viewport { height: 340px; }
-  .explanation { gap: 18px; }
   .interaction-hint { font-size: 8px; left: 10px; }
   .footer { flex-direction: column; gap: 4px; }
 }
@@ -101,4 +96,3 @@ h1 { margin: 0; font-size: clamp(28px, 3.2vw, 45px); font-weight: 520; line-heig
 .embedded .masthead, .embedded .intro, .embedded .article-link, .embedded .dataset-bar, .embedded .footer { display: none; }
 .embedded .controls { min-height: 64px; border: 0; padding: 14px 20px; }
 .embedded .opacity-control { margin-left: 0; }
-.embedded .explanation { padding-bottom: 0; }

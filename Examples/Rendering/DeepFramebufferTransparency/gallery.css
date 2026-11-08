@@ -53,8 +53,7 @@
   margin-top: 45px;
 }
 
-.gallery-eyebrow,
-.gallery-number {
+.gallery-eyebrow {
   color: #71cfbf;
   font-size: 10px;
   font-weight: 650;
@@ -89,33 +88,26 @@
   line-height: 1.7;
 }
 
+.gallery-article,
+.gallery-read-more {
+  color: #78afff;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
 .gallery-article {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px 14px;
+  display: inline-block;
   max-width: 100%;
   margin-top: 24px;
-  padding: 13px 16px;
-  border: 1px solid #3d7569;
-  border-radius: 7px;
-  background: #142722;
-  color: #b7efdf;
-  font-size: 13px;
+  font-size: 14px;
+  font-weight: 600;
   line-height: 1.6;
-  text-decoration: none;
 }
 
-.gallery-article span {
-  color: #85bbae;
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.gallery-article:hover {
-  border-color: #77d5bb;
-  background: #1a342c;
+.gallery-article:hover,
+.gallery-read-more:hover {
+  color: #b4d2ff;
 }
 
 .gallery-navigation {
@@ -166,10 +158,6 @@
   margin-bottom: 20px;
 }
 
-.gallery-number {
-  margin: 0 0 9px;
-}
-
 .gallery-section-heading h2 {
   margin: 0;
   font-size: clamp(24px, 2.5vw, 34px);
@@ -184,14 +172,6 @@
 
 .gallery-section-heading h2 a:hover {
   color: #a2dfd0;
-}
-
-.gallery-section-heading > div > p:last-child {
-  max-width: 760px;
-  margin: 11px 0 0;
-  color: #91a3b3;
-  font-size: 12px;
-  line-height: 1.7;
 }
 
 .gallery-open {

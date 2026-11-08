@@ -1,60 +1,15 @@
 import './gallery.css';
 
 const examples = [
-  {
-    key: 'nested',
-    name: 'Nested structures',
-    description:
-      'An amber trefoil inside a transparent teal shell. Follow the near surface as it passes in front of the knot.',
-  },
-  {
-    key: 'intersecting',
-    name: 'Intersecting fields',
-    description:
-      'Three translucent rings cross through one another. Their depth order changes across the image.',
-  },
-  {
-    key: 'layers',
-    name: 'Two-layer proof',
-    description:
-      'Two unlit rectangles isolate alpha composition. Swap their depths and compare the overlap color.',
-  },
-  {
-    key: 'bonsai',
-    name: 'Bonsai',
-    description:
-      'A real CT scan reveals the trunk, branches and soil beneath the foliage contour.',
-  },
-  {
-    key: 'engine',
-    name: 'Engine',
-    description:
-      'Look through the violet casing to follow the channels and dense internal structure of an engine block.',
-  },
-  {
-    key: 'teapot',
-    name: 'Boston Teapot',
-    description:
-      'The transparent enclosure surrounds a small lobster model captured inside the original CT scan.',
-  },
-  {
-    key: 'impact',
-    name: 'Asteroid ocean impact',
-    description:
-      'Water, temperature and asteroid surfaces intertwine in the LANL simulation at 11.00054 seconds.',
-  },
-  {
-    key: 'anatomy',
-    name: 'Sinus anatomy',
-    description:
-      'Explore both maxillary sinuses, the winding nasal passages and nasopharynx inside translucent facial bone.',
-  },
-  {
-    key: 'cad',
-    name: 'Ball-bearing assembly',
-    description:
-      'Twelve rolling balls fit between grooved races inside a pocketed retainer. Hide individual parts to inspect the fit.',
-  },
+  { key: 'nested', name: 'Nested structures' },
+  { key: 'intersecting', name: 'Intersecting fields' },
+  { key: 'layers', name: 'Two-layer proof' },
+  { key: 'bonsai', name: 'Bonsai' },
+  { key: 'engine', name: 'Engine' },
+  { key: 'teapot', name: 'Boston Teapot' },
+  { key: 'impact', name: 'Asteroid ocean impact' },
+  { key: 'anatomy', name: 'Sinus anatomy' },
+  { key: 'cad', name: 'Ball-bearing assembly' },
 ];
 
 const frameUrl = (key) => {
@@ -72,13 +27,13 @@ export function createGallery() {
   document.body.innerHTML = `
     <a class="gallery-skip" href="#examples">Skip to examples</a>
     <header class="gallery-header">
-      <div class="gallery-brand"><strong>VTK.js</strong> Rendering laboratory / 01</div>
+      <div class="gallery-brand"><strong>VTK.js</strong> Rendering laboratory</div>
       <div class="gallery-intro">
         <div><p class="gallery-eyebrow">Order-independent transparency</p><h1>Transparency, in depth.</h1></div>
-        <p>Look inside overlapping surfaces. Scroll through nine interactive examples, with weighted blending on the left and sorted alpha composition on the right.</p>
+        <p>Look inside overlapping surfaces. Scroll through nine interactive examples, with weighted blending on the left and sorted alpha composition on the right. <a class="gallery-read-more" href="https://www.kitware.com/better-transparency-with-vtk-and-webgpu/" target="_blank" rel="noreferrer">Read more ↗</a></p>
       </div>
-      <a class="gallery-article" href="https://www.kitware.com/better-transparency-with-vtk-and-webgpu/" target="_blank" rel="noreferrer"><span>Kitware article</span><strong>Better Transparency with VTK and WebGPU ↗</strong></a>
-      <p class="gallery-controls">Arcball · Left drag rotates with free roll · Right drag pans · Click a view to focus wheel zoom · Esc returns to page scrolling</p>
+      <a class="gallery-article" href="https://www.kitware.com/better-transparency-with-vtk-and-webgpu/" target="_blank" rel="noreferrer">Kitware: Better Transparency with VTK and WebGPU ↗</a>
+      <p class="gallery-controls">Arcball · Left drag rotates with free roll · Right drag pans · Click a view to focus wheel zoom</p>
     </header>
     <nav class="gallery-navigation" aria-label="Examples">
       <div>${examples.map(({ key, name }) => `<a href="#${key}">${name}</a>`).join('')}</div>
@@ -86,10 +41,10 @@ export function createGallery() {
     <main class="gallery-examples" id="examples">
       ${examples
         .map(
-          ({ key, name, description }, index) => `
+          ({ key, name }) => `
         <section class="gallery-example" id="${key}" aria-labelledby="${key}-title" data-active="true">
           <div class="gallery-section-heading">
-            <div><p class="gallery-number">${String(index + 1).padStart(2, '0')} / 09</p><h2 id="${key}-title" tabindex="-1"><a href="#${key}">${name}</a></h2><p>${description}</p></div>
+            <h2 id="${key}-title" tabindex="-1"><a href="#${key}">${name}</a></h2>
             <a class="gallery-open" href="?scene=${key}" target="_blank" rel="noreferrer">Open separately ↗</a>
           </div>
           <div class="gallery-stage" data-state="loading">

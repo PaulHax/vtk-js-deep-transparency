@@ -16,7 +16,7 @@ document.body.classList.toggle('embedded', embedded);
 document.body.innerHTML = `
   <main class="laboratory">
     <header class="masthead">
-      <div class="brand"><strong>VTK.js</strong> Rendering laboratory / 01</div>
+      <div class="brand"><strong>VTK.js</strong> Rendering laboratory</div>
       <div class="status" role="status" id="status">Preparing WebGPU</div>
     </header>
     <section class="intro" aria-labelledby="title">
@@ -49,7 +49,7 @@ document.body.innerHTML = `
         <div class="view-label deep"><span class="method-dot"></span>Deep framebuffer<span class="method-type">Sorted alpha composition</span></div>
       </div>
       <div class="viewport" id="viewport" aria-label="Interactive 3D comparison">
-        <div class="interaction-hint"><span></span>Left drag rotates · Right drag pans · Click to focus wheel zoom · Esc releases</div>
+        <div class="interaction-hint"><span></span>Left drag rotates · Right drag pans · Click to focus wheel zoom</div>
         <div class="error" id="error" hidden></div>
       </div>
       <div class="scene-info"><p id="description"></p><div class="legend" id="legend"></div></div>
@@ -57,10 +57,6 @@ document.body.innerHTML = `
         <div><p id="credit"></p><p id="attribution-note" hidden></p><p id="mirror-credit" hidden></p></div>
         <div class="credit-links"><a id="source" target="_blank" rel="noreferrer" hidden>Dataset source ↗</a><a id="license" target="_blank" rel="noreferrer" hidden></a></div>
       </div>
-    </section>
-    <section class="explanation" aria-label="How the comparison works">
-      <div><h2><span class="label">01</span> Averaging loses the order</h2><p>Weighted transparency combines contributions into a few image buffers. Surfaces at different depths can blend into the same color, obscuring what lies in front.</p></div>
-      <div><h2><span class="label">02</span> Keep the fragments, then sort</h2><p id="note"></p></div>
     </section>
     <footer class="footer"><span>WebGPU · Polygonal surfaces · Up to 16 retained fragments per pixel</span><a href="https://www.kitware.com/better-transparency-with-vtk-and-webgpu/" target="_blank" rel="noreferrer">Inspired by VTK's deep framebuffer ↗</a></footer>
   </main>
@@ -195,7 +191,6 @@ const activateScene = (key, scene) => {
     });
   });
   document.querySelector('#description').textContent = scene.description;
-  document.querySelector('#note').textContent = scene.note;
   document.querySelector('#legend').replaceChildren(
     ...scene.legend.map(([color, label], index) => {
       const item = document.createElement('label');

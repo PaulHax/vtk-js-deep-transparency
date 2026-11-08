@@ -2,7 +2,7 @@
   "url": "http://127.0.0.1:4173/vtk-js-deep-transparency/",
   "article": {
     "href": "https://www.kitware.com/better-transparency-with-vtk-and-webgpu/",
-    "text": "KITWARE ARTICLE\nBetter Transparency with VTK and WebGPU ↗"
+    "text": "Kitware: Better Transparency with VTK and WebGPU ↗"
   },
   "results": [
     {
@@ -185,8 +185,8 @@
   },
   "wheelFocus": {
     "unfocusedScroll": {
-      "start": 311,
-      "end": 491,
+      "start": 285,
+      "end": 465,
       "submissionsBefore": [
         3,
         3,
@@ -212,8 +212,8 @@
     },
     "focusedZoom": true,
     "escapedScroll": {
-      "start": 491,
-      "end": 671,
+      "start": 465,
+      "end": 645,
       "submissionsBefore": [
         5,
         3,
@@ -238,8 +238,8 @@
       ]
     },
     "outsideClickScroll": {
-      "start": 311,
-      "end": 491,
+      "start": 285,
+      "end": 465,
       "submissionsBefore": [
         5,
         3,
@@ -268,8 +268,8 @@
       "documentFocused": false
     },
     "inactiveFrameScroll": {
-      "start": 381,
-      "end": 561,
+      "start": 303,
+      "end": 483,
       "submissionsBefore": [
         5,
         3,
