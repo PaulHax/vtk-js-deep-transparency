@@ -1,0 +1,850 @@
+import macro from 'vtk.js/Sources/macros';
+import { registerViewConstructor } from 'vtk.js/Sources/Rendering/Core/RenderWindow';
+import vtkForwardPass from 'vtk.js/Sources/Rendering/WebGPU/ForwardPass';
+import vtkWebGPUBuffer from 'vtk.js/Sources/Rendering/WebGPU/Buffer';
+import vtkWebGPUConfiguration from 'vtk.js/Sources/Rendering/WebGPU/Configuration';
+import vtkWebGPUDevice from 'vtk.js/Sources/Rendering/WebGPU/Device';
+import vtkWebGPUHardwareSelector from 'vtk.js/Sources/Rendering/WebGPU/HardwareSelector';
+import vtkWebGPUViewNodeFactory, {
+  registerOverride,
+} from 'vtk.js/Sources/Rendering/WebGPU/ViewNodeFactory';
+import vtkRenderPass from 'vtk.js/Sources/Rendering/SceneGraph/RenderPass';
+import vtkRenderWindowViewNode from 'vtk.js/Sources/Rendering/SceneGraph/RenderWindowViewNode';
+import HalfFloat from 'vtk.js/Sources/Common/Core/HalfFloat';
+
+const { vtkErrorMacro, vtkWarningMacro } = macro;
+
+// One vtkWebGPUDevice owns the caches for each native GPUDevice. Keeping this
+// mapping here lets independently created render windows share those caches.
+const sharedDevices = new WeakMap();
+
+function getSharedDevice(deviceHandle) {
+  let device = sharedDevices.get(deviceHandle);
+  if (!device) {
+    device = vtkWebGPUDevice.newInstance();
+    device.initialize(deviceHandle);
+    sharedDevices.set(deviceHandle, device);
+  }
+  return device;
+}
+
+// const IS_CHROME = navigator.userAgent.indexOf('Chrome') !== -1;
+const SCREENSHOT_PLACEHOLDER = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+};
+
+// ----------------------------------------------------------------------------
+// vtkWebGPURenderWindow methods
+// ----------------------------------------------------------------------------
+
+function vtkWebGPURenderWindow(publicAPI, model) {
+  // Set our className
+  model.classHierarchy.push('vtkWebGPURenderWindow');
+
+  publicAPI.getViewNodeFactory = () => model.myFactory;
+
+  function releaseViewNodeResources(viewNode, visited = new Set()) {
+    if (!viewNode || visited.has(viewNode)) {
+      return;
+    }
+    visited.add(viewNode);
+
+    const children = viewNode.getChildren?.() || [];
+    for (let i = 0; i < children.length; i++) {
+      const child = children[i];
+      child?.releaseGraphicsResources?.();
+      releaseViewNodeResources(child, visited);
+    }
+  }
+
+  function queueRenderAfterInitialization() {
+    const subscription = publicAPI.onInitialized(() => {
+      subscription.unsubscribe();
+      if (!model.deleted) {
+        publicAPI.traverseAllPasses();
+      }
+    });
+  }
+
+  function handleDeviceLost(info, deviceGeneration) {
+    if (
+      model.deleted ||
+      deviceGeneration !== model.deviceGeneration ||
+      model.handlingDeviceLost
+    ) {
+      return;
+    }
+
+    model.handlingDeviceLost = true;
+    model.deviceLostInfo = info;
+
+    const reason = info?.reason ?? 'unknown';
+    const message = info?.message || 'WebGPU device was lost.';
+    vtkWarningMacro(`WebGPU device lost (${reason}): ${message}`);
+
+    publicAPI.releaseGraphicsResources();
+    publicAPI.invokeDeviceLost({
+      reason,
+      message,
+      recoverable: reason !== 'destroyed',
+    });
+
+    // The configuration releases a device that it loses. Thus a new
+    // initialization requests a replacement. A destroyed device is deliberate
+    // and stays gone.
+    if (reason !== 'destroyed') {
+      queueRenderAfterInitialization();
+      publicAPI.initialize();
+    }
+
+    model.handlingDeviceLost = false;
+  }
+
+  function watchForDeviceLoss(device, deviceGeneration) {
+    model.deviceLostSubscription?.unsubscribe();
+    model.deviceLostSubscription = device.onDeviceLost(({ info }) => {
+      handleDeviceLost(info, deviceGeneration);
+    });
+  }
+
+  // Auto update style
+  const previousSize = [0, 0];
+  function updateWindow() {
+    // Canvas size
+    if (model.renderable) {
+      if (
+        model.size[0] !== previousSize[0] ||
+        model.size[1] !== previousSize[1]
+      ) {
+        previousSize[0] = model.size[0];
+        previousSize[1] = model.size[1];
+        model.canvas.setAttribute('width', model.size[0]);
+        model.canvas.setAttribute('height', model.size[1]);
+        publicAPI.recreateSwapChain();
+      }
+    }
+
+    // ImageStream size
+    if (model.viewStream) {
+      // If same size that's a NoOp
+      model.viewStream.setSize(model.size[0], model.size[1]);
+    }
+
+    // Offscreen ?
+    model.canvas.style.display = model.useOffScreen ? 'none' : 'block';
+
+    // Cursor type
+    if (model.el) {
+      model.el.style.cursor = model.cursorVisibility ? model.cursor : 'none';
+    }
+
+    // Invalidate cached DOM container size
+    model.containerSize = null;
+  }
+  publicAPI.onModified(updateWindow);
+
+  publicAPI.recreateSwapChain = () => {
+    if (model.context) {
+      model.context.unconfigure();
+      model.presentationFormat = navigator.gpu.getPreferredCanvasFormat(
+        model.adapter
+      );
+
+      /* eslint-disable no-undef */
+      /* eslint-disable no-bitwise */
+      model.context.configure({
+        device: model.device.getHandle(),
+        format: model.presentationFormat,
+        alphaMode: 'premultiplied',
+        usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_DST,
+        width: model.size[0],
+        height: model.size[1],
+      });
+      model._configured = true;
+    }
+  };
+
+  publicAPI.getCurrentTexture = () => model.context.getCurrentTexture();
+
+  // Builds myself.
+  publicAPI.buildPass = (prepass) => {
+    if (prepass) {
+      if (!model.renderable) {
+        return;
+      }
+
+      publicAPI.prepareNodes();
+      publicAPI.addMissingNodes(model.renderable.getRenderersByReference());
+      publicAPI.removeUnusedNodes();
+
+      publicAPI.initialize();
+    } else if (model.initialized) {
+      if (!model._configured) {
+        publicAPI.recreateSwapChain();
+      }
+      model.commandEncoder = model.device.createCommandEncoder();
+    }
+  };
+
+  // publicAPI.traverseRenderers = (renPass) => {
+  //   // iterate over renderers
+  //   const numlayers = publicAPI.getRenderable().getNumberOfLayers();
+  //   const renderers = publicAPI.getChildren();
+  //   for (let i = 0; i < numlayers; i++) {
+  //     for (let index = 0; index < renderers.length; index++) {
+  //       const renNode = renderers[index];
+  //       const ren = publicAPI.getRenderable().getRenderers()[index];
+  //       if (ren.getDraw() && ren.getLayer() === i) {
+  //         renNode.traverse(renPass);
+  //       }
+  //     }
+  //   }
+  // };
+
+  publicAPI.initialize = () => {
+    if (!model.initializing) {
+      model.initializing = true;
+      model.deviceLostInfo = null;
+      if (!navigator.gpu) {
+        vtkErrorMacro('WebGPU is not enabled.');
+        model.initializing = false;
+        return;
+      }
+
+      publicAPI
+        .create3DContextAsync()
+        .then((ready) => {
+          if (!ready || model.deleted) {
+            return;
+          }
+          model.initialized = true;
+          publicAPI.invokeInitialized();
+        })
+        .catch((error) => {
+          model.initialized = false;
+          vtkErrorMacro(`WebGPU initialization failed: ${error.message}`);
+        })
+        .finally(() => {
+          model.initializing = false;
+        });
+    }
+  };
+
+  publicAPI.setContainer = (el) => {
+    if (model.el && model.el !== el) {
+      if (model.canvas.parentNode !== model.el) {
+        vtkErrorMacro('Error: canvas parent node does not match container');
+      }
+
+      // Remove canvas from previous container
+      model.el.removeChild(model.canvas);
+
+      // If the renderer has previously added
+      // a background image, remove it from the DOM.
+      if (model.el.contains(model.bgImage)) {
+        model.el.removeChild(model.bgImage);
+      }
+    }
+
+    if (model.el !== el) {
+      model.el = el;
+      if (model.el) {
+        model.el.appendChild(model.canvas);
+
+        // If the renderer is set to use a background
+        // image, attach it to the DOM.
+        if (model.useBackgroundImage) {
+          model.el.appendChild(model.bgImage);
+        }
+      }
+
+      // Trigger modified()
+      publicAPI.modified();
+    }
+  };
+
+  publicAPI.getContainer = () => model.el;
+
+  publicAPI.getContainerSize = () => {
+    if (!model.containerSize && model.el) {
+      const { width, height } = model.el.getBoundingClientRect();
+      model.containerSize = [width, height];
+    }
+    return model.containerSize || model.size;
+  };
+
+  publicAPI.getFramebufferSize = () => model.size;
+
+  publicAPI.create3DContextAsync = async () => {
+    if (!(await model.webGPUConfiguration.initialize())) {
+      throw new Error('Failed to create a WebGPU device.');
+    }
+    if (model.deleted) {
+      return false;
+    }
+    model.adapter = model.webGPUConfiguration.getAdapter();
+    model.device = getSharedDevice(model.webGPUConfiguration.getDevice());
+    model.deviceGeneration += 1;
+    watchForDeviceLoss(model.device, model.deviceGeneration);
+    model.context = model.canvas.getContext('webgpu');
+    return true;
+  };
+
+  /**
+   * Supply the configuration that provides this render window's device. Render
+   * windows sharing a configuration share one device and therefore one set of
+   * resource caches. Passing null restores an internally created
+   * configuration. This must be done before initialization.
+   */
+  publicAPI.setWebGPUConfiguration = (configuration) => {
+    if (model.initialized || model.initializing) {
+      vtkErrorMacro(
+        'setWebGPUConfiguration() must be called before WebGPU initialization.'
+      );
+      return false;
+    }
+    if (
+      configuration != null &&
+      !configuration.isA?.('vtkWebGPUConfiguration')
+    ) {
+      vtkErrorMacro(
+        'setWebGPUConfiguration() expects a vtkWebGPUConfiguration or null.'
+      );
+      return false;
+    }
+    if (configuration === model.webGPUConfiguration) {
+      return false;
+    }
+    if (model.ownsWebGPUConfiguration) {
+      model.webGPUConfiguration.finalize();
+      model.webGPUConfiguration.delete();
+    }
+    model.ownsWebGPUConfiguration = configuration == null;
+    model.webGPUConfiguration =
+      configuration ?? vtkWebGPUConfiguration.newInstance();
+    model.device = null;
+    publicAPI.modified();
+    return true;
+  };
+
+  publicAPI.releaseGraphicsResources = () => {
+    model.deviceLostSubscription?.unsubscribe();
+    model.deviceLostSubscription = null;
+    if (model.renderPasses) {
+      for (let i = 0; i < model.renderPasses.length; i++) {
+        model.renderPasses[i]?.releaseGraphicsResources?.();
+      }
+    }
+    releaseViewNodeResources(publicAPI);
+    const rp = vtkRenderPass.newInstance();
+    rp.setCurrentOperation('Release');
+    rp.traverse(publicAPI, null);
+    if (model.context) {
+      model.context.unconfigure();
+    }
+    model.adapter = null;
+    if (model.ownsWebGPUConfiguration) {
+      model.webGPUConfiguration.finalize();
+    }
+    model.device = null;
+    model.context = null;
+    model.commandEncoder = null;
+    model._configured = false;
+    model.initialized = false;
+    model.initializing = false;
+  };
+
+  publicAPI.setBackgroundImage = (img) => {
+    model.bgImage.src = img.src;
+  };
+
+  publicAPI.setUseBackgroundImage = (value) => {
+    model.useBackgroundImage = value;
+
+    // Add or remove the background image from the
+    // DOM as specified.
+    if (model.useBackgroundImage && !model.el.contains(model.bgImage)) {
+      model.el.appendChild(model.bgImage);
+    } else if (!model.useBackgroundImage && model.el.contains(model.bgImage)) {
+      model.el.removeChild(model.bgImage);
+    }
+  };
+
+  async function getCanvasDataURL(format = model.imageFormat) {
+    // Copy current canvas to not modify the original
+    const temporaryCanvas = document.createElement('canvas');
+    const temporaryContext = temporaryCanvas.getContext('2d');
+    temporaryCanvas.width = model.canvas.width;
+    temporaryCanvas.height = model.canvas.height;
+
+    const result = await publicAPI.getPixelsAsync();
+    const imageData = new ImageData(
+      result.colorValues,
+      result.width,
+      result.height
+    );
+    // temporaryCanvas.putImageData(imageData, 0, 0);
+    temporaryContext.putImageData(imageData, 0, 0);
+
+    // Get current client rect to place canvas
+    const mainBoundingClientRect = model.canvas.getBoundingClientRect();
+
+    const renderWindow = model.renderable;
+    const renderers = renderWindow.getRenderers();
+    renderers.forEach((renderer) => {
+      const viewProps = renderer.getViewProps();
+      viewProps.forEach((viewProp) => {
+        // Check if the prop has a container that should have canvas
+        if (viewProp.getContainer) {
+          const container = viewProp.getContainer();
+          const canvasList = container.getElementsByTagName('canvas');
+          // Go throughout all canvas and copy it into temporary main canvas
+          for (let i = 0; i < canvasList.length; i++) {
+            const currentCanvas = canvasList[i];
+            const boundingClientRect = currentCanvas.getBoundingClientRect();
+            const newXPosition =
+              boundingClientRect.x - mainBoundingClientRect.x;
+            const newYPosition =
+              boundingClientRect.y - mainBoundingClientRect.y;
+            temporaryContext.drawImage(
+              currentCanvas,
+              newXPosition,
+              newYPosition
+            );
+          }
+        }
+      });
+    });
+
+    const screenshot = temporaryCanvas.toDataURL(format);
+    temporaryCanvas.remove();
+    publicAPI.invokeImageReady(screenshot);
+  }
+
+  publicAPI.captureNextImage = (
+    format = 'image/png',
+    { resetCamera = false, size = null, scale = 1 } = {}
+  ) => {
+    if (model.deleted) {
+      return null;
+    }
+    model.imageFormat = format;
+    const previous = model.notifyStartCaptureImage;
+    model.notifyStartCaptureImage = true;
+
+    model._screenshot = {
+      size:
+        !!size || scale !== 1
+          ? size || model.size.map((val) => val * scale)
+          : null,
+    };
+
+    return new Promise((resolve, reject) => {
+      const subscription = publicAPI.onImageReady((imageURL) => {
+        if (model._screenshot.size === null) {
+          model.notifyStartCaptureImage = previous;
+          subscription.unsubscribe();
+          if (model._screenshot.placeHolder) {
+            // resize the main canvas back to its original size and show it
+            model.size = model._screenshot.originalSize;
+
+            // process the resize
+            publicAPI.modified();
+
+            // restore the saved camera parameters, if applicable
+            if (model._screenshot.cameras) {
+              model._screenshot.cameras.forEach(({ restoreParamsFn, arg }) =>
+                restoreParamsFn(arg)
+              );
+            }
+
+            // Trigger a render at the original size
+            publicAPI.traverseAllPasses();
+
+            // Remove and clean up the placeholder, revealing the original
+            model.el.removeChild(model._screenshot.placeHolder);
+            model._screenshot.placeHolder.remove();
+            model._screenshot = null;
+          }
+          resolve(imageURL);
+        } else {
+          // Create a placeholder image overlay while we resize and render
+          const tmpImg = document.createElement('img');
+          tmpImg.style = SCREENSHOT_PLACEHOLDER;
+          tmpImg.src = imageURL;
+          model._screenshot.placeHolder = model.el.appendChild(tmpImg);
+
+          // hide the main canvas
+          model.canvas.style.display = 'none';
+
+          // remember the main canvas original size, then resize it
+          model._screenshot.originalSize = model.size;
+          model.size = model._screenshot.size;
+          model._screenshot.size = null;
+
+          // process the resize
+          publicAPI.modified();
+
+          if (resetCamera) {
+            const isUserResetCamera = resetCamera !== true;
+
+            // If resetCamera was requested, we first save camera parameters
+            // from all the renderers, so we can restore them later
+            model._screenshot.cameras = model.renderable
+              .getRenderers()
+              .map((renderer) => {
+                const camera = renderer.getActiveCamera();
+                const params = camera.get(
+                  'focalPoint',
+                  'position',
+                  'parallelScale'
+                );
+
+                return {
+                  resetCameraArgs: isUserResetCamera ? { renderer } : undefined,
+                  resetCameraFn: isUserResetCamera
+                    ? resetCamera
+                    : renderer.resetCamera,
+                  restoreParamsFn: camera.set,
+                  // "clone" the params so we don't keep refs to properties
+                  arg: JSON.parse(JSON.stringify(params)),
+                };
+              });
+
+            // Perform the resetCamera() on each renderer only after capturing
+            // the params from all active cameras, in case there happen to be
+            // linked cameras among the renderers.
+            model._screenshot.cameras.forEach(
+              ({ resetCameraFn, resetCameraArgs }) =>
+                resetCameraFn(resetCameraArgs)
+            );
+          }
+
+          // Trigger a render at the custom size
+          publicAPI.traverseAllPasses();
+        }
+      });
+    });
+  };
+
+  publicAPI.traverseAllPasses = () => {
+    if (model.deleted) {
+      return;
+    }
+    // if we are not initialized then we call initialize
+    // which is async so we will not actually get a render
+    // so we queue up another traverse for when we are initialized
+    if (!model.initialized) {
+      publicAPI.initialize();
+      const subscription = publicAPI.onInitialized(() => {
+        subscription.unsubscribe();
+        publicAPI.traverseAllPasses();
+      });
+    } else {
+      if (model.renderPasses) {
+        for (let index = 0; index < model.renderPasses.length; ++index) {
+          model.renderPasses[index].traverse(publicAPI, null);
+        }
+      }
+      if (model.commandEncoder) {
+        model.device.submitCommandEncoder(model.commandEncoder);
+        model.commandEncoder = null;
+        if (model.notifyStartCaptureImage) {
+          model.device.onSubmittedWorkDone().then(() => {
+            getCanvasDataURL();
+          });
+        }
+      }
+    }
+  };
+
+  publicAPI.setViewStream = (stream) => {
+    if (model.viewStream === stream) {
+      return false;
+    }
+    if (model.subscription) {
+      model.subscription.unsubscribe();
+      model.subscription = null;
+    }
+    model.viewStream = stream;
+    if (model.viewStream) {
+      // Force background to be transparent + render
+      const mainRenderer = model.renderable.getRenderers()[0];
+      mainRenderer.getBackgroundByReference()[3] = 0;
+
+      // Enable display of the background image
+      publicAPI.setUseBackgroundImage(true);
+
+      // Bind to remote stream
+      model.subscription = model.viewStream.onImageReady((e) =>
+        publicAPI.setBackgroundImage(e.image)
+      );
+      model.viewStream.setSize(model.size[0], model.size[1]);
+      model.viewStream.invalidateCache();
+      model.viewStream.render();
+
+      publicAPI.modified();
+    }
+    return true;
+  };
+
+  publicAPI.getUniquePropID = () => model.nextPropID++;
+
+  publicAPI.getPropFromID = (id) => {
+    for (let i = 0; i < model.children.length; i++) {
+      const res = model.children[i].getPropFromID(id);
+      if (res !== null) {
+        return res;
+      }
+    }
+    return null;
+  };
+
+  publicAPI.getPixelsAsync = async () => {
+    const device = model.device;
+    const opaquePass = model.renderPasses[0].getOpaquePass();
+    // When MSAA is active, use the resolved (1-sample) texture for readback
+    const texture = opaquePass.getResolveColorTexture()
+      ? opaquePass.getResolveColorTexture()
+      : opaquePass.getColorTexture();
+
+    // as this is async we really don't want to store things in
+    // the class as multiple calls may start before resolving
+    // so anything specific to this request gets put into the
+    // result object (by value in most cases)
+    const result = {
+      width: texture.getWidth(),
+      height: texture.getHeight(),
+    };
+
+    // must be a multiple of 256 bytes, so 32 texels with rgba16
+    result.colorBufferWidth = 32 * Math.floor((result.width + 31) / 32);
+    result.colorBufferSizeInBytes = result.colorBufferWidth * result.height * 8;
+    const colorBuffer = vtkWebGPUBuffer.newInstance();
+    colorBuffer.setDevice(device);
+    /* eslint-disable no-bitwise */
+    /* eslint-disable no-undef */
+    colorBuffer.create(
+      result.colorBufferSizeInBytes,
+      GPUBufferUsage.MAP_READ | GPUBufferUsage.COPY_DST
+    );
+    /* eslint-enable no-bitwise */
+    /* eslint-enable no-undef */
+
+    const cmdEnc = model.device.createCommandEncoder();
+    cmdEnc.copyTextureToBuffer(
+      {
+        texture: texture.getHandle(),
+      },
+      {
+        buffer: colorBuffer.getHandle(),
+        bytesPerRow: 8 * result.colorBufferWidth,
+        rowsPerImage: result.height,
+      },
+      {
+        width: result.width,
+        height: result.height,
+        depthOrArrayLayers: 1,
+      }
+    );
+    device.submitCommandEncoder(cmdEnc);
+
+    /* eslint-disable no-undef */
+    const cLoad = colorBuffer.mapAsync(GPUMapMode.READ);
+    await cLoad;
+    /* eslint-enable no-undef */
+
+    result.colorValues = new Uint16Array(colorBuffer.getMappedRange().slice());
+    colorBuffer.unmap();
+    // repack the array
+    const tmparray = new Uint8ClampedArray(result.height * result.width * 4);
+    for (let y = 0; y < result.height; y++) {
+      for (let x = 0; x < result.width; x++) {
+        const doffset = (y * result.width + x) * 4;
+        const soffset = (y * result.colorBufferWidth + x) * 4;
+        tmparray[doffset] =
+          255.0 * HalfFloat.fromHalf(result.colorValues[soffset]);
+        tmparray[doffset + 1] =
+          255.0 * HalfFloat.fromHalf(result.colorValues[soffset + 1]);
+        tmparray[doffset + 2] =
+          255.0 * HalfFloat.fromHalf(result.colorValues[soffset + 2]);
+        tmparray[doffset + 3] =
+          255.0 * HalfFloat.fromHalf(result.colorValues[soffset + 3]);
+      }
+    }
+    result.colorValues = tmparray;
+    return result;
+  };
+
+  publicAPI.createSelector = () => {
+    const ret = vtkWebGPUHardwareSelector.newInstance();
+    ret.setWebGPURenderWindow(publicAPI);
+    return ret;
+  };
+
+  const superSetSize = publicAPI.setSize;
+  publicAPI.setSize = (...args) => {
+    const modified = superSetSize(...args);
+    if (modified) {
+      publicAPI.invokeWindowResizeEvent({
+        width: model.size[0],
+        height: model.size[1],
+      });
+    }
+    return modified;
+  };
+
+  // Validate multiSample — WebGPU only supports 1 or 4
+  const superSetMultiSample = publicAPI.setMultiSample;
+  publicAPI.setMultiSample = (count) => {
+    if (count !== 1 && count !== 4) {
+      vtkErrorMacro(
+        `Invalid multiSample value: ${count}. Supported values are 1 and 4. Ignoring.`
+      );
+      return false;
+    }
+    return superSetMultiSample(count);
+  };
+
+  function deleteOwnedConfiguration() {
+    if (model.ownsWebGPUConfiguration) {
+      model.webGPUConfiguration.finalize();
+      model.webGPUConfiguration.delete();
+      model.ownsWebGPUConfiguration = false;
+    }
+    model.webGPUConfiguration = null;
+  }
+
+  publicAPI.delete = macro.chain(
+    publicAPI.delete,
+    publicAPI.setViewStream,
+    deleteOwnedConfiguration
+  );
+}
+
+// ----------------------------------------------------------------------------
+// Object factory
+// ----------------------------------------------------------------------------
+
+const DEFAULT_VALUES = {
+  initialized: false,
+  initializing: false,
+  handlingDeviceLost: false,
+  deviceGeneration: 0,
+  deviceLostInfo: null,
+  deviceLostSubscription: null,
+  context: null,
+  adapter: null,
+  webGPUConfiguration: null,
+  ownsWebGPUConfiguration: true,
+  device: null,
+  canvas: null,
+  cursorVisibility: true,
+  cursor: 'pointer',
+  containerSize: null,
+  renderPasses: [],
+  notifyStartCaptureImage: false,
+  imageFormat: 'image/png',
+  useOffScreen: false,
+  useBackgroundImage: false,
+  nextPropID: 1,
+  xrSupported: false,
+  presentationFormat: null,
+  multiSample: 1,
+};
+
+// ----------------------------------------------------------------------------
+
+export function extend(publicAPI, model, initialValues = {}) {
+  Object.assign(model, DEFAULT_VALUES, initialValues);
+  // A render window always holds a configuration, owning one of its own until
+  // an application supplies it. Initialization therefore never has to decide
+  // where its device comes from. The device belongs to the configuration.
+  model.device = null;
+  model.ownsWebGPUConfiguration = model.webGPUConfiguration == null;
+  model.webGPUConfiguration =
+    model.webGPUConfiguration ?? vtkWebGPUConfiguration.newInstance();
+
+  // Create internal instances
+  model.canvas = document.createElement('canvas');
+  model.canvas.style.width = '100%';
+
+  // Create internal bgImage
+  model.bgImage = new Image();
+  model.bgImage.style.position = 'absolute';
+  model.bgImage.style.left = '0';
+  model.bgImage.style.top = '0';
+  model.bgImage.style.width = '100%';
+  model.bgImage.style.height = '100%';
+  model.bgImage.style.zIndex = '-1';
+
+  // Inheritance
+  vtkRenderWindowViewNode.extend(publicAPI, model, initialValues);
+
+  model.myFactory = vtkWebGPUViewNodeFactory.newInstance();
+
+  // setup default forward pass rendering
+  model.renderPasses[0] = vtkForwardPass.newInstance();
+
+  if (!model.selector) {
+    model.selector = vtkWebGPUHardwareSelector.newInstance();
+    model.selector.setWebGPURenderWindow(publicAPI);
+  }
+
+  macro.event(publicAPI, model, 'imageReady');
+  macro.event(publicAPI, model, 'initialized');
+  macro.event(publicAPI, model, 'deviceLost');
+
+  // Build VTK API
+  macro.get(publicAPI, model, [
+    'commandEncoder',
+    'deviceLostInfo',
+    'device',
+    'webGPUConfiguration',
+    'presentationFormat',
+    'useBackgroundImage',
+    'xrSupported',
+    'multiSample',
+  ]);
+
+  macro.setGet(publicAPI, model, [
+    'initialized',
+    'context',
+    'canvas',
+    'renderPasses',
+    'notifyStartCaptureImage',
+    'cursor',
+    'useOffScreen',
+    'multiSample',
+  ]);
+
+  macro.setGetArray(publicAPI, model, ['size'], 2);
+  macro.event(publicAPI, model, 'windowResizeEvent');
+
+  // Object methods
+  vtkWebGPURenderWindow(publicAPI, model);
+}
+
+// ----------------------------------------------------------------------------
+
+export const newInstance = macro.newInstance(extend, 'vtkWebGPURenderWindow');
+
+// ----------------------------------------------------------------------------
+// Register API specific RenderWindow implementation
+// ----------------------------------------------------------------------------
+
+registerViewConstructor('WebGPU', newInstance);
+
+// ----------------------------------------------------------------------------
+
+export default {
+  newInstance,
+  extend,
+};
+
+// Register ourself to WebGPU backend if imported
+registerOverride('vtkRenderWindow', newInstance);

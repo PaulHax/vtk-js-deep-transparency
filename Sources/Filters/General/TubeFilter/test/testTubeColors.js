@@ -1,0 +1,168 @@
+import { it, expect } from 'vitest';
+import testUtils from 'vtk.js/Sources/Testing/testUtils';
+import vtkPoints from 'vtk.js/Sources/Common/Core/Points';
+import vtkPolyData from 'vtk.js/Sources/Common/DataModel/PolyData';
+import vtkDataArray from 'vtk.js/Sources/Common/Core/DataArray';
+import vtkTubeFilter from 'vtk.js/Sources/Filters/General/TubeFilter';
+import vtkMapper from 'vtk.js/Sources/Rendering/Core/Mapper';
+import vtkActor from 'vtk.js/Sources/Rendering/Core/Actor';
+import 'vtk.js/Sources/Rendering/Misc/RenderingAPIs';
+import vtkRenderWindow from 'vtk.js/Sources/Rendering/Core/RenderWindow';
+import vtkRenderer from 'vtk.js/Sources/Rendering/Core/Renderer';
+import baseline from './testTubeColors.png';
+
+function initializePolyData() {
+  // Render a tapered cylinder with a color contour on its surface,
+  // ranging from green at one end to red at the other end
+  const numPoints = 2;
+  const points = vtkPoints.newInstance();
+  const polyData = vtkPolyData.newInstance();
+
+  // Create a color array containing red and green
+  const colorArray = vtkDataArray.newInstance({
+    name: 'Colors',
+    numberOfComponents: 3,
+    values: Uint8Array.from([0, 255, 0, 255, 0, 0]),
+  });
+
+  // Create the tapered cylinder data
+  // Cylinder axes from (0,0,0) to (12,0,0)
+  const pointData = Float32Array.from([0.0, 0.0, 0.0, 12.0, 0.0, 0.0]);
+
+  // Taper cylinder radius from 1 to 3
+  const radiusData = Float32Array.from([1.0, 3.0]);
+
+  const verts = Uint32Array.from([1, 1, 1, 0]);
+  const lines = Uint32Array.from([2, 0, 1]);
+
+  const radius = vtkDataArray.newInstance({
+    name: 'Radius',
+    values: radiusData,
+  });
+
+  // Create the polyData and assign it the data used for the cylinder
+  points.setData(pointData);
+  points.setNumberOfPoints(numPoints);
+  polyData.setPoints(points);
+  polyData.getVerts().setData(verts);
+  polyData.getLines().setData(lines);
+
+  // Add the radius and colorArray arrays to the pointData
+  polyData.getPointData().addArray(radius);
+  polyData.getPointData().addArray(colorArray);
+  return polyData;
+}
+
+function getTubeFilter(polyData) {
+  // Create a tubeFilter for the cylinder
+  const tubeFilter = vtkTubeFilter.newInstance({ varyRadius: 3 });
+  tubeFilter.setCapping(true);
+  tubeFilter.setNumberOfSides(20);
+  tubeFilter.setInputData(polyData);
+  tubeFilter.setInputArrayToProcess(0, 'Radius', 'PointData');
+  return tubeFilter;
+}
+
+function populateTubeMapper(tubeMapper, tubeFilter) {
+  // Create the mapper, and assign it to setColorByArrayName
+  tubeMapper.setInputConnection(tubeFilter.getOutputPort());
+  tubeMapper.setColorByArrayName('Colors');
+  tubeMapper.setScalarModeToUsePointFieldData();
+  tubeMapper.setColorModeToDirectScalars();
+  tubeMapper.set({
+    scalarVisibility: true,
+    interpolateScalarsBeforeMapping: false,
+  });
+}
+
+it('Test vtkTubeFilter colorMapping', () => {
+  const polyData = initializePolyData();
+
+  const tubeFilter = getTubeFilter(polyData);
+
+  const tubeOutput = tubeFilter.getOutputData();
+
+  expect(
+    tubeOutput.getPoints().getNumberOfPoints() === 80,
+    'Make sure the output number of points is correct without capping.'
+  ).toBeTruthy();
+  expect(
+    tubeOutput.getPointData().getArrayByName('Radius').getData().length === 80,
+    'Make sure the length of the radius array is correct.'
+  ).toBeTruthy();
+  expect(
+    tubeOutput.getPointData().getArrayByName('Colors').getData().length === 240,
+    'Make sure the length of the color array is correct.'
+  ).toBeTruthy();
+  const tubeMapper = vtkMapper.newInstance();
+  populateTubeMapper(tubeMapper, tubeFilter);
+
+  expect(
+    tubeMapper.getColorByArrayName() === 'Colors',
+    'Make sure the array name to color by is correct.'
+  ).toBeTruthy();
+  expect(
+    tubeMapper.getScalarModeAsString() === 'USE_POINT_FIELD_DATA',
+    'Make sure the scalar mode is correct.'
+  ).toBeTruthy();
+  expect(
+    tubeMapper.getColorModeAsString() === 'DIRECT_SCALARS',
+    'Make sure the color mode is correct.'
+  ).toBeTruthy();
+});
+
+it.skipIf(__VTK_TEST_NO_WEBGL__)(
+  'Test vtkTubeFilter color map rendering',
+  () => {
+    const gc = testUtils.createGarbageCollector();
+
+    // Create some control UI
+    const container = document.querySelector('body');
+    const renderWindowContainer = gc.registerDOMElement(
+      document.createElement('div')
+    );
+    container.appendChild(renderWindowContainer);
+
+    // create what we will view
+    const renderWindow = gc.registerResource(vtkRenderWindow.newInstance());
+    const renderer = gc.registerResource(vtkRenderer.newInstance());
+    renderWindow.addRenderer(renderer);
+    renderer.setBackground(0.32, 0.34, 0.43);
+
+    const polyData = initializePolyData();
+    const tubeFilter = getTubeFilter(polyData);
+
+    const tubeMapper = gc.registerResource(vtkMapper.newInstance());
+    populateTubeMapper(tubeMapper, tubeFilter);
+
+    const tubeActor = gc.registerResource(vtkActor.newInstance());
+    tubeActor.setMapper(tubeMapper);
+    renderer.addActor(tubeActor);
+
+    // Create the renderer and display the colored tube
+    // now create something to view it, in this case webgl
+    const glwindow = gc.registerResource(renderWindow.newAPISpecificView());
+    glwindow.setContainer(renderWindowContainer);
+    renderWindow.addView(glwindow);
+    glwindow.setSize(400, 400);
+
+    const camera = renderer.getActiveCamera();
+    camera.yaw(40);
+    renderer.resetCamera();
+
+    const promise = glwindow
+      .captureNextImage()
+      .then((image) =>
+        testUtils.compareImages(
+          image,
+          [baseline],
+          'Filters/General/TubeFilter/testTubeColors',
+          2.5
+        )
+      )
+      .finally(gc.releaseResources);
+
+    renderWindow.render();
+    return promise;
+  }
+);

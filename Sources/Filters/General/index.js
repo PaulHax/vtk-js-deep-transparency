@@ -1,0 +1,51 @@
+import vtkAppendPolyData from './AppendPolyData';
+import vtkBFSConnectivityFilter from './BFSConnectivityFilter';
+import vtkCalculator from './Calculator';
+import vtkClipClosedSurface from './ClipClosedSurface';
+import vtkClosedPolyLineToSurfaceFilter from './ClosedPolyLineToSurfaceFilter';
+import vtkContourTriangulator from './ContourTriangulator';
+import vtkImageCropFilter from './ImageCropFilter';
+import vtkImageMarchingCubes from './ImageMarchingCubes';
+import vtkImageMarchingSquares from './ImageMarchingSquares';
+import vtkImageOutlineFilter from './ImageOutlineFilter';
+import vtkImageSliceFilter from './ImageSliceFilter';
+import vtkImageStreamline from './ImageStreamline';
+import vtkLineFilter from './LineFilter';
+import vtkMoleculeToRepresentation from './MoleculeToRepresentation';
+import vtkOBBTree from './OBBTree';
+import vtkOutlineFilter from './OutlineFilter';
+import vtkPaintFilter from './PaintFilter';
+import vtkScalarToRGBA from './ScalarToRGBA';
+import vtkShrinkPolyData from './ShrinkPolyData';
+import vtkTransformPolyDataFilter from './TransformPolyDataFilter';
+import vtkTriangleFilter from './TriangleFilter';
+import vtkTubeFilter from './TubeFilter';
+import vtkWarpScalar from './WarpScalar';
+import vtkWindowedSincPolyDataFilter from './WindowedSincPolyDataFilter';
+
+export default {
+  vtkAppendPolyData,
+  vtkBFSConnectivityFilter,
+  vtkCalculator,
+  vtkClipClosedSurface,
+  vtkClosedPolyLineToSurfaceFilter,
+  vtkContourTriangulator,
+  vtkImageCropFilter,
+  vtkImageMarchingCubes,
+  vtkImageMarchingSquares,
+  vtkImageOutlineFilter,
+  vtkImageSliceFilter,
+  vtkImageStreamline,
+  vtkLineFilter,
+  vtkMoleculeToRepresentation,
+  vtkOBBTree,
+  vtkOutlineFilter,
+  vtkPaintFilter,
+  vtkScalarToRGBA,
+  vtkShrinkPolyData,
+  vtkTransformPolyDataFilter,
+  vtkTriangleFilter,
+  vtkTubeFilter,
+  vtkWarpScalar,
+  vtkWindowedSincPolyDataFilter,
+};

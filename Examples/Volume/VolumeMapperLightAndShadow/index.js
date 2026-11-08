@@ -1,0 +1,280 @@
+import '@kitware/vtk.js/favicon';
+
+import '@kitware/vtk.js/IO/Core/DataAccessHelper/HttpDataAccessHelper';
+import '@kitware/vtk.js/Rendering/Profiles/Volume';
+import '@kitware/vtk.js/Rendering/Profiles/Geometry';
+import vtkColorTransferFunction from '@kitware/vtk.js/Rendering/Core/ColorTransferFunction';
+import vtkFullScreenRenderWindow from '@kitware/vtk.js/Rendering/Misc/FullScreenRenderWindow';
+import vtkPiecewiseFunction from '@kitware/vtk.js/Common/DataModel/PiecewiseFunction';
+import vtkVolume from '@kitware/vtk.js/Rendering/Core/Volume';
+import vtkVolumeMapper from '@kitware/vtk.js/Rendering/Core/VolumeMapper';
+import vtkLight from '@kitware/vtk.js/Rendering/Core/Light';
+import vtkVolumeController from '@kitware/vtk.js/Interaction/UI/VolumeController';
+import vtkBoundingBox from '@kitware/vtk.js/Common/DataModel/BoundingBox';
+import vtkFPSMonitor from '@kitware/vtk.js/Interaction/UI/FPSMonitor';
+import vtkHttpDataSetReader from '@kitware/vtk.js/IO/Core/HttpDataSetReader';
+
+import vtkActor from '@kitware/vtk.js/Rendering/Core/Actor';
+import vtkSphereSource from '@kitware/vtk.js/Filters/Sources/SphereSource';
+import vtkMapper from '@kitware/vtk.js/Rendering/Core/Mapper';
+
+import GUI from 'lil-gui';
+
+// ----------------------------------------------------------------------------
+// Show loading progress bar
+// ----------------------------------------------------------------------------
+const rootBody = document.querySelector('body');
+const myContainer = rootBody;
+
+const fpsMonitor = vtkFPSMonitor.newInstance();
+const progressContainer = document.createElement('div');
+myContainer.appendChild(progressContainer);
+
+// ----------------------------------------------------------------------------
+// Main function to set up and render volume
+// ----------------------------------------------------------------------------
+function createVolumeShadowViewer(rootContainer, reader, imageData) {
+  // Container content and style
+  const background = [0, 0, 0];
+  const containerStyle = { height: '100%', width: '100%' };
+  const controlPanelStyle = {
+    position: 'absolute',
+    left: '5px',
+    top: '210px',
+    backgroundColor: 'white',
+    borderRadius: '5px',
+    listStyle: 'none',
+    padding: '5px 10px',
+    margin: '0',
+    display: 'block',
+    border: 'solid 1px black',
+    maxWidth: 'calc(100% - 70px)',
+    maxHeight: 'calc(100% - 60px)',
+    overflow: 'auto',
+  };
+  const fullScreenRenderer = vtkFullScreenRenderWindow.newInstance({
+    background,
+    containerStyle,
+    rootContainer,
+    controlPanelStyle,
+  });
+
+  const gui = new GUI();
+
+  const renderer = fullScreenRenderer.getRenderer();
+  renderer.setTwoSidedLighting(false);
+  const renderWindow = fullScreenRenderer.getRenderWindow();
+
+  // FPS monitor
+  const fpsElm = fpsMonitor.getFpsMonitorContainer();
+  fpsElm.style.position = 'absolute';
+  fpsElm.style.left = '10px';
+  fpsElm.style.bottom = '10px';
+  fpsElm.style.background = 'rgba(255,255,255,0.5)';
+  fpsElm.style.borderRadius = '5px';
+  fpsMonitor.setContainer(rootContainer);
+  fpsMonitor.setRenderWindow(renderWindow);
+
+  // Actor and mapper pipeline
+  const source = imageData;
+
+  const actor = vtkVolume.newInstance();
+  const actorProperty = actor.getProperty(0);
+  const mapper = vtkVolumeMapper.newInstance();
+
+  actor.setMapper(mapper);
+  mapper.addInputData(source);
+
+  // Add one positional light
+  const bounds = actor.getBounds();
+  const center = vtkBoundingBox.getCenter(bounds);
+  renderer.removeAllLights();
+  const light = vtkLight.newInstance();
+  const lightPos = [center[0] + 300, center[1] + 50, center[2] - 50];
+  light.setPositional(true);
+  light.setLightType('SceneLight');
+  light.setPosition(lightPos);
+  light.setFocalPoint(center);
+  light.setColor(1, 1, 1);
+  light.setIntensity(1.0);
+  light.setConeAngle(50.0);
+  renderer.addLight(light);
+
+  // Set up sample distance and initialize volume shadow related paramters
+  const sampleDistance =
+    0.7 *
+    Math.sqrt(
+      source
+        .getSpacing()
+        .map((v) => v * v)
+        .reduce((a, b) => a + b, 0)
+    );
+  mapper.setSampleDistance(sampleDistance / 2.5);
+  mapper.setVolumeShadowSamplingDistFactor(3.0);
+
+  // Add transfer function
+  const lookupTable = vtkColorTransferFunction.newInstance();
+  const piecewiseFunction = vtkPiecewiseFunction.newInstance();
+  actorProperty.setRGBTransferFunction(0, lookupTable);
+  actorProperty.setScalarOpacity(0, piecewiseFunction);
+
+  // Set actor properties
+  actorProperty.setComputeNormalFromOpacity(false);
+  actorProperty.setGlobalIlluminationReach(0.5);
+  actorProperty.setVolumetricScatteringBlending(0.7);
+  actorProperty.setAnisotropy(0.4);
+  actorProperty.setInterpolationTypeToLinear();
+  actorProperty.setScalarOpacityUnitDistance(
+    0,
+    vtkBoundingBox.getDiagonalLength(source.getBounds()) /
+      Math.max(...source.getDimensions())
+  );
+  actorProperty.setGradientOpacityMinimumValue(0, 0);
+  const dataArray =
+    source.getPointData().getScalars() || source.getPointData().getArrays()[0];
+  const dataRange = dataArray.getRange();
+  actorProperty.setGradientOpacityMaximumValue(
+    0,
+    (dataRange[1] - dataRange[0]) * 0.05
+  );
+  actorProperty.setShade(true);
+  actorProperty.setUseGradientOpacity(0, false);
+  actorProperty.setGradientOpacityMinimumOpacity(0, 0.0);
+  actorProperty.setGradientOpacityMaximumOpacity(0, 1.0);
+  actorProperty.setAmbient(0.0);
+  actorProperty.setDiffuse(2.0);
+  actorProperty.setSpecular(0.0);
+  actorProperty.setSpecularPower(0.0);
+  actorProperty.setUseLabelOutline(false);
+  actorProperty.setLabelOutlineThickness(2);
+
+  // Control UI for sample distance, transfer function, and shadow on/off
+  const controllerWidget = vtkVolumeController.newInstance({
+    size: [400, 150],
+    rescaleColorMap: true,
+  });
+  const isBackgroundDark = background[0] + background[1] + background[2] < 1.5;
+  const useShadow = 1;
+  controllerWidget.setContainer(rootContainer);
+  controllerWidget.setupContent(
+    renderWindow,
+    actor,
+    isBackgroundDark,
+    useShadow
+  );
+
+  fullScreenRenderer.setResizeCallback(({ width, _height }) => {
+    if (width > 414) {
+      controllerWidget.setSize(400, 150);
+    } else {
+      controllerWidget.setSize(width - 14, 150);
+    }
+    controllerWidget.render();
+    fpsMonitor.update();
+  });
+
+  // Add sliders to tune volume shadow effect
+  function updateVSB(val) {
+    const vsb = Number(val);
+    actorProperty.setVolumetricScatteringBlending(vsb);
+    renderWindow.render();
+  }
+  function updateGlobalReach(val) {
+    const gir = Number(val);
+    actorProperty.setGlobalIlluminationReach(gir);
+    renderWindow.render();
+  }
+  function updateSD(val) {
+    const v = Number(val);
+    mapper.setVolumeShadowSamplingDistFactor(v);
+    renderWindow.render();
+  }
+  function updateAT(val) {
+    const at = Number(val);
+    actorProperty.setAnisotropy(at);
+    renderWindow.render();
+  }
+  // Add toggle for density gradient versus scalar gradient
+  let isDensity = false;
+  function toggleDensityNormal() {
+    isDensity = !isDensity;
+    actorProperty.setComputeNormalFromOpacity(isDensity);
+    renderWindow.render();
+  }
+  const params = {
+    DensityNormal: isDensity,
+    VolumeBlending: actorProperty.getVolumetricScatteringBlending(),
+    GlobalReach: actorProperty.getGlobalIlluminationReach(),
+    SampleDist: mapper.getVolumeShadowSamplingDistFactor(),
+    Anisotropy: actorProperty.getAnisotropy(),
+  };
+  gui
+    .add(params, 'DensityNormal')
+    .name('Density Normal')
+    .onChange(() => toggleDensityNormal());
+  gui
+    .add(params, 'VolumeBlending', 0.0, 1.0, 0.05)
+    .name('Surface to Volume Blending')
+    .onChange(updateVSB);
+  gui
+    .add(params, 'GlobalReach', 0.0, 1.0, 0.05)
+    .name('G Illumination Reach')
+    .onChange(updateGlobalReach);
+  gui
+    .add(params, 'SampleDist', 1.0, 10.0, 1.0)
+    .name('VS Sample Dist')
+    .onChange(updateSD);
+  gui
+    .add(params, 'Anisotropy', -1.0, 1.0, 0.05)
+    .name('Anisotropy')
+    .onChange(updateAT);
+
+  // Render a sphere to represent light position, if light is positional
+  if (light.getPositional()) {
+    const sphereSource = vtkSphereSource.newInstance();
+    const actorSphere = vtkActor.newInstance({
+      position: lightPos,
+      scale: [2, 2, 2],
+    });
+    const mapperSphere = vtkMapper.newInstance();
+    mapperSphere.setInputConnection(sphereSource.getOutputPort());
+
+    actorSphere.getProperty().setColor([1, 0, 0]);
+    actorSphere.getProperty().setLighting(false);
+    actorSphere.setMapper(mapperSphere);
+    actorSphere.setUseBounds(false);
+    renderer.addActor(actorSphere);
+  }
+
+  // Add the volume actor here to avoid compiling the shader twice
+  renderer.addActor(actor);
+
+  // Camera and first render
+  renderer.resetCamera();
+  renderWindow.render();
+
+  // Make some variables global so that you can inspect and
+  // modify objects in your browser's developer console:
+  global.source = reader;
+  global.mapper = mapper;
+  global.actor = actor;
+  global.renderer = renderer;
+  global.renderWindow = renderWindow;
+  global.toggleDensityNormal = toggleDensityNormal;
+  global.updateVSB = updateVSB;
+  global.updateAT = updateAT;
+  global.updateGlobalReach = updateGlobalReach;
+  global.updateSD = updateSD;
+}
+
+// ----------------------------------------------------------------------------
+// Read volume and render
+// ----------------------------------------------------------------------------
+
+const reader = vtkHttpDataSetReader.newInstance({ fetchGzip: true });
+reader.setUrl(`${__BASE_PATH__}/data/volume/headsq.vti`).then(() => {
+  reader.loadData().then(() => {
+    const imageData = reader.getOutputData();
+    createVolumeShadowViewer(myContainer, reader, imageData);
+  });
+});

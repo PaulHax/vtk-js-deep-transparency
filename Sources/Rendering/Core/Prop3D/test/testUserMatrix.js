@@ -1,0 +1,79 @@
+import { it, expect } from 'vitest';
+import testUtils from 'vtk.js/Sources/Testing/testUtils';
+
+import vtkActor from 'vtk.js/Sources/Rendering/Core/Actor';
+import vtkMapper from 'vtk.js/Sources/Rendering/Core/Mapper';
+import vtkOBJReader from 'vtk.js/Sources/IO/Misc/OBJReader';
+import 'vtk.js/Sources/Rendering/Misc/RenderingAPIs';
+import vtkRenderWindow from 'vtk.js/Sources/Rendering/Core/RenderWindow';
+import vtkRenderer from 'vtk.js/Sources/Rendering/Core/Renderer';
+
+import { mat4 } from 'gl-matrix';
+
+import baseline from './testUserMatrix.png';
+
+it.skipIf(__VTK_TEST_NO_WEBGL__)('Test Set Actor User Matrix', () => {
+  const gc = testUtils.createGarbageCollector();
+  expect('rendering', 'vtkActor SetUserMatrix').toBeTruthy();
+
+  // Create some control UI
+  const container = document.querySelector('body');
+  const renderWindowContainer = gc.registerDOMElement(
+    document.createElement('div')
+  );
+  container.appendChild(renderWindowContainer);
+
+  // create what we will view
+  const renderWindow = gc.registerResource(vtkRenderWindow.newInstance());
+  const renderer = gc.registerResource(vtkRenderer.newInstance());
+  renderWindow.addRenderer(renderer);
+  renderer.setBackground(0.0, 0.0, 0.0);
+
+  // ----------------------------------------------------------------------------
+  // Test code
+  // ----------------------------------------------------------------------------
+  const reader = gc.registerResource(
+    vtkOBJReader.newInstance({ splitMode: 'usemtl' })
+  );
+
+  const mapper = gc.registerResource(vtkMapper.newInstance());
+  mapper.setInputConnection(reader.getOutputPort());
+
+  const actor = gc.registerResource(vtkActor.newInstance());
+  actor.setMapper(mapper);
+  renderer.addActor(actor);
+
+  const userMatrix = mat4.identity(new Float64Array(16));
+  mat4.rotateZ(userMatrix, userMatrix, Math.PI / 4);
+  actor.setUserMatrix(userMatrix);
+
+  actor.rotateZ(45);
+
+  return reader
+    .setUrl(
+      `${__BASE_PATH__}/Data/obj/space-shuttle-orbiter/space-shuttle-orbiter.obj`
+    )
+    .then(() => {
+      renderer.resetCamera();
+      renderWindow.render();
+
+      const glwindow = gc.registerResource(renderWindow.newAPISpecificView());
+      glwindow.setContainer(renderWindowContainer);
+      renderWindow.addView(glwindow);
+      glwindow.setSize(400, 400);
+
+      const promise = glwindow
+        .captureNextImage()
+        .then((image) =>
+          testUtils.compareImages(
+            image,
+            [baseline],
+            'Rendering/Core/Prop3D/testUserMatrix',
+            1.5
+          )
+        )
+        .finally(gc.releaseResources);
+      renderWindow.render();
+      return promise;
+    });
+});

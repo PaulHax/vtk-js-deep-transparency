@@ -1,0 +1,390 @@
+import macro from 'vtk.js/Sources/macros';
+import vtkWebGPUTexture from 'vtk.js/Sources/Rendering/WebGPU/Texture';
+import vtkWebGPURenderEncoder from 'vtk.js/Sources/Rendering/WebGPU/RenderEncoder';
+import vtkWebGPUShaderCache from 'vtk.js/Sources/Rendering/WebGPU/ShaderCache';
+import vtkRenderPass from 'vtk.js/Sources/Rendering/SceneGraph/RenderPass';
+import vtkWebGPUFullScreenQuad from 'vtk.js/Sources/Rendering/WebGPU/FullScreenQuad';
+
+// ----------------------------------------------------------------------------
+
+const oitpFragTemplate = `
+//VTK::Mapper::Dec
+
+//VTK::TCoord::Dec
+
+//VTK::RenderEncoder::Dec
+
+//VTK::IOStructs::Dec
+
+@fragment
+fn main(
+//VTK::IOStructs::Input
+)
+//VTK::IOStructs::Output
+{
+  var output: fragmentOutput;
+
+  var tcoord: vec2<i32> = vec2<i32>(i32(input.fragPos.x), i32(input.fragPos.y));
+  var reveal: f32 = textureLoad(oitpAccumTexture, tcoord, 0).r;
+  if (reveal == 1.0) { discard; }
+  var tcolor: vec4<f32> = textureLoad(oitpColorTexture, tcoord, 0);
+  var total: f32 = max(tcolor.a, 0.01);
+  var computedColor: vec4<f32> = vec4<f32>(tcolor.r/total, tcolor.g/total, tcolor.b/total, 1.0 - reveal);
+
+  //VTK::RenderEncoder::Impl
+  return output;
+}
+`;
+
+// ----------------------------------------------------------------------------
+
+function vtkWebGPUOrderIndependentTranslucentPass(publicAPI, model) {
+  // Set our className
+  model.classHierarchy.push('vtkWebGPUOrderIndependentTranslucentPass');
+
+  // This pass implements a forward rendering pipeline for translucent geometry.
+  // It uses order-independent transparency (OIT) with weighted blended
+  // compositing, reading the opaque depth buffer for depth testing.
+  publicAPI.traverse = (renNode, viewNode) => {
+    if (model.deleted) {
+      return;
+    }
+
+    // we just render our delegates in order
+    model._currentParent = viewNode;
+
+    const device = viewNode.getDevice();
+    const sampleCount = Math.max(1, viewNode.getMultiSample?.() ?? 1);
+
+    // If sampleCount changed, tear down
+    if (
+      model.translucentRenderEncoder &&
+      model._currentSampleCount !== sampleCount
+    ) {
+      model.translucentRenderEncoder = null;
+      model.translucentColorTexture = null;
+      model.translucentAccumulateTexture = null;
+      model.translucentResolveColorTexture = null;
+      model.translucentResolveAccumulateTexture = null;
+      model._resolveColorView = null;
+      model._resolveAccumulateView = null;
+    }
+
+    if (!model.translucentRenderEncoder) {
+      publicAPI.createRenderEncoder(sampleCount);
+      publicAPI.createFinalEncoder();
+      model._currentSampleCount = sampleCount;
+      model.translucentColorTexture = vtkWebGPUTexture.newInstance({
+        label: 'translucentPassColor',
+      });
+      model.translucentColorTexture.create(device, {
+        width: viewNode.getCanvas().width,
+        height: viewNode.getCanvas().height,
+        format: 'rgba16float',
+        sampleCount,
+        /* eslint-disable no-undef */
+        /* eslint-disable no-bitwise */
+        usage:
+          GPUTextureUsage.RENDER_ATTACHMENT |
+          (sampleCount === 1 ? GPUTextureUsage.TEXTURE_BINDING : 0),
+      });
+      const v1 = model.translucentColorTexture.createView('oitpColorTexture');
+      model.translucentRenderEncoder.setColorTextureView(0, v1);
+
+      // Resolve color texture for MSAA
+      if (sampleCount > 1) {
+        model.translucentResolveColorTexture = vtkWebGPUTexture.newInstance({
+          label: 'translucentPassResolveColor',
+        });
+        model.translucentResolveColorTexture.create(device, {
+          width: viewNode.getCanvas().width,
+          height: viewNode.getCanvas().height,
+          format: 'rgba16float',
+          usage:
+            GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.TEXTURE_BINDING,
+        });
+        model._resolveColorView =
+          model.translucentResolveColorTexture.createView('oitpColorTexture');
+        model.translucentRenderEncoder.setResolveTextureView(
+          0,
+          model._resolveColorView
+        );
+      }
+
+      model.translucentAccumulateTexture = vtkWebGPUTexture.newInstance({
+        label: 'translucentPassAccumulate',
+      });
+      model.translucentAccumulateTexture.create(device, {
+        width: viewNode.getCanvas().width,
+        height: viewNode.getCanvas().height,
+        format: 'r16float',
+        sampleCount,
+        /* eslint-disable no-undef */
+        /* eslint-disable no-bitwise */
+        usage:
+          GPUTextureUsage.RENDER_ATTACHMENT |
+          (sampleCount === 1 ? GPUTextureUsage.TEXTURE_BINDING : 0),
+      });
+      const v2 =
+        model.translucentAccumulateTexture.createView('oitpAccumTexture');
+      model.translucentRenderEncoder.setColorTextureView(1, v2);
+
+      // Resolve accumulate texture for MSAA
+      if (sampleCount > 1) {
+        model.translucentResolveAccumulateTexture =
+          vtkWebGPUTexture.newInstance({
+            label: 'translucentPassResolveAccumulate',
+          });
+        model.translucentResolveAccumulateTexture.create(device, {
+          width: viewNode.getCanvas().width,
+          height: viewNode.getCanvas().height,
+          format: 'r16float',
+          usage:
+            GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.TEXTURE_BINDING,
+        });
+        model._resolveAccumulateView =
+          model.translucentResolveAccumulateTexture.createView(
+            'oitpAccumTexture'
+          );
+        model.translucentRenderEncoder.setResolveTextureView(
+          1,
+          model._resolveAccumulateView
+        );
+      }
+      model.fullScreenQuad = vtkWebGPUFullScreenQuad.newInstance();
+      model.fullScreenQuad.setDevice(viewNode.getDevice());
+      model.fullScreenQuad.setPipelineHash('oitpfsq');
+      // Use resolved textures for the full screen quad if MSAA is on
+      const views =
+        sampleCount > 1
+          ? [model._resolveColorView, model._resolveAccumulateView]
+          : model.translucentRenderEncoder.getColorTextureViews();
+      model.fullScreenQuad.setTextureViews(views);
+      model.fullScreenQuad.setFragmentShaderTemplate(oitpFragTemplate);
+    } else {
+      model.translucentColorTexture.resizeToMatch(
+        model.colorTextureView.getTexture()
+      );
+      model.translucentAccumulateTexture.resizeToMatch(
+        model.colorTextureView.getTexture()
+      );
+      if (model.translucentResolveColorTexture) {
+        model.translucentResolveColorTexture.resizeToMatch(
+          model.colorTextureView.getTexture()
+        );
+        model.translucentResolveAccumulateTexture.resizeToMatch(
+          model.colorTextureView.getTexture()
+        );
+      }
+    }
+
+    model.translucentRenderEncoder.setDepthTextureView(model.depthTextureView);
+    model.translucentRenderEncoder.attachTextureViews();
+    publicAPI.setCurrentOperation('translucentPass');
+    // Make the opaque pass color buffer available to transmissive objects
+    renNode.setOpaqueColorTextureView(model.colorTextureView);
+    renNode.setRenderEncoder(model.translucentRenderEncoder);
+    renNode.traverse(publicAPI);
+    publicAPI.finalPass(viewNode, renNode);
+  };
+
+  publicAPI.finalPass = (viewNode, renNode) => {
+    model.translucentFinalEncoder.setColorTextureView(
+      0,
+      model.colorTextureView
+    );
+    model.translucentFinalEncoder.attachTextureViews();
+
+    model.translucentFinalEncoder.begin(viewNode.getCommandEncoder());
+    renNode.scissorAndViewport(model.translucentFinalEncoder);
+    model.fullScreenQuad.prepareAndDraw(model.translucentFinalEncoder);
+    model.translucentFinalEncoder.end();
+  };
+
+  publicAPI.getTextures = () => [
+    model.translucentColorTexture,
+    model.translucentAccumulateTexture,
+  ];
+
+  publicAPI.createRenderEncoder = (sampleCount = 1) => {
+    model.translucentRenderEncoder = vtkWebGPURenderEncoder.newInstance({
+      label: 'translucentRender',
+    });
+    const rDesc = model.translucentRenderEncoder.getDescription();
+    rDesc.colorAttachments = [
+      {
+        view: undefined,
+        clearValue: [0.0, 0.0, 0.0, 0.0],
+        loadOp: 'clear',
+        storeOp: 'store',
+      },
+      {
+        view: undefined,
+        clearValue: [1.0, 0.0, 0.0, 0.0],
+        loadOp: 'clear',
+        storeOp: 'store',
+      },
+    ];
+    rDesc.depthStencilAttachment = {
+      view: undefined,
+      depthLoadOp: 'load',
+      depthStoreOp: 'store',
+    };
+
+    model.translucentRenderEncoder.setReplaceShaderCodeFunction((pipeline) => {
+      const fDesc = pipeline.getShaderDescription('fragment');
+      fDesc.addOutput('vec4<f32>', 'outColor');
+      fDesc.addOutput('f32', 'outAccum');
+      fDesc.addBuiltinInput('vec4<f32>', '@builtin(position) fragPos');
+      let code = fDesc.getCode();
+
+      code = vtkWebGPUShaderCache.substitute(
+        code,
+        '//VTK::RenderEncoder::Impl',
+        [
+          // very simple depth weighting in w z ranges from 1.0 near to 0.0
+          'var w: f32 = computedColor.a * pow(0.1 + input.fragPos.z, 2.0);',
+          'output.outColor = vec4<f32>(computedColor.rgb*w, w);',
+          'output.outAccum = computedColor.a;',
+        ]
+      ).result;
+      fDesc.setCode(code);
+    });
+    model.translucentRenderEncoder.setPipelineHash(`oitpr${sampleCount}`);
+    model.translucentRenderEncoder.setPipelineSettings({
+      primitive: { cullMode: 'none' },
+      ...(sampleCount > 1 ? { multisample: { count: sampleCount } } : {}),
+      depthStencil: {
+        depthWriteEnabled: false,
+        // greater-equal (not greater): translucent geometry that is exactly
+        // coplanar with already-rendered opaque geometry (e.g. a labelmap
+        // overlay on an image slice) must not be depth-rejected. Matches the
+        // OpenGL backend, where equal depths pass in the translucent pass.
+        depthCompare: 'greater-equal',
+        format: 'depth32float',
+      },
+      fragment: {
+        targets: [
+          {
+            format: 'rgba16float',
+            blend: {
+              color: {
+                srcFactor: 'one',
+                dstFactor: 'one',
+              },
+              alpha: { srcFactor: 'one', dstFactor: 'one' },
+            },
+          },
+          {
+            format: 'r16float',
+            blend: {
+              color: {
+                srcFactor: 'zero',
+                dstFactor: 'one-minus-src',
+              },
+              alpha: { srcFactor: 'one', dstFactor: 'one-minus-src-alpha' },
+            },
+          },
+        ],
+      },
+    });
+  };
+
+  publicAPI.createFinalEncoder = () => {
+    model.translucentFinalEncoder = vtkWebGPURenderEncoder.newInstance({
+      label: 'translucentFinal',
+    });
+    model.translucentFinalEncoder.setDescription({
+      colorAttachments: [
+        {
+          view: null,
+          loadOp: 'load',
+          storeOp: 'store',
+        },
+      ],
+    });
+    model.translucentFinalEncoder.setReplaceShaderCodeFunction((pipeline) => {
+      const fDesc = pipeline.getShaderDescription('fragment');
+      fDesc.addOutput('vec4<f32>', 'outColor');
+      fDesc.addBuiltinInput('vec4<f32>', '@builtin(position) fragPos');
+      let code = fDesc.getCode();
+      code = vtkWebGPUShaderCache.substitute(
+        code,
+        '//VTK::RenderEncoder::Impl',
+        ['output.outColor = vec4<f32>(computedColor.rgb, computedColor.a);']
+      ).result;
+      fDesc.setCode(code);
+    });
+    model.translucentFinalEncoder.setPipelineHash('oitpf');
+    model.translucentFinalEncoder.setPipelineSettings({
+      primitive: { cullMode: 'none' },
+      fragment: {
+        targets: [
+          {
+            format: 'rgba16float',
+            blend: {
+              color: {
+                srcFactor: 'src-alpha',
+                dstFactor: 'one-minus-src-alpha',
+              },
+              alpha: { srcFactor: 'one', dstFactor: 'one-minus-src-alpha' },
+            },
+          },
+        ],
+      },
+    });
+  };
+
+  publicAPI.releaseGraphicsResources = () => {
+    model.translucentRenderEncoder = null;
+    model.translucentFinalEncoder = null;
+    model.translucentColorTexture = null;
+    model.translucentAccumulateTexture = null;
+    model.fullScreenQuad = null;
+  };
+}
+
+// ----------------------------------------------------------------------------
+// Object factory
+// ----------------------------------------------------------------------------
+
+const DEFAULT_VALUES = {
+  colorTextureView: null,
+  depthTextureView: null,
+  fullScreenQuad: null,
+  translucentResolveColorTexture: null,
+  translucentResolveAccumulateTexture: null,
+};
+
+// ----------------------------------------------------------------------------
+
+export function extend(publicAPI, model, initialValues = {}) {
+  Object.assign(model, DEFAULT_VALUES, initialValues);
+
+  // Build VTK API
+  vtkRenderPass.extend(publicAPI, model, initialValues);
+
+  macro.setGet(publicAPI, model, ['colorTextureView', 'depthTextureView']);
+
+  // Read-only access to the MSAA resolve targets and the compositing quad so
+  // that the resolved-view wiring can be inspected (and tested).
+  macro.get(publicAPI, model, [
+    'fullScreenQuad',
+    'translucentResolveAccumulateTexture',
+    'translucentResolveColorTexture',
+  ]);
+
+  // Object methods
+  vtkWebGPUOrderIndependentTranslucentPass(publicAPI, model);
+}
+
+// ----------------------------------------------------------------------------
+
+export const newInstance = macro.newInstance(
+  extend,
+  'vtkWebGPUOrderIndependentTranslucentPass'
+);
+
+// ----------------------------------------------------------------------------
+
+export default { newInstance, extend };

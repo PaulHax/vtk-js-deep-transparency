@@ -1,0 +1,74 @@
+/// <reference types="@webgpu/types" />
+
+import { vtkOutputPort } from './interfaces';
+
+/** Alias type for value that can be null */
+declare type Nullable<T> = T | null;
+
+/**
+ * Alias type for number that are floats
+ * @ignorenaming
+ */
+export type Float = number;
+
+/**
+ * Alias type for number that are doubles.
+ * @ignorenaming
+ */
+export type Double = number;
+
+/**
+ * Alias type for number that are integer
+ * @ignorenaming
+ */
+export type Integer = number;
+
+/**
+ * Alias type for numbers that are nonnegative integers.
+ * @ignorenaming
+ */
+export type NonNegativeInteger = number;
+
+declare type TypedArray =
+  | Uint32Array
+  | Uint16Array
+  | Uint8Array
+  | Uint8ClampedArray
+  | Int32Array
+  | Int16Array
+  | Int8Array
+  | Float64Array
+  | Float32Array;
+
+declare type Bounds = [number, number, number, number, number, number];
+declare type CellType = number;
+declare type Extent = [number, number, number, number, number, number];
+declare type Placement = 'top' | 'left' | 'right' | 'bottom';
+declare type Size = [number, number];
+declare type Range = [number, number];
+declare type Vector2 = [number, number];
+declare type Vector3 = [number, number, number];
+declare type Vector4 = [number, number, number, number];
+
+declare type Matrix = number[];
+declare type Matrix2x2 = [number, number, number, number, number, number];
+declare type Matrix3x3 = [
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+];
+declare type HSLColor = [number, number, number];
+declare type HSVColor = [number, number, number];
+declare type RGBColor = [number, number, number];
+declare type RGBAColor = [number, number, number, number];
+declare type Color = HSLColor | HSVColor | RGBColor | RGBAColor;
+
+declare type vtkPipelineConnection = () => any | vtkOutputPort;
+
+declare type CrossOrigin = '' | 'anonymous' | 'use-credentials';

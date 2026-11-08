@@ -1,0 +1,32 @@
+name: Feature Request
+description: Suggest an idea for vtk.js.
+title: '[Feature] '
+labels: 'type: feature request 💡'
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ❓ If this a question or request for support please use the forum: https://discourse.vtk.org/c/web/9
+
+        🧱 When appropriate, assign one of the `Module: XXX` labels to your issue when creating it.
+
+        🙌 Thank you for starting this contribution!
+  - type: textarea
+    id: description
+    attributes:
+      label: Motivation
+      description: What need or problem would you like addressed?
+    validations:
+      required: true
+  - type: textarea
+    id: feature
+    attributes:
+      label: Detailed Description
+      description: |
+        Describe the enhancement you'd like added.
+        Consider including:
+
+        - potential alternatives
+        - screenshots
+    validations:
+      required: true

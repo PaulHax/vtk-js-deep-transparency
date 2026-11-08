@@ -1,0 +1,8 @@
+{
+  "include": ["Sources/**/*.d.ts", "Utilities/**/*.d.ts"],
+  "exclude": ["Utilities/build/macro-shim.d.ts"],
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["ES2020", "DOM"]
+  }
+}

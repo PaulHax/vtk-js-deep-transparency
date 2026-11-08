@@ -1,0 +1,199 @@
+import macro from 'vtk.js/Sources/macros';
+import vtkPlaneSource from 'vtk.js/Sources/Filters/Sources/PlaneSource';
+import vtkTexture from 'vtk.js/Sources/Rendering/Core/Texture';
+import vtkActor2D from 'vtk.js/Sources/Rendering/Core/Actor2D';
+import vtkMapper2D from 'vtk.js/Sources/Rendering/Core/Mapper2D';
+import vtkTextProperty from 'vtk.js/Sources/Rendering/Core/TextProperty';
+import ImageHelper from 'vtk.js/Sources/Common/Core/ImageHelper';
+import * as vtkMath from 'vtk.js/Sources/Common/Core/Math';
+
+// ----------------------------------------------------------------------------
+// vtkTextActor methods
+// ----------------------------------------------------------------------------
+function vtkTextActor(publicAPI, model) {
+  // Set our className
+  model.classHierarchy.push('vtkTextActor');
+
+  const superClass = { ...publicAPI };
+
+  publicAPI.makeProperty = vtkTextProperty.newInstance;
+
+  const texture = vtkTexture.newInstance({
+    resizable: true,
+  });
+  const canvas = new OffscreenCanvas(1, 1);
+  const mapper = vtkMapper2D.newInstance();
+  const plane = vtkPlaneSource.newInstance({
+    xResolution: 1,
+    yResolution: 1,
+  });
+
+  /**
+   * Normalize escaped and platform specific line endings, then split into lines.
+   */
+  function splitLines(text) {
+    return text
+      .replace(/\\r\\n/g, '\n')
+      .replace(/\\n/g, '\n')
+      .replace(/\\r/g, '\n')
+      .replace(/\r\n/g, '\n')
+      .replace(/\r/g, '\n')
+      .split('\n');
+  }
+
+  function createImageData(text) {
+    const fontSizeScale = publicAPI.getProperty().getFontSizeScale();
+    const fontStyle = publicAPI.getProperty().getFontStyle();
+    const fontFamily = publicAPI.getProperty().getFontFamily();
+    const fontColor = publicAPI.getProperty().getFontColor();
+    const shadowColor = publicAPI.getProperty().getShadowColor();
+    const shadowOffset = publicAPI.getProperty().getShadowOffset();
+    const shadowBlur = publicAPI.getProperty().getShadowBlur();
+    const resolution = publicAPI.getProperty().getResolution();
+    const backgroundColor = publicAPI.getProperty().getBackgroundColor();
+
+    const dpr = Math.max(window.devicePixelRatio || 1, 1);
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+    // Set the text properties to measure
+    const textSize = fontSizeScale(resolution);
+    const lines = splitLines(text);
+
+    ctx.font = `${fontStyle} ${textSize}px "${fontFamily}"`;
+    ctx.textBaseline = 'alphabetic';
+    ctx.textAlign = 'left';
+
+    const lineMetrics = lines.map((line) => {
+      const metrics = ctx.measureText(line);
+      return {
+        left: metrics.actualBoundingBoxLeft || 0,
+        right: metrics.actualBoundingBoxRight || metrics.width || 0,
+        actualAscent: metrics.actualBoundingBoxAscent || 0,
+        actualDescent: metrics.actualBoundingBoxDescent || 0,
+      };
+    });
+    const maxActualAscent = lineMetrics.reduce(
+      (value, metrics) => Math.max(value, metrics.actualAscent),
+      0
+    );
+    const maxActualDescent = lineMetrics.reduce(
+      (value, metrics) => Math.max(value, metrics.actualDescent),
+      0
+    );
+    const maxLeft = lineMetrics.reduce(
+      (value, metrics) => Math.max(value, metrics.left),
+      0
+    );
+    const maxRight = lineMetrics.reduce(
+      (value, metrics) => Math.max(value, metrics.right),
+      0
+    );
+    const lineAscent = maxActualAscent;
+    const lineDescent = maxActualDescent;
+    const baselineOffset = lineAscent;
+    const lineHeight = Math.max(lineAscent + lineDescent, 1);
+    const textWidth = maxLeft + maxRight;
+    const textHeight = Math.max(lines.length * lineHeight, lineHeight);
+
+    // Update canvas size to fit text and ensure it is at least 1x1 pixel
+    const width = Math.max(Math.round(textWidth * dpr), 1);
+    const height = Math.max(Math.round(textHeight * dpr), 1);
+
+    canvas.width = width;
+    canvas.height = height;
+
+    ctx.setTransform(dpr, 0, 0, -dpr, 0, height);
+
+    // Clear the canvas
+    ctx.clearRect(0, 0, width, height);
+
+    if (backgroundColor) {
+      ctx.fillStyle = vtkMath.floatRGB2HexCode(backgroundColor);
+      ctx.fillRect(0, 0, width, height);
+    }
+
+    // Reset context after resize and prepare for rendering
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.font = `${fontStyle} ${textSize}px "${fontFamily}"`;
+    ctx.fillStyle = vtkMath.floatRGB2HexCode(fontColor);
+    ctx.textBaseline = 'alphabetic';
+    ctx.textAlign = 'left';
+
+    // Set shadow
+    if (shadowColor) {
+      ctx.shadowColor = vtkMath.floatRGB2HexCode(shadowColor);
+      ctx.shadowOffsetX = shadowOffset[0];
+      ctx.shadowOffsetY = shadowOffset[1];
+      ctx.shadowBlur = shadowBlur;
+    }
+
+    const x = maxLeft;
+    const baseline = baselineOffset;
+    const lineHeightPx = lineHeight;
+    lines.forEach((line, index) => {
+      ctx.fillText(line, x, baseline + index * lineHeightPx);
+    });
+
+    // Update plane dimensions to match text size
+    plane.set({
+      point1: [width, 0, 0],
+      point2: [0, height, 0],
+    });
+
+    return ImageHelper.canvasToImageData(canvas);
+  }
+
+  function updateTexture() {
+    const image = createImageData(model.input);
+    texture.setInputData(image, 0);
+    model.textureBuildTime.modified();
+  }
+
+  function updateTextureIfNeeded() {
+    if (model.input === undefined) {
+      return;
+    }
+
+    if (
+      model.textureBuildTime.getMTime() < model.mtime ||
+      model.textureBuildTime.getMTime() < publicAPI.getProperty().getMTime()
+    ) {
+      updateTexture();
+    }
+  }
+
+  mapper.setInputConnection(plane.getOutputPort());
+
+  publicAPI.setMapper(mapper);
+  publicAPI.addTexture(texture);
+
+  publicAPI.getTextures = () => {
+    updateTextureIfNeeded();
+    return superClass.getTextures();
+  };
+}
+
+// Default property values
+const DEFAULT_VALUES = {
+  textureBuildTime: null,
+};
+
+export function extend(publicAPI, model, initialValues = {}) {
+  Object.assign(model, DEFAULT_VALUES, initialValues);
+
+  // Inheritance
+  vtkActor2D.extend(publicAPI, model, initialValues);
+
+  // Build VTK API
+  macro.setGet(publicAPI, model, ['input']);
+  model.textureBuildTime = {};
+  macro.obj(model.textureBuildTime, { mtime: 0 });
+
+  // Object methods
+  vtkTextActor(publicAPI, model);
+}
+
+export const newInstance = macro.newInstance(extend, 'vtkTextActor');
+
+export default { newInstance, extend };

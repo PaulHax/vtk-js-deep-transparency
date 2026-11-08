@@ -1,0 +1,461 @@
+/* eslint-disable no-unused-expressions */
+import '@kitware/vtk.js/Rendering/Profiles/Geometry';
+
+// Enable data soure for DataAccessHelper
+import '@kitware/vtk.js/IO/Core/DataAccessHelper/LiteHttpDataAccessHelper'; // Just need HTTP
+// import '@kitware/vtk.js/IO/Core/DataAccessHelper/HttpDataAccessHelper'; // HTTP + zip
+// import '@kitware/vtk.js/IO/Core/DataAccessHelper/HtmlDataAccessHelper'; // html + base64 + zip
+// import '@kitware/vtk.js/IO/Core/DataAccessHelper/JSZipDataAccessHelper'; // zip
+
+import vtkFullScreenRenderWindow from '@kitware/vtk.js/Rendering/Misc/FullScreenRenderWindow';
+import vtkRenderer from '@kitware/vtk.js/Rendering/Core/Renderer';
+import vtkTexture from '@kitware/vtk.js/Rendering/Core/Texture';
+import vtkActor from '@kitware/vtk.js/Rendering/Core/Actor';
+import vtkMapper from '@kitware/vtk.js/Rendering/Core/Mapper';
+import vtkURLExtract from '@kitware/vtk.js/Common/Core/URLExtract';
+import vtkResourceLoader from '@kitware/vtk.js/IO/Core/ResourceLoader';
+
+import vtkGLTFImporter from '@kitware/vtk.js/IO/Geometry/GLTFImporter';
+import vtkArmatureSource from '@kitware/vtk.js/Filters/Sources/ArmatureSource';
+import { DebugChannel } from '@kitware/vtk.js/Rendering/Core/Mapper/Constants';
+
+import GUI from 'lil-gui';
+
+// ----------------------------------------------------------------------------
+// Example code
+// ----------------------------------------------------------------------------
+let mixer;
+let selectedModel;
+let selectedFlavor;
+let armatureSource = null;
+let armatureActor = null;
+const userParms = vtkURLExtract.extractURLParameters();
+const selectedScene = userParms.scene || 0;
+const viewAPI = userParms.viewAPI || 'WebGL';
+
+const baseUrl =
+  'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main';
+const modelsFolder = 'Models';
+const modelsDictionary = {};
+
+function createTextureWithMipmap(src, level) {
+  const tex = vtkTexture.newInstance();
+  tex.setMipLevel(level);
+
+  fetch(src)
+    .then((response) => response.blob())
+    .then((blob) => createImageBitmap(blob))
+    .then((imageBitmap) => {
+      tex.setInterpolate(true);
+      tex.setEdgeClamp(true);
+      tex.setImageBitmap(imageBitmap);
+    });
+
+  return tex;
+}
+
+const fullScreenRenderer = vtkFullScreenRenderWindow.newInstance();
+
+const renderer = fullScreenRenderer.getRenderer();
+const renderWindow = fullScreenRenderer.getRenderWindow();
+const armatureRenderer = vtkRenderer.newInstance();
+renderWindow.setNumberOfLayers(2);
+renderer.setLayer(0);
+armatureRenderer.setLayer(1);
+armatureRenderer.setPreserveColorBuffer(true);
+armatureRenderer.setPreserveDepthBuffer(false);
+armatureRenderer.setInteractive(false);
+armatureRenderer.setActiveCamera(renderer.getActiveCamera());
+renderWindow.addRenderer(armatureRenderer);
+
+const environmentTex = createTextureWithMipmap(
+  `${__BASE_PATH__}/data/pbr/kiara_dawn_4k.jpg`,
+  8
+);
+// Enable environment texture as background and for IBL reflections
+renderer.setUseEnvironmentTextureAsBackground(true);
+renderer.setEnvironmentTexture(environmentTex);
+renderer.setEnvironmentTextureDiffuseStrength(1);
+renderer.setEnvironmentTextureSpecularStrength(1);
+
+const reader = vtkGLTFImporter.newInstance({
+  renderer,
+});
+
+const rootContainer = document.querySelector('body');
+const gui = new GUI();
+const params = {
+  viewAPI,
+  Model: '',
+  Flavor: '',
+  Scene: selectedScene,
+  Camera: '',
+  Animation: '',
+  Playing: true,
+  Variant: 0,
+  ShowModel: true,
+  ShowArmature: true,
+  UseBackground: true,
+  Specular: renderer.getEnvironmentTextureSpecularStrength?.() ?? 1.0,
+  Diffuse: renderer.getEnvironmentTextureDiffuseStrength?.() ?? 1.0,
+  FOV: renderer.getActiveCamera().getViewAngle(),
+};
+const controllers = {};
+
+function setModelVisibility(visible) {
+  reader.getActors()?.forEach((actor) => actor.setVisibility(Boolean(visible)));
+  renderWindow.render();
+}
+
+function setArmatureVisibility(visible) {
+  armatureActor?.setVisibility(Boolean(visible));
+  renderWindow.render();
+}
+
+// add a loading svg to the container and remove once the reader is ready
+const loading = document.createElement('div');
+loading.innerHTML = `
+  <style>
+    .loader-svg{
+      position: absolute;
+      left: 0; right: 0; top: 0; bottom: 0;
+      fill: none;
+      stroke-width: 5px;
+      stroke-linecap: round;
+      stroke: #bbb;
+    }
+
+    .loader-svg.bg{
+      stroke-width: 4px;
+      stroke: #333;
+    }
+
+    .animate{
+      stroke-dasharray: 242.6;
+      animation: fill-animation 1s cubic-bezier(1,1,1,1) 0s infinite;
+    }
+
+    @keyframes fill-animation{
+      0%{
+        stroke-dasharray: 40 242.6;
+        stroke-dashoffset: 0;
+      }
+      50%{
+        stroke-dasharray: 141.3;
+        stroke-dashoffset: 141.3;
+      }
+      100%{
+        stroke-dasharray: 40 242.6;
+        stroke-dashoffset: 282.6;
+      }
+    }
+  </style>
+  <svg class="svg-container" height="100" width="100" viewBox="0 0 100 100">
+    <circle class="loader-svg bg" cx="50" cy="50" r="45"></circle>
+    <circle class="loader-svg animate" cx="50" cy="50" r="45"></circle>
+  </svg>
+`;
+// loading message should center in the window
+loading.style.position = 'absolute';
+loading.style.left = '50%';
+loading.style.top = '50%';
+loading.style.transform = 'translate(-50%, -50%)';
+
+// ----------------------------------------------------------------------------
+let animationFrameId = null;
+
+function animateScene() {
+  let lastTime = performance.now();
+
+  function tick() {
+    const currentTime = performance.now();
+    const dt = (currentTime - lastTime) / 1000;
+    lastTime = currentTime;
+
+    if (mixer && mixer.tick) {
+      mixer.tick(dt);
+      if (armatureSource) {
+        armatureSource.modified();
+      }
+    }
+
+    renderWindow.render();
+    animationFrameId = requestAnimationFrame(tick);
+  }
+
+  // Cancel any existing loop to avoid duplicates
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId);
+  }
+
+  animationFrameId = requestAnimationFrame(tick);
+}
+
+function stopAnimation() {
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+  }
+}
+
+function ready() {
+  console.log('Ready');
+  // remove loading message
+  loading.remove();
+
+  reader.importActors();
+  reader
+    .getActors()
+    ?.forEach((actor) => actor.getProperty().setInterpolationToPBR());
+  reader.importCameras();
+  reader.importLights();
+  setModelVisibility(params.ShowModel);
+
+  mixer = reader.createAnimationMixer();
+
+  // Skeletal setup: armature debug visualization
+  const skeletons = reader.getSkeletons();
+
+  if (skeletons.length > 0) {
+    const primarySkeleton = skeletons[0].skeleton;
+    armatureSource = vtkArmatureSource.newInstance({
+      skeleton: primarySkeleton,
+    });
+    const armatureMapper = vtkMapper.newInstance();
+    armatureMapper.setInputConnection(armatureSource.getOutputPort());
+    armatureActor = vtkActor.newInstance();
+    armatureActor.setMapper(armatureMapper);
+    armatureActor.getProperty().setColor(1, 1, 0);
+    armatureActor.getProperty().setPointSize(8);
+    armatureActor.getProperty().setLineWidth(3);
+    armatureActor.setVisibility(params.ShowArmature);
+    armatureRenderer.addActor(armatureActor);
+  }
+
+  const animationNames = mixer.getAnimationNames();
+  if (animationNames.length > 0) {
+    params.Animation = animationNames[0];
+    mixer.playAnimation(params.Animation);
+    controllers.Animation && controllers.Animation.destroy();
+    controllers.Animation = gui
+      .add(params, 'Animation', animationNames)
+      .name('Animation')
+      .onChange((name) => {
+        mixer.playAnimation(name);
+        animateScene();
+      });
+  }
+
+  requestAnimationFrame(() => {
+    const bounds = reader.getSceneBounds(params.Scene);
+    if (bounds) {
+      renderer.resetCamera(bounds);
+      renderer.resetCameraClippingRange(bounds);
+    } else {
+      renderer.resetCamera();
+    }
+    renderWindow.render();
+  });
+
+  const cameras = reader.getCameras();
+  if (cameras.length) {
+    params.Camera = cameras[0];
+    controllers.Camera && controllers.Camera.destroy();
+    controllers.Camera = gui
+      .add(params, 'Camera', cameras)
+      .name('Camera')
+      .onChange((name) => {
+        reader.setCamera(name);
+        renderWindow.render();
+      });
+  }
+
+  const scenes = reader.getScenes();
+  if (scenes.length > 1) {
+    controllers.Scene && controllers.Scene.destroy();
+    controllers.Scene = gui
+      .add(params, 'Scene', [...Array(scenes.length).keys()])
+      .name('Scene')
+      .onChange((idx) => {
+        window.location = `?model=${selectedModel}&flavor=${selectedFlavor}&scene=${idx}&viewAPI=${params.viewAPI}`;
+      });
+  }
+
+  const variants = reader.getVariants();
+  if (variants.length > 1) {
+    const variantOptions = {};
+    variants.forEach((name, index) => {
+      const label = name || `Variant ${index}`;
+      variantOptions[label] = index;
+    });
+    params.Variant = 0;
+    controllers.Variant && controllers.Variant.destroy();
+    controllers.Variant = gui
+      .add(params, 'Variant', variantOptions)
+      .name('Variant')
+      .onChange(async (i) => {
+        await reader.switchToVariant(Number(i));
+        renderWindow.render();
+      });
+  }
+
+  // Start animation loop
+  if (mixer.hasAnimations()) {
+    animateScene();
+
+    params.Playing = true;
+    controllers.Playing && controllers.Playing.destroy();
+    controllers.Playing = gui
+      .add(params, 'Playing')
+      .name('Play')
+      .onChange((playing) => {
+        if (playing) {
+          animateScene();
+        } else {
+          stopAnimation();
+        }
+      });
+  }
+}
+
+fetch(`${baseUrl}/${modelsFolder}/model-index.json`)
+  .then((response) => response.json())
+  .then((modelsJson) => {
+    modelsJson.forEach((entry) => {
+      if (entry.variants !== undefined && entry.name !== undefined) {
+        const variants = [];
+
+        Object.keys(entry.variants).forEach((variant) => {
+          const fileName = entry.variants[variant];
+          variants[variant] =
+            `${modelsFolder}/${entry.name}/${variant}/${fileName}`;
+        });
+
+        modelsDictionary[entry.name] = variants;
+      }
+    });
+
+    const modelsNames = Object.keys(modelsDictionary);
+    const dhModelIdx = modelsNames.indexOf('DamagedHelmet');
+    selectedModel = userParms.model || modelsNames[dhModelIdx];
+    params.Model = selectedModel;
+    controllers.Model && controllers.Model.destroy();
+    controllers.Model = gui
+      .add(params, 'Model', modelsNames)
+      .name('Model')
+      .onChange((modelName) => {
+        window.location = `?model=${modelName}&viewAPI=${params.viewAPI}`;
+      });
+
+    const variants = Object.keys(modelsDictionary[selectedModel]).sort();
+
+    selectedFlavor = userParms.flavor || variants[0];
+    params.Flavor = selectedFlavor;
+    controllers.Flavor && controllers.Flavor.destroy();
+    controllers.Flavor = gui
+      .add(params, 'Flavor', variants)
+      .name('Flavor')
+      .onChange((variant) => {
+        window.location = `?model=${selectedModel}&flavor=${variant}&scene=${selectedScene}&viewAPI=${params.viewAPI}`;
+      });
+
+    const path = modelsDictionary[selectedModel][selectedFlavor];
+    const url = `${baseUrl}/${path}`;
+
+    if (
+      selectedFlavor === 'glTF-Draco' ||
+      selectedFlavor === 'glTF-Binary-KTX-ETC1S-Draco'
+    ) {
+      vtkResourceLoader
+        .loadScript(
+          'https://unpkg.com/draco3dgltf@1.5.7/draco_decoder_gltf_nodejs.js'
+        )
+        .then(async () => {
+          // Set decoder function to the vtk reader
+          // eslint-disable-next-line no-undef
+          await reader.setDracoDecoder(DracoDecoderModule);
+          reader
+            .setUrl(url, { binary: true, sceneId: selectedScene })
+            .then(reader.onReady(ready));
+        });
+    } else {
+      reader
+        .setUrl(url, { binary: true, sceneId: selectedScene })
+        .then(reader.onReady(ready));
+    }
+  })
+  .catch((error) => {
+    console.error('Error fetching the model index:', error);
+  });
+
+// ----------------------------------------------------------------------------
+// Use a file reader to load a local file
+// ----------------------------------------------------------------------------
+
+// View API dropdown
+gui
+  .add(params, 'viewAPI', ['WebGL', 'WebGPU'])
+  .name('Renderer')
+  .onChange((api) => {
+    window.location = `?model=${selectedModel || ''}&viewAPI=${api}`;
+  });
+
+gui.add(params, 'ShowModel').name('Show Model').onChange(setModelVisibility);
+gui
+  .add(params, 'ShowArmature')
+  .name('Show Armature')
+  .onChange(setArmatureVisibility);
+
+// Environment controls
+gui
+  .add(params, 'UseBackground')
+  .name('Use Textured Background')
+  .onChange((v) => {
+    renderer.setUseEnvironmentTextureAsBackground(Boolean(v));
+    renderWindow.render();
+  });
+gui
+  .add(params, 'Specular', 0.0, 2.0, 0.01)
+  .name('Specular Strength')
+  .onChange((v) => {
+    renderer.setEnvironmentTextureSpecularStrength(Number(v));
+    renderWindow.render();
+  });
+gui
+  .add(params, 'Diffuse', 0.0, 2.0, 0.01)
+  .name('Diffuse Strength')
+  .onChange((v) => {
+    renderer.setEnvironmentTextureDiffuseStrength(Number(v));
+    renderWindow.render();
+  });
+gui
+  .add(params, 'FOV', 30, 120, 1)
+  .name('FOV')
+  .onChange((v) => {
+    renderer.getActiveCamera().setViewAngle(Number(v));
+    renderWindow.render();
+  });
+
+// Debug channel selector
+const debugChannelNames = {};
+Object.entries(DebugChannel).forEach(([key, value]) => {
+  const label = key
+    .split('_')
+    .map((w) => w.charAt(0) + w.slice(1).toLowerCase())
+    .join(' ');
+  debugChannelNames[label] = value;
+});
+params.DebugChannel = 0;
+gui
+  .add(params, 'DebugChannel', debugChannelNames)
+  .name('Debug Channel')
+  .onChange((val) => {
+    const actors = renderer.getActors();
+    actors.forEach((actor) => {
+      const mapper = actor.getMapper?.();
+      mapper?.setDebugChannel?.(val);
+    });
+    renderWindow.render();
+  });
+
+rootContainer.appendChild(loading);

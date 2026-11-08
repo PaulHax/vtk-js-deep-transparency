@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["dist/umd/**/*.d.ts"],
+  "compilerOptions": {
+    "baseUrl": "dist/umd",
+    "paths": {
+      "vtk.js/*": ["./*"]
+    }
+  }
+}

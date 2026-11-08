@@ -1,0 +1,49 @@
+import vtkBoundingBox from './BoundingBox';
+import vtkBox from './Box';
+import vtkCell from './Cell';
+import vtkCone from './Cone';
+import vtkCylinder from './Cylinder';
+import vtkDataSet from './DataSet';
+import vtkDataSetAttributes from './DataSetAttributes';
+import vtkITKHelper from './ITKHelper';
+import vtkImageData from './ImageData';
+import vtkImplicitBoolean from './ImplicitBoolean';
+import vtkIncrementalPointLocator from './IncrementalPointLocator';
+import vtkLine from './Line';
+import vtkMolecule from './Molecule';
+import vtkPiecewiseFunction from './PiecewiseFunction';
+import vtkPlane from './Plane';
+import vtkPlanes from './Planes';
+import vtkPointSet from './PointSet';
+import vtkPolyData from './PolyData';
+import vtkSelectionNode from './SelectionNode';
+import vtkSphere from './Sphere';
+import vtkStructuredData from './StructuredData';
+import vtkTriangle from './Triangle';
+import vtkTriangleStrip from './TriangleStrip';
+
+export default {
+  vtkBoundingBox,
+  vtkBox,
+  vtkCell,
+  vtkCone,
+  vtkCylinder,
+  vtkDataSet,
+  vtkDataSetAttributes,
+  vtkITKHelper,
+  vtkImageData,
+  vtkImplicitBoolean,
+  vtkIncrementalPointLocator,
+  vtkLine,
+  vtkMolecule,
+  vtkPiecewiseFunction,
+  vtkPlane,
+  vtkPlanes,
+  vtkPointSet,
+  vtkPolyData,
+  vtkSelectionNode,
+  vtkSphere,
+  vtkStructuredData,
+  vtkTriangle,
+  vtkTriangleStrip,
+};

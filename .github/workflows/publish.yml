@@ -1,0 +1,91 @@
+name: Release
+on:
+  push:
+    branches:
+      - master
+      - next
+      - next-major
+      - beta
+      - '[0-9]+.x'
+      - '[0-9]+.[0-9]+.x'
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+    environment:
+      name: npm
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Setup project
+        uses: ./.github/actions/setup-node-project
+        with:
+          node-version: '22'
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox
+      - name: Build
+        run: npm run build:release
+      - name: Validate code style
+        run: npm run validate
+      - name: Validate generated typescript definitions
+        run: |
+          npx tsc -p tsconfig.esm-check.json
+          npx tsc -p tsconfig.umd-check.json
+      - name: Chrome and Firefox tests
+        run: xvfb-run --auto-servernum npm test
+      - name: Archive test results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-results
+          path: Utilities/TestResults/
+          retention-days: 15
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # No need to set NPM_TOKEN because of OIDC
+          NPM_CONFIG_PROVENANCE: true
+        run: |
+          git config --global user.name "Github Actions"
+          git config --global user.email "sebastien.jourdain@kitware.com"
+          npm run semantic-release
+  deploy_docs:
+    if: github.ref == 'refs/heads/master'
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+      - name: Setup project
+        uses: ./.github/actions/setup-node-project
+        with:
+          node-version: '22'
+      - name: Build
+        run: npm run build:release
+      - name: Generate docs content
+        run: npm run docs:generate
+      - name: Build docs
+        run: npm run docs:build
+      - name: Build docs examples
+        run: npm run docs:build-examples
+      - name: Upload docs as a Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./Documentation/.vitepress/dist/
+      - name: Deploy docs
+        uses: actions/deploy-pages@v4

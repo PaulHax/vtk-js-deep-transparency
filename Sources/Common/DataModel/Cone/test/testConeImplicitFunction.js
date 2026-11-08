@@ -1,0 +1,75 @@
+import { it, expect } from 'vitest';
+import testUtils from 'vtk.js/Sources/Testing/testUtils';
+
+import 'vtk.js/Sources/Rendering/Misc/RenderingAPIs';
+import vtkRenderWindow from 'vtk.js/Sources/Rendering/Core/RenderWindow';
+import vtkRenderer from 'vtk.js/Sources/Rendering/Core/Renderer';
+import vtkCone from 'vtk.js/Sources/Common/DataModel/Cone';
+import vtkSampleFunction from 'vtk.js/Sources/Imaging/Hybrid/SampleFunction';
+import vtkImageMarchingCubes from 'vtk.js/Sources/Filters/General/ImageMarchingCubes';
+import vtkMapper from 'vtk.js/Sources/Rendering/Core/Mapper';
+import vtkActor from 'vtk.js/Sources/Rendering/Core/Actor';
+
+import baseline from './testConeImplicitFunction.png';
+
+it.skipIf(__VTK_TEST_NO_WEBGL__)('Test Cone Implicit Function', () => {
+  const gc = testUtils.createGarbageCollector();
+  expect('rendering', 'Cone Implicit Function').toBeTruthy();
+
+  // Create some control UI
+  const container = document.querySelector('body');
+  const renderWindowContainer = gc.registerDOMElement(
+    document.createElement('div')
+  );
+  container.appendChild(renderWindowContainer);
+
+  // Rendering stuff
+  const renderWindow = gc.registerResource(vtkRenderWindow.newInstance());
+  const renderer = gc.registerResource(vtkRenderer.newInstance());
+  renderWindow.addRenderer(renderer);
+  renderer.setBackground(0.32, 0.34, 0.43);
+
+  // Pipeline
+  const cone = gc.registerResource(vtkCone.newInstance({ angle: 12.0 }));
+  const sample = gc.registerResource(
+    vtkSampleFunction.newInstance({
+      implicitFunction: cone,
+      sampleDimensions: [50, 50, 50],
+      modelBounds: [-1, 1, -1, 1, -1, 1],
+    })
+  );
+  const mCubes = gc.registerResource(
+    vtkImageMarchingCubes.newInstance({ contourValue: 0.0 })
+  );
+  mCubes.setInputConnection(sample.getOutputPort());
+
+  const mapper = gc.registerResource(vtkMapper.newInstance());
+  mapper.setInputConnection(mCubes.getOutputPort());
+
+  const actor = gc.registerResource(vtkActor.newInstance());
+  actor.setMapper(mapper);
+
+  renderer.addActor(actor);
+
+  // now create something to view it, in this case webgl
+  const glwindow = gc.registerResource(renderWindow.newAPISpecificView());
+  glwindow.setContainer(renderWindowContainer);
+  renderWindow.addView(glwindow);
+  glwindow.setSize(400, 400);
+
+  renderWindow.render();
+
+  const promise = glwindow
+    .captureNextImage()
+    .then((image) =>
+      testUtils.compareImages(
+        image,
+        [baseline],
+        'Common/DataModel/Cone/testConeImplicitFunction',
+        1.0
+      )
+    )
+    .finally(gc.releaseResources);
+  renderWindow.render();
+  return promise;
+});

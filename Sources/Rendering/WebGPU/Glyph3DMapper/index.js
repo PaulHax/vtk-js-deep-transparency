@@ -1,0 +1,299 @@
+import * as macro from 'vtk.js/Sources/macros';
+import vtkWebGPUCellArrayMapper from 'vtk.js/Sources/Rendering/WebGPU/CellArrayMapper';
+import vtkWebGPUPolyDataMapper from 'vtk.js/Sources/Rendering/WebGPU/PolyDataMapper';
+import vtkWebGPUStorageBuffer from 'vtk.js/Sources/Rendering/WebGPU/StorageBuffer';
+import vtkWebGPUShaderCache from 'vtk.js/Sources/Rendering/WebGPU/ShaderCache';
+import { getClipPlaneShaderChecks } from 'vtk.js/Sources/Rendering/WebGPU/Helpers/ClippingPlanes';
+import { registerOverride } from 'vtk.js/Sources/Rendering/WebGPU/ViewNodeFactory';
+import { getWebGPUContext } from 'vtk.js/Sources/Rendering/WebGPU/Helpers/Context';
+
+function vtkWebGPUGlyph3DCellArrayMapper(publicAPI, model) {
+  // Set our className
+  model.classHierarchy.push('vtkWebGPUGlyph3DCellArrayMapper');
+
+  const superClass = { ...publicAPI };
+
+  publicAPI.setGlyphInstances = (val) => {
+    model.glyphInstances = val;
+  };
+
+  publicAPI.updateBuffers = () => {
+    superClass.updateBuffers();
+    publicAPI.setNumberOfInstances(model.glyphInstances);
+  };
+
+  publicAPI.computePipelineHash = () => {
+    superClass.computePipelineHash();
+    if (model.renderable.getColorArray()) {
+      model.pipelineHash += 'gc';
+    }
+  };
+
+  publicAPI.replaceShaderPosition = (hash, pipeline, vertexInput) => {
+    const vDesc = pipeline.getShaderDescription('vertex');
+    vDesc.addBuiltinInput('u32', '@builtin(instance_index) instanceIndex');
+    vDesc.addBuiltinOutput('vec4<f32>', '@builtin(position) Position');
+    if (!vDesc.hasOutput('vertexVC')) vDesc.addOutput('vec3<f32>', 'vertexVC');
+    if (!vDesc.hasOutput('vertexSC')) vDesc.addOutput('vec4<f32>', 'vertexSC');
+    let code = vDesc.getCode();
+    code = vtkWebGPUShaderCache.substitute(code, '//VTK::Position::Impl', [
+      '    var glyphMC: vec4<f32> = vec4<f32>(vertexBC.xyz - mapperUBO.BufferShift, 1.0);',
+      '    var glyphModel: vec4<f32> = glyphSSBO.values[input.instanceIndex].matrix*glyphMC;',
+      '    var glyphBC: vec4<f32> = vec4<f32>(glyphModel.xyz + mapperUBO.BufferShift, 1.0);',
+      '    output.vertexSC = mapperUBO.BCSCMatrix*glyphBC;',
+      '    output.vertexVC = (rendererUBO.SCVCMatrix*output.vertexSC).xyz;',
+      '    output.Position = rendererUBO.SCPCMatrix*output.vertexSC;',
+    ]).result;
+    vDesc.setCode(code);
+
+    const fDesc = pipeline.getShaderDescription('fragment');
+    let fcode = fDesc.getCode();
+    const clipPlaneChecks = getClipPlaneShaderChecks({
+      countName: 'mapperUBO.NumClipPlanes',
+      planePrefix: 'mapperUBO.ClipPlane',
+      positionName: 'input.vertexSC',
+    });
+    fcode = vtkWebGPUShaderCache.substitute(fcode, '//VTK::Position::Impl', [
+      ...clipPlaneChecks,
+      '//VTK::Position::Impl',
+    ]).result;
+    fDesc.setCode(fcode);
+  };
+  model.shaderReplacements.set(
+    'replaceShaderPosition',
+    publicAPI.replaceShaderPosition
+  );
+
+  // A cell normal is transformed in the fragment shader, so the fragment
+  // shader needs the instance of the glyph.
+  publicAPI.getCellNormalMatrix = () =>
+    'mapperUBO.MCWCNormals * glyphSSBO.values[input.glyphInstance].normal';
+
+  publicAPI.replaceShaderNormal = (hash, pipeline, vertexInput) => {
+    if (publicAPI.usesCellNormals()) {
+      const vDesc = pipeline.getShaderDescription('vertex');
+      vDesc.addOutput('u32', 'glyphInstance', 'flat');
+      const code = vtkWebGPUShaderCache.substitute(
+        vDesc.getCode(),
+        '//VTK::Normal::Impl',
+        ['  output.glyphInstance = input.instanceIndex;']
+      ).result;
+      vDesc.setCode(code);
+    }
+    if (vertexInput.hasAttribute('normalMC')) {
+      const vDesc = pipeline.getShaderDescription('vertex');
+      let code = vDesc.getCode();
+      code = vtkWebGPUShaderCache.substitute(code, '//VTK::Normal::Impl', [
+        '  output.normalVC = normalize((rendererUBO.WCVCNormals',
+        ' * mapperUBO.MCWCNormals',
+        ' * glyphSSBO.values[input.instanceIndex].normal*normalMC).xyz);',
+      ]).result;
+      vDesc.setCode(code);
+    }
+    superClass.replaceShaderNormal(hash, pipeline, vertexInput);
+  };
+  model.shaderReplacements.set(
+    'replaceShaderNormal',
+    publicAPI.replaceShaderNormal
+  );
+
+  publicAPI.replaceShaderColor = (hash, pipeline, vertexInput) => {
+    if (!model.renderable.getColorArray()) {
+      superClass.replaceShaderColor(hash, pipeline, vertexInput);
+      return;
+    }
+    const vDesc = pipeline.getShaderDescription('vertex');
+    vDesc.addOutput('vec4<f32>', 'color');
+    let code = vDesc.getCode();
+    code = vtkWebGPUShaderCache.substitute(code, '//VTK::Color::Impl', [
+      '  output.color = glyphSSBO.values[input.instanceIndex].color;',
+    ]).result;
+    vDesc.setCode(code);
+
+    const fDesc = pipeline.getShaderDescription('fragment');
+    code = fDesc.getCode();
+    code = vtkWebGPUShaderCache.substitute(code, '//VTK::Color::Impl', [
+      'ambientColor = input.color;',
+      'diffuseColor = input.color;',
+      'opacity = mapperUBO.Opacity * input.color.a;',
+    ]).result;
+    fDesc.setCode(code);
+  };
+  model.shaderReplacements.set(
+    'replaceShaderColor',
+    publicAPI.replaceShaderColor
+  );
+
+  publicAPI.replaceShaderSelect = (hash, pipeline, vertexInput) => {
+    if (model.selectionPass) {
+      const vDesc = pipeline.getShaderDescription('vertex');
+      vDesc.addOutput('u32', 'attributeID', 'flat');
+      vDesc.addOutput('u32', 'compositeID', 'flat');
+      let code = vDesc.getCode();
+      code = vtkWebGPUShaderCache.substitute(code, '//VTK::Select::Impl', [
+        '  output.compositeID = input.instanceIndex + 1u;',
+        '  output.attributeID = input.instanceIndex + 1u;',
+      ]).result;
+      vDesc.setCode(code);
+
+      const fDesc = pipeline.getShaderDescription('fragment');
+      code = fDesc.getCode();
+      code = vtkWebGPUShaderCache.substitute(code, '//VTK::Select::Impl', [
+        'var compositeID: u32 = input.compositeID;',
+        'var attributeID: u32 = input.attributeID;',
+      ]).result;
+      fDesc.setCode(code);
+    }
+  };
+  model.shaderReplacements.set(
+    'replaceShaderSelect',
+    publicAPI.replaceShaderSelect
+  );
+}
+
+// ----------------------------------------------------------------------------
+export function caExtend(publicAPI, model, initialValues = {}) {
+  Object.assign(model, {}, initialValues);
+
+  // Inheritance
+  vtkWebGPUCellArrayMapper.extend(publicAPI, model, initialValues);
+
+  // Object methods
+  vtkWebGPUGlyph3DCellArrayMapper(publicAPI, model);
+}
+
+const caNewInstance = macro.newInstance(
+  caExtend,
+  'vtkWebGPUGlyph3DCellArrayMapper'
+);
+
+// ----------------------------------------------------------------------------
+// vtkWebGPUSphereMapper methods
+// ----------------------------------------------------------------------------
+
+function vtkWebGPUGlyph3DMapper(publicAPI, model) {
+  // Set our className
+  model.classHierarchy.push('vtkWebGPUGlyph3DMapper');
+
+  publicAPI.createCellArrayMapper = () => {
+    const mpr = caNewInstance();
+    mpr.setSSBO(model.SSBO);
+    mpr.setRenderable(model.renderable);
+    return mpr;
+  };
+
+  publicAPI.buildPass = (prepass) => {
+    if (prepass) {
+      model.WebGPUActor = publicAPI.getFirstAncestorOfType('vtkWebGPUActor');
+      if (!model.renderable.getStatic()) {
+        model.renderable.update();
+      }
+
+      const gpoly = model.renderable.getInputData(1);
+
+      model.renderable.mapScalars(gpoly, 1.0);
+
+      publicAPI.updateSSBO();
+
+      publicAPI.updateCellArrayMappers(gpoly);
+
+      for (let i = 0; i < model.children.length; i++) {
+        const cellMapper = model.children[i];
+        cellMapper.setGlyphInstances(model.numInstances);
+      }
+    }
+  };
+
+  publicAPI.updateSSBO = () => {
+    model.currentInput = model.renderable.getInputData(1);
+
+    model.renderable.buildArrays();
+
+    // update the buffer objects if needed
+    const garray = model.renderable.getMatrixArray();
+    const narray = model.renderable.getNormalArray();
+    model.carray = model.renderable.getColorArray();
+    model.numInstances = garray.length / 16;
+
+    if (
+      model.renderable.getBuildTime().getMTime() >
+      model.glyphBOBuildTime.getMTime()
+    ) {
+      // In Core class all arrays are rebuilt when this happens
+      // but these arrays can be shared between all primType
+      const { renderWindow, device } = getWebGPUContext(publicAPI);
+      model.WebGPURenderWindow = renderWindow;
+
+      const ssboInstances = Math.max(model.numInstances, 1);
+      model.SSBO.clearData();
+      model.SSBO.setNumberOfInstances(ssboInstances);
+      model.SSBO.addEntry('matrix', 'mat4x4<f32>');
+      model.SSBO.addEntry('normal', 'mat4x4<f32>');
+      if (model.carray) {
+        model.SSBO.addEntry('color', 'vec4<f32>');
+      }
+
+      if (model.numInstances > 0) {
+        model.SSBO.setAllInstancesFromArray('matrix', garray);
+        model.SSBO.setAllInstancesFromArray3x3To4x4('normal', narray);
+        if (model.carray) {
+          model.SSBO.setAllInstancesFromArrayColorToFloat(
+            'color',
+            model.carray.getData()
+          );
+        }
+      } else {
+        model.SSBO.setArray(
+          'matrix',
+          0,
+          [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        );
+        model.SSBO.setArray(
+          'normal',
+          0,
+          [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        );
+        if (model.carray) {
+          model.SSBO.setArray('color', 0, [1, 1, 1, 1]);
+        }
+      }
+
+      model.SSBO.send(device);
+      model.glyphBOBuildTime.modified();
+    }
+  };
+}
+
+// ----------------------------------------------------------------------------
+// Object factory
+// ----------------------------------------------------------------------------
+
+const DEFAULT_VALUES = {};
+
+// ----------------------------------------------------------------------------
+
+export function extend(publicAPI, model, initialValues = {}) {
+  Object.assign(model, DEFAULT_VALUES, initialValues);
+
+  // Inheritance
+  vtkWebGPUPolyDataMapper.extend(publicAPI, model, initialValues);
+
+  model.glyphBOBuildTime = {};
+  macro.obj(model.glyphBOBuildTime, { mtime: 0 });
+
+  model.SSBO = vtkWebGPUStorageBuffer.newInstance({ label: 'glyphSSBO' });
+
+  // Object methods
+  vtkWebGPUGlyph3DMapper(publicAPI, model);
+}
+
+// ----------------------------------------------------------------------------
+
+export const newInstance = macro.newInstance(extend, 'vtkWebGPUGlyph3DMapper');
+
+// ----------------------------------------------------------------------------
+
+export default { newInstance, extend };
+
+// Register ourself to WebGPU backend if imported
+registerOverride('vtkGlyph3DMapper', newInstance);

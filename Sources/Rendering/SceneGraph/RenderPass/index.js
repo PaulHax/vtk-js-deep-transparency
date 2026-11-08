@@ -1,0 +1,98 @@
+import macro from 'vtk.js/Sources/macros';
+
+// ----------------------------------------------------------------------------
+
+function vtkRenderPass(publicAPI, model) {
+  // Set our className
+  model.classHierarchy.push('vtkRenderPass');
+
+  publicAPI.getOperation = () => model.currentOperation;
+
+  publicAPI.setCurrentOperation = (val) => {
+    model.currentOperation = val;
+    model.currentTraverseOperation = `traverse${macro.capitalize(
+      model.currentOperation
+    )}`;
+  };
+
+  publicAPI.getTraverseOperation = () => model.currentTraverseOperation;
+
+  // a pass that captures the output of its delegates reads their color
+  // texture and writes the final image itself, so those delegates skip their
+  // own blit. such a pass overrides this to return true
+  publicAPI.getCaptureDelegateOutput = () => false;
+
+  // by default this class will traverse all of its
+  // preDelegateOperations, then call its delegate render passes
+  // the traverse all of its postDelegateOperations
+  // any of those three arrays can be empty
+  publicAPI.traverse = (viewNode, parent = null) => {
+    if (model.deleted) {
+      return;
+    }
+
+    // we just render our delegates in order
+    model._currentParent = parent;
+
+    model.preDelegateOperations.forEach((val) => {
+      publicAPI.setCurrentOperation(val);
+      viewNode.traverse(publicAPI);
+    });
+    model.delegates.forEach((val) => {
+      val.traverse(viewNode, publicAPI);
+    });
+    model.postDelegateOperations.forEach((val) => {
+      publicAPI.setCurrentOperation(val);
+      viewNode.traverse(publicAPI);
+    });
+  };
+
+  // The cascade covers model.delegates only: a pass that holds another pass
+  // outside that array releases it itself. A deleted delegate has no model
+  // left to walk, so reaching into it would throw and abort teardown.
+  publicAPI.releaseGraphicsResources = (viewNode) => {
+    model.delegates
+      .filter((delegate) => !delegate.isDeleted())
+      .forEach((delegate) => delegate.releaseGraphicsResources?.(viewNode));
+  };
+}
+
+// ----------------------------------------------------------------------------
+// Object factory
+// ----------------------------------------------------------------------------
+
+const DEFAULT_VALUES = {
+  delegates: [],
+  currentOperation: null,
+  preDelegateOperations: [],
+  postDelegateOperations: [],
+  currentParent: null,
+};
+
+// ----------------------------------------------------------------------------
+
+export function extend(publicAPI, model, initialValues = {}) {
+  Object.assign(model, DEFAULT_VALUES, initialValues);
+
+  // Build VTK API
+  macro.obj(publicAPI, model);
+  macro.get(publicAPI, model, ['currentOperation']);
+  macro.setGet(publicAPI, model, [
+    'delegates',
+    '_currentParent',
+    'preDelegateOperations',
+    'postDelegateOperations',
+  ]);
+  macro.moveToProtected(publicAPI, model, ['currentParent']);
+
+  // Object methods
+  vtkRenderPass(publicAPI, model);
+}
+
+// ----------------------------------------------------------------------------
+
+export const newInstance = macro.newInstance(extend, 'vtkRenderPass');
+
+// ----------------------------------------------------------------------------
+
+export default { newInstance, extend };

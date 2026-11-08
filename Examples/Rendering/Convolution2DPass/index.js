@@ -1,0 +1,268 @@
+import '@kitware/vtk.js/favicon';
+
+// Load the rendering pieces we want to use (registers both WebGL and WebGPU)
+import '@kitware/vtk.js/Rendering/Profiles/Volume';
+
+// Force DataAccessHelper to have access to various data source
+import '@kitware/vtk.js/IO/Core/DataAccessHelper/HtmlDataAccessHelper';
+import '@kitware/vtk.js/IO/Core/DataAccessHelper/HttpDataAccessHelper';
+import '@kitware/vtk.js/IO/Core/DataAccessHelper/JSZipDataAccessHelper';
+
+import vtkFullScreenRenderWindow from '@kitware/vtk.js/Rendering/Misc/FullScreenRenderWindow';
+import vtkHttpDataSetReader from '@kitware/vtk.js/IO/Core/HttpDataSetReader';
+import vtkPiecewiseFunction from '@kitware/vtk.js/Common/DataModel/PiecewiseFunction';
+import vtkColorTransferFunction from '@kitware/vtk.js/Rendering/Core/ColorTransferFunction';
+import vtkVolume from '@kitware/vtk.js/Rendering/Core/Volume';
+import vtkVolumeMapper from '@kitware/vtk.js/Rendering/Core/VolumeMapper';
+import vtkOpenGLForwardPass from '@kitware/vtk.js/Rendering/OpenGL/ForwardPass';
+import vtkOpenGLConvolution2DPass from '@kitware/vtk.js/Rendering/OpenGL/Convolution2DPass';
+import vtkWebGPUForwardPass from '@kitware/vtk.js/Rendering/WebGPU/ForwardPass';
+import vtkWebGPUConvolution2DPass from '@kitware/vtk.js/Rendering/WebGPU/Convolution2DPass';
+import GUI from 'lil-gui';
+
+// ----------------------------------------------------------------------------
+// Renderer selection (WebGL or WebGPU)
+// ----------------------------------------------------------------------------
+
+const rendererSelectorParams = {
+  viewAPI:
+    new URLSearchParams(window.location.search).get('viewAPI') || 'WebGL',
+};
+const useWebGPU = rendererSelectorParams.viewAPI === 'WebGPU';
+
+// Pick the render passes matching the active rendering backend
+const vtkForwardPass = useWebGPU ? vtkWebGPUForwardPass : vtkOpenGLForwardPass;
+const vtkConvolution2DPass = useWebGPU
+  ? vtkWebGPUConvolution2DPass
+  : vtkOpenGLConvolution2DPass;
+
+// ----------------------------------------------------------------------------
+// Standard rendering code setup
+// ----------------------------------------------------------------------------
+
+const fullScreenRenderer = vtkFullScreenRenderWindow.newInstance({
+  background: [0, 0, 0],
+  viewAPI: rendererSelectorParams.viewAPI,
+});
+const renderer = fullScreenRenderer.getRenderer();
+const renderWindow = fullScreenRenderer.getRenderWindow();
+
+const view = renderWindow.getViews()[0];
+
+const gui = new GUI();
+
+gui
+  .add(rendererSelectorParams, 'viewAPI', ['WebGL', 'WebGPU'])
+  .name('Renderer')
+  .onChange((api) => {
+    const query = new URLSearchParams(window.location.search);
+    query.set('viewAPI', api);
+    window.location.search = query.toString();
+  });
+
+// ----------------------------------------------------------------------------
+// Example code
+// ----------------------------------------------------------------------------
+
+// ----------------------------------------------------------------------------
+// Utility functions for generating convolution passes
+// ----------------------------------------------------------------------------
+
+function getConvolutionPass(kernel, kernelDimension, delegates = null) {
+  const convolutionPass = vtkConvolution2DPass.newInstance();
+  if (delegates !== null) {
+    convolutionPass.setDelegates(delegates);
+  }
+  convolutionPass.setKernelDimension(kernelDimension);
+  convolutionPass.setKernel(kernel);
+  return convolutionPass;
+}
+
+function getEdgeEnhancement1Pass(k, delegates = null) {
+  return getConvolutionPass(
+    [0, -k, 0, -k, 1 + 4 * k, -k, 0, -k, 0],
+    3,
+    delegates
+  );
+}
+
+function getEdgeEnhancement2Pass(k, delegates = null) {
+  return getConvolutionPass(
+    [-k, -k, -k, -k, 1 + 8 * k, -k, -k, -k, -k],
+    3,
+    delegates
+  );
+}
+
+function getEdgeEnhancement3Pass(k, delegates = null) {
+  return getConvolutionPass(
+    [-k, -2 * k, -k, -2 * k, 1 + 12 * k, -2 * k, -k, -2 * k, -k],
+    3,
+    delegates
+  );
+}
+
+function getGaussianBlurPass(delegates = null) {
+  return getConvolutionPass([1, 2, 1, 2, 4, 2, 1, 2, 1], 3, delegates);
+}
+
+function getEdgeDetectPass(delegates = null) {
+  return getConvolutionPass([-1, -1, -1, -1, 8, -1, -1, -1, -1], 3, delegates);
+}
+
+function getUnsharpMaskPass(delegates = null) {
+  // prettier-ignore
+  return getConvolutionPass(
+    [
+      -1, -4, -6, -4, -1,
+      -4, -16, -24, -16, -4,
+      -6, -24, 512 - 36, -24, -6,
+      -4, -16, -24, -16, -4,
+      -1, -4, -6, -4, -1
+    ],
+    5,
+    delegates
+  );
+}
+
+const reader = vtkHttpDataSetReader.newInstance({ fetchGzip: true });
+
+const actor = vtkVolume.newInstance();
+const mapper = vtkVolumeMapper.newInstance();
+mapper.setSampleDistance(0.7);
+actor.setMapper(mapper);
+
+// create color and opacity transfer functions
+const ctfun = vtkColorTransferFunction.newInstance();
+ctfun.addRGBPoint(200.0, 0.4, 0.2, 0.0);
+ctfun.addRGBPoint(2000.0, 1.0, 1.0, 1.0);
+const ofun = vtkPiecewiseFunction.newInstance();
+ofun.addPoint(200.0, 0.0);
+ofun.addPoint(1200.0, 0.5);
+ofun.addPoint(3000.0, 0.8);
+actor.getProperty().setRGBTransferFunction(0, ctfun);
+actor.getProperty().setScalarOpacity(0, ofun);
+actor.getProperty().setScalarOpacityUnitDistance(0, 4.5);
+actor.getProperty().setInterpolationTypeToLinear();
+actor.getProperty().setUseGradientOpacity(0, true);
+actor.getProperty().setGradientOpacityMinimumValue(0, 15);
+actor.getProperty().setGradientOpacityMinimumOpacity(0, 0.0);
+actor.getProperty().setGradientOpacityMaximumValue(0, 100);
+actor.getProperty().setGradientOpacityMaximumOpacity(0, 1.0);
+actor.getProperty().setShade(true);
+actor.getProperty().setAmbient(0.2);
+actor.getProperty().setDiffuse(0.7);
+actor.getProperty().setSpecular(0.3);
+actor.getProperty().setSpecularPower(8.0);
+
+mapper.setInputConnection(reader.getOutputPort());
+
+// ----------------------------------------------------------------------------
+// Update render-pipeline with chain of enabled render passes
+// ----------------------------------------------------------------------------
+const params = {
+  Gaussian: false,
+  Mode: 'None',
+  Edge1: 3,
+  Edge2: 3,
+  Edge3: 3,
+};
+
+function updatePostProcessing() {
+  let renderPass = vtkForwardPass.newInstance();
+  if (params.Gaussian) {
+    renderPass = getGaussianBlurPass([renderPass]);
+  }
+  switch (params.Mode) {
+    case 'Edge1':
+      renderPass = getEdgeEnhancement1Pass(params.Edge1, [renderPass]);
+      break;
+    case 'Edge2':
+      renderPass = getEdgeEnhancement2Pass(params.Edge2, [renderPass]);
+      break;
+    case 'Edge3':
+      renderPass = getEdgeEnhancement3Pass(params.Edge3, [renderPass]);
+      break;
+    case 'EdgeDetect':
+      renderPass = getEdgeDetectPass([renderPass]);
+      break;
+    case 'UnsharpMask':
+      renderPass = getUnsharpMaskPass([renderPass]);
+      break;
+    default:
+      break;
+  }
+  view.setRenderPasses([renderPass]);
+  renderWindow.render();
+}
+
+let edge1Ctrl;
+let edge2Ctrl;
+let edge3Ctrl;
+
+gui
+  .add(params, 'Gaussian')
+  .name('Gaussian Blur')
+  .onChange(updatePostProcessing);
+
+gui
+  .add(params, 'Mode', [
+    'None',
+    'Edge1',
+    'Edge2',
+    'Edge3',
+    'EdgeDetect',
+    'UnsharpMask',
+  ])
+  .name('Edge Mode')
+  .onChange(() => {
+    updatePostProcessing();
+    edge1Ctrl.disable();
+    edge2Ctrl.disable();
+    edge3Ctrl.disable();
+    if (params.Mode === 'Edge1') edge1Ctrl.enable();
+    if (params.Mode === 'Edge2') edge2Ctrl.enable();
+    if (params.Mode === 'Edge3') edge3Ctrl.enable();
+  });
+
+edge1Ctrl = gui
+  .add(params, 'Edge1', 0, 10, 0.1)
+  .name('Edge1 Strength')
+  .onChange(updatePostProcessing);
+edge2Ctrl = gui
+  .add(params, 'Edge2', 0, 10, 0.1)
+  .name('Edge2 Strength')
+  .onChange(updatePostProcessing);
+edge3Ctrl = gui
+  .add(params, 'Edge3', 0, 10, 0.1)
+  .name('Edge3 Strength')
+  .onChange(updatePostProcessing);
+
+edge1Ctrl.disable();
+edge2Ctrl.disable();
+edge3Ctrl.disable();
+
+reader.setUrl(`${__BASE_PATH__}/data/volume/headsq.vti`).then(() => {
+  reader.loadData().then(() => {
+    renderer.addVolume(actor);
+    const interactor = renderWindow.getInteractor();
+    interactor.setDesiredUpdateRate(15.0);
+    renderer.resetCamera();
+    renderer.getActiveCamera().elevation(80);
+    renderWindow.render();
+
+    updatePostProcessing();
+  });
+});
+
+// -----------------------------------------------------------
+// Make some variables global so that you can inspect and
+// modify objects in your browser's developer console:
+// -----------------------------------------------------------
+
+global.source = reader;
+global.mapper = mapper;
+global.actor = actor;
+global.ofun = ofun;
+global.renderer = renderer;
+global.renderWindow = renderWindow;

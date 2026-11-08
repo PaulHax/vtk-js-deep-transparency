@@ -1,0 +1,161 @@
+import '@kitware/vtk.js/favicon';
+
+// Load the rendering pieces we want to use (for both WebGL and WebGPU)
+import '@kitware/vtk.js/Rendering/Profiles/Geometry';
+
+import vtkActor from '@kitware/vtk.js/Rendering/Core/Actor';
+import vtkActor2D from '@kitware/vtk.js/Rendering/Core/Actor2D';
+import vtkCalculator from '@kitware/vtk.js/Filters/General/Calculator';
+import vtkCoordinate from '@kitware/vtk.js/Rendering/Core/Coordinate';
+import vtkSphereSource from '@kitware/vtk.js/Filters/Sources/SphereSource';
+import vtkConeSource from '@kitware/vtk.js/Filters/Sources/ConeSource';
+import vtkFullScreenRenderWindow from '@kitware/vtk.js/Rendering/Misc/FullScreenRenderWindow';
+import vtkMapper from '@kitware/vtk.js/Rendering/Core/Mapper';
+import vtkMapper2D from '@kitware/vtk.js/Rendering/Core/Mapper2D';
+import { AttributeTypes } from '@kitware/vtk.js/Common/DataModel/DataSetAttributes/Constants';
+import { FieldDataTypes } from '@kitware/vtk.js/Common/DataModel/DataSet/Constants';
+import { DisplayLocation } from '@kitware/vtk.js/Rendering/Core/Property2D/Constants';
+import { Representation } from '@kitware/vtk.js/Rendering/Core/Property/Constants';
+
+import vtkFPSMonitor from '@kitware/vtk.js/Interaction/UI/FPSMonitor';
+
+import GUI from 'lil-gui';
+
+// ----------------------------------------------------------------------------
+// Standard rendering code setup
+// ----------------------------------------------------------------------------
+
+const fullScreenRenderer = vtkFullScreenRenderWindow.newInstance({
+  background: [0, 0, 0],
+});
+const renderer = fullScreenRenderer.getRenderer();
+const renderWindow = fullScreenRenderer.getRenderWindow();
+
+const fpsMonitor = vtkFPSMonitor.newInstance();
+const fpsElm = fpsMonitor.getFpsMonitorContainer();
+fpsElm.style.position = 'absolute';
+fpsElm.style.left = '10px';
+fpsElm.style.bottom = '10px';
+fpsElm.style.background = 'rgba(255,255,255,0.5)';
+fpsElm.style.borderRadius = '5px';
+
+fpsMonitor.setContainer(document.querySelector('body'));
+fpsMonitor.setRenderWindow(renderWindow);
+
+fullScreenRenderer.setResizeCallback(fpsMonitor.update);
+
+// ----------------------------------------------------------------------------
+// Example code
+// ----------------------------------------------------------------------------
+// create a filter on the fly, sort of cool, this is a random scalars
+// filter we create inline, for a simple cone you would not need
+// this
+// ----------------------------------------------------------------------------
+
+const coneSource = vtkConeSource.newInstance({
+  resolution: 10,
+});
+
+const sphereSource = vtkSphereSource.newInstance({});
+
+const filter = vtkCalculator.newInstance();
+
+filter.setInputConnection(sphereSource.getOutputPort());
+filter.setFormula({
+  getArrays: (inputDataSets) => ({
+    input: [],
+    output: [
+      {
+        location: FieldDataTypes.CELL,
+        name: 'Random',
+        dataType: 'Float32Array',
+        attribute: AttributeTypes.SCALARS,
+      },
+    ],
+  }),
+  evaluate: (arraysIn, arraysOut) => {
+    const [scalars] = arraysOut.map((d) => d.getData());
+    for (let i = 0; i < scalars.length; i++) {
+      scalars[i] = Math.random();
+    }
+  },
+});
+
+const mapper = vtkMapper.newInstance();
+mapper.setInputConnection(coneSource.getOutputPort());
+const mapper2D = vtkMapper2D.newInstance();
+mapper2D.setInputConnection(filter.getOutputPort());
+const c = vtkCoordinate.newInstance();
+c.setCoordinateSystemToWorld();
+mapper2D.setTransformCoordinate(c);
+mapper2D.setScalarVisibility(true);
+mapper2D.setScalarMode(2);
+const mapper2 = vtkMapper2D.newInstance();
+mapper2.setInputConnection(coneSource.getOutputPort());
+mapper2.setTransformCoordinate(c);
+mapper2.setScalarVisibility(false);
+
+const actor = vtkActor.newInstance();
+actor.setMapper(mapper);
+actor.getProperty().setRepresentationToWireframe();
+actor.getProperty().setEdgeVisibility(true);
+actor.getProperty().setEdgeColor([0.5, 0, 0.6]);
+actor.getProperty().setLineWidth(3);
+const actor2D = vtkActor2D.newInstance();
+actor2D.setMapper(mapper2D);
+actor2D.getProperty().setColor([1, 0, 0]);
+actor2D.getProperty().setOpacity(0.75);
+actor2D.getProperty().setLineWidth(3);
+actor2D.getProperty().setDisplayLocation(DisplayLocation.FOREGROUND);
+actor2D.getProperty().setRepresentation(Representation.SURFACE);
+const actor2 = vtkActor2D.newInstance();
+actor2.setMapper(mapper2);
+actor2.getProperty().setOpacity(0.3);
+
+renderer.addActor(actor);
+renderer.addActor2D(actor2D);
+renderer.addActor2D(actor2);
+actor2D.setLayerNumber(2);
+renderer.resetCamera();
+renderWindow.render();
+fpsMonitor.update();
+
+// -----------------------------------------------------------
+// UI control handling
+// -----------------------------------------------------------
+
+const gui = new GUI();
+const params = {
+  Representation: 2,
+  Resolution: 10,
+};
+gui
+  .add(params, 'Representation', { Points: 0, Wireframe: 1, Surface: 2 })
+  .onChange((val) => {
+    const rep = Number(val);
+    actor2D.getProperty().setRepresentation(rep);
+    actor.getProperty().setRepresentation(rep);
+    renderWindow.render();
+    fpsMonitor.update();
+  });
+gui.add(params, 'Resolution', 4, 80, 1).onChange((val) => {
+  const res = Number(val);
+  sphereSource.setThetaResolution(res);
+  coneSource.setResolution(res);
+  renderWindow.render();
+  fpsMonitor.update();
+});
+
+// -----------------------------------------------------------
+// Make some variables global so that you can inspect and
+// modify objects in your browser's developer console:
+// -----------------------------------------------------------
+
+global.source = coneSource;
+global.mapper = mapper;
+global.actor = actor;
+global.sphereSource = sphereSource;
+global.mapper2D = mapper2D;
+global.actor2D = actor2D;
+global.renderer = renderer;
+global.renderWindow = renderWindow;

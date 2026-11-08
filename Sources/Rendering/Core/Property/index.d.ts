@@ -1,0 +1,794 @@
+import { vtkObject } from '../../../interfaces';
+import { Nullable, RGBColor, Vector2 } from '../../../types';
+import { Interpolation, Representation, Shading } from './Constants';
+import { vtkTexture } from '../../Core/Texture';
+
+export type TextureTransform = {
+  offset?: Vector2;
+  scale?: Vector2;
+  rotation?: number;
+  texCoord?: number;
+};
+
+export interface IPropertyInitialValues {
+  interpolation?: Interpolation;
+  representation?: Representation;
+  color?: RGBColor;
+  ambientColor?: RGBColor;
+  diffuseColor?: RGBColor;
+  specularColor?: RGBColor;
+  diffuseTexture?: Nullable<vtkTexture>;
+  metallicTexture?: Nullable<vtkTexture>;
+  roughnessTexture?: Nullable<vtkTexture>;
+  normalTexture?: Nullable<vtkTexture>;
+  ambientOcclusionTexture?: Nullable<vtkTexture>;
+  emissionTexture?: Nullable<vtkTexture>;
+  RMTexture?: Nullable<vtkTexture>;
+  ORMTexture?: Nullable<vtkTexture>;
+  edgeColor?: RGBColor;
+  edgeOpacity?: number;
+  ambient?: number;
+  diffuse?: number;
+  metallic?: number;
+  roughness?: number;
+  normalStrength?: number;
+  emission?: number;
+  baseIOR?: number;
+  specular?: number;
+  specularPower?: number;
+  opacity?: number;
+  edgeVisibility?: boolean;
+  backfaceCulling?: boolean;
+  frontfaceCulling?: boolean;
+  pointSize?: number;
+  lineWidth?: number;
+  lighting?: boolean;
+  shading?: boolean;
+  anisotropy?: number;
+  anisotropyRotation?: number;
+  coatStrength?: number;
+  coatRoughness?: number;
+  coatF0?: number;
+  coatNormalStrength?: number;
+  displacementFactor?: number;
+  emissiveStrength?: number;
+  occlusionStrength?: number;
+  transmissionFactor?: number;
+  alphaCutoff?: number;
+  alphaMode?: number;
+  thicknessFactor?: number;
+  attenuationDistance?: number;
+  iridescenceFactor?: number;
+  iridescenceIOR?: number;
+  iridescenceThicknessMinimum?: number;
+  iridescenceThicknessMaximum?: number;
+  sheenRoughnessFactor?: number;
+  diffuseTransmissionFactor?: number;
+  dispersion?: number;
+  specularFactor?: number;
+  anisotropyTexture?: Nullable<vtkTexture>;
+  coatTexture?: Nullable<vtkTexture>;
+  coatRoughnessTexture?: Nullable<vtkTexture>;
+  coatNormalTexture?: Nullable<vtkTexture>;
+  displacementTexture?: Nullable<vtkTexture>;
+  transmissionTexture?: Nullable<vtkTexture>;
+  thicknessTexture?: Nullable<vtkTexture>;
+  iridescenceTexture?: Nullable<vtkTexture>;
+  iridescenceThicknessTexture?: Nullable<vtkTexture>;
+  sheenColorTexture?: Nullable<vtkTexture>;
+  sheenRoughnessTexture?: Nullable<vtkTexture>;
+  diffuseTransmissionTexture?: Nullable<vtkTexture>;
+  diffuseTransmissionColorTexture?: Nullable<vtkTexture>;
+  specularTexture?: Nullable<vtkTexture>;
+  specularColorTexture?: Nullable<vtkTexture>;
+  coatColor?: RGBColor;
+  attenuationColor?: RGBColor;
+  sheenColorFactor?: RGBColor;
+  diffuseTransmissionColorFactor?: RGBColor;
+  specularColorFactor?: RGBColor;
+  textureTransforms?: Nullable<Record<string, TextureTransform>>;
+}
+
+export interface vtkProperty extends vtkObject {
+  getAnisotropy(): number;
+  setAnisotropy(anisotropy: number): boolean;
+  getAnisotropyRotation(): number;
+  setAnisotropyRotation(anisotropyRotation: number): boolean;
+  getCoatStrength(): number;
+  setCoatStrength(coatStrength: number): boolean;
+  getCoatRoughness(): number;
+  setCoatRoughness(coatRoughness: number): boolean;
+  getCoatF0(): number;
+  setCoatF0(coatF0: number): boolean;
+  getCoatNormalStrength(): number;
+  setCoatNormalStrength(coatNormalStrength: number): boolean;
+  getDisplacementFactor(): number;
+  setDisplacementFactor(displacementFactor: number): boolean;
+  getEmissiveStrength(): number;
+  setEmissiveStrength(emissiveStrength: number): boolean;
+  getOcclusionStrength(): number;
+  setOcclusionStrength(occlusionStrength: number): boolean;
+  getTransmissionFactor(): number;
+  setTransmissionFactor(transmissionFactor: number): boolean;
+  getAlphaCutoff(): number;
+  setAlphaCutoff(alphaCutoff: number): boolean;
+  getAlphaMode(): number;
+  setAlphaMode(alphaMode: number): boolean;
+  getThicknessFactor(): number;
+  setThicknessFactor(thicknessFactor: number): boolean;
+  getAttenuationDistance(): number;
+  setAttenuationDistance(attenuationDistance: number): boolean;
+  getIridescenceFactor(): number;
+  setIridescenceFactor(iridescenceFactor: number): boolean;
+  getIridescenceIOR(): number;
+  setIridescenceIOR(iridescenceIOR: number): boolean;
+  getIridescenceThicknessMinimum(): number;
+  setIridescenceThicknessMinimum(iridescenceThicknessMinimum: number): boolean;
+  getIridescenceThicknessMaximum(): number;
+  setIridescenceThicknessMaximum(iridescenceThicknessMaximum: number): boolean;
+  getSheenRoughnessFactor(): number;
+  setSheenRoughnessFactor(sheenRoughnessFactor: number): boolean;
+  getDiffuseTransmissionFactor(): number;
+  setDiffuseTransmissionFactor(diffuseTransmissionFactor: number): boolean;
+  getDispersion(): number;
+  setDispersion(dispersion: number): boolean;
+  getSpecularFactor(): number;
+  setSpecularFactor(specularFactor: number): boolean;
+  getAnisotropyTexture(): Nullable<vtkTexture>;
+  setAnisotropyTexture(anisotropyTexture: Nullable<vtkTexture>): boolean;
+  getCoatTexture(): Nullable<vtkTexture>;
+  setCoatTexture(coatTexture: Nullable<vtkTexture>): boolean;
+  getCoatRoughnessTexture(): Nullable<vtkTexture>;
+  setCoatRoughnessTexture(coatRoughnessTexture: Nullable<vtkTexture>): boolean;
+  getCoatNormalTexture(): Nullable<vtkTexture>;
+  setCoatNormalTexture(coatNormalTexture: Nullable<vtkTexture>): boolean;
+  getDisplacementTexture(): Nullable<vtkTexture>;
+  setDisplacementTexture(displacementTexture: Nullable<vtkTexture>): boolean;
+  getTransmissionTexture(): Nullable<vtkTexture>;
+  setTransmissionTexture(transmissionTexture: Nullable<vtkTexture>): boolean;
+  getThicknessTexture(): Nullable<vtkTexture>;
+  setThicknessTexture(thicknessTexture: Nullable<vtkTexture>): boolean;
+  getIridescenceTexture(): Nullable<vtkTexture>;
+  setIridescenceTexture(iridescenceTexture: Nullable<vtkTexture>): boolean;
+  getIridescenceThicknessTexture(): Nullable<vtkTexture>;
+  setIridescenceThicknessTexture(
+    iridescenceThicknessTexture: Nullable<vtkTexture>
+  ): boolean;
+  getSheenColorTexture(): Nullable<vtkTexture>;
+  setSheenColorTexture(sheenColorTexture: Nullable<vtkTexture>): boolean;
+  getSheenRoughnessTexture(): Nullable<vtkTexture>;
+  setSheenRoughnessTexture(
+    sheenRoughnessTexture: Nullable<vtkTexture>
+  ): boolean;
+  getDiffuseTransmissionTexture(): Nullable<vtkTexture>;
+  setDiffuseTransmissionTexture(
+    diffuseTransmissionTexture: Nullable<vtkTexture>
+  ): boolean;
+  getDiffuseTransmissionColorTexture(): Nullable<vtkTexture>;
+  setDiffuseTransmissionColorTexture(
+    diffuseTransmissionColorTexture: Nullable<vtkTexture>
+  ): boolean;
+  getSpecularTexture(): Nullable<vtkTexture>;
+  setSpecularTexture(specularTexture: Nullable<vtkTexture>): boolean;
+  getSpecularColorTexture(): Nullable<vtkTexture>;
+  setSpecularColorTexture(specularColorTexture: Nullable<vtkTexture>): boolean;
+  getCoatColor(): RGBColor;
+  getCoatColorByReference(): RGBColor;
+  setCoatColor(r: number, g: number, b: number): boolean;
+  setCoatColor(coatColor: RGBColor): boolean;
+  setCoatColorFrom(coatColor: RGBColor): void;
+  getAttenuationColor(): RGBColor;
+  getAttenuationColorByReference(): RGBColor;
+  setAttenuationColor(r: number, g: number, b: number): boolean;
+  setAttenuationColor(attenuationColor: RGBColor): boolean;
+  setAttenuationColorFrom(attenuationColor: RGBColor): void;
+  getSheenColorFactor(): RGBColor;
+  getSheenColorFactorByReference(): RGBColor;
+  setSheenColorFactor(r: number, g: number, b: number): boolean;
+  setSheenColorFactor(sheenColorFactor: RGBColor): boolean;
+  setSheenColorFactorFrom(sheenColorFactor: RGBColor): void;
+  getDiffuseTransmissionColorFactor(): RGBColor;
+  getDiffuseTransmissionColorFactorByReference(): RGBColor;
+  setDiffuseTransmissionColorFactor(r: number, g: number, b: number): boolean;
+  setDiffuseTransmissionColorFactor(
+    diffuseTransmissionColorFactor: RGBColor
+  ): boolean;
+  setDiffuseTransmissionColorFactorFrom(
+    diffuseTransmissionColorFactor: RGBColor
+  ): void;
+  getSpecularColorFactor(): RGBColor;
+  getSpecularColorFactorByReference(): RGBColor;
+  setSpecularColorFactor(r: number, g: number, b: number): boolean;
+  setSpecularColorFactor(specularColorFactor: RGBColor): boolean;
+  setSpecularColorFactorFrom(specularColorFactor: RGBColor): void;
+  getTextureTransform(key: string): Nullable<TextureTransform>;
+  getTextureTransforms(): Record<string, TextureTransform>;
+  setTextureTransform(key: string, transform: TextureTransform): void;
+  setTextureTransforms(
+    transforms: Nullable<Record<string, TextureTransform>>
+  ): void;
+
+  /**
+   * Not Implemented yet
+   */
+  addShaderVariable(): any;
+
+  /**
+   * Not Implemented yet
+   */
+  computeCompositeColor(): any;
+
+  /**
+   * Get the lighting coefficient.
+   * @default 0
+   */
+  getAmbient(): number;
+
+  /**
+   * Get the ambient surface color. Not all renderers support separate ambient
+   * and diffuse colors. From a physical standpoint it really doesn't make too
+   * much sense to have both. For the rendering libraries that don't support
+   * both, the diffuse color is used.
+   * @return {RGBColor} Array of RGB color.
+   */
+  getAmbientColor(): RGBColor;
+
+  /**
+   * Get the ambient surface color.
+   */
+  getAmbientColorByReference(): RGBColor;
+
+  /**
+   *
+   */
+  getBackfaceCulling(): boolean;
+
+  /**
+   * Get the color of the object.the color of the object
+   */
+  getColor(): RGBColor;
+
+  /**
+   * Get the diffuse lighting coefficient.
+   * @default 1
+   */
+  getDiffuse(): number;
+
+  /**
+   * Get the diffuse surface color.
+   * @return {RGBColor} Array of RGB color.
+   */
+  getDiffuseColor(): RGBColor;
+  /**
+   *
+   */
+  getDiffuseColorByReference(): RGBColor;
+
+  /**
+   *
+   */
+  getEdgeColor(): RGBColor;
+
+  /**
+   *
+   */
+  getEdgeColorByReference(): RGBColor;
+
+  /**
+   *
+   */
+  getEdgeOpacity(): number;
+
+  /**
+   *
+   */
+  getEdgeVisibility(): boolean;
+
+  /**
+   * Get the fast culling of polygons based on orientation of normal
+   * with respect to camera. If frontface culling is on, polygons facing
+   * towards camera are not drawn.
+   * @default false
+   */
+  getFrontfaceCulling(): boolean;
+
+  /**
+   * Get the shading interpolation method for an object.
+   */
+  getInterpolation(): Interpolation;
+
+  /**
+   * Map the interpolation integer to the corresponding ShadingModel.
+   */
+  getInterpolationAsString(): string;
+
+  /**
+   * Get lighting flag for an object.
+   * @default true
+   */
+  getLighting(): boolean;
+
+  /**
+   * Get the width of a Line. The width is expressed in screen units.
+   * @default 1.0
+   */
+  getLineWidth(): number;
+
+  /**
+   * Get the opacity of the object. Set/Get the object's opacity.
+   * 1.0 is totally opaque and 0.0 is completely transparent.
+   * @default 1
+   */
+  getOpacity(): number;
+
+  /**
+   * Get the diameter of a point. The size is expressed in screen units.
+   * @default 1.0
+   */
+  getPointSize(): number;
+
+  /**
+   * Get the surface geometry representation for the object.
+   */
+  getRepresentation(): Representation;
+
+  /**
+   * Get the surface geometry representation for the object as string.
+   * @return {String} Surface geometry representation for the object as string
+   */
+  getRepresentationAsString(): string;
+
+  /**
+   * Get the specular lighting coefficient.
+   * @default 0
+   */
+  getSpecular(): number;
+
+  /**
+   * Get the roughness coefficient.
+   * @default 1
+   */
+  getRoughness(): number;
+
+  /**
+   * Get the metallic coefficient.
+   * @default 0
+   */
+  getMetallic(): number;
+
+  /**
+   * Get the index of refraction.
+   * @default 0
+   */
+  getBaseIOR(): number;
+
+  /**
+   * Get the strength of the normal map.
+   * @default 1
+   */
+  getNormalStrength(): number;
+
+  /**
+   * Get the emission coefficient.
+   * @default 0
+   */
+  getEmission(): number;
+
+  /**
+   * Get the specular surface color.
+   * @return {RGBColor} Array of RGB color.
+   */
+  getSpecularColor(): RGBColor;
+
+  /**
+   * Get the specular surface color.
+   */
+  getSpecularColorByReference(): RGBColor;
+
+  /**
+   * Get the specular power.
+   * @default 1
+   */
+  getSpecularPower(): number;
+
+  /**
+   * Get the diffuse texture.
+   */
+  getDiffuseTexture(): Nullable<vtkTexture> | undefined;
+
+  /**
+   * Get the metallic texture.
+   */
+  getMetallicTexture(): Nullable<vtkTexture> | undefined;
+
+  /**
+   * Get the roughness & metallic texture.
+   */
+  getRMTexture(): Nullable<vtkTexture>;
+
+  /**
+   * Get the occlusion, roughness & metallic texture.
+   */
+  getORMTexture(): Nullable<vtkTexture>;
+
+  /**
+   * Get the roughness texture.
+   */
+  getRoughnessTexture(): Nullable<vtkTexture> | undefined;
+
+  /**
+   * Get the normal texture.
+   */
+  getNormalTexture(): Nullable<vtkTexture> | undefined;
+
+  /**
+   * Get the ambient occlusion texture.
+   */
+  getAmbientOcclusionTexture(): Nullable<vtkTexture> | undefined;
+
+  /**
+   * Get the emission texture.
+   */
+  getEmissionTexture(): Nullable<vtkTexture> | undefined;
+
+  /**
+   * Set the ambient lighting coefficient.
+   * @param {Number} ambient The ambient lighting coefficient.
+   */
+  setAmbient(ambient: number): boolean;
+
+  /**
+   * Set the ambient surface color. Not all renderers support separate
+   * ambient and diffuse colors. From a physical standpoint it really
+   * doesn't make too much sense to have both. For the rendering
+   * libraries that don’t support both, the diffuse color is used.
+   *
+   * @param {Number} r Defines the red component (between 0 and 1)
+   * @param {Number} g Defines the green component (between 0 and 1)
+   * @param {Number} b Defines the blue component (between 0 and 1)
+   */
+  setAmbientColor(r: number, g: number, b: number): boolean;
+
+  /**
+   * Set the ambient surface color. Not all renderers support separate
+   * ambient and diffuse colors. From a physical standpoint it really
+   * doesn't make too much sense to have both. For the rendering
+   * libraries that don’t support both, the diffuse color is used.
+   * @param {RGBColor} ambientColor An Array of the RGB color.
+   */
+  setAmbientColor(ambientColor: RGBColor): boolean;
+
+  /**
+   * Set the ambient surface color from an RGB array
+   * @param {RGBColor} ambientColor An Array of the RGB color.
+   */
+  setAmbientColorFrom(ambientColor: RGBColor): void;
+
+  /**
+   * Turn on/off fast culling of polygons based on orientation of normal
+   * with respect to camera. If backface culling is on, polygons facing
+   * away from camera are not drawn.
+   * @param {Boolean} backfaceCulling
+   */
+  setBackfaceCulling(backfaceCulling: boolean): boolean;
+
+  /**
+   * Set the color of the object. Has the side effect of setting the
+   * ambient diffuse and specular colors as well. This is basically
+   * a quick overall color setting method.
+   * @param {Number} r Defines the red component (between 0 and 1)
+   * @param {Number} g Defines the green component (between 0 and 1)
+   * @param {Number} b Defines the blue component (between 0 and 1)
+   */
+  setColor(r: number, g: number, b: number): void;
+
+  /**
+   * Set the color of the object. Has the side effect of setting the
+   * ambient diffuse and specular colors as well. This is basically
+   * a quick overall color setting method.
+   * @param {RGBColor} color An Array of the RGB color.
+   */
+  setColor(color: RGBColor): void;
+
+  /**
+   * Set the diffuse lighting coefficient.
+   * @param {Number} diffuse The diffuse lighting coefficient.
+   */
+  setDiffuse(diffuse: number): boolean;
+
+  /**
+   * Set the diffuse surface color.
+   * @param {Number} r Defines the red component (between 0 and 1)
+   * @param {Number} g Defines the green component (between 0 and 1)
+   * @param {Number} b Defines the blue component (between 0 and 1)
+   */
+  setDiffuseColor(r: number, g: number, b: number): boolean;
+
+  /**
+   * Set the diffuse surface color.
+   * @param {RGBColor} diffuseColor An Array of the RGB color.
+   */
+  setDiffuseColor(diffuseColor: RGBColor): boolean;
+
+  /**
+   * Set the diffuse surface color from an RGB array
+   * @param {RGBColor} diffuseColor An Array of the RGB color.
+   */
+  setDiffuseColorFrom(diffuseColor: RGBColor): void;
+
+  /**
+   * Set the color of primitive edges (if edge visibility is enabled).
+   * @param {Number} r Defines the red component (between 0 and 1)
+   * @param {Number} g Defines the green component (between 0 and 1)
+   * @param {Number} b Defines the blue component (between 0 and 1)
+   */
+  setEdgeColor(r: number, g: number, b: number): boolean;
+
+  /**
+   * Set the color of primitive edges (if edge visibility is enabled).
+   * @param {RGBColor} edgeColor An Array of the RGB color.
+   */
+  setEdgeColor(edgeColor: RGBColor): boolean;
+
+  /**
+   * Set the color of primitive edges from an RGB array.
+   * @param {RGBColor} edgeColor An Array of the RGB color.
+   */
+  setEdgeColorFrom(edgeColor: RGBColor): void;
+
+  /**
+   * Set the opacity of primitive edges. If not set explicitly, edge opacity
+   * follows the regular property opacity.
+   * @param {Number} edgeOpacity The opacity of primitive edges.
+   */
+  setEdgeOpacity(edgeOpacity: number): boolean;
+
+  /**
+   * Turn on/off the visibility of edges. On some renderers it is
+   * possible to render the edges of geometric primitives separately
+   * from the interior.
+   * @param {Boolean} edgeVisibility
+   */
+  setEdgeVisibility(edgeVisibility: boolean): boolean;
+
+  /**
+   * Turn on/off fast culling of polygons based on orientation of normal
+   * with respect to camera. If frontface culling is on, polygons facing
+   * towards camera are not drawn.
+   * @param {Boolean} frontfaceCulling
+   */
+  setFrontfaceCulling(frontfaceCulling: boolean): boolean;
+
+  /**
+   * Set the shading interpolation method for an object.
+   * @param {Interpolation} interpolation
+   */
+  setInterpolation(interpolation: Interpolation): boolean;
+
+  /**
+   * Set interpolation to 0 means `FLAT`.
+   */
+  setInterpolationToFlat(): boolean;
+
+  /**
+   * Set interpolation to 1 means `GOURAUD`.
+   */
+  setInterpolationToGouraud(): boolean;
+
+  /**
+   * Set interpolation to 2 means `PHONG`.
+   */
+  setInterpolationToPhong(): boolean;
+
+  /**
+   * Set interpolation to 3 for physically based rendering.
+   */
+  setInterpolationToPBR(): boolean;
+
+  /**
+   * Set lighting flag for an object.
+   * @param {Boolean} lighting
+   * @default true
+   */
+  setLighting(lighting: boolean): boolean;
+
+  /**
+   * Set the width of a Line. The width is expressed in screen units.
+   * !!! note
+   *     This is only implemented for OpenGL.
+   * @param {Number} lineWidth
+   * @default 1.0
+   */
+  setLineWidth(lineWidth: number): boolean;
+
+  /**
+   * Set the object's opacity. 1.0 is totally opaque and 0.0 is
+   * completely transparent.
+   * @param {Number} opacity The opacity of the object.
+   */
+  setOpacity(opacity: number): boolean;
+
+  /**
+   * Set the diameter of a point. The size is expressed in screen units.
+   * !!! note
+   *     This is only implemented for OpenGL.
+   * @param {Number} pointSize
+   * @default 1.0
+   */
+  setPointSize(pointSize: number): boolean;
+
+  /**
+   * Control the surface geometry representation for the object.
+   * @param {Representation} representation
+   */
+  setRepresentation(representation: Representation): boolean;
+
+  /**
+   * Set representation to 0 means `POINT`'
+   */
+  setRepresentationToPoints(): boolean;
+
+  /**
+   * Set representation to 2 means `SURFAC`'
+   */
+  setRepresentationToSurface(): boolean;
+
+  /**
+   * Set representation to 1 means `WIREFRAM`'
+   */
+  setRepresentationToWireframe(): boolean;
+
+  /**
+   * Set the specular lighting coefficient.
+   * @param {Boolean} specular
+   */
+  setSpecular(specular: number): boolean;
+
+  /**
+   * Set the roughness coefficient.
+   * @param {Number} roughness
+   */
+  setRoughness(roughness: number): boolean;
+
+  /**
+   * Set the metallic coefficient.
+   * @param {Number} metallic
+   */
+  setMetallic(metallic: number): boolean;
+
+  /**
+   * Set the index of refraction of the base layer.
+   * @param {Number} baseIOR
+   */
+  setBaseIOR(baseIOR: number): boolean;
+
+  /**
+   * Set the normal map strength.
+   * @param {Boolean} normal
+   */
+  setNormalStrength(normalStrength: number): boolean;
+
+  /**
+   * Set the ambient occlusion map strength.
+   * @param {Boolean} emission
+   */
+  setEmission(emission: number): boolean;
+
+  /**
+   * Set the specular surface color.
+   * @param {Number} r Defines the red component (between 0 and 1)
+   * @param {Number} g Defines the green component (between 0 and 1)
+   * @param {Number} b Defines the blue component (between 0 and 1)
+   */
+  setSpecularColor(r: number, g: number, b: number): boolean;
+
+  /**
+   * Set the specular surface color from an RGB array
+   * @param {RGBColor} specularColor An Array of the RGB color.
+   */
+  setSpecularColor(specularColor: RGBColor): boolean;
+
+  /**
+   * Set the specular surface color from an RGB array
+   * @param {RGBColor} specularColor An Array of the RGB color.
+   */
+  setSpecularColorFrom(specularColor: RGBColor): void;
+
+  /**
+   * Set the specular power.
+   * @param {Number} specularPower
+   */
+  setSpecularPower(specularPower: number): boolean;
+
+  /**
+   * Set the diffuse texture.
+   * @param {vtkTexture} diffuseTexture
+   */
+  setDiffuseTexture(diffuseTexture: Nullable<vtkTexture>): boolean;
+
+  /**
+   * Set the metallic texture.
+   * @param {vtkTexture} metallicTexture
+   */
+  setMetallicTexture(metallicTexture: Nullable<vtkTexture>): boolean;
+
+  /**
+   * Set the roughness texture.
+   * @param {vtkTexture} roughnessTexture
+   */
+  setRoughnessTexture(roughnessTexture: Nullable<vtkTexture>): boolean;
+
+  /**
+   * Set the roughness & metallic texture.
+   * @param {vtkTexture} RMTexture
+   */
+  setRMTexture(RMTexture: Nullable<vtkTexture>): boolean;
+
+  /**
+   * Set the occlusion, roughness & metallic texture.
+   * @param {vtkTexture} ORMTexture
+   */
+  setORMTexture(ORMTexture: Nullable<vtkTexture>): boolean;
+
+  /**
+   * Set the normal texture.
+   * @param {vtkTexture} normalTexture
+   */
+  setNormalTexture(normalTexture: Nullable<vtkTexture>): boolean;
+
+  /**
+   * Set the ambient occlusion texture.
+   * @param {vtkTexture} ambientOcclusionTexture
+   */
+  setAmbientOcclusionTexture(
+    ambientOcclusionTexture: Nullable<vtkTexture>
+  ): boolean;
+
+  /**
+   * Set the emission texture.
+   * @param {vtkTexture} emissionTexture
+   */
+  setEmissionTexture(emissionTexture: Nullable<vtkTexture>): boolean;
+}
+
+/**
+ * Method use to decorate a given object (publicAPI+model) with vtkProperty characteristics.
+ *
+ * @param publicAPI object on which methods will be bounds (public)
+ * @param model object on which data structure will be bounds (protected)
+ * @param {IPropertyInitialValues} [initialValues] (default: {})
+ */
+export function extend(
+  publicAPI: object,
+  model: object,
+  initialValues?: IPropertyInitialValues
+): void;
+
+/**
+ * Method use to create a new instance of vtkProperty with object color, ambient color, diffuse color,
+ * specular color, and edge color white; ambient coefficient=0; diffuse
+ * coefficient=0; specular coefficient=0; specular power=1; Gouraud shading;
+ * and surface representation. Backface and frontface culling are off.
+ * @param {IPropertyInitialValues} [initialValues] for pre-setting some of its content
+ */
+export function newInstance(
+  initialValues?: IPropertyInitialValues
+): vtkProperty;
+
+/**
+ * vtkProperty is an object that represents lighting and other surface
+ * properties of a geometric object. The primary properties that can be set are
+ * colors (overall, ambient, diffuse, specular, and edge color); specular power;
+ * opacity of the object; the representation of the object (points, wireframe,
+ * or surface); and the shading method to be used (flat, Gouraud, and Phong).
+ * Also, some special graphics features like backface properties can be set and
+ * manipulated with this object.
+ */
+export declare const vtkProperty: {
+  newInstance: typeof newInstance;
+  extend: typeof extend;
+  Shading: typeof Shading;
+  Representation: typeof Representation;
+  Interpolation: typeof Interpolation;
+};
+export default vtkProperty;
