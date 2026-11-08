@@ -4,7 +4,7 @@
       "name": "Bearing assembly",
       "description": "A parametric mechanical assembly: twelve rolling balls fit between grooved inner and outer races, held apart by a pocketed retainer cage.",
       "note": "The transparent outer race reveals the ball-to-race fit and the retainer pockets. Orbit to follow the clearances through the assembly.",
-      "credit": "Parametric ball-bearing assembly. Dimensions illustrate component fit and are not a manufacturing specification.",
+      "credit": "Original parametric ball-bearing assembly created for this demo.",
       "geometryKind": "Parametric CAD assembly",
       "generator": "prepare-cad.py",
       "units": "millimetres",
@@ -123,7 +123,8 @@
         0.055,
         0.075,
         0.105
-      ]
+      ],
+      "attributionNote": "Dimensions illustrate component fit and are not a manufacturing specification."
     }
   }
 }

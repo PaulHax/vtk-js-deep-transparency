@@ -65,8 +65,8 @@
       ],
       "sourceUrl": "http://klacansky.com/open-scivis-datasets/bonsai/bonsai_256x256x256_uint8.raw",
       "sourcePage": "http://klacansky.com/open-scivis-datasets/#bonsai",
-      "credit": "volvis.org and S. Roettger, VIS, University of Stuttgart",
-      "license": "See original Open SciVis dataset terms and credits",
+      "credit": "volvis.org and S. Roettger, VIS, University of Stuttgart. Via Open SciVis Datasets, curated by Pavol Klacansky.",
+      "license": "No explicit dataset license specified on the source catalog.",
       "dimensions": [
         256,
         256,
@@ -101,7 +101,8 @@
         0.105
       ],
       "note": "The foliage contour at 35 surrounds the denser trunk and branches at 100. Near leaves attenuate the structures behind them.",
-      "preprocessing": "Original scan and article contours, without mesh decimation. Gaussian smoothing sigma 1 voxel, except the lobster at 0.65 voxels with cubic half-voxel resampling."
+      "preprocessing": "Original scan and article contours, without mesh decimation. Gaussian smoothing sigma 1 voxel, except the lobster at 0.65 voxels with cubic half-voxel resampling.",
+      "attributionNote": "CT converted to smoothed surface meshes; colors and transparency added."
     },
     "engine": {
       "name": "Engine",
@@ -168,8 +169,8 @@
       ],
       "sourceUrl": "http://klacansky.com/open-scivis-datasets/engine/engine_256x256x128_uint8.raw",
       "sourcePage": "http://klacansky.com/open-scivis-datasets/#engine",
-      "credit": "volvis.org and General Electric",
-      "license": "See original Open SciVis dataset terms and credits",
+      "credit": "volvis.org and General Electric. Via Open SciVis Datasets, curated by Pavol Klacansky.",
+      "license": "No explicit dataset license specified on the source catalog.",
       "dimensions": [
         256,
         256,
@@ -204,7 +205,8 @@
         0.105
       ],
       "note": "The violet contour at 60 reveals the pale-green inner structure at 160. Orbit to follow the channels through the casing.",
-      "preprocessing": "Original scan and article contours, without mesh decimation. Gaussian smoothing sigma 1 voxel, except the lobster at 0.65 voxels with cubic half-voxel resampling."
+      "preprocessing": "Original scan and article contours, without mesh decimation. Gaussian smoothing sigma 1 voxel, except the lobster at 0.65 voxels with cubic half-voxel resampling.",
+      "attributionNote": "CT converted to smoothed surface meshes; colors and transparency added."
     },
     "teapot": {
       "name": "Boston Teapot",
@@ -293,8 +295,8 @@
       ],
       "sourceUrl": "http://klacansky.com/open-scivis-datasets/boston_teapot/boston_teapot_256x256x178_uint8.raw",
       "sourcePage": "http://klacansky.com/open-scivis-datasets/#boston_teapot",
-      "credit": "volvis.org and Terarecon Inc, MERL, Brigham and Women's Hospital",
-      "license": "See original Open SciVis dataset terms and credits",
+      "credit": "volvis.org and Terarecon Inc, MERL, Brigham and Women's Hospital. Via Open SciVis Datasets, curated by Pavol Klacansky.",
+      "license": "No explicit dataset license specified on the source catalog.",
       "dimensions": [
         256,
         256,
@@ -329,7 +331,8 @@
         0.105
       ],
       "note": "The teal enclosure at 50 surrounds an isolated lobster contour at 65. The front shell attenuates the lobster; the rear shell stays behind it.",
-      "preprocessing": "Original scan and article contours, without mesh decimation. Gaussian smoothing sigma 1 voxel, except the lobster at 0.65 voxels with cubic half-voxel resampling."
+      "preprocessing": "Original scan and article contours, without mesh decimation. Gaussian smoothing sigma 1 voxel, except the lobster at 0.65 voxels with cubic half-voxel resampling.",
+      "attributionNote": "CT converted to smoothed surface meshes; colors and transparency added. Interior lobster separated from the shell."
     }
   },
   "generator": "prepare-scans.py",

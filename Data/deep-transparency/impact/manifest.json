@@ -112,7 +112,6 @@
       "sourceUrl": "https://github.com/MatPont/WassersteinMergeTreesData/blob/76a681ace218a813c17efa13db4b1cd061e8959b/dataAsteroidImpactTS.sh",
       "downloadUrl": "https://drive.google.com/file/d/1MPYTRxi8ecZUqnthrUmxewtkQcEWYnZE/view",
       "processingSource": "https://github.com/sankhesh/vtk-demo-images/blob/bcedd769d813c02ecb30b8ab8733cc1c4fbf06c6/demos/deep-framebuffer/render-impact.cxx",
-      "license": "Public release LA-UR-17-21595",
       "credit": "John M. Patchett and Galen R. Gisler, Los Alamos National Laboratory, LA-UR-17-21595. Simulation data produced under the auspices of the U.S. Department of Energy.",
       "mirrorCredit": "Mathieu Pont, Jules Vidal, Julie Delon and Julien Tierny, Wasserstein Distances, Geodesics and Barycenters of Merge Trees, IEEE TVCG, 2021.",
       "input": {
@@ -135,7 +134,9 @@
         ]
       },
       "processing": "vtkFlyingEdges3D followed by vtkPolyDataNormals with splitting off and consistency on. No resampling, smoothing, subsetting or decimation.",
-      "vtkVersion": "9.7.2"
+      "vtkVersion": "9.7.2",
+      "attributionNote": "Simulation scalar fields converted to surface meshes; colors and transparency added. Recovered frame: yA31 cycle 21255, 11.00054 s.",
+      "releaseNotice": "Public release LA-UR-17-21595"
     }
   }
 }

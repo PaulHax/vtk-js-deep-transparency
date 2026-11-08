@@ -27,10 +27,9 @@ h1 { margin: 0; font-size: clamp(28px, 3.2vw, 45px); font-weight: 520; line-heig
 .dataset-credit { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 11px 20px; background: #0d141c; border-top: 1px solid #202e39; font-size: 10px; line-height: 1.6; color: #7f95a6; }
 .dataset-credit a { color: #9ec5bc; text-decoration: none; white-space: nowrap; }
 .dataset-credit a:hover { text-decoration: underline; }
+.dataset-credit p { margin: 0; }
+.credit-links { display: flex; flex-wrap: wrap; gap: 5px 16px; }
 .controls { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; padding: 15px 0; border-top: 1px solid #26303c; }
-.scene-tabs { display: flex; gap: 4px; background: #111a24; border: 1px solid #23303d; padding: 4px; border-radius: 8px; }
-.scene-tabs button { border: 0; background: transparent; color: #91a3b3; border-radius: 5px; font-size: 11px; padding: 9px 13px; white-space: nowrap; }
-.scene-tabs button[aria-pressed="true"] { background: #263442; color: #f0f5f8; }
 .opacity-control { display: flex; align-items: center; gap: 12px; margin-left: auto; font-size: 11px; color: #9cadbd; }
 .opacity-control input { width: 100px; accent-color: #64d2bd; }
 .opacity-control output { font-variant-numeric: tabular-nums; min-width: 32px; color: #e1edef; }
@@ -85,13 +84,17 @@ h1 { margin: 0; font-size: clamp(28px, 3.2vw, 45px); font-weight: 520; line-heig
   .brand { letter-spacing: .1em; font-size: 9px; }
   .brand strong { margin-right: 9px; }
   .status { font-size: 9px; }
-  .scene-tabs { width: 100%; }
   .dataset-bar label { width: 100%; justify-content: space-between; gap: 8px; }
   .dataset-bar select { min-width: 0; max-width: 63%; }
-  .scene-tabs button { flex: 1; font-size: 10px; padding: 8px 5px; }
   .view-label { padding: 13px 12px; gap: 7px; font-size: 10px; }
   .viewport { height: 340px; }
   .explanation { gap: 18px; }
   .interaction-hint { font-size: 8px; left: 10px; }
   .footer { flex-direction: column; gap: 4px; }
 }
+
+.embedded .laboratory { padding: 0; }
+.embedded .masthead, .embedded .intro, .embedded .dataset-bar, .embedded .footer { display: none; }
+.embedded .controls { border: 0; padding-top: 0; }
+.embedded .opacity-control { margin-left: 0; }
+.embedded .explanation { padding-bottom: 0; }

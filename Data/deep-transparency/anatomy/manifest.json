@@ -168,7 +168,7 @@
           "meanSourceHU": -884.1927895805477
         }
       ],
-      "sourcePage": "https://zenodo.org/records/13893419",
+      "sourcePage": "https://doi.org/10.5281/zenodo.13893419",
       "sourceUrl": "https://zenodo.org/records/13893419/files/NasalSeg.zip?download=1",
       "sourceArchiveBytes": 224005800,
       "sourceArchiveMD5": "ba83df47974d907798542101fa43ac7d",
@@ -185,7 +185,7 @@
         }
       },
       "paper": "https://doi.org/10.1038/s41597-024-04176-1",
-      "credit": "Yichi Zhang, Jing Wang and colleagues, NasalSeg, Huashan Hospital / Fudan University (2024)",
+      "credit": "NasalSeg v2, case P001: Yichi Zhang, Jing Wang and colleagues (2024), Fudan University and collaborating hospitals.",
       "license": "Creative Commons Attribution 4.0 International (Zenodo dataset)",
       "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
       "preprocessing": "Original cropped CT and five expert-reviewed masks in shared LPS coordinates; one-voxel exterior padding; 0.5 binary contour; 20 windowed-sinc iterations, passband 0.10; point normals; no mesh decimation. The bone context uses CT >= 350 HU. CT and label dimensions, direction, origin and spacing must match exactly.",
@@ -255,7 +255,9 @@
           1.5000000000000002
         ]
       ],
-      "coordinateSystem": "left-posterior-superior"
+      "coordinateSystem": "left-posterior-superior",
+      "licenseLabel": "CC BY 4.0 \u2197",
+      "attributionNote": "CT and annotated masks converted to smoothed surface meshes; facial bone extracted from CT; colors and transparency added."
     }
   }
 }

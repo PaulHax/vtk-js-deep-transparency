@@ -31,7 +31,9 @@ try {
   page.on('console', (message) => {
     if (message.type() === 'error') errors.push(message.text());
   });
-  await page.goto(url);
+  const viewerUrl = new URL(url);
+  viewerUrl.searchParams.set('scene', 'layers');
+  await page.goto(viewerUrl.href);
   await page.waitForFunction(() => globalThis.demo);
   await page.evaluate(() => globalThis.demo.ready);
 

@@ -13,22 +13,26 @@ npm run example -- DeepFramebufferTransparency --no-browser --host 127.0.0.1 --p
 
 Open [localhost:9999](http://localhost:9999) in a WebGPU browser. Prepared meshes are included; running the demo makes no dataset downloads.
 
+The page is a long scrolling gallery with anchor links to all nine examples. All scenes initialize when the page opens, draw their initial views, and then render in response to interaction or resizing. Each example retains its own camera, controls, and attribution caption. Jump directly to [Sinus anatomy](http://localhost:9999/#anatomy) or [Ball-bearing assembly](http://localhost:9999/#cad).
+
 - Left drag: canonical virtual-sphere arcball rotation, including free roll.
 - Right drag: pan both views.
 - Mouse wheel: zoom toward the surface under the pointer, using a depth pick. Empty space uses the focal plane.
 - Checkboxes: hide individual structures. The opacity slider adjusts the outer/context surface.
 
-The left viewport uses weighted blending; the right retains and sorts fragments. Both share geometry, camera, lights, and materials. The pass retains the nearest sixteen fragments per pixel with a bounded shared pool.
+For every example, the left viewport uses weighted blending; the right retains and sorts fragments. Both share geometry, camera, lights, and materials. The pass retains the nearest sixteen fragments per pixel with a bounded shared pool. Open separately links provide a standalone viewer for each example.
 
 ## Examples
 
-The selector includes the article's **Bonsai**, **Engine**, and **Boston Teapot** scans, plus genuine **asteroid ocean impact** data recovered from a public research mirror. The recovered frame is yA31 cycle 21255 at 11.00054 seconds; the article shows cycle 22198 at 12.00047 seconds. This difference is labeled in the demo.
+The gallery includes the article's **Bonsai**, **Engine**, and **Boston Teapot** scans, plus genuine **asteroid ocean impact** data recovered from a public research mirror. The recovered frame is yA31 cycle 21255 at 11.00054 seconds; the article shows cycle 22198 at 12.00047 seconds. This difference is labeled in the demo.
 
 **Sinus anatomy** uses real NasalSeg CT case P001 with expert-reviewed masks for both maxillary sinuses, both nasal cavities, and the nasopharynx. The transparent facial bone comes from the same registered cropped CT. Hide bone to inspect the intertwined passages. Frontal, ethmoid, and sphenoid sinuses are outside this example's annotation coverage. The dataset is [CC BY 4.0](https://zenodo.org/records/13893419); the manifest records attribution and source hashes.
 
 **Ball-bearing assembly** is a reproducible parametric mechanical model: two grooved races, twelve balls, and a retainer with spherical pockets. Transparent outer parts expose the fitted internal components. It is a geometric demonstration, not a manufacturer CAD file or an engineering-certified design.
 
 Three small procedural scenes isolate nested surfaces, intersections, and two-layer alpha composition. See the [example documentation](Examples/Rendering/DeepFramebufferTransparency/api.md) for preparation scripts and controls.
+
+The attribution caption names the dataset creators, links to the source and published license when available, and describes modifications such as contouring and smoothing. Open SciVis scan captions retain the original providers and credit curator Pavol Klacansky. The manifests record that the scan source page does not specify a license. The impact scene credits the LANL simulation and the public research mirror. The bearing and three compositing examples identify their models as original procedural geometry. Detailed provenance remains in each dataset manifest.
 
 ## Verify the recorded C++ comparison
 
@@ -53,6 +57,7 @@ node Examples/Rendering/DeepFramebufferTransparency/verify.mjs
 node Examples/Rendering/DeepFramebufferTransparency/verify-datasets.mjs
 node Examples/Rendering/DeepFramebufferTransparency/verify-controls.mjs
 node Examples/Rendering/DeepFramebufferTransparency/verify-components.mjs
+node Examples/Rendering/DeepFramebufferTransparency/verify-gallery.mjs
 ```
 
 Set `DEMO_URL` for another port and `DEMO_OUTPUT_DIR` to choose the screenshot directory. These checks drive the public demo, require exact draw-order independence, inspect displayed geometry and controls, and reject browser or WebGPU errors. They do not assert native PBR parity. The separate [rendering fixtures](Sources/Rendering/WebGPU/DeepFramebufferPass/test/README.md) include independently rendered OpenGL C++ references with explicitly documented criteria.

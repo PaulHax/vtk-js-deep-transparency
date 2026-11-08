@@ -1,4 +1,4 @@
-This WebGPU example compares vtk.js weighted transparency with the deep framebuffer. Both viewports use the same actors, camera, lights, and material properties. The dataset selector includes the VTK article's scan and simulation surfaces, a real sinus anatomy example, and a mechanical bearing assembly. Three procedural scenes are available for inspecting the compositing behavior.
+This WebGPU example compares vtk.js weighted transparency with the deep framebuffer. Each pair of viewports uses the same actors, camera, lights, and material properties. The default page is a scrolling gallery containing all nine scenes: three compositing examples, the VTK article's four scan and simulation scenes, real sinus anatomy, and a mechanical bearing assembly. Anchor links across the top jump to each example.
 
 Run from the repository root:
 
@@ -6,9 +6,11 @@ Run from the repository root:
 npm run example -- DeepFramebufferTransparency --no-browser --host 127.0.0.1 --port 9999
 ```
 
-Open [http://localhost:9999](http://localhost:9999) in a browser with WebGPU and hardware acceleration enabled. Localhost is a secure context for WebGPU. Both views share canonical Shoemake arcball controls: left drag rotates with free roll, right drag pans, and the mouse wheel zooms about the nearest surface on the cursor ray. GPU depth picking supplies the surface point; over background, zoom uses the point on the camera's focal plane. Either viewport controls the same camera. Reset view restores the scene's initial camera.
+Open [http://localhost:9999](http://localhost:9999) in a browser with WebGPU and hardware acceleration enabled. Localhost is a secure context for WebGPU. All nine examples initialize when the page opens and remain available as you scroll. Each scene draws its initial view, then renders in response to interaction or resizing; there is no continuous animation loop.
 
-Prepared datasets are loaded on demand and cached for the current browser visit. Bonsai is the initial view. Each colored legend entry has a checkbox that shows or hides that component in both viewports. The opacity slider changes the first surface while preserving the other surfaces' manifest opacities.
+Every example retains canonical Shoemake arcball controls: left drag rotates with free roll, right drag pans, and the mouse wheel zooms about the nearest surface on the cursor ray. GPU depth picking supplies the surface point; over background, zoom uses the point on the camera's focal plane. Either viewport controls that example's shared camera. The examples' cameras are independent of one another. Reset view restores the example's initial camera. Each colored legend entry has a checkbox that shows or hides that component in both viewports. The opacity slider changes the first surface while preserving the other surfaces' manifest opacities.
+
+Every scene has a model attribution caption beneath the viewports. Imported models name the data creators, link to the source, show a published license link when available, and describe the conversion into rendered surfaces. NasalSeg links directly to its CC BY 4.0 license and identifies the smoothed label surfaces and CT-derived facial bone. The impact caption credits both LANL's original simulation and the research mirror. The generated bearing and three procedural examples are labeled as original procedural geometry. The manifests retain the detailed sources, processing parameters, credits, and hashes, and record that the scan source page does not specify a license.
 
 - **Bonsai:** foliage at isovalue 35 and dense trunk and branches at 100, with opacities 0.28 and 0.68.
 - **Engine:** outer casing at 60 and dense internal structure at 160, with opacities 0.36 and 0.76.
@@ -17,7 +19,7 @@ Prepared datasets are loaded on demand and cached for the current browser visit.
 - **Sinus anatomy:** left and right maxillary sinuses, left and right nasal cavities, and the nasopharynx from NasalSeg human CT case P001. Translucent facial bone supplies context, and individual checkboxes reveal the intertwined nasal passages. The source covers a cropped sinonasal region. Frontal, ethmoid and sphenoid sinuses are not separately annotated or claimed as labeled parts.
 - **Ball-bearing assembly:** twelve rolling balls fit between grooved inner and outer races inside a pocketed retainer cage. The translucent outer race exposes the component fit. This parametric illustration uses millimetres and is not a manufacturing specification.
 
-The scan volumes come from [Open SciVis Datasets](http://klacansky.com/open-scivis-datasets/). The preparation script checks the published SHA-512 hashes and reproduces the [author's contour pipeline](https://github.com/sankhesh/vtk-demo-images/tree/main/demos/deep-framebuffer), including smoothing and the teapot component extraction. Generated meshes preserve the full geometry without decimation. The source and generated assets remain in the ignored `Data/deep-transparency` directory. The browser uses these local assets and does not contact dataset servers.
+The scan volumes come from [Open SciVis Datasets](http://klacansky.com/open-scivis-datasets/), curated by Pavol Klacansky. The preparation script checks the published SHA-512 hashes and reproduces the [author's contour pipeline](https://github.com/sankhesh/vtk-demo-images/tree/main/demos/deep-framebuffer), including smoothing and the teapot component extraction. Generated meshes preserve the full geometry without decimation. Prepared meshes and manifests are committed under `Data/deep-transparency`; raw source volumes remain excluded. The browser uses these local assets and does not contact dataset servers.
 
 Prepare the scans with a Python environment containing `vtk` and `numpy`:
 
@@ -42,7 +44,7 @@ python Examples/Rendering/DeepFramebufferTransparency/prepare-cad.py
 
 The anatomy script downloads the 224 MB [NasalSeg archive](https://zenodo.org/records/13893419), verifies its published MD5 and pinned SHA-256 hashes, and extracts case P001. The dataset is credited to Yichi Zhang, Jing Wang and colleagues, Huashan Hospital / Fudan University (2024), under [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/). Its five masks were manually refined and expert-reviewed as described in the [NasalSeg paper](https://doi.org/10.1038/s41597-024-04176-1). The dataset's Zenodo license governs these assets independently of the paper's license. The script preserves the CT and masks' shared physical origin, spacing, directions and LPS coordinates, smooths the label surfaces, and generates the bone context at 350 HU. The manifest records these modifications and source hashes. The bearing script generates its four components locally without downloading data.
 
-The manifests record sources, data hashes, dimensions, contour thresholds, generated mesh hashes, and credits. Missing data displays an inline loading error and retry action while preserving the current scene. Direct links such as [Bonsai](http://localhost:9999/?scene=bonsai), [Engine](http://localhost:9999/?scene=engine), [Boston Teapot](http://localhost:9999/?scene=teapot), [Sinus anatomy](http://localhost:9999/?scene=anatomy), and [Ball-bearing assembly](http://localhost:9999/?scene=cad) select a dataset on startup.
+The manifests record sources, data hashes, dimensions, contour thresholds, generated mesh hashes, and credits. Missing data displays an inline loading error and retry action. Gallery anchors such as [Sinus anatomy](http://localhost:9999/#anatomy) and [Ball-bearing assembly](http://localhost:9999/#cad) jump directly to the corresponding section. Each section's Open separately link opens a standalone viewer. Direct links such as [Bonsai](http://localhost:9999/?scene=bonsai), [Engine](http://localhost:9999/?scene=engine), and [Boston Teapot](http://localhost:9999/?scene=teapot) also open that standalone viewer, where the scene selector switches examples.
 
 The procedural scenes need no downloaded data:
 
@@ -54,7 +56,7 @@ Use the opacity slider to adjust the shell in the nested scene or every actor in
 
 Enable the pass on a renderer with `renderer.setUseDeepFramebufferTransparency(true)`. The shaded scenes use PBR materials and three directional lights. Their translucent properties explicitly select blending with `actor.getProperty().setAlphaMode(2)`.
 
-The browser console exposes `demo`. Its `ready` promise resolves after device initialization and the first completed GPU submission. Scene controls also return promises that resolve after GPU completion:
+The standalone viewer's browser console exposes `demo`; each gallery example exposes the same API within its frame. Its `ready` promise resolves after device initialization and the first completed GPU submission. Scene controls also return promises that resolve after GPU completion:
 
 ```js
 await demo.ready;
@@ -77,6 +79,12 @@ With the example server running, run the repeatable browser check from the repos
 
 ```sh
 node Examples/Rendering/DeepFramebufferTransparency/verify.mjs
+```
+
+The scrolling gallery has a separate browser check:
+
+```sh
+node Examples/Rendering/DeepFramebufferTransparency/verify-gallery.mjs
 ```
 
 The check launches Chromium with a software WebGPU adapter, checks every deep viewport for exact image equality after reversing actor order, verifies both rectangle overlap colors, checks the opacity control and responsive layout, and fails on browser or WebGPU errors. It also compares screenshots of the displayed canvas while changing from one sample to four samples and back, changing opacity and depth order, and requiring exact restoration of each original single-sample image. It waits for GPU completion without fixed delays. Screenshots and a JSON report are written to `/tmp/deep-transparency-demo`.
