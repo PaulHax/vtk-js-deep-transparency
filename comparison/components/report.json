@@ -1,5 +1,5 @@
 {
-  "url": "http://127.0.0.1:9998",
+  "url": "http://127.0.0.1:4173/vtk-js-deep-transparency/",
   "results": [
     {
       "scene": "anatomy",
@@ -37,10 +37,181 @@
         }
       },
       "screenshotSHA256": {
-        "original": "b0d268d3218debb26cf802be905f5da9a18838f1d3e3d11b084e49e92569b9b4",
-        "exposed": "bf01ba125118e098b07699d2c48b4589c40575433457e9140cf27f942e95ade3",
-        "restored": "b0d268d3218debb26cf802be905f5da9a18838f1d3e3d11b084e49e92569b9b4"
+        "original": "2fbe2195a272872f7c6d5c09aba93ade7c3deb465e0d69fe80aa1a6ce2059413",
+        "exposed": "e2fcc6fc9d9e2a217b99cb91a846d3d1de0b6113f5b92e7f9b974b4904664a2b",
+        "restored": "2fbe2195a272872f7c6d5c09aba93ade7c3deb465e0d69fe80aa1a6ce2059413"
       },
+      "opacityChecks": [
+        {
+          "label": "Facial bone (CT contour)",
+          "zero": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 93254,
+              "differingChannels": 272573
+            },
+            "deep": {
+              "differingPixels": 87813,
+              "differingChannels": 258160
+            }
+          },
+          "one": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 89525,
+              "differingChannels": 265818
+            },
+            "deep": {
+              "differingPixels": 88646,
+              "differingChannels": 262639
+            }
+          },
+          "exactRestoration": true
+        },
+        {
+          "label": "Right maxillary sinus",
+          "zero": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 10192,
+              "differingChannels": 30402
+            },
+            "deep": {
+              "differingPixels": 9657,
+              "differingChannels": 28591
+            }
+          },
+          "one": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 10192,
+              "differingChannels": 30007
+            },
+            "deep": {
+              "differingPixels": 9657,
+              "differingChannels": 28575
+            }
+          },
+          "exactRestoration": true
+        },
+        {
+          "label": "Left maxillary sinus",
+          "zero": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 9844,
+              "differingChannels": 29308
+            },
+            "deep": {
+              "differingPixels": 9844,
+              "differingChannels": 29325
+            }
+          },
+          "one": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 9844,
+              "differingChannels": 29358
+            },
+            "deep": {
+              "differingPixels": 9844,
+              "differingChannels": 29320
+            }
+          },
+          "exactRestoration": true
+        },
+        {
+          "label": "Right nasal cavity",
+          "zero": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 12252,
+              "differingChannels": 36502
+            },
+            "deep": {
+              "differingPixels": 10800,
+              "differingChannels": 27633
+            }
+          },
+          "one": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 12093,
+              "differingChannels": 34215
+            },
+            "deep": {
+              "differingPixels": 10808,
+              "differingChannels": 27684
+            }
+          },
+          "exactRestoration": true
+        },
+        {
+          "label": "Left nasal cavity",
+          "zero": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 16933,
+              "differingChannels": 50485
+            },
+            "deep": {
+              "differingPixels": 16904,
+              "differingChannels": 49911
+            }
+          },
+          "one": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 16933,
+              "differingChannels": 50223
+            },
+            "deep": {
+              "differingPixels": 16905,
+              "differingChannels": 50020
+            }
+          },
+          "exactRestoration": true
+        },
+        {
+          "label": "Nasopharynx",
+          "zero": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 10519,
+              "differingChannels": 30616
+            },
+            "deep": {
+              "differingPixels": 4636,
+              "differingChannels": 10787
+            }
+          },
+          "one": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 9456,
+              "differingChannels": 22850
+            },
+            "deep": {
+              "differingPixels": 4776,
+              "differingChannels": 11166
+            }
+          },
+          "exactRestoration": true
+        }
+      ],
+      "hiddenOpacityPreservesVisibility": true,
       "validationError": null
     },
     {
@@ -77,10 +248,125 @@
         }
       },
       "screenshotSHA256": {
-        "original": "9adabc56fb0608ee882f41ebec2ef69b73294d48e9a37afbbbbf0d78a791528d",
-        "exposed": "8821d4847ec62c281132b41cf45b79113475759fe82bcc21717a2c937bf22f49",
-        "restored": "9adabc56fb0608ee882f41ebec2ef69b73294d48e9a37afbbbbf0d78a791528d"
+        "original": "ffd25f8c819ba36664bb610809d9e9bfcb1e1ba5519feda86df60a09dc583258",
+        "exposed": "5deafff382849cb4b812af21748a6131504e00cdabd737365ae9b6ea0ac16cd5",
+        "restored": "ffd25f8c819ba36664bb610809d9e9bfcb1e1ba5519feda86df60a09dc583258"
       },
+      "opacityChecks": [
+        {
+          "label": "Outer race",
+          "zero": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 78480,
+              "differingChannels": 230285
+            },
+            "deep": {
+              "differingPixels": 65748,
+              "differingChannels": 193408
+            }
+          },
+          "one": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 66353,
+              "differingChannels": 194879
+            },
+            "deep": {
+              "differingPixels": 66408,
+              "differingChannels": 195527
+            }
+          },
+          "exactRestoration": true
+        },
+        {
+          "label": "Inner race",
+          "zero": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 45338,
+              "differingChannels": 134086
+            },
+            "deep": {
+              "differingPixels": 36506,
+              "differingChannels": 106477
+            }
+          },
+          "one": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 36582,
+              "differingChannels": 105917
+            },
+            "deep": {
+              "differingPixels": 36474,
+              "differingChannels": 106452
+            }
+          },
+          "exactRestoration": true
+        },
+        {
+          "label": "Rolling balls",
+          "zero": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 31647,
+              "differingChannels": 94135
+            },
+            "deep": {
+              "differingPixels": 31535,
+              "differingChannels": 87783
+            }
+          },
+          "one": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 31628,
+              "differingChannels": 92979
+            },
+            "deep": {
+              "differingPixels": 31529,
+              "differingChannels": 87813
+            }
+          },
+          "exactRestoration": true
+        },
+        {
+          "label": "Retainer cage",
+          "zero": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 32047,
+              "differingChannels": 94537
+            },
+            "deep": {
+              "differingPixels": 23941,
+              "differingChannels": 68530
+            }
+          },
+          "one": {
+            "width": 1354,
+            "height": 580,
+            "weighted": {
+              "differingPixels": 28088,
+              "differingChannels": 81444
+            },
+            "deep": {
+              "differingPixels": 24016,
+              "differingChannels": 68626
+            }
+          },
+          "exactRestoration": true
+        }
+      ],
+      "hiddenOpacityPreservesVisibility": true,
       "validationError": null
     }
   ],

@@ -10,7 +10,9 @@ import { createDatasetLoader, datasetChoices } from './dataset-loader';
 import './style.css';
 
 const scenes = createScenes();
-const embedded = new URLSearchParams(location.search).has('embed');
+const parameters = new URLSearchParams(location.search);
+const embedded = parameters.has('embed');
+const initialScene = parameters.get('scene') || 'bonsai';
 document.body.classList.toggle('embedded', embedded);
 
 document.body.innerHTML = `
@@ -38,18 +40,17 @@ document.body.innerHTML = `
       <div class="dataset-status" role="status"><span id="dataset-message">Original scan and simulation surfaces</span><button type="button" class="action" id="retry" hidden>Retry loading</button></div>
     </section>
     <section class="controls" aria-label="Scene controls">
-      <label class="opacity-control" for="opacity">Opacity <input id="opacity" type="range" min="0.05" max="0.95" step="0.01" value="0.2"><output for="opacity" id="opacity-value">20%</output></label>
-      <button type="button" class="action" id="reverse">Reverse draw order</button>
+      <button type="button" class="action" id="reverse" disabled>Reverse draw order</button>
       <button type="button" class="action" id="swap" disabled>Swap depths</button>
-      <button type="button" class="action" id="reset">Reset view</button>
+      <button type="button" class="action" id="reset" disabled>Reset view</button>
     </section>
     <section class="comparison" aria-label="Transparency comparison">
       <div class="view-labels">
         <div class="view-label"><span class="method-dot"></span>Weighted blend<span class="method-type">Depth-weighted average</span></div>
-        <div class="view-label deep"><span class="method-dot"></span>Deep framebuffer<span class="method-type">Sorted alpha composition</span></div>
+        <div class="view-label deep"><span class="method-dot"></span>Deep framebuffer<span class="method-type">Depth-sorted, up to 16 fragments</span></div>
       </div>
       <div class="viewport" id="viewport" aria-label="Interactive 3D comparison">
-        <div class="interaction-hint"><span></span>Left drag rotates · Right drag pans · Click to focus wheel zoom</div>
+        <div class="interaction-hint"><span></span>Left drag rotates · Right drag pans · Click to focus for wheel zoom</div>
         <div class="error" id="error" hidden></div>
       </div>
       <div class="scene-info"><p id="description"></p><div class="legend" id="legend"></div></div>
@@ -64,8 +65,6 @@ document.body.innerHTML = `
 
 const container = document.querySelector('#viewport');
 const status = document.querySelector('#status');
-const opacityControl = document.querySelector('#opacity');
-const opacityValue = document.querySelector('#opacity-value');
 const swapButton = document.querySelector('#swap');
 const datasets = createDatasetLoader();
 const sceneSelect = document.querySelector('#scene');
@@ -98,7 +97,7 @@ const renderers = [false, true].map((useDeepFramebufferTransparency, i) => {
   return renderer;
 });
 
-let sceneKey = 'nested';
+let sceneKey = null;
 let reversed = false;
 let depthsSwapped = false;
 let initialized = false;
@@ -106,7 +105,7 @@ let selectionRequest = null;
 let failedDataset = null;
 
 const render = async () => {
-  if (!initialized) return;
+  if (!initialized || sceneKey === null) return;
   renderers.forEach((renderer) => renderer.resetCameraClippingRange());
   renderWindow.render();
   await view.getDevice().getHandle().queue.onSubmittedWorkDone();
@@ -114,15 +113,43 @@ const render = async () => {
 
 const controls = createArcballControls({ view, renderers, camera, render });
 
+window.addEventListener('pagehide', (event) => {
+  if (!event.persisted) {
+    controls.delete();
+    view.delete();
+  }
+});
+
+const fitEmbedded = () => {
+  if (!embedded || parent === window) return;
+  const height = Math.ceil(document.body.getBoundingClientRect().height);
+  parent.gallery.resizeFrame(window, height);
+};
+
+const reportStatus = (state, message) => {
+  if (!embedded || parent === window) return;
+  parent.postMessage(
+    { type: 'deep-transparency-status', state, message },
+    location.origin
+  );
+};
+
+const showLoading = (message) => {
+  status.textContent = message;
+  reportStatus('loading', message);
+};
+
 const showError = (message) => {
-  status.textContent = 'WebGPU unavailable';
+  status.textContent = 'Example unavailable';
   const error = document.querySelector('#error');
   const heading = document.createElement('h2');
-  heading.textContent = 'A WebGPU browser is needed';
+  heading.textContent = 'Could not load this example';
   const detail = document.createElement('p');
   detail.textContent = message;
   error.replaceChildren(heading, detail);
   error.hidden = false;
+  fitEmbedded();
+  reportStatus('error', message);
 };
 
 const installActors = () => {
@@ -148,33 +175,114 @@ const resetCamera = () => {
   return render();
 };
 
-const applyOpacity = (opacity) => {
-  const value = Math.min(0.95, Math.max(0.05, Number(opacity)));
-  const scene = scenes[sceneKey];
-  scene.controlledActors.forEach((i) =>
-    scene.actors[i].getProperty().setOpacity(value)
-  );
-  opacityControl.value = value;
-  opacityValue.value = `${Math.round(value * 100)}%`;
+const componentActor = (index) => {
+  const actor = scenes[sceneKey]?.actors[index];
+  if (!actor) throw new Error(`Unknown component: ${index}`);
+  return actor;
+};
+
+const eyeIcon = (visible) => `
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+    <circle cx="12" cy="12" r="3" />
+    ${visible ? '' : '<path d="m3 3 18 18" />'}
+  </svg>
+`;
+
+const syncComponentVisibility = (index) => {
+  const visible = componentActor(index).getVisibility();
+  const button = document.querySelector(`#component-${index}`);
+  const label = scenes[sceneKey].legend[index][1];
+  button.setAttribute('aria-pressed', String(visible));
+  button.setAttribute('aria-label', `${visible ? 'Hide' : 'Show'} ${label}`);
+  button.title = `${visible ? 'Hide' : 'Show'} ${label}`;
+  button.innerHTML = eyeIcon(visible);
+};
+
+const syncComponentOpacity = (index) => {
+  const value = componentActor(index).getProperty().getOpacity();
+  const input = document.querySelector(`#component-opacity-${index}`);
+  const percentage = `${Math.round(value * 100)}%`;
+  input.value = value;
+  input.setAttribute('aria-valuetext', percentage);
+  document.querySelector(`#component-opacity-value-${index}`).value =
+    percentage;
+};
+
+const applyComponentOpacity = (index, opacity) => {
+  const value = Number(opacity);
+  if (!Number.isFinite(value)) throw new TypeError('Opacity must be finite');
+  componentActor(index)
+    .getProperty()
+    .setOpacity(Math.min(1, Math.max(0, value)));
+  syncComponentOpacity(index);
+};
+
+const setComponentOpacity = (index, opacity) => {
+  applyComponentOpacity(index, opacity);
+  return render();
 };
 
 const setOpacity = (opacity) => {
-  applyOpacity(opacity);
+  scenes[sceneKey].controlledActors.forEach((index) =>
+    applyComponentOpacity(index, opacity)
+  );
   return render();
 };
 
 const setComponentVisibility = (index, visible) => {
-  const actor = scenes[sceneKey].actors[index];
-  if (!actor) throw new Error(`Unknown component: ${index}`);
-  actor.setVisibility(Boolean(visible));
-  const checkbox = document.querySelector(`#component-${index}`);
-  if (checkbox) checkbox.checked = actor.getVisibility();
+  componentActor(index).setVisibility(Boolean(visible));
+  syncComponentVisibility(index);
   return render();
+};
+
+const createComponentControls = ([color, label], index) => {
+  const row = document.createElement('div');
+  row.className = 'component-row';
+  row.setAttribute('role', 'group');
+  row.setAttribute('aria-label', label);
+
+  const visibility = document.createElement('button');
+  visibility.type = 'button';
+  visibility.id = `component-${index}`;
+  visibility.className = 'component-visibility';
+  visibility.addEventListener('click', () =>
+    setComponentVisibility(index, !componentActor(index).getVisibility())
+  );
+
+  const name = document.createElement('label');
+  name.className = 'component-name';
+  name.htmlFor = `component-opacity-${index}`;
+  const swatch = document.createElement('i');
+  swatch.style.background = color;
+  const text = document.createElement('span');
+  text.textContent = label;
+  name.append(swatch, text);
+
+  const opacity = document.createElement('input');
+  opacity.type = 'range';
+  opacity.id = `component-opacity-${index}`;
+  opacity.className = 'component-opacity';
+  opacity.min = '0';
+  opacity.max = '1';
+  opacity.step = '0.01';
+  opacity.setAttribute('aria-label', `${label} opacity`);
+  opacity.addEventListener('input', () =>
+    setComponentOpacity(index, opacity.value)
+  );
+
+  const value = document.createElement('output');
+  value.id = `component-opacity-value-${index}`;
+  value.htmlFor = opacity.id;
+  value.className = 'component-opacity-value';
+  row.append(visibility, name, opacity, value);
+  return row;
 };
 
 const activateScene = (key, scene) => {
   scenes[key] = scene;
   sceneKey = key;
+  document.querySelector('#error').hidden = true;
   installActors();
   renderers.forEach((renderer) => renderer.setBackground(...scene.background));
   sceneSelect.value = key;
@@ -191,23 +299,13 @@ const activateScene = (key, scene) => {
     });
   });
   document.querySelector('#description').textContent = scene.description;
-  document.querySelector('#legend').replaceChildren(
-    ...scene.legend.map(([color, label], index) => {
-      const item = document.createElement('label');
-      item.className = 'legend-item';
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.id = `component-${index}`;
-      checkbox.checked = scene.actors[index].getVisibility();
-      checkbox.addEventListener('change', () =>
-        setComponentVisibility(index, checkbox.checked)
-      );
-      const swatch = document.createElement('i');
-      swatch.style.background = color;
-      item.append(checkbox, swatch, document.createTextNode(label));
-      return item;
-    })
-  );
+  document
+    .querySelector('#legend')
+    .replaceChildren(...scene.legend.map(createComponentControls));
+  scene.actors.forEach((actor, index) => {
+    syncComponentVisibility(index);
+    syncComponentOpacity(index);
+  });
   document.querySelector('#credit').textContent =
     scene.credit || 'Procedural geometry created for this demo using VTK.js.';
   const attributionNote = document.querySelector('#attribution-note');
@@ -235,7 +333,9 @@ const activateScene = (key, scene) => {
     datasetMessage.textContent = `${scene.name} · Procedural geometry`;
   }
   retryButton.hidden = true;
-  applyOpacity(scene.defaultOpacity);
+  document.querySelector('#reverse').disabled = false;
+  document.querySelector('#reset').disabled = false;
+  fitEmbedded();
   return resetCamera();
 };
 
@@ -251,14 +351,14 @@ const setScene = (key) => {
     if (choice) {
       sceneSelect.value = key;
       datasetMessage.textContent = `Opening ${choice.name}`;
-      status.textContent = `Opening ${choice.name}`;
+      showLoading(`Opening ${choice.name}`);
     }
     try {
       const scene = isDataset
         ? await datasets.load(key, (message) => {
             if (selectionRequest === request) {
               datasetMessage.textContent = message;
-              status.textContent = message;
+              showLoading(message);
             }
           })
         : scenes[key];
@@ -270,7 +370,7 @@ const setScene = (key) => {
       if (selectionRequest === request) {
         failedDataset = key;
         sceneSelect.value = sceneKey;
-        datasetMessage.textContent = `Could not open ${datasetChoices.find((choice) => choice.key === key)?.name || key}. Prepare its local data, then retry. ${error.message}`;
+        datasetMessage.textContent = `Could not open ${datasetChoices.find((choice) => choice.key === key)?.name || key}. Please retry loading. ${error.message}`;
         retryButton.hidden = false;
         status.textContent = 'WebGPU ready · Dataset unavailable';
       }
@@ -313,20 +413,18 @@ sceneSelect.addEventListener('change', () => {
 retryButton.addEventListener('click', () => {
   if (failedDataset) setScene(failedDataset).catch(() => {});
 });
-opacityControl.addEventListener('input', () =>
-  setOpacity(opacityControl.value)
-);
 document.querySelector('#reverse').addEventListener('click', reverseOrder);
 swapButton.addEventListener('click', swapDepths);
 document.querySelector('#reset').addEventListener('click', resetCamera);
 new ResizeObserver(resize).observe(container);
 
 const ready = (async () => {
-  activateScene('nested', scenes.nested);
+  fitEmbedded();
   resize();
+  showLoading('Preparing WebGPU');
   if (!navigator.gpu) {
     throw new Error(
-      'Open this local demo in a browser with WebGPU enabled. Use localhost or HTTPS so the GPU API is available.'
+      'This browser does not expose WebGPU. Use a browser with WebGPU and hardware acceleration enabled.'
     );
   }
   await view.create3DContextAsync();
@@ -337,15 +435,14 @@ const ready = (async () => {
   }
   view.setInitialized(true);
   initialized = true;
-  status.textContent = 'WebGPU ready · Linked cameras';
-  const requested =
-    new URLSearchParams(window.location.search).get('scene') || 'bonsai';
   if (selectionRequest) {
-    await selectionRequest.completion.catch(() => render());
+    await selectionRequest.completion;
     await render();
   } else {
-    await setScene(requested).catch(() => render());
+    await setScene(initialScene);
   }
+  fitEmbedded();
+  reportStatus('ready', 'Ready');
 })();
 ready.catch((error) => showError(error.message));
 
@@ -361,21 +458,12 @@ globalThis.demo = {
   setScene,
   setOpacity,
   setComponentVisibility,
+  setComponentOpacity,
   reverseOrder,
   swapDepths,
   resetCamera,
 };
 
-if (embedded) {
-  let reportedHeight = 0;
-  new ResizeObserver(() => {
-    const height = Math.ceil(document.body.getBoundingClientRect().height);
-    if (height !== reportedHeight) {
-      reportedHeight = height;
-      parent.postMessage(
-        { type: 'deep-transparency-size', height },
-        location.origin
-      );
-    }
-  }).observe(document.body);
+if (embedded && parent !== window) {
+  new ResizeObserver(fitEmbedded).observe(document.body);
 }

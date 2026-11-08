@@ -1,10 +1,6 @@
 {
-  "url": "http://127.0.0.1:9998",
+  "url": "http://127.0.0.1:4173/vtk-js-deep-transparency/",
   "orderChecks": [
-    {
-      "scene": "nested",
-      "differingChannels": 0
-    },
     {
       "scene": "intersecting",
       "differingChannels": 0
@@ -33,7 +29,6 @@
   },
   "browserErrors": [],
   "screenshots": [
-    "nested.png",
     "intersecting.png",
     "layers.png",
     "layers-blue-front.png",

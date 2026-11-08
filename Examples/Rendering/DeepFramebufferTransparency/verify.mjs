@@ -38,7 +38,7 @@ try {
   await page.evaluate(() => globalThis.demo.ready);
 
   const orderChecks = [];
-  for (const scene of ['nested', 'intersecting', 'layers']) {
+  for (const scene of ['intersecting', 'layers']) {
     const result = await page.evaluate(async (key) => {
       const { demo } = globalThis;
       await demo.setScene(key);
@@ -98,10 +98,13 @@ try {
     fullPage: true,
   });
 
-  await page.locator('#opacity').press('Home');
-  await page.locator('#opacity').press('ArrowRight');
+  await page.locator('#component-opacity-0').press('Home');
+  await page.locator('#component-opacity-0').press('ArrowRight');
   await page.evaluate(() => globalThis.demo.render());
-  assert.equal(await page.locator('#opacity-value').textContent(), '6%');
+  assert.equal(
+    await page.locator('#component-opacity-value-0').textContent(),
+    '1%'
+  );
   await page.evaluate(() => globalThis.demo.setOpacity(0.5));
 
   await page.evaluate(async () => {
@@ -172,7 +175,6 @@ try {
     },
     browserErrors: errors,
     screenshots: [
-      'nested.png',
       'intersecting.png',
       'layers.png',
       'layers-blue-front.png',

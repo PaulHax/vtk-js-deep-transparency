@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
@@ -110,19 +110,60 @@ try {
       await globalThis.demo.setScene(scene);
       globalThis.demo.view.getDevice().getHandle().pushErrorScope('validation');
     }, specification.scene);
-    assert.deepEqual(
-      await legend.locator('label').allTextContents(),
-      specification.labels,
-      `${specification.scene}: anatomy and component labels`
+    assert.equal(
+      await page.locator('#opacity').count(),
+      0,
+      'No shared opacity slider'
     );
-    for (const label of specification.labels) {
+    assert.deepEqual(
+      await legend.locator('.component-name').allTextContents(),
+      specification.labels,
+      `${specification.scene}: component labels`
+    );
+    assert.equal(
+      await legend.locator('.component-row').count(),
+      specification.labels.length
+    );
+    const manifest = JSON.parse(
+      await readFile(
+        path.join(
+          root,
+          'Data/deep-transparency',
+          specification.scene,
+          'manifest.json'
+        ),
+        'utf8'
+      )
+    );
+    const initialOpacities = manifest.scenes[specification.scene].actors.map(
+      (actor) => actor.opacity
+    );
+    const values = () =>
+      legend
+        .locator('input[type="range"]')
+        .evaluateAll((inputs) => inputs.map((input) => input.valueAsNumber));
+    assert.deepEqual(
+      await values(),
+      initialOpacities,
+      `${specification.scene}: original component opacities`
+    );
+    for (const [index, label] of specification.labels.entries()) {
+      const eye = legend.getByRole('button', {
+        name: `Hide ${label}`,
+        exact: true,
+      });
       assert.equal(
-        await legend
-          .getByRole('checkbox', { name: label, exact: true })
-          .isChecked(),
-        true,
-        `${specification.scene}: ${label} starts visible`
+        await eye.getAttribute('aria-pressed'),
+        'true',
+        `${label}: starts visible`
       );
+      const slider = legend.getByRole('slider', {
+        name: `${label} opacity`,
+        exact: true,
+      });
+      assert.equal(await slider.getAttribute('min'), '0');
+      assert.equal(await slider.getAttribute('max'), '1');
+      assert.equal(await slider.inputValue(), String(initialOpacities[index]));
     }
     const baseline = await capture();
     const originalScreenshot = await canvas.screenshot();
@@ -130,13 +171,14 @@ try {
       path: path.join(output, `${specification.filename}.png`),
       fullPage: true,
     });
-    const outer = legend.getByRole('checkbox', {
-      name: specification.labels[0],
-      exact: true,
-    });
-    await outer.uncheck();
+    const outer = legend.locator('#component-0');
+    await outer.click();
     await page.evaluate(() => globalThis.demo.render());
-    assert.equal(await outer.isChecked(), false);
+    assert.equal(await outer.getAttribute('aria-pressed'), 'false');
+    assert.equal(
+      await outer.getAttribute('aria-label'),
+      `Show ${specification.labels[0]}`
+    );
     const hidden = await compare(baseline);
     assert.ok(
       hidden.weighted.differingPixels > 0,
@@ -152,9 +194,45 @@ try {
       path: path.join(output, `${specification.filename}-exposed.png`),
       fullPage: true,
     });
-    await outer.check();
+    const hiddenBaseline = await capture();
+    const hiddenSlider = legend.locator('#component-opacity-0');
+    for (const key of ['Home', 'End']) {
+      await hiddenSlider.press(key);
+      await page.evaluate(() => globalThis.demo.render());
+      assert.equal(
+        await outer.getAttribute('aria-pressed'),
+        'false',
+        'Opacity changes keep the component hidden'
+      );
+      const stillHidden = await compare(hiddenBaseline);
+      assert.equal(
+        stillHidden.weighted.differingChannels,
+        0,
+        'Hidden opacity does not change weighted pixels'
+      );
+      assert.equal(
+        stillHidden.deep.differingChannels,
+        0,
+        'Hidden opacity does not change deep pixels'
+      );
+      assert.deepEqual(
+        (await values()).slice(1),
+        initialOpacities.slice(1),
+        'Hidden opacity leaves other components unchanged'
+      );
+    }
+    await page.evaluate(
+      (opacity) => globalThis.demo.setComponentOpacity(0, opacity),
+      initialOpacities[0]
+    );
+    await hiddenBaseline.dispose();
+    await outer.click();
     await page.evaluate(() => globalThis.demo.render());
-    assert.equal(await outer.isChecked(), true);
+    assert.equal(await outer.getAttribute('aria-pressed'), 'true');
+    assert.equal(
+      await outer.getAttribute('aria-label'),
+      `Hide ${specification.labels[0]}`
+    );
     const restored = await compare(baseline);
     assert.equal(
       restored.weighted.differingChannels,
@@ -172,6 +250,86 @@ try {
       originalScreenshot,
       'Canvas screenshot must restore exactly'
     );
+    const opacityChecks = [];
+    for (const [index, label] of specification.labels.entries()) {
+      const slider = legend.getByRole('slider', {
+        name: `${label} opacity`,
+        exact: true,
+      });
+      await slider.press('Home');
+      await page.evaluate(() => globalThis.demo.render());
+      const zeroValues = [...initialOpacities];
+      zeroValues[index] = 0;
+      assert.deepEqual(
+        await values(),
+        zeroValues,
+        `${label}: zero opacity changes only this component`
+      );
+      assert.equal(
+        await legend.locator(`#component-opacity-value-${index}`).textContent(),
+        '0%'
+      );
+      const zero = await compare(baseline);
+      assert.ok(
+        zero.weighted.differingPixels > 0,
+        `${label}: zero opacity changes weighted pixels`
+      );
+      assert.ok(
+        zero.deep.differingPixels > 0,
+        `${label}: zero opacity changes deep pixels`
+      );
+      const zeroImage = await capture();
+      await slider.press('End');
+      await page.evaluate(() => globalThis.demo.render());
+      const oneValues = [...initialOpacities];
+      oneValues[index] = 1;
+      assert.deepEqual(
+        await values(),
+        oneValues,
+        `${label}: full opacity changes only this component`
+      );
+      assert.equal(
+        await legend.locator(`#component-opacity-value-${index}`).textContent(),
+        '100%'
+      );
+      const one = await compare(zeroImage);
+      assert.ok(
+        one.weighted.differingPixels > 0,
+        `${label}: full opacity changes weighted pixels`
+      );
+      assert.ok(
+        one.deep.differingPixels > 0,
+        `${label}: full opacity changes deep pixels`
+      );
+      await zeroImage.dispose();
+      if (index === 0)
+        await page.screenshot({
+          path: path.join(output, `${specification.filename}-opaque.png`),
+          fullPage: true,
+        });
+      await page.evaluate(
+        ({ component, opacity }) =>
+          globalThis.demo.setComponentOpacity(component, opacity),
+        { component: index, opacity: initialOpacities[index] }
+      );
+      assert.deepEqual(
+        await values(),
+        initialOpacities,
+        `${label}: original controls restore`
+      );
+      const original = await compare(baseline);
+      assert.equal(
+        original.weighted.differingChannels,
+        0,
+        `${label}: weighted pixels restore exactly`
+      );
+      assert.equal(
+        original.deep.differingChannels,
+        0,
+        `${label}: deep pixels restore exactly`
+      );
+      opacityChecks.push({ label, zero, one, exactRestoration: true });
+    }
     const validationError = await page.evaluate(async () => {
       const error = await globalThis.demo.view
         .getDevice()
@@ -192,10 +350,12 @@ try {
         exposed: sha256(exposedScreenshot),
         restored: sha256(restoredScreenshot),
       },
+      opacityChecks,
+      hiddenOpacityPreservesVisibility: true,
       validationError,
     });
     console.log(
-      `Verified ${specification.scene} component visibility and exact image restoration`
+      `Verified ${specification.scene} component visibility, independent opacity and exact image restoration`
     );
   }
   assert.deepEqual(errors, [], 'Browser errors');

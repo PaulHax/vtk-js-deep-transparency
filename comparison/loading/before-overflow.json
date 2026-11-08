@@ -1,0 +1,222 @@
+{
+  "referenceCommit": "d4a9704dd72ab9d22f5f49ab3d1b6b463b584746",
+  "condition": "Unmodified prior production build; measure real embedded document overflow during initial model load.",
+  "cases": [
+    {
+      "viewport": {
+        "width": 1014,
+        "height": 1161
+      },
+      "scene": "bonsai",
+      "documentHeight": 693,
+      "iframeViewportHeight": 651,
+      "overflowPixels": 42,
+      "contentBlocks": {
+        ".controls": 64,
+        ".view-labels": 47,
+        "#viewport": 446,
+        ".scene-info": 80,
+        ".dataset-credit": 55
+      },
+      "settledIframeHeight": 694
+    },
+    {
+      "viewport": {
+        "width": 1014,
+        "height": 1161
+      },
+      "scene": "engine",
+      "documentHeight": 666,
+      "iframeViewportHeight": 651,
+      "overflowPixels": 15,
+      "contentBlocks": {
+        ".controls": 64,
+        ".view-labels": 47,
+        "#viewport": 446,
+        ".scene-info": 53,
+        ".dataset-credit": 55
+      },
+      "settledIframeHeight": 667
+    },
+    {
+      "viewport": {
+        "width": 1014,
+        "height": 1161
+      },
+      "scene": "teapot",
+      "documentHeight": 666,
+      "iframeViewportHeight": 651,
+      "overflowPixels": 15,
+      "contentBlocks": {
+        ".controls": 64,
+        ".view-labels": 47,
+        "#viewport": 446,
+        ".scene-info": 53,
+        ".dataset-credit": 55
+      },
+      "settledIframeHeight": 667
+    },
+    {
+      "viewport": {
+        "width": 1014,
+        "height": 1161
+      },
+      "scene": "impact",
+      "documentHeight": 741,
+      "iframeViewportHeight": 651,
+      "overflowPixels": 90,
+      "contentBlocks": {
+        ".controls": 64,
+        ".view-labels": 47,
+        "#viewport": 446,
+        ".scene-info": 80,
+        ".dataset-credit": 103
+      },
+      "settledIframeHeight": 742
+    },
+    {
+      "viewport": {
+        "width": 1014,
+        "height": 1161
+      },
+      "scene": "anatomy",
+      "documentHeight": 711,
+      "iframeViewportHeight": 651,
+      "overflowPixels": 60,
+      "contentBlocks": {
+        ".controls": 64,
+        ".view-labels": 47,
+        "#viewport": 446,
+        ".scene-info": 98,
+        ".dataset-credit": 55
+      },
+      "settledIframeHeight": 711
+    },
+    {
+      "viewport": {
+        "width": 1014,
+        "height": 1161
+      },
+      "scene": "cad",
+      "documentHeight": 711,
+      "iframeViewportHeight": 651,
+      "overflowPixels": 60,
+      "contentBlocks": {
+        ".controls": 64,
+        ".view-labels": 47,
+        "#viewport": 446,
+        ".scene-info": 98,
+        ".dataset-credit": 55
+      },
+      "settledIframeHeight": 711
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scene": "bonsai",
+      "documentHeight": 732,
+      "iframeViewportHeight": 644,
+      "overflowPixels": 88,
+      "contentBlocks": {
+        ".controls": 126,
+        ".view-labels": 38,
+        "#viewport": 340,
+        ".scene-info": 119,
+        ".dataset-credit": 108
+      },
+      "settledIframeHeight": 733
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scene": "engine",
+      "documentHeight": 707,
+      "iframeViewportHeight": 644,
+      "overflowPixels": 63,
+      "contentBlocks": {
+        ".controls": 126,
+        ".view-labels": 38,
+        "#viewport": 340,
+        ".scene-info": 94,
+        ".dataset-credit": 108
+      },
+      "settledIframeHeight": 708
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scene": "teapot",
+      "documentHeight": 707,
+      "iframeViewportHeight": 644,
+      "overflowPixels": 63,
+      "contentBlocks": {
+        ".controls": 126,
+        ".view-labels": 38,
+        "#viewport": 340,
+        ".scene-info": 94,
+        ".dataset-credit": 108
+      },
+      "settledIframeHeight": 708
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scene": "impact",
+      "documentHeight": 787,
+      "iframeViewportHeight": 644,
+      "overflowPixels": 143,
+      "contentBlocks": {
+        ".controls": 126,
+        ".view-labels": 38,
+        "#viewport": 340,
+        ".scene-info": 94,
+        ".dataset-credit": 188
+      },
+      "settledIframeHeight": 788
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scene": "anatomy",
+      "documentHeight": 791,
+      "iframeViewportHeight": 644,
+      "overflowPixels": 147,
+      "contentBlocks": {
+        ".controls": 126,
+        ".view-labels": 38,
+        "#viewport": 340,
+        ".scene-info": 161,
+        ".dataset-credit": 124
+      },
+      "settledIframeHeight": 791
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scene": "cad",
+      "documentHeight": 734,
+      "iframeViewportHeight": 644,
+      "overflowPixels": 90,
+      "contentBlocks": {
+        ".controls": 126,
+        ".view-labels": 38,
+        "#viewport": 340,
+        ".scene-info": 136,
+        ".dataset-credit": 92
+      },
+      "settledIframeHeight": 734
+    }
+  ]
+}

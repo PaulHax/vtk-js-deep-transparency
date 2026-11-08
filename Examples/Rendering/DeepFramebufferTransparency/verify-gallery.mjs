@@ -14,17 +14,16 @@ const output = path.resolve(
   process.env.DEMO_OUTPUT_DIR || path.join(root, 'comparison/gallery')
 );
 const scenes = [
-  'nested',
-  'intersecting',
-  'layers',
   'bonsai',
   'engine',
   'teapot',
-  'impact',
   'anatomy',
+  'impact',
   'cad',
+  'intersecting',
+  'layers',
 ];
-const generated = new Set(['nested', 'intersecting', 'layers', 'cad']);
+const generated = new Set(['intersecting', 'layers', 'cad']);
 await mkdir(output, { recursive: true });
 
 const browser = await chromium.launch({
@@ -153,11 +152,30 @@ const inspect = async (frame, key) => {
     0,
     `${key}: no separate procedural button group`
   );
-  for (const selector of ['#opacity', '#reverse', '#reset', '#legend']) {
+  for (const selector of ['#reverse', '#reset', '#legend']) {
     assert.equal(
       await frame.locator(selector).isVisible(),
       true,
       `${key}: common ${selector} control is visible`
+    );
+  }
+  assert.equal(
+    await frame.locator('#opacity').count(),
+    0,
+    `${key}: no shared opacity control`
+  );
+  const rows = await frame.locator('#legend .component-row').count();
+  assert.ok(rows > 0, `${key}: component controls exist`);
+  for (let index = 0; index < rows; index++) {
+    assert.equal(
+      await frame.locator(`#component-${index}`).getAttribute('aria-pressed'),
+      'true',
+      `${key}: component eye starts visible`
+    );
+    assert.equal(
+      await frame.locator(`#component-opacity-${index}`).isVisible(),
+      true,
+      `${key}: component opacity is visible`
     );
   }
   assert.equal(await frame.locator('#dataset-credit').isVisible(), true);
@@ -252,7 +270,7 @@ try {
   const page = await context.newPage();
   attachErrors(page);
   await page.goto(url);
-  await page.locator('section#nested iframe').waitFor({ state: 'attached' });
+  await page.locator('section#bonsai iframe').waitFor({ state: 'attached' });
   for (const key of scenes) {
     assert.equal(await page.locator(`section#${key}`).count(), 1);
     assert.equal(await page.locator(`nav a[href="#${key}"]`).count(), 1);
@@ -284,8 +302,8 @@ try {
   );
   assert.equal(
     await page.locator('iframe[src*="embed=1"]').count(),
-    9,
-    'All nine examples start when the gallery opens'
+    8,
+    'All eight examples load progressively'
   );
   await paint(page, 2);
   await Promise.all(
@@ -318,10 +336,10 @@ try {
     result.activeFrames = await page.locator('iframe[src*="embed=1"]').count();
     assert.equal(
       result.activeFrames,
-      9,
+      8,
       `${key}: all examples remain available`
     );
-    if (['nested', 'bonsai', 'anatomy', 'cad'].includes(key)) {
+    if (['intersecting', 'bonsai', 'anatomy', 'cad'].includes(key)) {
       await page.locator(`section#${key}`).screenshot({
         path: path.join(output, `${key}.png`),
       });
@@ -332,24 +350,24 @@ try {
     );
   }
 
-  await page.locator('nav a[href="#nested"]').click();
-  const nested = initialFrames[0];
+  await page.locator('nav a[href="#bonsai"]').click();
+  const first = initialFrames[0];
   const intersecting = initialFrames[1];
   const unfocusedScroll = await scrollOverView(
     page,
-    nested,
+    first,
     initialFrames,
     'Unfocused view'
   );
-  await focusView(nested);
-  const focusedBefore = await cameraState(nested);
+  await focusView(first);
+  const focusedBefore = await cameraState(first);
   const focusedScrollY = await page.evaluate(() => window.scrollY);
   await page.mouse.wheel(0, -80);
-  await nested.waitForFunction(
+  await first.waitForFunction(
     (scale) => globalThis.demo.camera.getParallelScale() < scale,
     focusedBefore.scale
   );
-  await nested.evaluate(() => globalThis.demo.controls.whenIdle());
+  await first.evaluate(() => globalThis.demo.controls.whenIdle());
   assert.equal(
     await page.evaluate(() => window.scrollY),
     focusedScrollY,
@@ -357,7 +375,7 @@ try {
   );
   await page.keyboard.press('Escape');
   assert.equal(
-    await nested
+    await first
       .locator('#viewport canvas')
       .evaluate((element) => element.ownerDocument.activeElement === element),
     false,
@@ -365,28 +383,28 @@ try {
   );
   const escapedScroll = await scrollOverView(
     page,
-    nested,
+    first,
     initialFrames,
     'Escape-released view'
   );
 
-  await focusView(nested);
-  await page.locator('nav a[href="#nested"]').click();
+  await focusView(first);
+  await page.locator('nav a[href="#bonsai"]').click();
   assert.equal(
-    await nested.evaluate(() => document.hasFocus()),
+    await first.evaluate(() => document.hasFocus()),
     false,
     'Clicking outside the view moves focus to the page'
   );
   const outsideClickScroll = await scrollOverView(
     page,
-    nested,
+    first,
     initialFrames,
     'Outside-click released view'
   );
 
-  await focusView(nested);
+  await focusView(first);
   await focusView(intersecting);
-  const inactiveFrameFocus = await nested
+  const inactiveFrameFocus = await first
     .locator('#viewport canvas')
     .evaluate((element) => ({
       retainedCanvas: element.ownerDocument.activeElement === element,
@@ -399,7 +417,7 @@ try {
   );
   const inactiveFrameScroll = await scrollOverView(
     page,
-    nested,
+    first,
     initialFrames,
     'Previously focused frame'
   );

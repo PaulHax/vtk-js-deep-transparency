@@ -4,7 +4,7 @@
 
 A WebGPU port of VTK's deep framebuffer transparency, with a linked comparison demo, full-resolution scientific meshes, and direct native C++ VTK image comparisons.
 
-**The native comparisons are not pixel-perfect.** All eight recorded dataset cases fail a strict zero-tolerance RGBA comparison. All alpha channels agree, and reversing actor insertion order changes no browser pixels. Unlit images are close; PBR lighting differs substantially. See the [measured results](comparison/REPORT.md), [comparison images](comparison/comparison.png), and [machine-readable metrics](comparison/comparison.json).
+**The native comparisons are not pixel-perfect.** All eight recorded dataset cases fail a strict zero-tolerance RGBA comparison. The final alpha channels agree for these opaque-background captures, and reversing actor insertion order changes no browser pixels. Unlit images are close; PBR lighting differs substantially. See the [measured results](comparison/REPORT.md), [comparison images](comparison/comparison.png), and [machine-readable metrics](comparison/comparison.json).
 
 ## Run the demo
 
@@ -13,16 +13,16 @@ npm ci
 npm run example -- DeepFramebufferTransparency --no-browser --host 127.0.0.1 --port 9999
 ```
 
-Open [localhost:9999](http://localhost:9999) in a WebGPU browser. Prepared meshes are included; running the demo makes no dataset downloads.
+Open [localhost:9999](http://localhost:9999) in a WebGPU browser. Prepared meshes are included; viewing the gallery needs no data-preparation step or download from the original dataset hosts.
 
-The page is a long scrolling gallery with anchor links to all nine examples. All scenes initialize when the page opens, draw their initial views, and then render in response to interaction or resizing. Each example retains its own camera, controls, and attribution caption. Jump directly to [Sinus anatomy](http://localhost:9999/#anatomy) or [Ball-bearing assembly](http://localhost:9999/#cad).
+The page is a long scrolling gallery with anchor links to eight examples. Two examples initialize at a time; the others begin automatically as loading slots become available. Spinners show each example's loading state. After its first completed frame, each example renders only in response to interaction or resizing and retains its own camera, controls, and attribution caption. Jump directly to [Sinus anatomy](http://localhost:9999/#anatomy) or [Ball-bearing assembly](http://localhost:9999/#cad).
 
 - Left drag: quaternion arcball rotation with a smooth transition at the rim, including free roll.
 - Right drag: pan both views.
 - Mouse wheel: click a view to focus it, then zoom toward the surface under the pointer. Empty space uses the focal plane. An unfocused view leaves wheel events to page scrolling; Escape releases focus.
-- Checkboxes: hide individual structures. The opacity slider adjusts the outer/context surface.
+- Component controls: each row has an eye button to show or hide that structure and an independent opacity slider from 0% to 100%. Changes apply to both viewports; hiding a structure preserves its opacity.
 
-For every example, the left viewport uses weighted blending; the right retains and sorts fragments. Both share geometry, camera, lights, and materials. The pass retains the nearest sixteen fragments per pixel with a bounded shared pool. Open separately links provide a standalone viewer for each example.
+For every example, the left viewport uses weighted blending; the right retains and sorts fragments. Both share geometry, camera, lights, and materials. The gallery uses one sample per pixel. Its deep resolve sorts up to sixteen collected fragments per pixel, with eight-bit color and opacity packing and a bounded shared pool. Deeply layered scenes can therefore omit fragments. Open separately links provide a standalone viewer for each example.
 
 ## Examples
 
@@ -32,9 +32,9 @@ The gallery includes the article's **Bonsai**, **Engine**, and **Boston Teapot**
 
 **Ball-bearing assembly** is a reproducible parametric mechanical model: two grooved races, twelve balls, and a retainer with spherical pockets. Transparent outer parts expose the fitted internal components. It is a geometric demonstration, not a manufacturer CAD file or an engineering-certified design.
 
-Three small procedural scenes isolate nested surfaces, intersections, and two-layer alpha composition. See the [example documentation](Examples/Rendering/DeepFramebufferTransparency/api.md) for preparation scripts and controls.
+Two small compositing scenes isolate intersecting rings and two-layer alpha composition. They appear at the bottom of the gallery. See the [example documentation](Examples/Rendering/DeepFramebufferTransparency/api.md) for preparation scripts and controls.
 
-The attribution caption names the dataset creators, links to the source and published license when available, and describes modifications such as contouring and smoothing. Open SciVis scan captions retain the original providers and credit curator Pavol Klacansky. The manifests record that the scan source page does not specify a license. The impact scene credits the LANL simulation and the public research mirror. The bearing and three compositing examples identify their models as original procedural geometry. Detailed provenance remains in each dataset manifest.
+The attribution caption names the dataset creators, links to the source and published license when available, and describes modifications such as contouring and smoothing. Open SciVis scan captions retain the original providers and credit curator Pavol Klacansky. The manifests record that the scan source page does not specify a license. The impact scene credits the LANL simulation and the public research mirror. The bearing and two compositing examples identify their models as original procedural geometry. Detailed provenance remains in each dataset manifest.
 
 ## Verify the recorded C++ comparison
 
@@ -69,7 +69,10 @@ node Examples/Rendering/DeepFramebufferTransparency/verify-datasets.mjs
 node Examples/Rendering/DeepFramebufferTransparency/verify-controls.mjs
 node Examples/Rendering/DeepFramebufferTransparency/verify-components.mjs
 node Examples/Rendering/DeepFramebufferTransparency/verify-gallery.mjs
+node Examples/Rendering/DeepFramebufferTransparency/verify-startup.mjs
 ```
+
+The startup check measures embedded document and frame bounds during loading and resizing, verifies that content fits without hiding scrollbars, and checks progressive loading and retry behavior.
 
 Set `DEMO_URL` for another port and `DEMO_OUTPUT_DIR` to choose the screenshot directory. These checks drive the public demo, require exact draw-order independence, inspect displayed geometry and controls, and reject browser or WebGPU errors. They do not assert native PBR parity. The separate [rendering fixtures](Sources/Rendering/WebGPU/DeepFramebufferPass/test/README.md) include independently rendered OpenGL C++ references with explicitly documented criteria.
 

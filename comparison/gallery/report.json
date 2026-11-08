@@ -6,57 +6,6 @@
   },
   "results": [
     {
-      "key": "nested",
-      "credit": "Procedural geometry created for this demo using VTK.js.",
-      "note": "",
-      "source": null,
-      "license": null,
-      "image": {
-        "width": 1352,
-        "height": 580,
-        "foregroundPixels": [
-          150302,
-          150302
-        ],
-        "validationError": null
-      },
-      "activeFrames": 9
-    },
-    {
-      "key": "intersecting",
-      "credit": "Procedural geometry created for this demo using VTK.js.",
-      "note": "",
-      "source": null,
-      "license": null,
-      "image": {
-        "width": 1352,
-        "height": 580,
-        "foregroundPixels": [
-          111663,
-          111663
-        ],
-        "validationError": null
-      },
-      "activeFrames": 9
-    },
-    {
-      "key": "layers",
-      "credit": "Procedural geometry created for this demo using VTK.js.",
-      "note": "",
-      "source": null,
-      "license": null,
-      "image": {
-        "width": 1352,
-        "height": 580,
-        "foregroundPixels": [
-          136648,
-          136648
-        ],
-        "validationError": null
-      },
-      "activeFrames": 9
-    },
-    {
       "key": "bonsai",
       "credit": "volvis.org and S. Roettger, VIS, University of Stuttgart. Via Open SciVis Datasets, curated by Pavol Klacansky.",
       "note": "CT converted to smoothed surface meshes; colors and transparency added.",
@@ -71,7 +20,7 @@
         ],
         "validationError": null
       },
-      "activeFrames": 9
+      "activeFrames": 8
     },
     {
       "key": "engine",
@@ -88,7 +37,7 @@
         ],
         "validationError": null
       },
-      "activeFrames": 9
+      "activeFrames": 8
     },
     {
       "key": "teapot",
@@ -105,24 +54,7 @@
         ],
         "validationError": null
       },
-      "activeFrames": 9
-    },
-    {
-      "key": "impact",
-      "credit": "John M. Patchett and Galen R. Gisler, Los Alamos National Laboratory, LA-UR-17-21595. Simulation data produced under the auspices of the U.S. Department of Energy.",
-      "note": "Simulation scalar fields converted to surface meshes; colors and transparency added. Recovered frame: yA31 cycle 21255, 11.00054 s.",
-      "source": "https://github.com/MatPont/WassersteinMergeTreesData/blob/76a681ace218a813c17efa13db4b1cd061e8959b/dataAsteroidImpactTS.sh",
-      "license": null,
-      "image": {
-        "width": 1352,
-        "height": 580,
-        "foregroundPixels": [
-          81613,
-          81613
-        ],
-        "validationError": null
-      },
-      "activeFrames": 9
+      "activeFrames": 8
     },
     {
       "key": "anatomy",
@@ -139,7 +71,24 @@
         ],
         "validationError": null
       },
-      "activeFrames": 9
+      "activeFrames": 8
+    },
+    {
+      "key": "impact",
+      "credit": "John M. Patchett and Galen R. Gisler, Los Alamos National Laboratory, LA-UR-17-21595. Simulation data produced under the auspices of the U.S. Department of Energy.",
+      "note": "Simulation scalar fields converted to surface meshes; colors and transparency added. Recovered frame: yA31 cycle 21255, 11.00054 s.",
+      "source": "https://github.com/MatPont/WassersteinMergeTreesData/blob/76a681ace218a813c17efa13db4b1cd061e8959b/dataAsteroidImpactTS.sh",
+      "license": null,
+      "image": {
+        "width": 1352,
+        "height": 580,
+        "foregroundPixels": [
+          81613,
+          81613
+        ],
+        "validationError": null
+      },
+      "activeFrames": 8
     },
     {
       "key": "cad",
@@ -156,7 +105,41 @@
         ],
         "validationError": null
       },
-      "activeFrames": 9
+      "activeFrames": 8
+    },
+    {
+      "key": "intersecting",
+      "credit": "Procedural geometry created for this demo using VTK.js.",
+      "note": "",
+      "source": null,
+      "license": null,
+      "image": {
+        "width": 1352,
+        "height": 580,
+        "foregroundPixels": [
+          111663,
+          111663
+        ],
+        "validationError": null
+      },
+      "activeFrames": 8
+    },
+    {
+      "key": "layers",
+      "credit": "Procedural geometry created for this demo using VTK.js.",
+      "note": "",
+      "source": null,
+      "license": null,
+      "image": {
+        "width": 1352,
+        "height": 580,
+        "foregroundPixels": [
+          136648,
+          136648
+        ],
+        "validationError": null
+      },
+      "activeFrames": 8
     }
   ],
   "idleSubmissions": {
@@ -168,11 +151,9 @@
       1,
       1,
       1,
-      1,
       1
     ],
     "after": [
-      1,
       1,
       1,
       1,
@@ -195,11 +176,9 @@
         3,
         3,
         3,
-        3,
         3
       ],
       "submissionsAfter": [
-        3,
         3,
         3,
         3,
@@ -222,12 +201,10 @@
         3,
         3,
         3,
-        3,
         3
       ],
       "submissionsAfter": [
         5,
-        3,
         3,
         3,
         3,
@@ -248,12 +225,10 @@
         3,
         3,
         3,
-        3,
         3
       ],
       "submissionsAfter": [
         5,
-        3,
         3,
         3,
         3,
@@ -278,12 +253,10 @@
         3,
         3,
         3,
-        3,
         3
       ],
       "submissionsAfter": [
         5,
-        3,
         3,
         3,
         3,
