@@ -1,0 +1,25 @@
+{
+  "url": "http://127.0.0.1:4174/vtk-js-deep-transparency/",
+  "results": [
+    {
+      "name": "teapot",
+      "geometry": [
+        {
+          "points": 259209,
+          "triangles": 518434,
+          "opacity": 0.16
+        },
+        {
+          "points": 27714,
+          "triangles": 55452,
+          "opacity": 0.85
+        }
+      ],
+      "changedChannels": 0,
+      "foregroundPixels": 69076,
+      "viewportPixels": 392660,
+      "validationError": null
+    }
+  ],
+  "errors": []
+}
